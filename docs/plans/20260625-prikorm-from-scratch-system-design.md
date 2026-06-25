@@ -118,13 +118,13 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Features/Onboarding/OnboardingView.swift`, `Sources/Features/Dashboard/DashboardView.swift`, `Sources/Features/Profile/ProfileView.swift`
 - Create: `Sources/App/SampleData.swift`
 
-- [ ] MainTabView: 5 tabs — Dashboard, Catalog, Allergens, Calendar, Profile
-- [ ] Onboarding: Welcome → Disclaimer → Child profile → Methodology; creates `Child`
-- [ ] DashboardView: age/progress hero, due allergens, currently-introducing
-- [ ] ProfileView: child + methodology picker; Theme (rounded, coral accent, gradient bg)
-- [ ] SampleData seed behind `-seedSample` (DEBUG)
-- [ ] Write tests: onboarding produces a valid Child; dashboard "due" selection logic
-- [ ] run test suite — must pass before Task 8
+- [x] MainTabView: 5 tabs — Dashboard, Catalog, Allergens, Calendar, Profile
+- [x] Onboarding: Welcome → Disclaimer → Child profile → Methodology; creates `Child`
+- [x] DashboardView: age/progress hero, due allergens, currently-introducing
+- [x] ProfileView: child + methodology picker; Theme (rounded, coral accent, gradient bg)
+- [x] SampleData seed behind `-seedSample` (DEBUG)
+- [x] Write tests: onboarding produces a valid Child; dashboard "due" selection logic (`Tests/AppShellTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 8: Verify acceptance criteria
 

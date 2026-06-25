@@ -144,8 +144,7 @@ struct DashboardView: View {
     private var dueGroups: [AllergenGroupStatus] {
         AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
                             statuses: statuses, logs: logs)
-            .groups()
-            .filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }
+            .dueForDashboard()
     }
 
     private func dayInfo(_ s: IntroductionStatus) -> String {

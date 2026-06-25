@@ -50,4 +50,10 @@ struct AllergenMaintenance {
             )
         }
     }
+
+    /// Группы для блока «Пора дать аллерген» на дашборде: уже введены,
+    /// без зафиксированной аллергии и срок поддержки подошёл (dueSoon/overdue).
+    func dueForDashboard() -> [AllergenGroupStatus] {
+        groups().filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }
+    }
 }
