@@ -108,4 +108,14 @@ final class FoodCatalogTests: XCTestCase {
     func testSearchNoMatchReturnsEmpty() {
         XCTAssertTrue(catalog.search("zzzнетничегоzzz").isEmpty)
     }
+
+    func testSearchIsDiacriticInsensitive() {
+        let local = FoodCatalog(foods: [
+            Food(id: "egg_yolk", name: "Яичный жёлток", category: .egg,
+                 emoji: "🥚", isAllergen: true, allergenGroup: .egg, minAgeMonths: 7),
+        ])
+        // запрос без «ё» должен находить название с «ё»
+        XCTAssertEqual(local.search("желток").map(\.id), ["egg_yolk"])
+        XCTAssertEqual(local.search("ЖЁЛТОК").map(\.id), ["egg_yolk"])
+    }
 }

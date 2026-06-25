@@ -103,7 +103,7 @@ final class AppShellTests: XCTestCase {
         ]
 
         let maintenance = AllergenMaintenance(catalog: catalog, profile: prof,
-                                              statuses: statuses, logs: logs)
+                                              statuses: statuses, logs: logs, now: now)
         let due = maintenance.dueForDashboard()
 
         XCTAssertEqual(due.map(\.group), [.egg], "только введённая просроченная группа")
@@ -123,7 +123,7 @@ final class AppShellTests: XCTestCase {
         let logs = [FoodLog(foodId: "egg_yolk", date: daysAgo(0), type: .maintenance)]
 
         let due = AllergenMaintenance(catalog: catalog, profile: prof,
-                                      statuses: statuses, logs: logs).dueForDashboard()
+                                      statuses: statuses, logs: logs, now: now).dueForDashboard()
         XCTAssertTrue(due.isEmpty, "ok-группа не попадает в «пора дать»")
     }
 
@@ -133,7 +133,7 @@ final class AppShellTests: XCTestCase {
         let prof = profile(frequencyPerWeek: 1, groups: [.egg])
 
         let due = AllergenMaintenance(catalog: catalog, profile: prof,
-                                      statuses: [], logs: []).dueForDashboard()
+                                      statuses: [], logs: [], now: now).dueForDashboard()
         XCTAssertTrue(due.isEmpty)
     }
 }

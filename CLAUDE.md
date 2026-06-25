@@ -43,10 +43,15 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   `ModelContainer`** (`ModelConfiguration(isStoredInMemoryOnly: true)`) — no disk, no app launch.
 - **Determinism**: inject `Calendar` / `now:` into time-sensitive logic
   (e.g. `Child.ageInMonths(now:)`, `CalendarService.calendar`,
-  `AllergenTracker.status(lastGiven:now:)`) so day-boundary / timezone / due-date math
-  is reproducible. Don't read the system clock inside testable logic.
+  `AllergenTracker.status(lastGiven:now:calendar:)` / `nextDue(lastGiven:calendar:)`,
+  `AllergenMaintenance.now` / `.calendar`) so day-boundary / timezone / due-date math
+  is reproducible. Don't read the system clock inside testable logic — services that
+  aggregate over time (e.g. `AllergenMaintenance`) must thread an injected `now`/`calendar`
+  into the tracker, never let it fall back to `Date()` / `Calendar.current`.
 - **Notifications**: `NotificationManager` schedules through a `NotificationScheduling`
   protocol (a seam over `UNUserNotificationCenter`). Tests inject a mock center and
   assert on built `UNNotificationRequest`s — never touch the real notification center.
-  The pure builder `requests(for:calendar:)` is tested directly.
+  The pure builder `requests(for:calendar:)` is tested directly. Note: `requestAuthorization()`
+  intentionally goes straight to `UNUserNotificationCenter.current()` (the permission prompt
+  is outside the seam); only the scheduling path (`apply` / `requests(for:)`) is mockable.
 - Target ≥80% logic-layer coverage (services + models); UI is intentionally thin.

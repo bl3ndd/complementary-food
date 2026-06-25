@@ -20,6 +20,10 @@ struct AllergenMaintenance {
     let profile: FeedingProfile
     let statuses: [IntroductionStatus]
     let logs: [FoodLog]
+    /// «Сейчас» и календарь инъектируются ради детерминизма границ дня/таймзоны
+    /// (CLAUDE.md: не читаем системные часы внутри тестируемой логики).
+    var now: Date = Date()
+    var calendar: Calendar = .current
 
     func groups() -> [AllergenGroupStatus] {
         let tracker = AllergenTracker(profile: profile)
@@ -45,8 +49,8 @@ struct AllergenMaintenance {
                 isIntroduced: isIntroduced,
                 hasAllergy: hasAllergy,
                 lastGiven: lastGiven,
-                status: tracker.status(lastGiven: lastGiven),
-                nextDue: tracker.nextDue(lastGiven: lastGiven)
+                status: tracker.status(lastGiven: lastGiven, now: now, calendar: calendar),
+                nextDue: tracker.nextDue(lastGiven: lastGiven, calendar: calendar)
             )
         }
     }

@@ -7,20 +7,21 @@ struct AllergenTracker {
 
     /// Статус поддержки по дате последнего приёма. Если ни разу не давали в
     /// поддержку — считаем просроченным (пора давать).
-    func status(lastGiven: Date?, now: Date = Date()) -> AllergenStatus {
+    func status(lastGiven: Date?, now: Date = Date(),
+                calendar: Calendar = .current) -> AllergenStatus {
         guard let lastGiven else { return .overdue }
         let interval = profile.maintenanceIntervalDays
-        let days = Calendar.current.dateComponents([.day], from: lastGiven, to: now).day ?? 0
+        let days = calendar.dateComponents([.day], from: lastGiven, to: now).day ?? 0
         if days > interval { return .overdue }
         if days >= interval - 1 { return .dueSoon }
         return .ok
     }
 
     /// Дата, к которой нужно снова дать аллерген.
-    func nextDue(lastGiven: Date?) -> Date? {
+    func nextDue(lastGiven: Date?, calendar: Calendar = .current) -> Date? {
         guard let lastGiven else { return nil }
-        return Calendar.current.date(byAdding: .day,
-                                     value: profile.maintenanceIntervalDays,
-                                     to: lastGiven)
+        return calendar.date(byAdding: .day,
+                             value: profile.maintenanceIntervalDays,
+                             to: lastGiven)
     }
 }

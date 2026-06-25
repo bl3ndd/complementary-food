@@ -14,7 +14,7 @@ struct MainTabView: View {
             AllergensView(child: child)
                 .tabItem { Label("Аллергены", systemImage: "exclamationmark.shield.fill") }
 
-            CalendarView(child: child)
+            CalendarView()
                 .tabItem { Label("Календарь", systemImage: "calendar") }
 
             ProfileView(child: child)

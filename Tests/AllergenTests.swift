@@ -75,6 +75,28 @@ final class AllergenTests: XCTestCase {
         XCTAssertEqual(due, expected)
     }
 
+    // MARK: - Детерминизм границ дня в фиксированном UTC
+
+    /// Граница ok/dueSoon/overdue не зависит от таймзоны машины: считаем по
+    /// инъектированному UTC-календарю, а не по системному.
+    func testStatusBoundaryIsTimezoneStableInUTC() {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = TimeZone(identifier: "UTC")!
+        let tracker = AllergenTracker(profile: profile(frequencyPerWeek: 1, groups: []))
+
+        let f = ISO8601DateFormatter()
+        f.timeZone = TimeZone(identifier: "UTC")!
+        let last = f.date(from: "2026-06-10T23:30:00Z")!   // поздний вечер
+        // 8 полных суток спустя → строго больше интервала (7) → overdue
+        let later = f.date(from: "2026-06-19T00:30:00Z")!
+        XCTAssertEqual(tracker.status(lastGiven: last, now: later, calendar: utc), .overdue)
+        // ровно интервал спустя (7 дней) → ещё dueSoon, не overdue
+        let onDue = f.date(from: "2026-06-17T23:30:00Z")!
+        XCTAssertEqual(tracker.status(lastGiven: last, now: onDue, calendar: utc), .dueSoon)
+        // nextDue считается тем же календарём
+        XCTAssertEqual(tracker.nextDue(lastGiven: last, calendar: utc), onDue)
+    }
+
     // MARK: - Агрегация по группам
 
     func testMaintenanceAggregatesGroups() throws {
@@ -97,7 +119,7 @@ final class AllergenTests: XCTestCase {
         ]
 
         let result = AllergenMaintenance(catalog: catalog, profile: prof,
-                                         statuses: statuses, logs: logs).groups()
+                                         statuses: statuses, logs: logs, now: now).groups()
 
         // .soy в каталоге нет → группа пропущена
         XCTAssertEqual(result.map(\.group), [.egg, .peanut, .fish])

@@ -4,7 +4,6 @@ import SwiftData
 /// Экран «Календарь»: лента дней, в которые что-то давали (SPEC §7).
 /// Дни с активностью показывают сводку ввод/поддержка; тап → детали дня.
 struct CalendarView: View {
-    let child: Child
     @Query(sort: \FoodLog.date, order: .reverse) private var logs: [FoodLog]
 
     private let catalog = FoodCatalog.shared

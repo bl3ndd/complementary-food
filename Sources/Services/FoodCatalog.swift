@@ -37,18 +37,19 @@ struct FoodCatalog {
         foods.first { $0.id == id }
     }
 
-    var allergens: [Food] {
-        foods.filter { $0.isAllergen }
-    }
-
     func byCategory(_ category: FoodCategory) -> [Food] {
         foods.filter { $0.category == category }
     }
 
-    /// Поиск по названию (без учёта регистра/диакритики); пустой запрос → весь каталог.
+    /// Поиск по названию (без учёта регистра/диакритики, напр. ё≈е); пустой
+    /// запрос → весь каталог.
     func search(_ query: String) -> [Food] {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return foods }
-        return foods.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
+        return foods.filter {
+            $0.name.range(of: trimmed,
+                          options: [.caseInsensitive, .diacriticInsensitive],
+                          locale: .current) != nil
+        }
     }
 }

@@ -17,7 +17,7 @@ final class NotificationManagerTests: XCTestCase {
         func pendingIdentifiers() async -> [String] { pending }
 
         func removePending(identifiers: [String]) {
-            removed = identifiers
+            removed.append(contentsOf: identifiers)
             pending.removeAll { identifiers.contains($0) }
         }
 
