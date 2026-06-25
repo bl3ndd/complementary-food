@@ -69,11 +69,11 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Services/FeedingService.swift`
 - Modify: `Sources/Features/Catalog/FoodDetailView.swift`
 
-- [ ] FeedingService: `startIntroducing`, `logFeeding(reaction:liking:)`, `markIntroduced`, `markAllergy` — each updates `IntroductionStatus` and appends a `FoodLog` row
-- [ ] State transitions: notStarted → introducing → introduced, with introducing → allergy on a reaction
-- [ ] Wire FoodDetailView actions to FeedingService (give food / log reaction)
-- [ ] Write tests: each state transition + that FoodLog rows are created with the correct type
-- [ ] run test suite — must pass before Task 4
+- [x] FeedingService: `startIntroducing`, `logFeeding(reaction:liking:)`, `markIntroduced`, `markAllergy` — each updates `IntroductionStatus` and appends a `FoodLog` row
+- [x] State transitions: notStarted → introducing → introduced, with introducing → allergy on a reaction
+- [x] Wire FoodDetailView actions to FeedingService (give food / log reaction)
+- [x] Write tests: each state transition + that FoodLog rows are created with the correct type (`Tests/FeedingServiceTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 4: Allergens list + tolerance maintenance
 
