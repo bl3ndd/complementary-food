@@ -81,11 +81,11 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Services/AllergenTracker.swift`, `Sources/Services/AllergenMaintenance.swift`
 - Create: `Sources/Features/Allergens/AllergensView.swift`
 
-- [ ] AllergenTracker: `status(lastGiven, now)` → ok/dueSoon/overdue + `nextDue(lastGiven)`
-- [ ] AllergenMaintenance: aggregate statuses+logs into per-`AllergenGroup` status (isIntroduced, hasAllergy, lastGiven, representativeFood)
-- [ ] AllergensView: allergen-group cards with status visuals + "give" action (logs a maintenance feeding)
-- [ ] Write tests: due/overdue boundary math per profile frequency; group aggregation from sample logs
-- [ ] run test suite — must pass before Task 5
+- [x] AllergenTracker: `status(lastGiven, now)` → ok/dueSoon/overdue + `nextDue(lastGiven)`
+- [x] AllergenMaintenance: aggregate statuses+logs into per-`AllergenGroup` status (isIntroduced, hasAllergy, lastGiven, representativeFood)
+- [x] AllergensView: allergen-group cards with status visuals + "give" action (logs a maintenance feeding)
+- [x] Write tests: due/overdue boundary math per profile frequency; group aggregation from sample logs (`Tests/AllergenTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 5: Daily introduction calendar (timeline per day)
 
