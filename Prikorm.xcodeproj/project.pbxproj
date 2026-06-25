@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */; };
+		0833A2608C6209B358C74BA5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54502A32A1FC7C0FD91517B6 /* MainTabView.swift */; };
+		164A13BA5D7639C071CE5F56 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FCEF879CE812C974A9E25 /* OnboardingView.swift */; };
+		1BA9CAE795DBD9F108D57343 /* IntroductionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E624F4C83934F23A508ECBF2 /* IntroductionStatus.swift */; };
+		1EC5CAB94A202012B0675F88 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BFA277A9F595AEA4F56908 /* SampleData.swift */; };
+		202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5CB23367B4B53F2901425F /* NotificationManager.swift */; };
+		2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */; };
+		2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */; };
+		30E885DD88EDACA5C7036245 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384473595C9ED39DB0D9950 /* ProfileView.swift */; };
+		31965A67F1B1E23860D86E60 /* LogFeedingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */; };
+		43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516DDFC738C31AB56AA9408 /* Components.swift */; };
+		45F0644FCA6BC9FB8004630E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEE512BF23D205F3A40501F /* Theme.swift */; };
+		51E1607B81EE325063A2D1E4 /* foods.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CF87C40EB3D72ED2F5C39B7 /* foods.json */; };
+		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
+		659F6D037F6A73319D6E9230 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18465713D438512E16B883 /* Food.swift */; };
+		6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7861AD8F79C95B259F207535 /* FoodIcon.swift */; };
+		72FFE23EA1A9703C2EB246E1 /* FoodDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C412A4935A271135884DD /* FoodDetailView.swift */; };
+		83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */; };
+		8D99DEE880F75760A39518B4 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */; };
+		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
+		B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */; };
+		B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95348E771F9D85BF57C252EA /* PrikormApp.swift */; };
+		B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */; };
+		BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6CBE520BAA18B97B67374 /* FoodLog.swift */; };
+		BC6154128575F7506FCE9C36 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */; };
+		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
+		F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85E899E48B738A329E5CB660 /* Media.xcassets */; };
+		F957DD6E4373E648D08274F9 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21161D9379ED59AF6BECDBFB /* Child.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0384473595C9ED39DB0D9950 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		0B0E392B859BC3E337BF453F /* Prikorm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Prikorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E5CB23367B4B53F2901425F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		21161D9379ED59AF6BECDBFB /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
+		218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		4CF87C40EB3D72ED2F5C39B7 /* foods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = foods.json; sourceTree = "<group>"; };
+		50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenMaintenance.swift; sourceTree = "<group>"; };
+		50BFA277A9F595AEA4F56908 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		54502A32A1FC7C0FD91517B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingProfile.swift; sourceTree = "<group>"; };
+		6EEE512BF23D205F3A40501F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
+		806C412A4935A271135884DD /* FoodDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailView.swift; sourceTree = "<group>"; };
+		85E899E48B738A329E5CB660 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		95348E771F9D85BF57C252EA /* PrikormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrikormApp.swift; sourceTree = "<group>"; };
+		A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFeedingSheet.swift; sourceTree = "<group>"; };
+		B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
+		BA18465713D438512E16B883 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingService.swift; sourceTree = "<group>"; };
+		BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
+		C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergensView.swift; sourceTree = "<group>"; };
+		E49FCEF879CE812C974A9E25 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		E624F4C83934F23A508ECBF2 /* IntroductionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionStatus.swift; sourceTree = "<group>"; };
+		E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCatalog.swift; sourceTree = "<group>"; };
+		ECEB249AEAB045519C4FC7B9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTracker.swift; sourceTree = "<group>"; };
+		FDB6CBE520BAA18B97B67374 /* FoodLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodLog.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		01C2D21A72E68FF6BBF75B0D /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		2E12E34F67124B37927E8122 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0B0E392B859BC3E337BF453F /* Prikorm.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2F3C9BCB2D5A4F4A131D3149 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0384473595C9ED39DB0D9950 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		5B48E6814E5EEE95392DAD79 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E89C952FA3A34A1CACCAE9AD /* App */,
+				E43A09383692542CD1FBF8D8 /* Features */,
+				949615AD1DB64EDC31B86B4A /* Models */,
+				D50BCCEC45371C99FE83C460 /* Services */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		6572A45395B99A5799226B03 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4CF87C40EB3D72ED2F5C39B7 /* foods.json */,
+				85E899E48B738A329E5CB660 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		66E4F3B899AFEA8B8E137BFF /* Allergens */ = {
+			isa = PBXGroup;
+			children = (
+				C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */,
+			);
+			path = Allergens;
+			sourceTree = "<group>";
+		};
+		949615AD1DB64EDC31B86B4A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				21161D9379ED59AF6BECDBFB /* Child.swift */,
+				ECEB249AEAB045519C4FC7B9 /* Enums.swift */,
+				6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */,
+				BA18465713D438512E16B883 /* Food.swift */,
+				FDB6CBE520BAA18B97B67374 /* FoodLog.swift */,
+				E624F4C83934F23A508ECBF2 /* IntroductionStatus.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		96BD03F1B06475427E7BDC98 = {
+			isa = PBXGroup;
+			children = (
+				6572A45395B99A5799226B03 /* Resources */,
+				5B48E6814E5EEE95392DAD79 /* Sources */,
+				2E12E34F67124B37927E8122 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B0877121F9205770D15EFAF8 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */,
+				806C412A4935A271135884DD /* FoodDetailView.swift */,
+				A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
+		D50BCCEC45371C99FE83C460 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */,
+				F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */,
+				BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */,
+				E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */,
+				1E5CB23367B4B53F2901425F /* NotificationManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E43A09383692542CD1FBF8D8 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				54502A32A1FC7C0FD91517B6 /* MainTabView.swift */,
+				66E4F3B899AFEA8B8E137BFF /* Allergens */,
+				B0877121F9205770D15EFAF8 /* Catalog */,
+				E7CE3B925C2E2404006D3282 /* Common */,
+				01C2D21A72E68FF6BBF75B0D /* Dashboard */,
+				F9F9DC6A196B9901FA2BD232 /* Onboarding */,
+				2F3C9BCB2D5A4F4A131D3149 /* Profile */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		E7CE3B925C2E2404006D3282 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2516DDFC738C31AB56AA9408 /* Components.swift */,
+				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
+				6EEE512BF23D205F3A40501F /* Theme.swift */,
+				B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E89C952FA3A34A1CACCAE9AD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				95348E771F9D85BF57C252EA /* PrikormApp.swift */,
+				218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */,
+				50BFA277A9F595AEA4F56908 /* SampleData.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F9F9DC6A196B9901FA2BD232 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E49FCEF879CE812C974A9E25 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B225AB2AE07FF2CB6F6228B1 /* Prikorm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B9AC65DCC8A041EA4F433B3 /* Build configuration list for PBXNativeTarget "Prikorm" */;
+			buildPhases = (
+				9C3C9A134C23CEECE7120530 /* Sources */,
+				1EBE4B9F6D923DDF5A8C9946 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Prikorm;
+			packageProductDependencies = (
+			);
+			productName = Prikorm;
+			productReference = 0B0E392B859BC3E337BF453F /* Prikorm.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EDE155F465EE979AE3C5EC04 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = E95CB6DFAE307A18CF82430C /* Build configuration list for PBXProject "Prikorm" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 96BD03F1B06475427E7BDC98;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2E12E34F67124B37927E8122 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B225AB2AE07FF2CB6F6228B1 /* Prikorm */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1EBE4B9F6D923DDF5A8C9946 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */,
+				51E1607B81EE325063A2D1E4 /* foods.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C3C9A134C23CEECE7120530 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */,
+				B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */,
+				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
+				2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */,
+				F957DD6E4373E648D08274F9 /* Child.swift in Sources */,
+				43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */,
+				5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */,
+				E7B506A7E08332292C71C790 /* Enums.swift in Sources */,
+				2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */,
+				B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */,
+				659F6D037F6A73319D6E9230 /* Food.swift in Sources */,
+				83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */,
+				72FFE23EA1A9703C2EB246E1 /* FoodDetailView.swift in Sources */,
+				6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */,
+				BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */,
+				1BA9CAE795DBD9F108D57343 /* IntroductionStatus.swift in Sources */,
+				31965A67F1B1E23860D86E60 /* LogFeedingSheet.swift in Sources */,
+				0833A2608C6209B358C74BA5 /* MainTabView.swift in Sources */,
+				202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */,
+				164A13BA5D7639C071CE5F56 /* OnboardingView.swift in Sources */,
+				B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */,
+				30E885DD88EDACA5C7036245 /* ProfileView.swift in Sources */,
+				BC6154128575F7506FCE9C36 /* RootView.swift in Sources */,
+				1EC5CAB94A202012B0675F88 /* SampleData.swift in Sources */,
+				45F0644FCA6BC9FB8004630E /* Theme.swift in Sources */,
+				8D99DEE880F75760A39518B4 /* UIHelpers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		20E489B2AD9118D66A0A5CF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		81D65325764A3544BBD0777D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8E6084F4FDC915A231E9C442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Прикорм";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A090532170B8E2AFC3EFDAF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Прикорм";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4B9AC65DCC8A041EA4F433B3 /* Build configuration list for PBXNativeTarget "Prikorm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E6084F4FDC915A231E9C442 /* Debug */,
+				A090532170B8E2AFC3EFDAF2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E95CB6DFAE307A18CF82430C /* Build configuration list for PBXProject "Prikorm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81D65325764A3544BBD0777D /* Debug */,
+				20E489B2AD9118D66A0A5CF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EDE155F465EE979AE3C5EC04 /* Project object */;
+}

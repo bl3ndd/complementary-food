@@ -1,0 +1,53 @@
+import Foundation
+
+/// Сводный статус поддержки одной группы аллергенов (SPEC §4.3).
+struct AllergenGroupStatus: Identifiable {
+    let group: AllergenGroup
+    let foods: [Food]
+    let representativeFood: Food?
+    let isIntroduced: Bool
+    let hasAllergy: Bool
+    let lastGiven: Date?
+    let status: AllergenStatus
+    let nextDue: Date?
+
+    var id: String { group.rawValue }
+}
+
+/// Считает статусы поддержки по всем группам аллергенов из методики.
+struct AllergenMaintenance {
+    let catalog: FoodCatalog
+    let profile: FeedingProfile
+    let statuses: [IntroductionStatus]
+    let logs: [FoodLog]
+
+    func groups() -> [AllergenGroupStatus] {
+        let tracker = AllergenTracker(profile: profile)
+
+        return profile.allergenGroups.compactMap { group in
+            let foods = catalog.foods.filter { $0.allergenGroup == group }
+            guard !foods.isEmpty else { return nil }
+
+            let foodIds = Set(foods.map { $0.id })
+            let groupStatuses = statuses.filter { foodIds.contains($0.foodId) }
+            let hasAllergy = groupStatuses.contains { $0.state == .allergy }
+            let isIntroduced = groupStatuses.contains { $0.state == .introduced }
+            let lastGiven = logs.filter { foodIds.contains($0.foodId) }.map(\.date).max()
+
+            // Представитель группы: первый введённый продукт, иначе первый из группы.
+            let introducedFoodIds = Set(groupStatuses.filter { $0.state == .introduced }.map(\.foodId))
+            let representative = foods.first { introducedFoodIds.contains($0.id) } ?? foods.first
+
+            return AllergenGroupStatus(
+                group: group,
+                foods: foods,
+                representativeFood: representative,
+                isIntroduced: isIntroduced,
+                hasAllergy: hasAllergy,
+                lastGiven: lastGiven,
+                status: tracker.status(lastGiven: lastGiven),
+                nextDue: tracker.nextDue(lastGiven: lastGiven)
+            )
+        }
+    }
+}
