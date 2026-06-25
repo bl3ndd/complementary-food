@@ -56,12 +56,12 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Services/FoodCatalog.swift`
 - Create: `Sources/Features/Catalog/CatalogView.swift`, `Sources/Features/Catalog/FoodDetailView.swift`
 
-- [ ] `foods.json`: seed catalog of foods with category + allergenGroup + recommended age
-- [ ] `FoodCatalog`: load+decode bundled JSON once; `all`, `byCategory`, `food(id:)`, `search(_:)`
-- [ ] CatalogView: foods grouped by category, searchable; tap → FoodDetailView
-- [ ] FoodDetailView: food info + recommended age + allergen note (action hook added in Task 3)
-- [ ] Write tests: JSON decodes; every food has a valid category; grouping/search return expected sets
-- [ ] run test suite — must pass before Task 3
+- [x] `foods.json`: seed catalog of foods with category + allergenGroup + recommended age
+- [x] `FoodCatalog`: load+decode bundled JSON once; `all`, `byCategory`, `food(id:)`, `search(_:)`
+- [x] CatalogView: foods grouped by category, searchable; tap → FoodDetailView
+- [x] FoodDetailView: food info + recommended age + allergen note (action hook added in Task 3)
+- [x] Write tests: JSON decodes; every food has a valid category; grouping/search return expected sets (`Tests/FoodCatalogTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 3: Feeding service (introduction state machine)
 

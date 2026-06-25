@@ -55,8 +55,6 @@ struct CatalogView: View {
     }
 
     private func foods(in category: FoodCategory) -> [Food] {
-        catalog.byCategory(category).filter {
-            search.isEmpty || $0.name.localizedCaseInsensitiveContains(search)
-        }
+        catalog.search(search).filter { $0.category == category }
     }
 }
