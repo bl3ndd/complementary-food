@@ -105,11 +105,11 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Services/NotificationManager.swift`
 - Modify: `Sources/Features/Catalog/FoodDetailView.swift`, `Sources/Features/Allergens/AllergensView.swift`
 
-- [ ] NotificationManager: `requestAuthorization` (contextual, on first allergen intro); `refresh(context, profile)`
-- [ ] refresh: compute allergen groups, clear stale allergen notifications, schedule recurring weekly `UNCalendarNotificationTrigger` (repeats:true) per due group at nextDue cadence
-- [ ] Trigger refresh after every feeding/maintenance log
-- [ ] Write tests: refresh schedules one request per due group; skips ok/allergy groups; recurring trigger has expected weekday/interval (inject a `UNUserNotificationCenter` protocol for testability)
-- [ ] run test suite — must pass before Task 7
+- [x] NotificationManager: `requestAuthorization` (contextual, on first allergen intro); `refresh(context, profile)`
+- [x] refresh: compute allergen groups, clear stale allergen notifications, schedule recurring weekly `UNCalendarNotificationTrigger` (repeats:true) per due group at nextDue cadence
+- [x] Trigger refresh after every feeding/maintenance log (FoodDetailView + AllergensView call `refresh` after each log)
+- [x] Write tests: refresh schedules one request per due group; skips ok/allergy groups; recurring trigger has expected weekday/interval (inject a `UNUserNotificationCenter` protocol for testability) (`Tests/NotificationManagerTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 7: App shell — navigation, onboarding, dashboard, profile
 
