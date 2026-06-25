@@ -134,6 +134,6 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 
 ### Task 9: Update documentation
 
-- [ ] update SPEC.md to add the Calendar screen (§7) and recurring-weekly notification behavior
-- [ ] add/refresh README.md with build (XcodeGen) + run instructions
-- [ ] update CLAUDE.md with the test target + service-layer testing conventions
+- [x] update SPEC.md to add the Calendar screen (§7) and recurring-weekly notification behavior
+- [x] add/refresh README.md with build (XcodeGen) + run instructions
+- [x] update CLAUDE.md with the test target + service-layer testing conventions
