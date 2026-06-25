@@ -25,3 +25,23 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_CFBundleDisplayName: "Прикорм"
         CODE_SIGNING_ALLOWED: NO
+  PrikormTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: Prikorm
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.prikorm.tests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
+schemes:
+  Prikorm:
+    build:
+      targets:
+        Prikorm: all
+    test:
+      targets:
+        - PrikormTests

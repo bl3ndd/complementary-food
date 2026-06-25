@@ -41,13 +41,13 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Models/Enums.swift`, `Sources/Models/Food.swift`, `Sources/Models/FeedingProfile.swift`
 - Create: `Sources/Models/Child.swift`, `Sources/Models/IntroductionStatus.swift`, `Sources/Models/FoodLog.swift`
 
-- [ ] XcodeGen `project.yml`: app target (iOS 17, `com.prikorm.app`) + unit test target wired to a shared logic source set
-- [ ] Enums: `FoodCategory`, `IntroState` (notStarted/introducing/introduced/allergy), `LogType` (intro/maintenance), `Reaction`, `Liking`
-- [ ] Value types: `Food` (id, name, category, allergenGroup?, recommendedAgeMonths), `FeedingProfile` (methodology + allergen reintroduction frequency)
-- [ ] `@Model` types: `Child` (name, birthDate, profile); `IntroductionStatus` (foodId, state, firstGiven, lastGiven); `FoodLog` (foodId, date, type, reaction, liking)
-- [ ] Configure the SwiftData `ModelContainer` in `PrikormApp`; `RootView` placeholder
-- [ ] Write tests: model init/round-trip through an in-memory `ModelContainer`; `Child.ageInMonths(now:)` math
-- [ ] run test suite — must pass before Task 2
+- [x] XcodeGen `project.yml`: app target (iOS 17, `com.prikorm.app`) + unit test target (`PrikormTests`) wired via `@testable import Prikorm` + `Prikorm` scheme test action
+- [x] Enums: `FoodCategory`, `IntroState`, `LogType` (intro/maintenance), `ReactionType`, `Liking` (+ `AllergenGroup`, `AllergenStatus`) in `Enums.swift`
+- [x] Value types: `Food` (id, name, category, allergenGroup?, minAgeMonths), `FeedingProfile` (methodology presets + allergen frequency/interval)
+- [x] `@Model` types: `Child` (name, birthDate, profile); `IntroductionStatus` (foodId, state, introStartedAt, completedAt); `FoodLog` (foodId, date, type, reaction, liking)
+- [x] Configure the SwiftData `ModelContainer` in `PrikormApp`; `RootView` gate
+- [x] Write tests: model round-trip through an in-memory `ModelContainer`; `Child.ageInMonths(now:)` math (`Tests/ModelTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 2: Food catalog (food list)
 

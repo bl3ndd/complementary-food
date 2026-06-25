@@ -20,7 +20,12 @@ final class Child {
 
     /// Возраст в полных месяцах.
     var ageInMonths: Int {
-        Calendar.current.dateComponents([.month], from: birthDate, to: Date()).month ?? 0
+        ageInMonths(now: Date())
+    }
+
+    /// Возраст в полных месяцах на заданную дату (для детерминированных тестов).
+    func ageInMonths(now: Date, calendar: Calendar = .current) -> Int {
+        calendar.dateComponents([.month], from: birthDate, to: now).month ?? 0
     }
 
     var feedingProfile: FeedingProfile {
