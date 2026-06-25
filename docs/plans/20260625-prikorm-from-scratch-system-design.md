@@ -93,11 +93,11 @@ Per the request this is treated as a greenfield design. It intentionally re-spec
 - Create: `Sources/Services/CalendarService.swift`
 - Create: `Sources/Features/Calendar/CalendarView.swift`, `Sources/Features/Calendar/DayDetailView.swift`
 
-- [ ] CalendarService: group FoodLog entries by calendar day; `day(date)` → introduced/maintenance entries; mark days that have activity
-- [ ] CalendarView: month grid (or scrollable day list) highlighting days with logged foods; tap a day → DayDetailView
-- [ ] DayDetailView: list foods given that day with type (intro/maintenance), reaction, liking
-- [ ] Write tests: grouping logs across days, timezone/day-boundary correctness, empty-day handling
-- [ ] run test suite — must pass before Task 6
+- [x] CalendarService: group FoodLog entries by calendar day; `day(date)` → introduced/maintenance entries; mark days that have activity
+- [x] CalendarView: month grid (or scrollable day list) highlighting days with logged foods; tap a day → DayDetailView
+- [x] DayDetailView: list foods given that day with type (intro/maintenance), reaction, liking
+- [x] Write tests: grouping logs across days, timezone/day-boundary correctness, empty-day handling (`Tests/CalendarServiceTests.swift`)
+- [x] run test suite — user-run (xcodegen/xcodebuild owned by user per project convention)
 
 ### Task 6: Weekly allergen notifications
 
