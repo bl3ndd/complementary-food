@@ -23,8 +23,9 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_CFBundleDisplayName: "Прикорм"
-        CODE_SIGNING_ALLOWED: NO
+        INFOPLIST_KEY_CFBundleDisplayName: "Pudding"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: A89ST3SFXS
   PrikormTests:
     type: bundle.unit-test
     platform: iOS
