@@ -17,7 +17,8 @@ final class AllergenTests: XCTestCase {
                          groups: [AllergenGroup]) -> FeedingProfile {
         FeedingProfile(id: "test", name: "Test", startAgeMonths: 6,
                        observationDays: 3, allergenFrequencyPerWeek: frequencyPerWeek,
-                       allergenGroups: groups, isPreset: false)
+                       allergenGroups: groups, isPreset: false,
+                       source: "Test", sourceURL: "https://example.com", caveat: "Test")
     }
 
     private func food(_ id: String, group: AllergenGroup) -> Food {
