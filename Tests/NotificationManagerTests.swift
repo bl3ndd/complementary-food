@@ -57,6 +57,23 @@ final class NotificationManagerTests: XCTestCase {
         XCTAssertEqual(requests.map(\.identifier), ["allergen-egg", "allergen-dairy"])
     }
 
+    // MARK: - Текст уведомления не палит конкретный аллерген на локскрине (4.5.4)
+
+    func testNotificationBodyIsNonSensitive() {
+        let manager = NotificationManager(center: MockCenter())
+        let groups = [
+            group(.egg, introduced: true, allergy: false, status: .overdue, nextDue: now),
+        ]
+
+        let content = manager.requests(for: groups)[0].content
+        // Не должно называть конкретную группу аллергена.
+        for g in AllergenGroup.allCases {
+            XCTAssertFalse(content.body.localizedCaseInsensitiveContains(g.title),
+                           "тело уведомления не должно называть аллерген «\(g.title)»")
+        }
+        XCTAssertFalse(content.body.isEmpty)
+    }
+
     // MARK: - Триггер: еженедельный повтор по дню недели nextDue
 
     func testTriggerIsWeeklyRecurringOnNextDueWeekday() throws {

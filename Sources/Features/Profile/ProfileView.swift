@@ -26,15 +26,38 @@ struct ProfileView: View {
                     LabeledContent("Старт", value: "~\(p.startAgeMonths) мес")
                     LabeledContent("Окно наблюдения", value: "\(p.observationDays) дн")
                     LabeledContent("Аллерген", value: "\(p.allergenFrequencyPerWeek)×/нед")
+                    if let url = URL(string: p.sourceURL) {
+                        Link(destination: url) {
+                            Label(p.source, systemImage: "doc.text.magnifyingglass")
+                                .font(.footnote)
+                        }
+                    }
+                    Text(p.caveat)
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+
+                Section("О приложении") {
+                    Link(destination: AppLinks.privacyPolicyURL) {
+                        Label("Политика конфиденциальности", systemImage: "lock.shield")
+                    }
+                    Link(destination: AppLinks.termsURL) {
+                        Label("Условия использования", systemImage: "doc.text")
+                    }
+                    Link(destination: AppLinks.supportMailto) {
+                        Label("Поддержка", systemImage: "envelope")
+                    }
+                    LabeledContent("Версия", value: Bundle.main.appVersion)
                 }
 
                 Section {
-                    Text("⚠️ Это не медицинский совет. Сроки введения продуктов и аллергенов согласуй с педиатром.")
+                    Text("⚠️ \(Disclaimer.medical)")
                         .font(.footnote).foregroundStyle(.secondary)
                     Text("Иконки: OpenMoji (CC BY-SA 4.0)")
                         .font(.caption2).foregroundStyle(.tertiary)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(AppBackground())
             .navigationTitle("Профиль")
             .onChange(of: child.feedingProfileId) {
                 try? context.save()

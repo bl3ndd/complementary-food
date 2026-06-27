@@ -78,9 +78,11 @@ final class NotificationManager {
             guard group.isIntroduced, !group.hasAllergy, group.status != .ok,
                   let due = group.nextDue else { return nil }
 
+            // Текст намеренно общий: не называем конкретный аллерген, чтобы на
+            // локскране не светились данные о здоровье ребёнка (App Review 4.5.4).
             let content = UNMutableNotificationContent()
-            content.title = "Пора дать аллерген"
-            content.body = "Не забудь дать «\(group.group.title)» — поддерживаем толерантность."
+            content.title = "Pudding"
+            content.body = "Пора освежить введённый аллерген — загляни в приложение."
             content.sound = .default
 
             var comps = DateComponents()
