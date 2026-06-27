@@ -2,14 +2,13 @@ import Foundation
 
 /// Внешние ссылки приложения (политика, условия, поддержка, источники методик).
 ///
-/// ⚠️ TODO перед релизом: подтвердить домен и заполнить боевыми URL после деплоя
-/// сайта (см. `docs/plans/20260626-website-landing.md`). Сейчас — `getpudding.com`
-/// как плейсхолдер.
+/// Сайт задеплоен на `pudding-for-children.vercel.app` (Vercel, бесплатный
+/// поддомен). ⚠️ TODO перед релизом: подтвердить рабочий support-email.
 enum AppLinks {
-    static let privacyPolicyURL = URL(string: "https://getpudding.com/privacy.html")!
-    static let termsURL = URL(string: "https://getpudding.com/terms.html")!
-    static let methodologyInfoURL = URL(string: "https://getpudding.com/#method")!
-    static let supportEmail = "hello@getpudding.com"
+    static let privacyPolicyURL = URL(string: "https://pudding-for-children.vercel.app/privacy.html")!
+    static let termsURL = URL(string: "https://pudding-for-children.vercel.app/terms.html")!
+    static let methodologyInfoURL = URL(string: "https://pudding-for-children.vercel.app/#method")!
+    static let supportEmail = "woodoo201818@gmail.com"
 
     static var supportMailto: URL { URL(string: "mailto:\(supportEmail)")! }
 }

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://getpudding.com/sitemap.xml
+Sitemap: https://pudding-for-children.vercel.app/sitemap.xml
