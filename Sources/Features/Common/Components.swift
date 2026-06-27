@@ -15,11 +15,12 @@ struct Chip: View {
     var body: some View {
         HStack(spacing: 4) {
             if let icon { Image(systemName: icon).font(.caption2) }
-            Text(text).font(.caption.weight(.medium))
+            Text(text).font(.caption.weight(.semibold))
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 11)
         .padding(.vertical, 6)
-        .background(color.opacity(0.14), in: Capsule())
+        .background(color.opacity(0.16), in: Capsule())
+        .overlay(Capsule().stroke(color.opacity(0.20), lineWidth: 1))
         .foregroundStyle(color)
     }
 }
@@ -29,6 +30,7 @@ struct ProgressRing: View {
     let value: Int
     let total: Int
     var size: CGFloat = 56
+    var tint: Color = Theme.accent
 
     private var fraction: Double {
         total == 0 ? 0 : min(1, Double(value) / Double(total))
@@ -36,30 +38,90 @@ struct ProgressRing: View {
 
     var body: some View {
         ZStack {
-            Circle().stroke(Theme.accent.opacity(0.15), lineWidth: 6)
+            Circle().stroke(tint.opacity(0.16), lineWidth: 7)
             Circle()
                 .trim(from: 0, to: fraction)
-                .stroke(Theme.accent, style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                .stroke(Theme.accentGradient,
+                        style: StrokeStyle(lineWidth: 7, lineCap: .round))
                 .rotationEffect(.degrees(-90))
+                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: fraction)
             Text("\(value)").font(.headline.bold())
         }
         .frame(width: size, height: size)
     }
 }
 
-/// Крупная primary-кнопка на всю ширину.
+/// Кольцо прогресса в белом исполнении — для размещения на цветном фоне.
+struct ProgressRingOnColor: View {
+    let value: Int
+    let total: Int
+    var size: CGFloat = 60
+
+    private var fraction: Double {
+        total == 0 ? 0 : min(1, Double(value) / Double(total))
+    }
+
+    var body: some View {
+        ZStack {
+            Circle().stroke(.white.opacity(0.30), lineWidth: 7)
+            Circle()
+                .trim(from: 0, to: fraction)
+                .stroke(.white, style: StrokeStyle(lineWidth: 7, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: fraction)
+            Text("\(value)").font(.headline.bold()).foregroundStyle(.white)
+        }
+        .frame(width: size, height: size)
+    }
+}
+
+/// Крупная primary-кнопка на всю ширину с градиентом и мягкой тенью.
 struct BigButton: View {
+    let title: String
+    var tint: Color? = nil          // nil → фирменный градиент-акцент
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .fontWeight(.bold)
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 15)
+                .background(backgroundGradient, in: Capsule())
+                .shadow(color: (tint ?? Theme.accent).opacity(0.35), radius: 10, x: 0, y: 5)
+        }
+        .buttonStyle(BouncyButtonStyle())
+    }
+
+    private var backgroundGradient: LinearGradient {
+        if let tint {
+            LinearGradient(colors: [tint, tint.opacity(0.82)],
+                           startPoint: .topLeading, endPoint: .bottomTrailing)
+        } else {
+            Theme.accentGradient
+        }
+    }
+}
+
+/// Компактная капсула-кнопка действия (например «Дал», «Полить»).
+struct PillButton: View {
     let title: String
     var tint: Color = Theme.accent
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            Text(title).fontWeight(.semibold).frame(maxWidth: .infinity)
+            Text(title)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(LinearGradient(colors: [tint, tint.opacity(0.82)],
+                                           startPoint: .top, endPoint: .bottom),
+                            in: Capsule())
+                .shadow(color: tint.opacity(0.35), radius: 6, x: 0, y: 3)
         }
-        .buttonStyle(.borderedProminent)
-        .tint(tint)
-        .controlSize(.large)
-        .buttonBorderShape(.capsule)
+        .buttonStyle(BouncyButtonStyle())
     }
 }

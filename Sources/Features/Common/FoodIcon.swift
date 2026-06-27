@@ -4,6 +4,24 @@ import UIKit
 /// Иллюстрация продукта в цветной скруглённой плитке.
 /// Порядок фолбэка: иконка продукта → иконка категории → эмодзи.
 /// Иллюстрации — OpenMoji (CC BY-SA 4.0).
+/// Иллюстрация OpenMoji по имени ассета с фолбэком на системный эмодзи.
+/// Используется там, где нужна «красивая» иконка вместо дефолтного эмодзи
+/// (оценка вкуса, реакция) — единый стиль с иконками продуктов.
+struct OpenMojiIcon: View {
+    let asset: String
+    let fallback: String
+    var size: CGFloat = 30
+
+    var body: some View {
+        if let image = UIImage(named: asset) {
+            Image(uiImage: image).resizable().scaledToFit()
+                .frame(width: size, height: size)
+        } else {
+            Text(fallback).font(.system(size: size))
+        }
+    }
+}
+
 struct FoodIcon: View {
     let food: Food
     var size: CGFloat = 46
@@ -15,7 +33,9 @@ struct FoodIcon: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: size * 0.30, style: .continuous)
-                .fill(Theme.categoryColor(food.category).opacity(0.18))
+                .fill(Theme.softGradient(Theme.categoryColor(food.category)))
+                .overlay(RoundedRectangle(cornerRadius: size * 0.30, style: .continuous)
+                    .stroke(.white.opacity(0.6), lineWidth: 1))
             if let image {
                 Image(uiImage: image)
                     .resizable()

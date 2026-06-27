@@ -14,7 +14,8 @@ struct RootView: View {
             }
         }
         .tint(Theme.accent)
-        .fontDesign(.rounded)   // мультяшный скруглённый шрифт по всему приложению
+        .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
+        .preferredColorScheme(.light)    // палитра светлая и фиксированная — тёмную тему не поддерживаем
     }
 }
 
