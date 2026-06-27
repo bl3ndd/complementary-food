@@ -26,7 +26,21 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 - **Services** (`Sources/Services/`): stateless business logic. `FoodCatalog`,
   `FeedingService`, `AllergenTracker`, `AllergenMaintenance`, `CalendarService`,
   `NotificationManager`.
-- **Features** (`Sources/Features/`): SwiftUI views grouped by screen.
+- **Features** (`Sources/Features/`): SwiftUI views grouped by screen. Shared UI
+  lives in `Features/Common/` — cartoon theme (`Theme`, `AppBackground`,
+  `cartoonCard`), components (`BigButton`, `PillButton`, `ProgressRing`, `Chip`,
+  `FoodIcon`), and the brand mascot **`Mascot`** (SwiftUI-drawn «Pudding»
+  placeholder; `MascotMood` mood logic is unit-tested in `MascotTests`). Used only
+  in emotional spots (empty states, onboarding, summary headers, success), never in
+  working screens. App is locked to **light mode** (`RootView.preferredColorScheme(.light)`);
+  there's no dark-theme palette. Display name is «Pudding» (`CFBundleDisplayName`);
+  target/bundle id stay `Prikorm`/`com.prikorm`.
+- **App-level constants** (`Sources/App/`): `AppLinks` (privacy/terms/support URLs —
+  placeholders until the `site/` landing is deployed) and `Disclaimer` (single medical
+  disclaimer text, reused in onboarding + profile for App Review 1.4.1). Methodology
+  presets in `FeedingProfile` carry `source`/`sourceURL`/`caveat` (verified vs primary
+  guidelines — see `docs/legal/methodology-sources.md`). Submission checklist:
+  `docs/SUBMISSION.md`; test map: `docs/TEST-CASES.md`.
 - **Keep business logic out of views.** Views call services; services are pure
   functions over `ModelContext` + catalog data. This is what makes the logic unit-testable
   without the UI.

@@ -9,63 +9,108 @@
 /* Begin PBXBuildFile section */
 		03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */; };
 		0833A2608C6209B358C74BA5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54502A32A1FC7C0FD91517B6 /* MainTabView.swift */; };
+		0A08FA37922C0D8AD99A83F1 /* DayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */; };
+		11D010D47663E97F43330F26 /* AllergenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57582D03E1DD713519F97F27 /* AllergenTests.swift */; };
+		11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CA74998939067F427B3264 /* AppShellTests.swift */; };
+		14A679536E76A2808BB20159 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31C5CCF52FEA73D220E561B /* CalendarView.swift */; };
 		164A13BA5D7639C071CE5F56 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FCEF879CE812C974A9E25 /* OnboardingView.swift */; };
 		1BA9CAE795DBD9F108D57343 /* IntroductionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E624F4C83934F23A508ECBF2 /* IntroductionStatus.swift */; };
 		1EC5CAB94A202012B0675F88 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BFA277A9F595AEA4F56908 /* SampleData.swift */; };
 		202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5CB23367B4B53F2901425F /* NotificationManager.swift */; };
+		28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */; };
+		2B01BE2AA03EBE41CBE41464 /* FoodCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */; };
 		2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */; };
 		2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */; };
 		30E885DD88EDACA5C7036245 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0384473595C9ED39DB0D9950 /* ProfileView.swift */; };
 		31965A67F1B1E23860D86E60 /* LogFeedingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */; };
+		3BDBD294BE29B94513069E1A /* NotificationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91728E60FD50897DDC17B6E /* NotificationManagerTests.swift */; };
+		42298FBF08BBE3C905CCC32F /* Mascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */; };
 		43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516DDFC738C31AB56AA9408 /* Components.swift */; };
 		45F0644FCA6BC9FB8004630E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEE512BF23D205F3A40501F /* Theme.swift */; };
+		47C6B433D8A250FD7B0EAB0E /* MascotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E268D96C92E391B0F159AA /* MascotTests.swift */; };
 		51E1607B81EE325063A2D1E4 /* foods.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CF87C40EB3D72ED2F5C39B7 /* foods.json */; };
+		5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752BF5E941CC9648AC650547 /* ModelTests.swift */; };
 		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
 		659F6D037F6A73319D6E9230 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18465713D438512E16B883 /* Food.swift */; };
 		6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7861AD8F79C95B259F207535 /* FoodIcon.swift */; };
 		72FFE23EA1A9703C2EB246E1 /* FoodDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C412A4935A271135884DD /* FoodDetailView.swift */; };
 		83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */; };
+		8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */; };
 		8D99DEE880F75760A39518B4 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */; };
+		9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */; };
 		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
 		B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */; };
 		B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95348E771F9D85BF57C252EA /* PrikormApp.swift */; };
 		B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */; };
 		BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6CBE520BAA18B97B67374 /* FoodLog.swift */; };
 		BC6154128575F7506FCE9C36 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */; };
+		BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4088924D10FC333495FBF4AE /* AppLinks.swift */; };
+		C5D0EAB39E7C11FC66DEC3DB /* FeedingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */; };
+		E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E7FEF7218059F4616EC495 /* CalendarService.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
 		F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85E899E48B738A329E5CB660 /* Media.xcassets */; };
 		F957DD6E4373E648D08274F9 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21161D9379ED59AF6BECDBFB /* Child.swift */; };
+		FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */; };
+		FBFC9DEB15AD0A4A3E087F30 /* FeedingProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1097FE0A50F9EEDF57EB7CBA /* FeedingProfileTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		820AD5ED96E7F837C81E133B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDE155F465EE979AE3C5EC04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B225AB2AE07FF2CB6F6228B1;
+			remoteInfo = Prikorm;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0384473595C9ED39DB0D9950 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioTests.swift; sourceTree = "<group>"; };
+		0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerTests.swift; sourceTree = "<group>"; };
 		0B0E392B859BC3E337BF453F /* Prikorm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Prikorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1097FE0A50F9EEDF57EB7CBA /* FeedingProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingProfileTests.swift; sourceTree = "<group>"; };
+		143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCatalogTests.swift; sourceTree = "<group>"; };
 		1E5CB23367B4B53F2901425F /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		21161D9379ED59AF6BECDBFB /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
 		218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		4088924D10FC333495FBF4AE /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		4CF87C40EB3D72ED2F5C39B7 /* foods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = foods.json; sourceTree = "<group>"; };
 		50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenMaintenance.swift; sourceTree = "<group>"; };
 		50BFA277A9F595AEA4F56908 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		54502A32A1FC7C0FD91517B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		57582D03E1DD713519F97F27 /* AllergenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTests.swift; sourceTree = "<group>"; };
 		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingProfile.swift; sourceTree = "<group>"; };
 		6EEE512BF23D205F3A40501F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
 		806C412A4935A271135884DD /* FoodDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailView.swift; sourceTree = "<group>"; };
 		85E899E48B738A329E5CB660 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		95348E771F9D85BF57C252EA /* PrikormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrikormApp.swift; sourceTree = "<group>"; };
+		9922FB2EF938071E03BD65DA /* PrikormTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PrikormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingServiceTests.swift; sourceTree = "<group>"; };
+		A4E7FEF7218059F4616EC495 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFeedingSheet.swift; sourceTree = "<group>"; };
 		B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 		BA18465713D438512E16B883 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingService.swift; sourceTree = "<group>"; };
 		BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
+		C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailView.swift; sourceTree = "<group>"; };
 		C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergensView.swift; sourceTree = "<group>"; };
+		C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mascot.swift; sourceTree = "<group>"; };
+		CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceTests.swift; sourceTree = "<group>"; };
+		D1E268D96C92E391B0F159AA /* MascotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotTests.swift; sourceTree = "<group>"; };
+		DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
+		E1CA74998939067F427B3264 /* AppShellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShellTests.swift; sourceTree = "<group>"; };
+		E31C5CCF52FEA73D220E561B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		E49FCEF879CE812C974A9E25 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		E624F4C83934F23A508ECBF2 /* IntroductionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionStatus.swift; sourceTree = "<group>"; };
 		E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCatalog.swift; sourceTree = "<group>"; };
 		ECEB249AEAB045519C4FC7B9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTracker.swift; sourceTree = "<group>"; };
+		F91728E60FD50897DDC17B6E /* NotificationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerTests.swift; sourceTree = "<group>"; };
 		FDB6CBE520BAA18B97B67374 /* FoodLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodLog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				0B0E392B859BC3E337BF453F /* Prikorm.app */,
+				9922FB2EF938071E03BD65DA /* PrikormTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +138,24 @@
 				0384473595C9ED39DB0D9950 /* ProfileView.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		34F220EE13D2559511BEBAB9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				57582D03E1DD713519F97F27 /* AllergenTests.swift */,
+				E1CA74998939067F427B3264 /* AppShellTests.swift */,
+				CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */,
+				0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */,
+				1097FE0A50F9EEDF57EB7CBA /* FeedingProfileTests.swift */,
+				9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */,
+				143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */,
+				D1E268D96C92E391B0F159AA /* MascotTests.swift */,
+				752BF5E941CC9648AC650547 /* ModelTests.swift */,
+				F91728E60FD50897DDC17B6E /* NotificationManagerTests.swift */,
+				03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		5B48E6814E5EEE95392DAD79 /* Sources */ = {
@@ -140,8 +204,18 @@
 			children = (
 				6572A45395B99A5799226B03 /* Resources */,
 				5B48E6814E5EEE95392DAD79 /* Sources */,
+				34F220EE13D2559511BEBAB9 /* Tests */,
 				2E12E34F67124B37927E8122 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		AF898610326B7469A979C436 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				E31C5CCF52FEA73D220E561B /* CalendarView.swift */,
+				C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		B0877121F9205770D15EFAF8 /* Catalog */ = {
@@ -159,6 +233,7 @@
 			children = (
 				50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */,
 				F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */,
+				A4E7FEF7218059F4616EC495 /* CalendarService.swift */,
 				BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */,
 				E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */,
 				1E5CB23367B4B53F2901425F /* NotificationManager.swift */,
@@ -171,6 +246,7 @@
 			children = (
 				54502A32A1FC7C0FD91517B6 /* MainTabView.swift */,
 				66E4F3B899AFEA8B8E137BFF /* Allergens */,
+				AF898610326B7469A979C436 /* Calendar */,
 				B0877121F9205770D15EFAF8 /* Catalog */,
 				E7CE3B925C2E2404006D3282 /* Common */,
 				01C2D21A72E68FF6BBF75B0D /* Dashboard */,
@@ -185,6 +261,7 @@
 			children = (
 				2516DDFC738C31AB56AA9408 /* Components.swift */,
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
+				C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */,
 				6EEE512BF23D205F3A40501F /* Theme.swift */,
 				B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */,
 			);
@@ -194,6 +271,8 @@
 		E89C952FA3A34A1CACCAE9AD /* App */ = {
 			isa = PBXGroup;
 			children = (
+				4088924D10FC333495FBF4AE /* AppLinks.swift */,
+				DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */,
 				95348E771F9D85BF57C252EA /* PrikormApp.swift */,
 				218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */,
 				50BFA277A9F595AEA4F56908 /* SampleData.swift */,
@@ -212,6 +291,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0DBCA0752354B4301DA621E2 /* PrikormTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12309E69409656C3CD06F723 /* Build configuration list for PBXNativeTarget "PrikormTests" */;
+			buildPhases = (
+				265EE4C4DE848AE7884EA960 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF3D24D7A5C9D23E4CED3D7F /* PBXTargetDependency */,
+			);
+			name = PrikormTests;
+			packageProductDependencies = (
+			);
+			productName = PrikormTests;
+			productReference = 9922FB2EF938071E03BD65DA /* PrikormTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B225AB2AE07FF2CB6F6228B1 /* Prikorm */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B9AC65DCC8A041EA4F433B3 /* Build configuration list for PBXNativeTarget "Prikorm" */;
@@ -239,6 +336,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					B225AB2AE07FF2CB6F6228B1 = {
+						DevelopmentTeam = A89ST3SFXS;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = E95CB6DFAE307A18CF82430C /* Build configuration list for PBXProject "Prikorm" */;
@@ -256,6 +357,7 @@
 			projectRoot = "";
 			targets = (
 				B225AB2AE07FF2CB6F6228B1 /* Prikorm */,
+				0DBCA0752354B4301DA621E2 /* PrikormTests */,
 			);
 		};
 /* End PBXProject section */
@@ -273,6 +375,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		265EE4C4DE848AE7884EA960 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11D010D47663E97F43330F26 /* AllergenTests.swift in Sources */,
+				11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */,
+				FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */,
+				8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */,
+				FBFC9DEB15AD0A4A3E087F30 /* FeedingProfileTests.swift in Sources */,
+				C5D0EAB39E7C11FC66DEC3DB /* FeedingServiceTests.swift in Sources */,
+				2B01BE2AA03EBE41CBE41464 /* FoodCatalogTests.swift in Sources */,
+				47C6B433D8A250FD7B0EAB0E /* MascotTests.swift in Sources */,
+				5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */,
+				3BDBD294BE29B94513069E1A /* NotificationManagerTests.swift in Sources */,
+				28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9C3C9A134C23CEECE7120530 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -280,10 +400,15 @@
 				03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */,
 				B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */,
 				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
+				BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */,
+				E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */,
+				14A679536E76A2808BB20159 /* CalendarView.swift in Sources */,
 				2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */,
 				F957DD6E4373E648D08274F9 /* Child.swift in Sources */,
 				43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */,
 				5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */,
+				0A08FA37922C0D8AD99A83F1 /* DayDetailView.swift in Sources */,
+				9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */,
 				E7B506A7E08332292C71C790 /* Enums.swift in Sources */,
 				2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */,
 				B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */,
@@ -295,6 +420,7 @@
 				1BA9CAE795DBD9F108D57343 /* IntroductionStatus.swift in Sources */,
 				31965A67F1B1E23860D86E60 /* LogFeedingSheet.swift in Sources */,
 				0833A2608C6209B358C74BA5 /* MainTabView.swift in Sources */,
+				42298FBF08BBE3C905CCC32F /* Mascot.swift in Sources */,
 				202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */,
 				164A13BA5D7639C071CE5F56 /* OnboardingView.swift in Sources */,
 				B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */,
@@ -307,6 +433,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF3D24D7A5C9D23E4CED3D7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B225AB2AE07FF2CB6F6228B1 /* Prikorm */;
+			targetProxy = 820AD5ED96E7F837C81E133B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		20E489B2AD9118D66A0A5CF1 /* Release */ = {
@@ -364,6 +498,24 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3562FAB892066FE180B6D29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prikorm.app/Prikorm";
 			};
 			name = Release;
 		};
@@ -436,10 +588,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A89ST3SFXS;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Прикорм";
+				INFOPLIST_KEY_CFBundleDisplayName = Pudding;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -455,10 +608,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A89ST3SFXS;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Прикорм";
+				INFOPLIST_KEY_CFBundleDisplayName = Pudding;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -470,9 +624,36 @@
 			};
 			name = Release;
 		};
+		CF699D0147C5EC3C35764F6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prikorm.app/Prikorm";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		12309E69409656C3CD06F723 /* Build configuration list for PBXNativeTarget "PrikormTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF699D0147C5EC3C35764F6A /* Debug */,
+				3562FAB892066FE180B6D29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		4B9AC65DCC8A041EA4F433B3 /* Build configuration list for PBXNativeTarget "Prikorm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
