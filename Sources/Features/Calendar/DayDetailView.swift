@@ -34,7 +34,7 @@ struct DayDetailView: View {
             if let food = entry.food {
                 FoodIcon(food: food)
             } else {
-                EmojiAvatar(emoji: "🍽️")
+                EmojiAvatar(emoji: "🍽️", asset: "ui_plate")
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text(entry.foodName).font(.headline)
@@ -58,7 +58,7 @@ struct DayDetailView: View {
 
     private var emptyState: some View {
         VStack(spacing: 12) {
-            Text("🌙").font(.system(size: 64))
+            Mascot(mood: .sleepy)
             Text("В этот день ничего не давали").font(.headline)
         }
         .frame(maxWidth: .infinity)

@@ -75,7 +75,7 @@ struct CalendarView: View {
 
     private var emptyState: some View {
         VStack(spacing: 12) {
-            Text("📅").font(.system(size: 64))
+            Mascot(mood: .curious)
             Text("Пока пусто").font(.title3.bold())
             Text("Здесь появятся дни, в которые ты давал продукты.")
                 .font(.subheadline).foregroundStyle(.secondary)

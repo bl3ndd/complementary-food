@@ -27,8 +27,8 @@ struct OnboardingView: View {
     @ViewBuilder private var content: some View {
         switch step {
         case 0:
-            stepView(emoji: "🍼", title: "Дневник прикорма",
-                     text: "Поможем ввести прикорм без паники: что вводить, когда и не забыть про аллергены.")
+            stepView(title: "Pudding",
+                     text: "Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.")
         case 1:
             disclaimerStep
         case 2:
@@ -38,19 +38,28 @@ struct OnboardingView: View {
         }
     }
 
-    private func stepView(emoji: String, title: String, text: String) -> some View {
+    private func stepView(title: String, text: String) -> some View {
         VStack(spacing: 16) {
-            Text(emoji).font(.system(size: 72))
+            haloMascot(.happy)
             Text(title).font(.largeTitle.bold())
             Text(text).foregroundStyle(.secondary).padding(.horizontal)
         }
     }
 
+    /// Маскот-гид в мягком цветном круге.
+    private func haloMascot(_ mood: MascotMood, color: Color = Theme.accent) -> some View {
+        Mascot(mood: mood, size: 96)
+            .frame(width: 132, height: 132)
+            .background(Theme.softGradient(color), in: Circle())
+            .overlay(Circle().stroke(.white.opacity(0.7), lineWidth: 1.5))
+            .shadow(color: color.opacity(0.25), radius: 16, y: 8)
+    }
+
     private var disclaimerStep: some View {
         VStack(spacing: 16) {
-            Text("⚠️").font(.system(size: 64))
+            haloMascot(.worried, color: Theme.sunny)
             Text("Важно").font(.title.bold())
-            Text("Это не медицинский совет. Сроки введения продуктов и аллергенов обязательно согласуй с педиатром.")
+            Text(Disclaimer.medical)
                 .foregroundStyle(.secondary)
             Toggle("Понятно, беру ответственность на себя", isOn: $acceptedDisclaimer)
                 .padding(.top)
@@ -60,7 +69,7 @@ struct OnboardingView: View {
 
     private var childStep: some View {
         VStack(spacing: 16) {
-            Text("👶").font(.system(size: 64))
+            haloMascot(.curious, color: Theme.sky)
             Text("О ребёнке").font(.title.bold())
             Form {
                 TextField("Имя (необязательно)", text: $name)
@@ -74,7 +83,7 @@ struct OnboardingView: View {
 
     private var methodologyStep: some View {
         VStack(spacing: 16) {
-            Text("📋").font(.system(size: 64))
+            haloMascot(.neutral, color: Theme.mint)
             Text("Методика прикорма").font(.title.bold())
             Text("Можно сменить позже в профиле.").font(.footnote).foregroundStyle(.secondary)
             ForEach(FeedingProfile.presets) { preset in
@@ -93,12 +102,12 @@ struct OnboardingView: View {
                         }
                     }
                     .padding()
-                    .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .background(.white, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .stroke(profileId == preset.id ? Theme.accent : .clear, lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 20, style: .continuous)
+                            .stroke(profileId == preset.id ? Theme.accent : Color.clear, lineWidth: 2.5)
                     )
-                    .shadow(color: .black.opacity(0.05), radius: 6, y: 3)
+                    .shadow(color: Theme.accentDeep.opacity(0.10), radius: 12, y: 6)
                 }
                 .buttonStyle(.plain)
             }
@@ -107,14 +116,22 @@ struct OnboardingView: View {
 
     private var button: some View {
         Button(action: next) {
-            Text(step >= 3 ? "Погнали!" : "Далее")
-                .font(.headline)
+            Text(step >= 3 ? "Погнали! 🚀" : "Далее")
+                .font(.headline.bold())
                 .frame(maxWidth: .infinity)
-                .padding()
-                .background(canProceed ? Color.accentColor : Color.gray,
-                            in: RoundedRectangle(cornerRadius: 14))
+                .padding(.vertical, 16)
                 .foregroundStyle(.white)
+                .background {
+                    if canProceed {
+                        Theme.accentGradient
+                    } else {
+                        Color.gray.opacity(0.5)
+                    }
+                }
+                .clipShape(Capsule())
+                .shadow(color: Theme.accent.opacity(canProceed ? 0.35 : 0), radius: 10, y: 5)
         }
+        .buttonStyle(BouncyButtonStyle())
         .disabled(!canProceed)
     }
 

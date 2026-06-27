@@ -19,12 +19,12 @@ struct DashboardView: View {
                         earlyBanner
                     }
                     if !dueGroups.isEmpty {
-                        section(title: "Пора дать аллерген 🔔") {
+                        section(title: "Пора дать аллерген", icon: "ui_bell") {
                             ForEach(dueGroups) { dueRow($0) }
                         }
                     }
                     if !introducing.isEmpty {
-                        section(title: "В процессе ввода 🌱") {
+                        section(title: "В процессе ввода", icon: "ui_seedling") {
                             ForEach(introducing, id: \.status.foodId) { introRow($0) }
                         }
                     }
@@ -45,9 +45,13 @@ struct DashboardView: View {
     // MARK: - Секции
 
     @ViewBuilder
-    private func section<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+    private func section<Content: View>(title: String, icon: String? = nil,
+                                        @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title).font(.title3.bold())
+            HStack(spacing: 8) {
+                if let icon { OpenMojiIcon(asset: icon, fallback: "", size: 24) }
+                Text(title).font(.title3.bold())
+            }
             content()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -58,7 +62,7 @@ struct DashboardView: View {
             if let rep = group.representativeFood {
                 FoodIcon(food: rep)
             } else {
-                EmojiAvatar(emoji: "⚠️", color: group.status.color)
+                EmojiAvatar(emoji: "⚠️", asset: "ui_warning", color: group.status.color)
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(group.group.title).font(.headline)
@@ -67,12 +71,7 @@ struct DashboardView: View {
                 }
             }
             Spacer()
-            Button { give(group) } label: {
-                Text("Дал").fontWeight(.semibold)
-            }
-            .buttonStyle(.borderedProminent)
-            .buttonBorderShape(.capsule)
-            .controlSize(.small)
+            PillButton(title: "Дал") { give(group) }
         }
         .cartoonCard()
     }
@@ -97,7 +96,7 @@ struct DashboardView: View {
 
     private var earlyBanner: some View {
         HStack(spacing: 12) {
-            Text("🐣").font(.system(size: 40))
+            OpenMojiIcon(asset: "ui_chick", fallback: "🐣", size: 40)
             Text("По выбранной методике прикорм лучше начинать ~\(child.feedingProfile.startAgeMonths) мес.")
                 .font(.subheadline)
         }
@@ -106,7 +105,7 @@ struct DashboardView: View {
 
     private var emptyState: some View {
         VStack(spacing: 12) {
-            Text("🍽️").font(.system(size: 64))
+            Mascot(mood: .happy)
             Text("Всё под контролем!").font(.title3.bold())
             Text("Загляни в каталог и выбери первый продукт.")
                 .font(.subheadline).foregroundStyle(.secondary)
@@ -124,16 +123,28 @@ struct DashboardView: View {
 
     private var heroCard: some View {
         HStack(spacing: 14) {
+            ZStack {
+                Circle().fill(.white.opacity(0.25)).frame(width: 64, height: 64)
+                Mascot(mood: MascotMood.forProgress(introduced: introducedCount,
+                                                    total: catalog.foods.count),
+                       size: 50)
+            }
             VStack(alignment: .leading, spacing: 4) {
-                Text(child.name.isEmpty ? "Малыш" : child.name).font(.title3.bold())
-                Text("\(child.ageInMonths) мес").font(.subheadline).foregroundStyle(.secondary)
+                Text(child.name.isEmpty ? "Малыш" : child.name)
+                    .font(.title2.bold()).foregroundStyle(.white)
+                Text("\(child.ageInMonths) мес").font(.subheadline.weight(.medium))
+                    .foregroundStyle(.white.opacity(0.9))
                 Text("\(introducedCount) продуктов введено")
-                    .font(.caption.weight(.medium)).foregroundStyle(Theme.accent)
+                    .font(.caption.weight(.semibold)).foregroundStyle(.white.opacity(0.95))
             }
             Spacer()
-            ProgressRing(value: introducedCount, total: catalog.foods.count)
+            ProgressRingOnColor(value: introducedCount, total: catalog.foods.count)
         }
-        .cartoonCard()
+        .padding(18)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.accentGradient,
+                    in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+        .shadow(color: Theme.accentDeep.opacity(0.35), radius: 18, x: 0, y: 10)
     }
 
     private var introducing: [(food: Food, status: IntroductionStatus)] {
@@ -149,7 +160,7 @@ struct DashboardView: View {
 
     private func dayInfo(_ s: IntroductionStatus) -> String {
         guard let start = s.introStartedAt else { return "" }
-        let day = (Calendar.current.dateComponents([.day], from: start, to: Date()).day ?? 0) + 1
+        let day = FeedingService.observationDay(start: start)
         return "День \(day) из \(child.feedingProfile.observationDays)"
     }
 
