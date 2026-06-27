@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://getpudding.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://getpudding.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getpudding.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getpudding.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://getpudding.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://getpudding.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getpudding.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getpudding.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://getpudding.com/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://getpudding.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getpudding.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getpudding.com/privacy.html"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://getpudding.com/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://getpudding.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getpudding.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getpudding.com/privacy.html"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://getpudding.com/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://getpudding.com/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getpudding.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getpudding.com/terms.html"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://getpudding.com/en/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://getpudding.com/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getpudding.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getpudding.com/terms.html"/>
+    <priority>0.5</priority>
+  </url>
+</urlset>

@@ -1,0 +1,30 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pudding mascot">
+  <defs>
+    <linearGradient id="custard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFDE8C"/>
+      <stop offset="1" stop-color="#FABC57"/>
+    </linearGradient>
+    <linearGradient id="caramel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D98C47"/>
+      <stop offset="1" stop-color="#B86B30"/>
+    </linearGradient>
+  </defs>
+
+  <!-- тело пудинга (скруглённая трапеция) -->
+  <path d="M48 198 Q39 198 41 185 L61 98 Q63 85 78 85 L162 85 Q177 85 179 98 L199 185 Q201 198 192 198 Z"
+        fill="url(#custard)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="2"/>
+
+  <!-- карамельная шапка -->
+  <ellipse cx="120" cy="84" rx="64" ry="22" fill="url(#caramel)" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/>
+
+  <!-- щёчки -->
+  <circle cx="86" cy="150" r="10" fill="#FC7D4F" opacity="0.32"/>
+  <circle cx="154" cy="150" r="10" fill="#FC7D4F" opacity="0.32"/>
+
+  <!-- глаза (счастливо зажмуренные ^_^) -->
+  <path d="M92 138 Q100 130 108 138" stroke="#54381F" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+  <path d="M132 138 Q140 130 148 138" stroke="#54381F" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+
+  <!-- улыбка -->
+  <path d="M104 152 Q120 168 136 152" stroke="#54381F" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+</svg>

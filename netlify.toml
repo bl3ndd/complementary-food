@@ -1,0 +1,13 @@
+# Деплой статического сайта Pudding на Netlify. Корень публикации — site/.
+[build]
+  publish = "site"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Без сторонних скриптов/трекеров (совпадает с позицией «Data Not Collected»).
+    # Разрешены только Google Fonts (css + файлы шрифтов) и инлайн-стили.
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'none'; base-uri 'self'; form-action 'none'"
