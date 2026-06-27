@@ -73,3 +73,22 @@ struct FeedingService {
         try? context.save()
     }
 }
+
+// MARK: - Окно наблюдения (чистая логика, инъекция now/calendar ради детерминизма)
+
+extension FeedingService {
+    /// Номер дня наблюдения с момента старта ввода (день старта = 1).
+    static func observationDay(start: Date, now: Date = Date(),
+                               calendar: Calendar = .current) -> Int {
+        let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: start),
+                                           to: calendar.startOfDay(for: now)).day ?? 0
+        return max(0, days) + 1
+    }
+
+    /// Прошло ли окно наблюдения — только тогда можно отмечать «ввёл успешно».
+    static func isObservationComplete(start: Date, observationDays: Int,
+                                      now: Date = Date(),
+                                      calendar: Calendar = .current) -> Bool {
+        observationDay(start: start, now: now, calendar: calendar) >= observationDays
+    }
+}

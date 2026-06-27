@@ -10,6 +10,7 @@ struct FoodDetailView: View {
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
     @State private var showLogSheet = false
+    @State private var showCheer = false
 
     init(food: Food, child: Child) {
         self.food = food
@@ -22,6 +23,16 @@ struct FoodDetailView: View {
 
     private var state: IntroState { statuses.first?.state ?? .notIntroduced }
     private var service: FeedingService { FeedingService(context: context) }
+
+    private var introStartedAt: Date? { statuses.first?.introStartedAt }
+    private var observationDays: Int { child.feedingProfile.observationDays }
+    private var observationDay: Int? {
+        introStartedAt.map { FeedingService.observationDay(start: $0) }
+    }
+    private var canComplete: Bool {
+        guard let start = introStartedAt else { return false }
+        return FeedingService.isObservationComplete(start: start, observationDays: observationDays)
+    }
 
     var body: some View {
         ScrollView {
@@ -39,6 +50,24 @@ struct FoodDetailView: View {
         .sheet(isPresented: $showLogSheet) {
             LogFeedingSheet(food: food, child: child)
         }
+        .overlay {
+            if showCheer { cheerOverlay }
+        }
+    }
+
+    /// Кратковременное поздравление при успешном вводе продукта.
+    private var cheerOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.15).ignoresSafeArea()
+            VStack(spacing: 14) {
+                Mascot(mood: .cheer, size: 120)
+                Text("Продукт введён! 🎉").font(.title3.bold())
+            }
+            .padding(28)
+            .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+            .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
+        }
+        .transition(.opacity.combined(with: .scale(scale: 0.85)))
     }
 
     // MARK: - Карточки
@@ -71,10 +100,15 @@ struct FoodDetailView: View {
         case .notIntroduced:
             BigButton(title: "Начать введение") { start() }
         case .introducing:
+            if let day = observationDay { observationHint(day: day) }
             BigButton(title: "Записать кормление") { showLogSheet = true }
-            BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
+            if canComplete {
+                BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
+            }
+            BigButton(title: "Была реакция / аллергия 😟", tint: .red) { showLogSheet = true }
         case .introduced:
             BigButton(title: "Записать кормление") { showLogSheet = true }
+            BigButton(title: "Появилась реакция / аллергия 😟", tint: .red) { showLogSheet = true }
         case .paused:
             BigButton(title: "Повторить ввод") { start() }
         case .allergy:
@@ -82,6 +116,25 @@ struct FoodDetailView: View {
                 service.reintroduce(food); refresh()
             }
         }
+    }
+
+    /// Прогресс окна наблюдения — пока оно идёт, продукт ещё НЕ введён.
+    private func observationHint(day: Int) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "eye.fill").font(.title3).foregroundStyle(Theme.sky)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("День \(min(day, observationDays)) из \(observationDays)")
+                    .font(.subheadline.bold())
+                Text(canComplete
+                     ? "Окно наблюдения прошло. Если реакции не было — отметь «ввёл успешно»."
+                     : "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после \(observationDays) дн.")
+                    .font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.bottom, 2)
     }
 
     private var allergyCard: some View {
@@ -95,23 +148,63 @@ struct FoodDetailView: View {
     }
 
     private var historyCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("История").font(.headline)
-            ForEach(logs) { log in
-                HStack {
-                    Text(log.date.shortDate).font(.subheadline)
-                    if let liking = log.liking { Text(liking.emoji) }
-                    Spacer()
-                    if let reaction = log.reaction, reaction != .none {
-                        StatusBadge(text: reaction.title, color: .red)
-                    } else {
-                        Text(log.type == .maintenance ? "поддержка" : "ввод")
-                            .font(.caption).foregroundStyle(.secondary)
-                    }
+        VStack(alignment: .leading, spacing: 14) {
+            HStack {
+                Text("История").font(.headline)
+                Spacer()
+                Text("\(logs.count)").font(.subheadline.bold())
+                    .foregroundStyle(Theme.accent)
+            }
+            VStack(spacing: 0) {
+                ForEach(Array(logs.enumerated()), id: \.element.id) { index, log in
+                    if index > 0 { Divider().padding(.leading, 50) }
+                    historyRow(log)
                 }
             }
         }
         .cartoonCard()
+    }
+
+    /// Описание записи журнала: тип, иконка, цвет.
+    private func entryKind(_ log: FoodLog) -> (label: String, icon: String, color: Color) {
+        if log.note != nil && log.liking == nil && (log.reaction == nil || log.reaction == ReactionType.none) {
+            return ("Заметка", "note.text", Theme.lilac)
+        }
+        if log.type == .maintenance { return ("Поддержка", "drop.fill", Theme.sky) }
+        return ("Ввод", "leaf.fill", Theme.mint)
+    }
+
+    private func historyRow(_ log: FoodLog) -> some View {
+        let kind = entryKind(log)
+        return HStack(spacing: 12) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Theme.softGradient(kind.color))
+                Image(systemName: kind.icon).font(.subheadline).foregroundStyle(kind.color)
+            }
+            .frame(width: 38, height: 38)
+
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 6) {
+                    Text(kind.label).font(.subheadline.weight(.semibold))
+                    if let reaction = log.reaction, reaction != .none {
+                        StatusBadge(text: reaction.title, color: .red)
+                    }
+                    Spacer(minLength: 0)
+                    if let liking = log.liking {
+                        OpenMojiIcon(asset: "like_\(liking.rawValue)",
+                                     fallback: liking.emoji, size: 22)
+                    }
+                    Text(log.date.formatted(.dateTime.day().month().hour().minute()))
+                        .font(.caption2).foregroundStyle(.secondary)
+                }
+                if let note = log.note, !note.isEmpty {
+                    Text(note).font(.caption).foregroundStyle(.secondary)
+                        .lineLimit(2)
+                }
+            }
+        }
+        .padding(.vertical, 10)
     }
 
     // MARK: - Действия
@@ -127,6 +220,10 @@ struct FoodDetailView: View {
     private func complete() {
         service.completeIntroduction(food)
         refresh()
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) { showCheer = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+            withAnimation { showCheer = false }
+        }
     }
 
     private func refresh() {

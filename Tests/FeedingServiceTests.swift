@@ -6,12 +6,16 @@ import SwiftData
 /// (SPEC §4.4) и создание записей в журнале с корректным типом.
 final class FeedingServiceTests: XCTestCase {
 
-    /// Свежий in-memory контейнер на каждый тест — изоляция, без диска.
+    /// Контейнер держим в свойстве, чтобы он жил всю длину теста: `ModelContext`
+    /// держит на контейнер невладеющую ссылку, и если контейнер деаллоцируется
+    /// (был локальной переменной), фетч ловит трап SwiftData (Swift 6.3).
+    private var container: ModelContainer!
+
     @MainActor
     private func makeContext() throws -> ModelContext {
         let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: schema, configurations: [config])
+        container = try ModelContainer(for: schema, configurations: [config])
         return container.mainContext
     }
 
@@ -196,5 +200,44 @@ final class FeedingServiceTests: XCTestCase {
         service.logFeeding(food, liking: .liked, reaction: ReactionType.none)
 
         XCTAssertEqual(service.status(for: food.id).state, .introducing)
+    }
+
+    // MARK: - Окно наблюдения (статическая чистая логика, инъекция now/calendar)
+
+    private func utcCalendar() -> Calendar {
+        var cal = Calendar(identifier: .gregorian)
+        cal.timeZone = TimeZone(identifier: "UTC")!
+        return cal
+    }
+
+    private func day(_ d: Int, _ cal: Calendar) -> Date {
+        cal.date(from: DateComponents(year: 2026, month: 6, day: d))!
+    }
+
+    func testObservationDayCountsFromStart() {
+        let cal = utcCalendar()
+        let start = day(1, cal)
+        XCTAssertEqual(FeedingService.observationDay(start: start, now: start, calendar: cal), 1)
+        XCTAssertEqual(FeedingService.observationDay(start: start, now: day(3, cal), calendar: cal), 3)
+    }
+
+    func testObservationIncompleteDuringWindow() {
+        let cal = utcCalendar()
+        let start = day(1, cal)
+        // День 1 и день 2 при окне 3 — ещё нельзя «ввёл успешно».
+        XCTAssertFalse(FeedingService.isObservationComplete(start: start, observationDays: 3,
+                                                            now: start, calendar: cal))
+        XCTAssertFalse(FeedingService.isObservationComplete(start: start, observationDays: 3,
+                                                            now: day(2, cal), calendar: cal))
+    }
+
+    func testObservationCompleteAfterWindow() {
+        let cal = utcCalendar()
+        let start = day(1, cal)
+        // День 3 и позже при окне 3 — окно пройдено.
+        XCTAssertTrue(FeedingService.isObservationComplete(start: start, observationDays: 3,
+                                                           now: day(3, cal), calendar: cal))
+        XCTAssertTrue(FeedingService.isObservationComplete(start: start, observationDays: 3,
+                                                           now: day(5, cal), calendar: cal))
     }
 }
