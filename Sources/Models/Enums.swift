@@ -77,6 +77,16 @@ enum ReactionType: String, Codable, CaseIterable {
         case .other:     return "Другое"
         }
     }
+
+    var emoji: String {
+        switch self {
+        case .none:      return "👍"
+        case .skin:      return "🔴"
+        case .gi:        return "🤢"
+        case .breathing: return "😮‍💨"
+        case .other:     return "❓"
+        }
+    }
 }
 
 /// Насколько ребёнку понравился продукт (вкусовая оценка, НЕ аллергия).
@@ -98,6 +108,15 @@ enum Liking: String, Codable, CaseIterable {
         case .disliked: return "Не понравилось"
         case .neutral:  return "Нейтрально"
         case .liked:    return "Понравилось"
+        }
+    }
+
+    /// Короткая подпись для компактных мест (карточки оценки вкуса).
+    var shortTitle: String {
+        switch self {
+        case .disliked: return "Не оч"
+        case .neutral:  return "Норм"
+        case .liked:    return "Класс"
         }
     }
 }

@@ -51,6 +51,32 @@ citrus 1F34B
 strawberry 1F353
 "
 
+# реакция -> кодпоинт (экран записи кормления)
+reactions="
+none 1F44D
+skin 1F534
+gi 1F922
+breathing 1F624
+other 2753
+"
+
+# оценка вкуса -> кодпоинт
+likings="
+disliked 1F623
+neutral 1F610
+liked 1F60B
+"
+
+# иконки интерфейса (баннеры, заголовки секций, аватары-заглушки) -> кодпоинт
+ui="
+chick 1F423
+plate 1F37D
+warning 26A0
+bell 1F514
+seedling 1F331
+party 1F389
+"
+
 # категория -> кодпоинт (фолбэк)
 cats="
 vegetable 1F955
@@ -79,6 +105,12 @@ mk() {
 
 echo "=== foods ==="
 while read -r id code; do [ -z "$id" ] && continue; mk "food_$id" "$code"; done <<< "$foods"
+echo "=== reactions ==="
+while read -r r code; do [ -z "$r" ] && continue; mk "react_$r" "$code"; done <<< "$reactions"
+echo "=== likings ==="
+while read -r l code; do [ -z "$l" ] && continue; mk "like_$l" "$code"; done <<< "$likings"
+echo "=== ui ==="
+while read -r u code; do [ -z "$u" ] && continue; mk "ui_$u" "$code"; done <<< "$ui"
 echo "=== categories ==="
 while read -r c code; do [ -z "$c" ] && continue; mk "cat_$c" "$code"; done <<< "$cats"
 echo "=== done ==="

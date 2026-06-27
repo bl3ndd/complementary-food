@@ -37,25 +37,43 @@ struct StatusBadge: View {
     }
 }
 
-/// Шкала вкуса: 😣 / 😐 / 😋 (SPEC §5). Тап по выбранному снимает выбор.
+/// Шкала вкуса крупными карточками (SPEC §5). Тап по выбранной снимает выбор.
 struct LikingPicker: View {
     @Binding var selection: Liking?
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 12) {
             ForEach(Liking.allCases, id: \.self) { liking in
-                Button {
-                    selection = (selection == liking) ? nil : liking
-                } label: {
-                    Text(liking.emoji)
-                        .font(.system(size: 36))
-                        .opacity(selection == nil || selection == liking ? 1 : 0.3)
-                        .scaleEffect(selection == liking ? 1.2 : 1)
-                }
-                .buttonStyle(.plain)
+                card(liking)
             }
         }
         .animation(.snappy, value: selection)
+    }
+
+    private func card(_ liking: Liking) -> some View {
+        let selected = selection == liking
+        return Button {
+            selection = selected ? nil : liking
+        } label: {
+            VStack(spacing: 8) {
+                OpenMojiIcon(asset: "like_\(liking.rawValue)",
+                             fallback: liking.emoji, size: 56)
+                    .scaleEffect(selected ? 1.08 : 1)
+                Text(liking.shortTitle)
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(selected ? Theme.accent : .secondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(selected ? Theme.accent.opacity(0.12) : Color.black.opacity(0.03),
+                        in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(selected ? Theme.accent : .clear, lineWidth: 2.5)
+            )
+            .opacity(selection == nil || selected ? 1 : 0.55)
+        }
+        .buttonStyle(BouncyButtonStyle())
     }
 }
 

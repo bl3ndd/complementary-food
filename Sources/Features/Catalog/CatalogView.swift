@@ -39,8 +39,7 @@ struct CatalogView: View {
             FoodIcon(food: food, size: 38)
             Text(food.name).fontWeight(.medium)
             if food.isAllergen {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.caption2).foregroundStyle(.orange)
+                StatusBadge(text: "аллерген", color: .orange)
             }
             Spacer()
             let state = state(for: food)
