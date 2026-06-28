@@ -38,10 +38,13 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   target/bundle id stay `Prikorm`/`com.prikorm`.
 - **App-level constants** (`Sources/App/`): `AppLinks` (privacy/terms/support URLs —
   placeholders until the `site/` landing is deployed) and `Disclaimer` (single medical
-  disclaimer text, reused in onboarding + profile for App Review 1.4.1). Methodology
-  presets in `FeedingProfile` carry `source`/`sourceURL`/`caveat` (verified vs primary
-  guidelines — see `docs/legal/methodology-sources.md`). Submission checklist:
-  `docs/SUBMISSION.md`; test map: `docs/TEST-CASES.md`.
+  disclaimer text, reused in onboarding + profile for App Review 1.4.1). **Методика —
+  только настраиваемый «свой план»** (`FeedingProfile.custom(from:)`); готовые пресеты
+  убраны (п.11), источники сохранены в `docs/legal/methodology-sources.md`. Окно
+  наблюдения раздельное: `observationDaysRegular`/`observationDaysAllergen` +
+  `observationDays(for:food)`. Реакция — только запись в журнале (не двигает статус);
+  стоп/возобновить/`retryAt`/`markAllergy` — ручные (`FeedingService`). Submission
+  checklist: `docs/SUBMISSION.md`; test map: `docs/TEST-CASES.md`.
 - **Keep business logic out of views.** Views call services; services are pure
   functions over `ModelContext` + catalog data. This is what makes the logic unit-testable
   without the UI.
@@ -51,8 +54,7 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 - **String Catalog** `Resources/Localizable.xcstrings` — `sourceLanguage: ru`, English
   translations alongside. The catalog compiles automatically (Resources folder reference).
   `project.yml` sets `options.developmentLanguage: ru`. App follows the **device language**
-  unless overridden in-app; «Союз педиатров РФ» preset is hidden outside `ru`
-  (`FeedingProfile.visiblePresets`).
+  unless overridden in-app. (Пресеты методик убраны — методика всегда «свой план».)
 - **In-app language picker** (Profile → «Язык»): `AppLanguage` (system/ru/en) +
   `LanguageManager.apply` write the per-app `AppleLanguages` default; choice is stored in
   `@AppStorage("app.language")` and **applies on next launch** (iOS has no official
