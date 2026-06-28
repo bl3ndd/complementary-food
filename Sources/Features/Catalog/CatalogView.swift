@@ -32,13 +32,7 @@ struct CatalogView: View {
             .navigationTitle("Каталог")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Picker("", selection: $section) {
-                        ForEach(CatalogSection.allCases) { Text($0.rawValue).tag($0) }
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(maxWidth: 260)
-                }
+                ToolbarItem(placement: .principal) { segmentControl }
             }
             .navigationDestination(for: Food.self) { food in
                 FoodDetailView(food: food, child: child)
@@ -49,8 +43,34 @@ struct CatalogView: View {
         }
     }
 
+    /// Капсульный сегмент-контрол в стиле приложения (системный выглядит «квадратным»).
+    private var segmentControl: some View {
+        HStack(spacing: 0) {
+            ForEach(CatalogSection.allCases) { s in
+                let on = section == s
+                Text(s.rawValue)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(on ? .white : Color.secondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 7)
+                    .background {
+                        if on { Capsule().fill(Theme.accentGradient) }
+                    }
+                    .contentShape(Capsule())
+                    .onTapGesture { withAnimation(.snappy) { section = s } }
+            }
+        }
+        .padding(3)
+        .background(Capsule().fill(.black.opacity(0.06)))
+        .frame(width: 240)
+    }
+
     private var foodList: some View {
         List {
+            searchBar
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 4, trailing: 16))
+                .listRowSeparator(.hidden)
             ForEach(FoodCategory.allCases, id: \.self) { category in
                 let foods = foods(in: category)
                 if category == .other {
@@ -66,7 +86,6 @@ struct CatalogView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .safeAreaInset(edge: .top) { searchBar }
     }
 
     @ViewBuilder
@@ -113,9 +132,6 @@ struct CatalogView: View {
         .padding(.horizontal, 14).padding(.vertical, 10)
         .background(.white, in: Capsule())
         .overlay(Capsule().stroke(.black.opacity(0.06), lineWidth: 1))
-        .shadow(color: .black.opacity(0.05), radius: 6, y: 2)
-        .padding(.horizontal)
-        .padding(.bottom, 6)
     }
 
     private func row(for food: Food) -> some View {

@@ -25,7 +25,7 @@ struct DayDetailView: View {
             }
         }
         .background(AppBackground())
-        .navigationTitle(date.formatted(.dateTime.day().month().year()))
+        .navigationTitle(date.formatted(.dateTime.day().month().year().locale(.ru)))
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -39,7 +39,7 @@ struct DayDetailView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(entry.foodName).font(.headline)
                 HStack(spacing: 6) {
-                    Text(entry.date.formatted(.dateTime.hour().minute()))
+                    Text(entry.date.formatted(.dateTime.hour().minute().locale(.ru)))
                         .font(.caption).foregroundStyle(.secondary)
                     StatusBadge(text: entry.type == .intro ? "Ввод" : "Поддержка",
                                 color: entry.type == .intro ? Theme.accent : .blue)

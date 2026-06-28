@@ -138,7 +138,7 @@ struct DashboardView: View {
                     .font(.title2.bold()).foregroundStyle(.white)
                 Text("\(child.ageInMonths) мес").font(.subheadline.weight(.medium))
                     .foregroundStyle(.white.opacity(0.9))
-                Text("\(introducedCount) продуктов введено")
+                Text("\(introducedCount) \(introducedCount.plural("продукт", "продукта", "продуктов")) \(introducedCount.plural("введён", "введено", "введено"))")
                     .font(.caption.weight(.semibold)).foregroundStyle(.white.opacity(0.95))
             }
             Spacer()

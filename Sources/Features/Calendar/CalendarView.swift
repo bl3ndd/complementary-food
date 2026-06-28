@@ -28,15 +28,11 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                if logs.isEmpty {
-                    emptyState
-                } else {
-                    VStack(spacing: 16) {
-                        monthCard
-                        legend
-                    }
-                    .padding()
+                VStack(spacing: 16) {
+                    monthCard
+                    if logs.isEmpty { emptyHint }
                 }
+                .padding()
             }
             .background(AppBackground())
             .navigationTitle("Календарь")
@@ -62,6 +58,10 @@ struct CalendarView: View {
                     if let date { dayCell(date) } else { Color.clear.frame(height: 40) }
                 }
             }
+            if !logs.isEmpty {
+                Divider().padding(.top, 2)
+                legend
+            }
         }
         .cartoonCard()
     }
@@ -72,7 +72,7 @@ struct CalendarView: View {
                 Image(systemName: "chevron.left").font(.headline).foregroundStyle(Theme.accent)
             }
             Spacer()
-            Text(monthAnchor.formatted(.dateTime.month(.wide).year()).capitalized)
+            Text(monthAnchor.formatted(.dateTime.month(.wide).year().locale(.ru)).capitalized)
                 .font(.headline)
             Spacer()
             Button { shiftMonth(1) } label: {
@@ -118,13 +118,12 @@ struct CalendarView: View {
     }
 
     private var legend: some View {
-        HStack(spacing: 18) {
+        HStack(spacing: 20) {
             legendDot(Theme.accent, "есть записи")
             legendDot(.red, "реакция")
-            Spacer()
         }
         .font(.caption).foregroundStyle(.secondary)
-        .padding(.horizontal, 4)
+        .frame(maxWidth: .infinity)
     }
 
     private func legendDot(_ color: Color, _ text: String) -> some View {
@@ -134,16 +133,15 @@ struct CalendarView: View {
         }
     }
 
-    private var emptyState: some View {
-        VStack(spacing: 12) {
-            Mascot(mood: .curious)
-            Text("Пока пусто").font(.title3.bold())
-            Text("Здесь появятся дни, в которые ты давал продукты.")
+    private var emptyHint: some View {
+        VStack(spacing: 8) {
+            Mascot(mood: .curious, size: 64)
+            Text("Здесь будут отмечаться дни, в которые ты давал продукты.")
                 .font(.subheadline).foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 80)
+        .padding(.top, 8)
     }
 
     // MARK: - Логика сетки

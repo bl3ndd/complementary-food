@@ -195,7 +195,7 @@ struct FoodDetailView: View {
                         OpenMojiIcon(asset: "like_\(liking.rawValue)",
                                      fallback: liking.emoji, size: 22)
                     }
-                    Text(log.date.formatted(.dateTime.day().month().hour().minute()))
+                    Text(log.date.formatted(.dateTime.day().month().hour().minute().locale(.ru)))
                         .font(.caption2).foregroundStyle(.secondary)
                 }
                 if let note = log.note, !note.isEmpty {

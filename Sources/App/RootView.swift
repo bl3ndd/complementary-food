@@ -16,6 +16,7 @@ struct RootView: View {
         .tint(Theme.accent)
         .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
         .preferredColorScheme(.light)    // палитра светлая и фиксированная — тёмную тему не поддерживаем
+        .environment(\.locale, .ru)      // даты/пикеры по-русски, независимо от устройства
     }
 }
 

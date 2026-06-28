@@ -77,8 +77,23 @@ struct LikingPicker: View {
     }
 }
 
+extension Locale {
+    /// Русская локаль для дат — UI приложения только на русском, не зависим от устройства.
+    static let ru = Locale(identifier: "ru_RU")
+}
+
+extension Int {
+    /// Русское склонение по числу: `plural("продукт", "продукта", "продуктов")`.
+    func plural(_ one: String, _ few: String, _ many: String) -> String {
+        let mod10 = self % 10, mod100 = self % 100
+        if mod10 == 1 && mod100 != 11 { return one }
+        if (2...4).contains(mod10) && !(12...14).contains(mod100) { return few }
+        return many
+    }
+}
+
 extension Date {
     var shortDate: String {
-        formatted(.dateTime.day().month())
+        formatted(.dateTime.day().month().locale(.ru))
     }
 }
