@@ -104,7 +104,7 @@ final class NotificationManagerTests: XCTestCase {
 
         let groups = [group(.dairy, introduced: true, allergy: false,
                             status: .overdue, nextDue: now)]
-        await manager.apply(groups)
+        await manager.apply(manager.requests(for: groups))
 
         // Сняты только наши старые идентификаторы, чужой остался нетронутым.
         XCTAssertEqual(Set(center.removed), ["allergen-egg", "allergen-old"])
@@ -122,10 +122,57 @@ final class NotificationManagerTests: XCTestCase {
         let center = MockCenter()
         let manager = NotificationManager(center: center)
 
-        await manager.apply([
+        await manager.apply(manager.requests(for: [
             group(.fish, introduced: true, allergy: false, status: .ok, nextDue: now)
-        ])
+        ]))
 
         XCTAssertTrue(center.added.isEmpty)
+    }
+
+    // MARK: - Окно ввода: ежедневные напоминания (intro-)
+
+    private func utcCal() -> Calendar {
+        var c = Calendar(identifier: .gregorian)
+        c.timeZone = TimeZone(identifier: "UTC")!
+        return c
+    }
+
+    private func at(_ day: Int, _ hour: Int, _ cal: Calendar) -> Date {
+        cal.date(from: DateComponents(year: 2026, month: 6, day: day, hour: hour))!
+    }
+
+    func testIntroRequestsScheduleEachWindowDay() {
+        let cal = utcCal()
+        let s = IntroductionStatus(foodId: "broccoli", state: .introducing)
+        s.introStartedAt = at(10, 8, cal)               // старт: 10-е, 08:00
+        let reqs = NotificationManager(center: MockCenter())
+            .introRequests(statuses: [s], observationDays: 3, now: at(10, 8, cal), calendar: cal)
+
+        XCTAssertEqual(reqs.map(\.identifier).sorted(),
+                       ["intro-broccoli-1", "intro-broccoli-2", "intro-broccoli-3"])
+        for r in reqs {
+            XCTAssertEqual((r.trigger as? UNCalendarNotificationTrigger)?.repeats, false)
+        }
+    }
+
+    func testIntroRequestsSkipPastDays() {
+        let cal = utcCal()
+        let s = IntroductionStatus(foodId: "broccoli", state: .introducing)
+        s.introStartedAt = at(10, 8, cal)
+        // «сейчас» — 11-е 12:00: дни 1 (10-е) и 2 (11-е, 10:00) уже прошли, остаётся день 3.
+        let reqs = NotificationManager(center: MockCenter())
+            .introRequests(statuses: [s], observationDays: 3, now: at(11, 12, cal), calendar: cal)
+
+        XCTAssertEqual(reqs.map(\.identifier), ["intro-broccoli-3"])
+    }
+
+    func testIntroRequestsIgnoreNonIntroducing() {
+        let cal = utcCal()
+        let s = IntroductionStatus(foodId: "broccoli", state: .introduced)
+        s.introStartedAt = at(10, 8, cal)
+        let reqs = NotificationManager(center: MockCenter())
+            .introRequests(statuses: [s], observationDays: 3, now: at(10, 8, cal), calendar: cal)
+
+        XCTAssertTrue(reqs.isEmpty)
     }
 }
