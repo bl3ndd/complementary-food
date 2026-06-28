@@ -81,7 +81,7 @@ struct OnboardingView: View {
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                ForEach(FeedingProfile.presets) { preset in
+                ForEach(FeedingProfile.visiblePresets()) { preset in
                     MethodologyCard(profile: preset, selected: profileId == preset.id) {
                         withAnimation(.snappy) { profileId = preset.id }
                     }

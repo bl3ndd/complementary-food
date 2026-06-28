@@ -30,7 +30,7 @@ struct FeedingProfile: Identifiable, Codable, Hashable {
 
     static let who = FeedingProfile(
         id: "who",
-        name: "ВОЗ / ESPGHAN",
+        name: "ВОЗ / ESPGHAN (Европа)",
         startAgeMonths: 6,
         observationDays: 3,
         allergenFrequencyPerWeek: 2,
@@ -67,7 +67,14 @@ struct FeedingProfile: Identifiable, Codable, Hashable {
         caveat: "Старт 5 мес — дословный оптимум программы для ГВ. Окно 7 дней — верх диапазона «вводить за 5–7 дней». Важно: регулярной «поддержки аллергена для толерантности» в программе РФ нет (она прямо считает раннее введение аллергенов требующим дальнейших исследований) — параметр оставлен как осторожный ориентир по западному консенсусу."
     )
 
+    /// Полный список (для поиска по id — чтобы уже выбранный РФ-пресет резолвился
+    /// даже на не-русском языке).
     static let presets: [FeedingProfile] = [who, aap, russia]
+
+    /// Пресеты для показа в UI: «Союз педиатров РФ» — только на русском языке.
+    static func visiblePresets(language: String? = Locale.current.language.languageCode?.identifier) -> [FeedingProfile] {
+        language == "ru" ? [who, aap, russia] : [who, aap]
+    }
 
     static func preset(id: String) -> FeedingProfile {
         presets.first { $0.id == id } ?? who

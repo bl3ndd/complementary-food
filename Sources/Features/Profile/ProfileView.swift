@@ -19,7 +19,7 @@ struct ProfileView: View {
 
                 Section("Методика прикорма") {
                     Picker("Методика", selection: $child.feedingProfileId) {
-                        ForEach(FeedingProfile.presets) { preset in
+                        ForEach(FeedingProfile.visiblePresets()) { preset in
                             Text(preset.name).tag(preset.id)
                         }
                         Text("Свой план").tag(FeedingProfile.customId)
