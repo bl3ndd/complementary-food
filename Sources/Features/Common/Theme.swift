@@ -30,7 +30,6 @@ enum Theme {
         case .fish:      return sky
         case .dairy:     return Color(red: 0.55, green: 0.72, blue: 0.95)
         case .egg:       return sunny
-        case .allergen:  return accent
         case .other:     return lilac
         }
     }

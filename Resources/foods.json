@@ -302,7 +302,7 @@
     {
       "id": "peanut",
       "name": "Арахис",
-      "category": "allergen",
+      "category": "other",
       "emoji": "🥜",
       "isAllergen": true,
       "allergenGroup": "peanut",
@@ -311,7 +311,7 @@
     {
       "id": "tree_nuts",
       "name": "Орехи",
-      "category": "allergen",
+      "category": "other",
       "emoji": "🌰",
       "isAllergen": true,
       "allergenGroup": "treenut",
@@ -320,7 +320,7 @@
     {
       "id": "sesame",
       "name": "Кунжут",
-      "category": "allergen",
+      "category": "other",
       "emoji": "◻️",
       "isAllergen": true,
       "allergenGroup": "sesame",
@@ -329,7 +329,7 @@
     {
       "id": "soy",
       "name": "Соя",
-      "category": "allergen",
+      "category": "other",
       "emoji": "🫘",
       "isAllergen": true,
       "allergenGroup": "soy",
@@ -599,7 +599,7 @@
     {
       "id": "wheat",
       "name": "Пшеница",
-      "category": "allergen",
+      "category": "other",
       "emoji": "🌾",
       "isAllergen": true,
       "allergenGroup": "gluten",
@@ -608,20 +608,11 @@
     {
       "id": "crab",
       "name": "Краб",
-      "category": "allergen",
+      "category": "fish",
       "emoji": "🦀",
       "isAllergen": true,
       "allergenGroup": "shellfish",
       "minAgeMonths": 12
-    },
-    {
-      "id": "water",
-      "name": "Вода",
-      "category": "other",
-      "emoji": "💧",
-      "isAllergen": false,
-      "allergenGroup": null,
-      "minAgeMonths": 6
     },
     {
       "id": "compote",

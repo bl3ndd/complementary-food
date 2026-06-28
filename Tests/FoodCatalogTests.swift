@@ -64,6 +64,16 @@ final class FoodCatalogTests: XCTestCase {
         }
     }
 
+    /// Каталог перестроен (п.14/18): воды нет, псевдо-категории «аллерген» нет —
+    /// аллергенность определяется флагом, а не категорией.
+    func testCatalogHasNoWaterAndRealCategories() {
+        XCTAssertNil(catalog.food(id: "water"), "вода убрана из каталога (п.18)")
+        let allowed = Set(FoodCategory.allCases)   // .allergen в перечислении больше нет
+        for food in catalog.all {
+            XCTAssertTrue(allowed.contains(food.category), "у \(food.id) категория вне перечисления")
+        }
+    }
+
     // MARK: - Группировка
 
     func testByCategoryReturnsOnlyThatCategory() {
