@@ -46,7 +46,13 @@ struct FoodIcon: View {
                     .scaledToFit()
                     .padding(size * 0.15)
             } else {
-                Text(food.emoji).font(.system(size: size * 0.5))
+                // Фолбэк-эмодзи: центрируем в фиксированном квадрате, чтобы иконки не
+                // «съезжали» из-за разного бейзлайна/ширины эмодзи (п.13).
+                Text(food.emoji)
+                    .font(.system(size: size * 0.55))
+                    .frame(width: size, height: size)
+                    .minimumScaleFactor(0.7)
+                    .multilineTextAlignment(.center)
             }
         }
         .frame(width: size, height: size)

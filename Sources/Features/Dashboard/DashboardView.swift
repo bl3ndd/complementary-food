@@ -29,7 +29,12 @@ struct DashboardView: View {
                             ForEach(introducing, id: \.status.foodId) { introRow($0) }
                         }
                     }
-                    if dueGroups.isEmpty && introducing.isEmpty {
+                    if !pausedItems.isEmpty {
+                        section(title: "Отложенные продукты", icon: "ui_seedling") {
+                            ForEach(pausedItems, id: \.status.foodId) { pausedRow($0) }
+                        }
+                    }
+                    if dueGroups.isEmpty && introducing.isEmpty && pausedItems.isEmpty {
                         emptyState
                     }
                 }
@@ -155,6 +160,32 @@ struct DashboardView: View {
     private var introducing: [(food: Food, status: IntroductionStatus)] {
         statuses.filter { $0.state == .introducing }
             .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
+    }
+
+    private var pausedItems: [(food: Food, status: IntroductionStatus)] {
+        statuses.filter { $0.state == .paused }
+            .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
+    }
+
+    private func pausedRow(_ item: (food: Food, status: IntroductionStatus)) -> some View {
+        NavigationLink(value: item.food) {
+            HStack(spacing: 12) {
+                FoodIcon(food: item.food)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.food.localizedName).font(.headline).foregroundStyle(.primary)
+                    if let retry = item.status.retryAt {
+                        Text("Попробовать снова \(retry.shortDate)")
+                            .font(.caption).foregroundStyle(.secondary)
+                    } else {
+                        Text("Ввод остановлен").font(.caption).foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
+                Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
+            }
+            .cartoonCard()
+        }
+        .buttonStyle(.plain)
     }
 
     private var dueGroups: [AllergenGroupStatus] {
