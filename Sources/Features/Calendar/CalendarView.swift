@@ -94,7 +94,8 @@ struct CalendarView: View {
         let active = summary != nil
         let hasReaction = summary?.hasReaction ?? false
         let isToday = cal.isDateInToday(date)
-        let fill = hasReaction ? Color.red : Theme.accent
+        // «Есть записи» — холодный синий, «реакция» — красный: явно разные хюэ (п.6).
+        let fill = hasReaction ? Color.red : Theme.sky
 
         return NavigationLink(value: start) {
             Text("\(cal.component(.day, from: date))")
@@ -121,7 +122,7 @@ struct CalendarView: View {
 
     private var legend: some View {
         HStack(spacing: 20) {
-            legendDot(Theme.accent, "есть записи")
+            legendDot(Theme.sky, "есть записи")
             legendDot(.red, "реакция")
         }
         .font(.caption).foregroundStyle(.secondary)

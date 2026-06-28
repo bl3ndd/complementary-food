@@ -12,6 +12,7 @@ struct FoodDetailView: View {
     @State private var showLogSheet = false
     @State private var showCheer = false
     @State private var startDate = Date()
+    @State private var editingLog: FoodLog?
 
     init(food: Food, child: Child) {
         self.food = food
@@ -52,6 +53,7 @@ struct FoodDetailView: View {
         .sheet(isPresented: $showLogSheet) {
             LogFeedingSheet(food: food, child: child)
         }
+        .sheet(item: $editingLog) { EditNoteSheet(log: $0) }
         .overlay {
             if showCheer { cheerOverlay }
         }
@@ -238,6 +240,8 @@ struct FoodDetailView: View {
             }
         }
         .padding(.vertical, 10)
+        .contentShape(Rectangle())
+        .onTapGesture { editingLog = log }
     }
 
     // MARK: - Действия

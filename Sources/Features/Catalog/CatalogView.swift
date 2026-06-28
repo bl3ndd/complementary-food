@@ -77,16 +77,15 @@ struct CatalogView: View {
         List {
             searchBar
                 .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 4, trailing: 16))
+                .listRowInsets(EdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16))
+                .listRowSeparator(.hidden)
+            // Кнопка «свой продукт» — сразу под поиском (п.19).
+            addCustomRow
+                .listRowInsets(EdgeInsets(top: 2, leading: 16, bottom: 6, trailing: 16))
                 .listRowSeparator(.hidden)
             ForEach(FoodCategory.allCases, id: \.self) { category in
                 let foods = foods(in: category)
-                if category == .other {
-                    Section(category.title) {
-                        ForEach(foods) { food in foodRow(food) }
-                        addCustomRow
-                    }
-                } else if !foods.isEmpty {
+                if !foods.isEmpty {
                     Section(category.title) {
                         ForEach(foods) { food in foodRow(food) }
                     }
@@ -147,7 +146,9 @@ struct CatalogView: View {
             FoodIcon(food: food, size: 38)
             Text(food.localizedName).fontWeight(.medium)
             if food.isAllergen {
-                StatusBadge(text: String(localized: "аллерген"), color: .orange)
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.caption2).foregroundStyle(.orange)
+                    .accessibilityLabel(Text("аллерген"))
             }
             Spacer()
             let state = state(for: food)

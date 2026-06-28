@@ -6,6 +6,7 @@ import SwiftData
 struct DayDetailView: View {
     let date: Date
     @Query private var logs: [FoodLog]
+    @State private var editingLog: FoodLog?
 
     private let catalog = FoodCatalog.shared
 
@@ -27,6 +28,7 @@ struct DayDetailView: View {
         .background(AppBackground())
         .navigationTitle(date.formatted(.dateTime.day().month().year()))
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $editingLog) { EditNoteSheet(log: $0) }
     }
 
     private func entryRow(_ entry: DayEntry) -> some View {
@@ -49,6 +51,10 @@ struct DayDetailView: View {
                         StatusBadge(text: reaction.title, color: .red)
                     }
                 }
+                if let note = entry.log.note, !note.isEmpty {
+                    Text(note).font(.caption).foregroundStyle(.secondary)
+                        .lineLimit(2)
+                }
             }
             Spacer()
             if let liking = entry.liking {
@@ -56,6 +62,8 @@ struct DayDetailView: View {
             }
         }
         .cartoonCard()
+        .contentShape(Rectangle())
+        .onTapGesture { editingLog = entry.log }
     }
 
     private var emptyState: some View {

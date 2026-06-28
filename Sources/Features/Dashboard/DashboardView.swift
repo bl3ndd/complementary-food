@@ -37,6 +37,7 @@ struct DashboardView: View {
             }
             .background(AppBackground())
             .navigationTitle("Сегодня")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Food.self) { food in
                 FoodDetailView(food: food, child: child)
             }

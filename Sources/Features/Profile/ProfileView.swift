@@ -13,7 +13,10 @@ struct ProfileView: View {
         NavigationStack {
             Form {
                 Section("Ребёнок") {
-                    TextField("Имя", text: $child.name)
+                    LabeledContent("Имя") {
+                        TextField("Имя малыша", text: $child.name)
+                            .multilineTextAlignment(.trailing)
+                    }
                     DatePicker("Дата рождения", selection: $child.birthDate,
                                in: ...Date(), displayedComponents: .date)
                     LabeledContent("Возраст", value: String(localized: "\(child.ageInMonths) мес"))
@@ -72,6 +75,7 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .background(AppBackground())
             .navigationTitle("Профиль")
+            .navigationBarTitleDisplayMode(.inline)
             .onChange(of: customSignature) { persist() }
             .onChange(of: language) {
                 LanguageManager.apply(language)
