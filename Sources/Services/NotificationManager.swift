@@ -46,6 +46,15 @@ final class NotificationManager {
         self.center = center
     }
 
+    /// Снимает все наши напоминания (при сбросе данных).
+    func clearAll() {
+        Task {
+            let ours = (await center.pendingIdentifiers())
+                .filter { $0.hasPrefix(allergenPrefix) || $0.hasPrefix(introPrefix) }
+            center.removePending(identifiers: ours)
+        }
+    }
+
     @discardableResult
     func requestAuthorization() async -> Bool {
         let center = UNUserNotificationCenter.current()

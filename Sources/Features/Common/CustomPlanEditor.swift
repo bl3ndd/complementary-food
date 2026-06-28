@@ -20,10 +20,6 @@ struct CustomPlanEditor: View {
 
             Text("Аллергены для ввода").font(.subheadline.bold())
             allergenGrid
-
-            Text(Disclaimer.short)
-                .font(.caption2).foregroundStyle(.secondary)
-                .padding(.top, 2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .cartoonCard()

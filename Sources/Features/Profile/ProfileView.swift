@@ -5,6 +5,7 @@ import SwiftData
 struct ProfileView: View {
     @Bindable var child: Child
     @Environment(\.modelContext) private var context
+    @State private var showResetConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -50,8 +51,22 @@ struct ProfileView: View {
                 }
 
                 Section {
-                    Text("⚠️ \(Disclaimer.medical)")
-                        .font(.footnote).foregroundStyle(.secondary)
+                    Button(role: .destructive) { showResetConfirm = true } label: {
+                        Label("Сбросить все данные", systemImage: "trash")
+                    }
+                }
+
+                Section("Важно") {
+                    Label {
+                        Text(Disclaimer.medical)
+                            .font(.footnote).foregroundStyle(.secondary)
+                    } icon: {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.orange)
+                    }
+                }
+
+                Section {
                     Text("Иконки: OpenMoji (CC BY-SA 4.0)")
                         .font(.caption2).foregroundStyle(.tertiary)
                 }
@@ -61,7 +76,24 @@ struct ProfileView: View {
             .navigationTitle("Профиль")
             .onChange(of: child.feedingProfileId) { persist() }
             .onChange(of: customSignature) { persist() }
+            .alert("Сбросить все данные?", isPresented: $showResetConfirm) {
+                Button("Сбросить", role: .destructive) { resetAll() }
+                Button("Отмена", role: .cancel) {}
+            } message: {
+                Text("Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу.")
+            }
         }
+    }
+
+    /// Полный сброс: удаляем все данные → RootView покажет онбординг.
+    private func resetAll() {
+        NotificationManager.shared.clearAll()
+        try? context.delete(model: FoodLog.self)
+        try? context.delete(model: IntroductionStatus.self)
+        try? context.delete(model: CustomFood.self)
+        try? context.delete(model: Child.self)
+        try? context.save()
+        FoodCatalog.setCustom([])
     }
 
     /// Подпись custom-параметров — чтобы реагировать на правки своего плана.
