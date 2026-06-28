@@ -27,52 +27,49 @@ struct CustomPlanEditor: View {
         .cartoonCard()
     }
 
-    // MARK: - Параметр с кастомным степпером
+    // MARK: - Параметр: выбор значения тапом по бейджу-числу (вместо +/-, п.9)
 
     private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color,
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
-        HStack(spacing: 12) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 11, style: .continuous)
-                    .fill(Theme.softGradient(color))
-                Image(systemName: icon).font(.subheadline).foregroundStyle(color)
-            }
-            .frame(width: 36, height: 36)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 11, style: .continuous)
+                        .fill(Theme.softGradient(color))
+                    Image(systemName: icon).font(.subheadline).foregroundStyle(color)
+                }
+                .frame(width: 36, height: 36)
 
-            Text(title).font(.subheadline.weight(.medium))
-            Spacer(minLength: 8)
-            stepper(value: value, range: range, unit: unit)
+                Text(title).font(.subheadline.weight(.medium))
+                Spacer(minLength: 8)
+                HStack(spacing: 3) {
+                    Text("\(value.wrappedValue)").font(.subheadline.bold()).monospacedDigit()
+                    Text(unit).font(.caption2).foregroundStyle(.secondary)
+                }
+            }
+            valuePicker(value: value, range: range)
         }
     }
 
-    private func stepper(value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
-        HStack(spacing: 10) {
-            roundButton("minus", enabled: value.wrappedValue > range.lowerBound) {
-                value.wrappedValue = max(range.lowerBound, value.wrappedValue - 1)
+    /// Горизонтальный ряд бейджей-чисел; тап выбирает значение.
+    private func valuePicker(value: Binding<Int>, range: ClosedRange<Int>) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                ForEach(Array(range), id: \.self) { n in
+                    let on = value.wrappedValue == n
+                    Text("\(n)")
+                        .font(.subheadline.weight(.bold)).monospacedDigit()
+                        .frame(width: 38, height: 34)
+                        .background(on ? AnyShapeStyle(Theme.accentGradient)
+                                       : AnyShapeStyle(Color.black.opacity(0.05)),
+                                    in: Capsule())
+                        .foregroundStyle(on ? .white : .primary)
+                        .contentShape(Capsule())
+                        .onTapGesture { withAnimation(.snappy) { value.wrappedValue = n } }
+                }
             }
-            VStack(spacing: -1) {
-                Text("\(value.wrappedValue)").font(.headline.bold()).monospacedDigit()
-                Text(unit).font(.caption2).foregroundStyle(.secondary)
-            }
-            .frame(minWidth: 40)
-            roundButton("plus", enabled: value.wrappedValue < range.upperBound) {
-                value.wrappedValue = min(range.upperBound, value.wrappedValue + 1)
-            }
+            .padding(.vertical, 1)
         }
-    }
-
-    private func roundButton(_ icon: String, enabled: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: icon)
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(enabled ? .white : .secondary)
-                .frame(width: 32, height: 32)
-                .background(enabled ? AnyShapeStyle(Theme.accentGradient)
-                                    : AnyShapeStyle(Color.black.opacity(0.06)),
-                            in: Circle())
-        }
-        .buttonStyle(BouncyButtonStyle())
-        .disabled(!enabled)
     }
 
     // MARK: - Аллергены
