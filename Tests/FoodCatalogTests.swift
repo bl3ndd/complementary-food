@@ -159,6 +159,52 @@ final class FoodCatalogTests: XCTestCase {
         XCTAssertEqual(local.search("ЖЁЛТОК").map(\.id), ["egg_yolk"])
     }
 
+    // MARK: - Нечёткий поиск и поиск по группе (п.1/17)
+
+    func testSearchToleratesTypos() {
+        let local = FoodCatalog(foods: [
+            Food(id: "zucchini", name: "Кабачок", category: .vegetable, emoji: "🥒",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 4),
+        ])
+        XCTAssertEqual(local.search("кабчок").map(\.id), ["zucchini"])   // пропущена буква (подпоследовательность)
+        XCTAssertEqual(local.search("кабачёк").map(\.id), ["zucchini"])  // замена буквы (Левенштейн 1)
+    }
+
+    func testSearchByCategoryNameReturnsWholeGroup() {
+        let local = FoodCatalog(foods: [
+            Food(id: "zucchini", name: "Кабачок", category: .vegetable, emoji: "🥒",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 4),
+            Food(id: "broccoli", name: "Брокколи", category: .vegetable, emoji: "🥦",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 4),
+            Food(id: "apple", name: "Яблоко", category: .fruit, emoji: "🍎",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 5),
+        ])
+        XCTAssertEqual(Set(local.search("овощи").map(\.id)), ["zucchini", "broccoli"],
+                       "«овощи» показывает всю категорию овощей (п.17)")
+    }
+
+    func testSearchByAllergenGroupName() {
+        let local = FoodCatalog(foods: [
+            Food(id: "bread", name: "Хлеб", category: .other, emoji: "🍞",
+                 isAllergen: true, allergenGroup: .gluten, minAgeMonths: 8),
+            Food(id: "apple", name: "Яблоко", category: .fruit, emoji: "🍎",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 5),
+        ])
+        XCTAssertEqual(local.search("глютен").map(\.id), ["bread"],
+                       "запрос по группе аллергена находит продукт группы")
+    }
+
+    func testSearchRanksExactBeforeSubstring() {
+        let local = FoodCatalog(foods: [
+            Food(id: "nosok", name: "Носок", category: .other, emoji: "🧦",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 6),
+            Food(id: "sok", name: "Сок", category: .other, emoji: "🧃",
+                 isAllergen: false, allergenGroup: nil, minAgeMonths: 6),
+        ])
+        XCTAssertEqual(local.search("сок").map(\.id).first, "sok",
+                       "точное совпадение ранжируется выше вхождения")
+    }
+
     // MARK: - Свои продукты подмешиваются в каталог
 
     func testCustomFoodsMergeIntoCatalog() {
