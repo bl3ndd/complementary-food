@@ -90,7 +90,7 @@ struct LogFeedingSheet: View {
                 }
             }
             if reaction != .none {
-                Label("Реакция переведёт продукт в «паузу», а если он уже введён — в «аллергию».",
+                Label("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.",
                       systemImage: "info.circle")
                     .font(.caption).foregroundStyle(.orange)
                     .fixedSize(horizontal: false, vertical: true)
@@ -140,16 +140,13 @@ struct LogFeedingSheet: View {
     // MARK: - Сохранение
 
     private func save() {
-        let service = FeedingService(context: context)
-        service.logFeeding(food,
-                           liking: liking,
-                           reaction: reaction == .none ? nil : reaction,
-                           date: date)
-        if !note.isEmpty {
-            // заметку кладём отдельной записью-комментарием, чтобы не усложнять API
-            context.insert(FoodLog(foodId: food.id, date: date, note: note))
-            try? context.save()
-        }
+        // Заметка пишется в этот же лог кормления (п.20) — отдельной записи нет.
+        FeedingService(context: context).logFeeding(
+            food,
+            liking: liking,
+            reaction: reaction == .none ? nil : reaction,
+            date: date,
+            note: note.isEmpty ? nil : note)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
         dismiss()
     }

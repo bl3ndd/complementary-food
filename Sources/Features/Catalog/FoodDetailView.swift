@@ -11,6 +11,7 @@ struct FoodDetailView: View {
     @Query private var logs: [FoodLog]
     @State private var showLogSheet = false
     @State private var showCheer = false
+    @State private var startDate = Date()
 
     init(food: Food, child: Child) {
         self.food = food
@@ -40,6 +41,7 @@ struct FoodDetailView: View {
                 heroCard
                 actionsCard
                 if state == .allergy { allergyCard }
+                benefitsCard
                 if !logs.isEmpty { historyCard }
             }
             .padding()
@@ -98,23 +100,57 @@ struct FoodDetailView: View {
     @ViewBuilder private var actionButtons: some View {
         switch state {
         case .notIntroduced:
-            BigButton(title: "Начать введение") { start() }
+            DatePicker(selection: $startDate, in: ...Date(), displayedComponents: .date) {
+                Label("Дата старта", systemImage: "calendar")
+            }
+            .font(.subheadline)
+            BigButton(title: "Начать введение") { start(date: startDate) }
         case .introducing:
             if let day = observationDay { observationHint(day: day) }
             BigButton(title: "Записать кормление") { showLogSheet = true }
             if canComplete {
                 BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
             }
-            GhostButton(title: "Была реакция / аллергия", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Была реакция", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Остановить ввод", tint: .gray) { stop() }
         case .introduced:
             BigButton(title: "Записать кормление") { showLogSheet = true }
-            GhostButton(title: "Появилась реакция / аллергия", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Появилась реакция", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Пометить аллергию", tint: .gray) { flagAllergy() }
         case .paused:
-            BigButton(title: "Повторить ввод") { start() }
+            if let retry = statuses.first?.retryAt {
+                Text("Напомним попробовать снова \(retry.shortDate)")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            BigButton(title: "Возобновить ввод") { resume() }
+            GhostButton(title: "Попробовать через 2 месяца", tint: .gray) { retryLater() }
         case .allergy:
             BigButton(title: "Вернуть в оборот (врач разрешил)", tint: .red) {
                 service.reintroduce(food); refresh()
             }
+        }
+    }
+
+    /// Чем полезен продукт и какие нутриенты содержит (п.12).
+    @ViewBuilder private var benefitsCard: some View {
+        if food.localizedBenefits != nil || (food.nutrients?.isEmpty == false) {
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Чем полезен", systemImage: "sparkles").font(.headline)
+                if let benefits = food.localizedBenefits {
+                    Text(benefits).font(.subheadline).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                if let nutrients = food.nutrients, !nutrients.isEmpty {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 84), spacing: 6)],
+                              alignment: .leading, spacing: 6) {
+                        ForEach(nutrients, id: \.self) { n in
+                            Chip(n, icon: "leaf.fill", color: Theme.mint)
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .cartoonCard()
         }
     }
 
@@ -149,12 +185,7 @@ struct FoodDetailView: View {
 
     private var historyCard: some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack {
-                Text("История").font(.headline)
-                Spacer()
-                Text("\(logs.count)").font(.subheadline.bold())
-                    .foregroundStyle(Theme.accent)
-            }
+            Text("История").font(.headline)
             VStack(spacing: 0) {
                 ForEach(Array(logs.enumerated()), id: \.element.id) { index, log in
                     if index > 0 { Divider().padding(.leading, 50) }
@@ -211,13 +242,18 @@ struct FoodDetailView: View {
 
     // MARK: - Действия
 
-    private func start() {
+    private func start(date: Date = Date()) {
         Task {
             if food.isAllergen { _ = await NotificationManager.shared.requestAuthorization() }
-            service.startIntroduction(food)
+            service.startIntroduction(food, date: date)
             refresh()
         }
     }
+
+    private func stop() { service.stopIntroduction(food); refresh() }
+    private func resume() { service.reintroduce(food); refresh() }
+    private func retryLater() { service.scheduleRetry(food); refresh() }
+    private func flagAllergy() { service.markAllergy(food); refresh() }
 
     private func complete() {
         service.completeIntroduction(food)
