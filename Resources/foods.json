@@ -9,7 +9,9 @@
       "emoji": "🥒",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 4
+      "minAgeMonths": 4,
+      "benefits": "Лёгкий гипоаллергенный овощ — частый первый прикорм. Мягкий для животика, легко усваивается.",
+      "nutrients": ["Калий", "Витамин C", "Клетчатка"]
     },
     {
       "id": "cauliflower",
@@ -27,7 +29,9 @@
       "emoji": "🥦",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 4
+      "minAgeMonths": 4,
+      "benefits": "Богат витамином C и фолатами, поддерживает иммунитет. Клетчатка помогает пищеварению.",
+      "nutrients": ["Витамин C", "Витамин K", "Фолаты", "Клетчатка"]
     },
     {
       "id": "pumpkin",
@@ -81,7 +85,9 @@
       "emoji": "🥣",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 4
+      "minAgeMonths": 4,
+      "benefits": "Безглютеновая каша с железом и растительным белком — хороший старт среди круп.",
+      "nutrients": ["Железо", "Магний", "Белок", "Клетчатка"]
     },
     {
       "id": "rice_porridge",
@@ -135,7 +141,9 @@
       "emoji": "🍎",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 5
+      "minAgeMonths": 5,
+      "benefits": "Источник витамина C и пектина. Мягко знакомит малыша со вкусом фруктов.",
+      "nutrients": ["Витамин C", "Пектин", "Клетчатка"]
     },
     {
       "id": "pear",
@@ -189,7 +197,9 @@
       "emoji": "🦃",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Нежирное гипоаллергенное мясо — источник легкоусвояемого белка и железа для роста.",
+      "nutrients": ["Белок", "Железо", "Цинк", "Витамин B12"]
     },
     {
       "id": "rabbit",
@@ -288,7 +298,9 @@
       "emoji": "🥚",
       "isAllergen": true,
       "allergenGroup": "egg",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Желток богат холином и витамином D — важны для мозга и костей. Ранний ввод снижает риск аллергии.",
+      "nutrients": ["Холин", "Витамин D", "Железо", "Белок"]
     },
     {
       "id": "egg_white",

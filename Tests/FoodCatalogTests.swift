@@ -44,6 +44,36 @@ final class FoodCatalogTests: XCTestCase {
         XCTAssertThrowsError(try FoodCatalog.decode(bad))
     }
 
+    /// Поля «чем полезен / нутриенты» (п.12): декодируются и когда есть, и когда нет.
+    func testDecodeBenefitsAndNutrientsOptional() throws {
+        let json = """
+        { "version": 1, "foods": [
+            { "id": "zucchini", "name": "Кабачок", "category": "vegetable",
+              "emoji": "🥒", "isAllergen": false, "allergenGroup": null, "minAgeMonths": 4,
+              "benefits": "Лёгкий овощ.", "nutrients": ["Калий", "Витамин C"] },
+            { "id": "plain", "name": "Без полей", "category": "other",
+              "emoji": "🍎", "isAllergen": false, "allergenGroup": null, "minAgeMonths": 6 }
+        ] }
+        """.data(using: .utf8)!
+
+        let decoded = try FoodCatalog.decode(json)
+        let z = try XCTUnwrap(decoded.food(id: "zucchini"))
+        XCTAssertEqual(z.benefits, "Лёгкий овощ.")
+        XCTAssertEqual(z.nutrients, ["Калий", "Витамин C"])
+        XCTAssertNotNil(z.localizedBenefits)
+
+        let plain = try XCTUnwrap(decoded.food(id: "plain"))
+        XCTAssertNil(plain.benefits)
+        XCTAssertNil(plain.nutrients)
+        XCTAssertNil(plain.localizedBenefits)
+    }
+
+    /// В бандле есть продукты с заполненной пользой (образцы наполнения).
+    func testBundledCatalogHasSomeBenefits() {
+        XCTAssertTrue(catalog.all.contains { $0.benefits?.isEmpty == false },
+                      "ожидаются продукты с описанием пользы")
+    }
+
     // MARK: - Целостность данных
 
     func testEveryFoodHasUniqueId() {
