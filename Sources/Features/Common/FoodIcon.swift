@@ -27,8 +27,10 @@ struct FoodIcon: View {
     var size: CGFloat = 46
 
     private var image: UIImage? {
-        // Свои продукты рисуем выбранным эмодзи (нет ассета) — не подменяем иконкой категории.
-        if food.id.hasPrefix("custom-") { return nil }
+        // Свои продукты — OpenMoji-иконка по выбранному эмодзи (без подмены категорией).
+        if food.id.hasPrefix("custom-") {
+            return CustomFoodIcons.asset(for: food.emoji).flatMap { UIImage(named: $0) }
+        }
         return UIImage(named: "food_\(food.id)") ?? UIImage(named: "cat_\(food.category.rawValue)")
     }
 

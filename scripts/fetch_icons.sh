@@ -145,5 +145,9 @@ echo "=== ui ==="
 while read -r u code; do [ -z "$u" ] && continue; mk "ui_$u" "$code"; done <<< "$ui"
 echo "=== categories ==="
 while read -r c code; do [ -z "$c" ] && continue; mk "cat_$c" "$code"; done <<< "$cats"
+# Подборка иконок для выбора при добавлении своего продукта (pick_<кодпоинт>).
+picks="1F34E 1F350 1F34A 1F34C 1F349 1F347 1F353 1FAD0 1F352 1F351 1F96D 1F34D 1F95D 1F345 1F346 1F951 1F966 1F96C 1F952 1F33D 1F955 1F9C5 1F954 1F360 1F35E 1F9C0 1F95A 1F357 1F969 1F41F 1F35A 1F35D 1F963 1F372 1F957 1F36E 1F36A 1F9C3 1F95B 1F36F"
+echo "=== picks ==="
+for code in $picks; do mk "pick_$code" "$code"; done
 echo "=== done ==="
 ls "$ASSETS" | grep -c imageset | xargs echo "imagesets:"

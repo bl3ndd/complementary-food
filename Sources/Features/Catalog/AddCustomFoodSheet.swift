@@ -8,15 +8,11 @@ struct AddCustomFoodSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var name = ""
-    @State private var emoji = "🍴"
+    @State private var emoji = CustomFoodIcons.options.first?.emoji ?? "🍎"
     @State private var minAge = 6
+    @State private var isAllergen = false
 
-    /// Курируемая подборка еда-эмодзи для выбора иконки.
-    private let emojis = ["🍎","🍐","🍊","🍋","🍌","🍉","🍇","🍓","🫐","🍒","🍑","🥭",
-                          "🍍","🥝","🍅","🥑","🥦","🥬","🥒","🌽","🥕","🧅","🥔","🍠",
-                          "🍞","🥐","🧀","🥚","🍗","🥩","🐟","🍚","🍝","🥣","🍲","🥗",
-                          "🍮","🍪","🧃","🥛","🍯","🫘"]
-    private let columns = [GridItem(.adaptive(minimum: 46), spacing: 8)]
+    private let columns = [GridItem(.adaptive(minimum: 50), spacing: 8)]
 
     var body: some View {
         NavigationStack {
@@ -26,6 +22,7 @@ struct AddCustomFoodSheet: View {
                     nameCard
                     emojiCard
                     ageCard
+                    allergenCard
                     BigButton(title: "Добавить") { save() }
                         .padding(.top, 4)
                         .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -45,8 +42,7 @@ struct AddCustomFoodSheet: View {
 
     private var preview: some View {
         VStack(spacing: 8) {
-            Text(emoji)
-                .font(.system(size: 44))
+            OpenMojiIcon(asset: CustomFoodIcons.asset(for: emoji) ?? "", fallback: emoji, size: 52)
                 .frame(width: 84, height: 84)
                 .background(Theme.softGradient(Theme.lilac),
                             in: RoundedRectangle(cornerRadius: 24, style: .continuous))
@@ -75,19 +71,31 @@ struct AddCustomFoodSheet: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Иконка").font(.subheadline.bold())
             LazyVGrid(columns: columns, spacing: 8) {
-                ForEach(emojis, id: \.self) { e in
-                    Button { emoji = e } label: {
-                        Text(e).font(.system(size: 26))
-                            .frame(width: 46, height: 46)
-                            .background(emoji == e ? Theme.accent.opacity(0.16) : Color.black.opacity(0.03),
+                ForEach(CustomFoodIcons.options, id: \.code) { opt in
+                    Button { emoji = opt.emoji } label: {
+                        OpenMojiIcon(asset: "pick_\(opt.code)", fallback: opt.emoji, size: 30)
+                            .frame(width: 50, height: 50)
+                            .background(emoji == opt.emoji ? Theme.accent.opacity(0.16) : Color.black.opacity(0.03),
                                         in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(emoji == e ? Theme.accent : .clear, lineWidth: 2))
+                                .stroke(emoji == opt.emoji ? Theme.accent : .clear, lineWidth: 2))
                     }
                     .buttonStyle(.plain)
                 }
             }
         }
+        .cartoonCard()
+    }
+
+    private var allergenCard: some View {
+        Toggle(isOn: $isAllergen) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Это аллерген").font(.subheadline.weight(.medium))
+                Text("Пометим как аллерген и будем осторожнее при вводе.")
+                    .font(.caption2).foregroundStyle(.secondary)
+            }
+        }
+        .tint(Theme.accent)
         .cartoonCard()
     }
 
@@ -105,7 +113,8 @@ struct AddCustomFoodSheet: View {
     private func save() {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
-        context.insert(CustomFood(name: trimmed, emoji: emoji, minAgeMonths: minAge))
+        context.insert(CustomFood(name: trimmed, emoji: emoji,
+                                  minAgeMonths: minAge, isAllergen: isAllergen))
         try? context.save()
         let all = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []
         FoodCatalog.setCustom(all)
