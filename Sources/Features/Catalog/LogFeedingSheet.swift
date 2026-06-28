@@ -13,6 +13,7 @@ struct LogFeedingSheet: View {
     @State private var liking: Liking?
     @State private var reaction: ReactionType = .none
     @State private var note = ""
+    @State private var date = Date()
 
     private let columns = [GridItem(.flexible(), spacing: 10),
                            GridItem(.flexible(), spacing: 10),
@@ -23,6 +24,7 @@ struct LogFeedingSheet: View {
             ScrollView {
                 VStack(spacing: 16) {
                     header
+                    dateCard
                     likingCard
                     reactionCard
                     noteCard
@@ -40,6 +42,17 @@ struct LogFeedingSheet: View {
                 }
             }
         }
+    }
+
+    // MARK: - Дата кормления
+
+    private var dateCard: some View {
+        DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) {
+            Label("Когда давали", systemImage: "calendar")
+                .font(.subheadline.weight(.medium))
+        }
+        .tint(Theme.accent)
+        .cartoonCard()
     }
 
     // MARK: - Шапка с продуктом
@@ -130,10 +143,11 @@ struct LogFeedingSheet: View {
         let service = FeedingService(context: context)
         service.logFeeding(food,
                            liking: liking,
-                           reaction: reaction == .none ? nil : reaction)
+                           reaction: reaction == .none ? nil : reaction,
+                           date: date)
         if !note.isEmpty {
             // заметку кладём отдельной записью-комментарием, чтобы не усложнять API
-            context.insert(FoodLog(foodId: food.id, note: note))
+            context.insert(FoodLog(foodId: food.id, date: date, note: note))
             try? context.save()
         }
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)

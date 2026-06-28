@@ -40,10 +40,12 @@ struct FeedingService {
 
     /// Запись кормления. Реакция двигает стейт-машину:
     /// реакция при вводе → paused; реакция на уже введённый → allergy (SPEC §4.4).
-    func logFeeding(_ food: Food, liking: Liking?, reaction: ReactionType?) {
+    func logFeeding(_ food: Food, liking: Liking?, reaction: ReactionType?,
+                    date: Date = Date()) {
         let s = status(for: food.id)
         let isMaintenance = (s.state == .introduced)
         context.insert(FoodLog(foodId: food.id,
+                               date: date,
                                type: isMaintenance ? .maintenance : .intro,
                                reaction: reaction,
                                liking: liking))
