@@ -37,6 +37,7 @@ struct CalendarView: View {
             }
             .background(AppBackground())
             .navigationTitle("Календарь")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Date.self) { date in
                 DayDetailView(date: date)
             }
