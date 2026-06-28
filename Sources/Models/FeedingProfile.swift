@@ -72,4 +72,32 @@ struct FeedingProfile: Identifiable, Codable, Hashable {
     static func preset(id: String) -> FeedingProfile {
         presets.first { $0.id == id } ?? who
     }
+
+    // MARK: - Свой план (custom)
+
+    /// id «своего плана» — параметры берутся из custom-полей `Child`, не из пресетов.
+    static let customId = "custom"
+
+    /// Разумные границы для редактора своего плана.
+    enum CustomLimits {
+        static let startAge = 4...8
+        static let observation = 1...14
+        static let frequency = 1...7
+    }
+
+    /// Собирает методику из пользовательских настроек ребёнка.
+    static func custom(from child: Child) -> FeedingProfile {
+        FeedingProfile(
+            id: customId,
+            name: "Свой план",
+            startAgeMonths: child.customStartAgeMonths,
+            observationDays: child.customObservationDays,
+            allergenFrequencyPerWeek: max(1, child.customAllergenFrequencyPerWeek),
+            allergenGroups: child.customAllergenGroups,
+            isPreset: false,
+            source: "Свой план — настроен вами",
+            sourceURL: "https://pudding-for-children.vercel.app/#method",
+            caveat: "Это ваши собственные настройки, а не клиническая рекомендация. Сроки введения продуктов и аллергенов согласуйте с педиатром."
+        )
+    }
 }

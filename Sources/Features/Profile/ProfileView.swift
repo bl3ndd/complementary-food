@@ -21,19 +21,19 @@ struct ProfileView: View {
                         ForEach(FeedingProfile.presets) { preset in
                             Text(preset.name).tag(preset.id)
                         }
+                        Text("Свой план").tag(FeedingProfile.customId)
                     }
-                    let p = child.feedingProfile
-                    LabeledContent("Старт", value: "~\(p.startAgeMonths) мес")
-                    LabeledContent("Окно наблюдения", value: "\(p.observationDays) дн")
-                    LabeledContent("Аллерген", value: "\(p.allergenFrequencyPerWeek)×/нед")
-                    if let url = URL(string: p.sourceURL) {
-                        Link(destination: url) {
-                            Label(p.source, systemImage: "doc.text.magnifyingglass")
-                                .font(.footnote)
-                        }
+                }
+
+                Section {
+                    MethodologyCard(profile: child.feedingProfile, expanded: true)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+                    if child.feedingProfileId == FeedingProfile.customId {
+                        CustomPlanEditor(child: child)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                     }
-                    Text(p.caveat)
-                        .font(.caption).foregroundStyle(.secondary)
                 }
 
                 Section("О приложении") {
@@ -59,10 +59,18 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .background(AppBackground())
             .navigationTitle("Профиль")
-            .onChange(of: child.feedingProfileId) {
-                try? context.save()
-                NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
-            }
+            .onChange(of: child.feedingProfileId) { persist() }
+            .onChange(of: customSignature) { persist() }
         }
+    }
+
+    /// Подпись custom-параметров — чтобы реагировать на правки своего плана.
+    private var customSignature: String {
+        "\(child.customStartAgeMonths)/\(child.customObservationDays)/\(child.customAllergenFrequencyPerWeek)/\(child.customAllergenGroupsRaw)"
+    }
+
+    private func persist() {
+        try? context.save()
+        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }
 }

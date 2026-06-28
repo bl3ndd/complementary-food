@@ -31,4 +31,55 @@ final class FeedingProfileTests: XCTestCase {
         XCTAssertEqual(FeedingProfile.preset(id: "does-not-exist").id, FeedingProfile.who.id)
         XCTAssertEqual(FeedingProfile.preset(id: "aap").id, "aap")
     }
+
+    // MARK: - Свой план (custom)
+
+    func testCustomProfileBuiltFromChild() {
+        let child = Child(feedingProfileId: FeedingProfile.customId)
+        child.customStartAgeMonths = 5
+        child.customObservationDays = 7
+        child.customAllergenFrequencyPerWeek = 1
+        child.customAllergenGroups = [.egg, .fish]
+
+        let p = child.feedingProfile
+        XCTAssertEqual(p.id, FeedingProfile.customId)
+        XCTAssertFalse(p.isPreset)
+        XCTAssertEqual(p.startAgeMonths, 5)
+        XCTAssertEqual(p.observationDays, 7)
+        XCTAssertEqual(p.allergenFrequencyPerWeek, 1)
+        XCTAssertEqual(p.allergenGroups, [.egg, .fish])
+        XCTAssertFalse(p.source.isEmpty)
+        XCTAssertFalse(p.caveat.isEmpty)
+    }
+
+    func testChildFallsBackToPresetForNonCustomId() {
+        XCTAssertEqual(Child(feedingProfileId: "aap").feedingProfile.id, "aap")
+        XCTAssertEqual(Child(feedingProfileId: "nope").feedingProfile.id, FeedingProfile.who.id)
+    }
+
+    func testCustomAllergenGroupsRoundTrip() {
+        let child = Child()
+        child.customAllergenGroups = [.peanut, .treenut, .sesame]
+        XCTAssertEqual(child.customAllergenGroups, [.peanut, .treenut, .sesame])
+        // Дефолт парсится в непустой список.
+        XCTAssertFalse(Child().customAllergenGroups.isEmpty)
+    }
+
+    func testClampCustomBringsValuesIntoRange() {
+        let child = Child()
+        child.customStartAgeMonths = 99
+        child.customObservationDays = 0
+        child.customAllergenFrequencyPerWeek = 50
+        child.clampCustom()
+        XCTAssertEqual(child.customStartAgeMonths, FeedingProfile.CustomLimits.startAge.upperBound)
+        XCTAssertEqual(child.customObservationDays, FeedingProfile.CustomLimits.observation.lowerBound)
+        XCTAssertEqual(child.customAllergenFrequencyPerWeek, FeedingProfile.CustomLimits.frequency.upperBound)
+    }
+
+    func testCustomDefaultsAreSane() {
+        let p = Child(feedingProfileId: FeedingProfile.customId).feedingProfile
+        XCTAssertTrue((4...8).contains(p.startAgeMonths))
+        XCTAssertTrue((1...14).contains(p.observationDays))
+        XCTAssertGreaterThanOrEqual(p.maintenanceIntervalDays, 1)
+    }
 }
