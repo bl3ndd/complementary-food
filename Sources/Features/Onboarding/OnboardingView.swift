@@ -1,9 +1,8 @@
 import SwiftUI
 import SwiftData
 
-/// Онбординг (SPEC §12): Welcome → Ребёнок → Методика. Дисклеймер смягчён —
-/// мягкая сноска на welcome, полный текст в «О приложении». Пуши тут НЕ просим —
-/// контекстно при вводе первого аллергена.
+/// Онбординг (SPEC §12): Welcome → Ребёнок → Методика. Медицинский дисклеймер —
+/// в Профиле (секция «Важно»). Пуши тут НЕ просим — контекстно при первом аллергене.
 struct OnboardingView: View {
     @Environment(\.modelContext) private var context
 
@@ -48,9 +47,6 @@ struct OnboardingView: View {
             Text("Pudding").font(.largeTitle.bold())
             Text("Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.")
                 .foregroundStyle(.secondary).padding(.horizontal)
-            Text(Disclaimer.welcome)
-                .font(.caption2).foregroundStyle(.tertiary)
-                .padding(.top, 8)
         }
     }
 
@@ -58,13 +54,22 @@ struct OnboardingView: View {
         VStack(spacing: 16) {
             haloMascot(.curious, color: Theme.sky)
             Text("О ребёнке").font(.title.bold())
-            Form {
-                TextField("Имя (необязательно)", text: $name)
-                DatePicker("Дата рождения", selection: $birthDate,
-                           in: ...Date(), displayedComponents: .date)
+            VStack(spacing: 4) {
+                TextField("Имя малыша", text: $name)
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+                    .padding(.vertical, 12)
+                Divider()
+                HStack {
+                    Text("Дата рождения").foregroundStyle(.secondary)
+                    Spacer()
+                    DatePicker("", selection: $birthDate, in: ...Date(),
+                               displayedComponents: .date)
+                        .labelsHidden()
+                }
+                .padding(.vertical, 6)
             }
-            .frame(height: 140)
-            .scrollContentBackground(.hidden)
+            .cartoonCard()
         }
     }
 
@@ -92,7 +97,9 @@ struct OnboardingView: View {
                 }
             }
             .padding(.vertical, 8)
+            .padding(.horizontal, 3)   // чтобы рамка выбранной карточки не обрезалась о край скролла
         }
+        .scrollIndicators(.hidden)
     }
 
     /// Маскот-гид в мягком цветном круге.
@@ -106,6 +113,11 @@ struct OnboardingView: View {
 
     // MARK: - Кнопка / переходы
 
+    /// На шаге «О ребёнке» имя обязательно.
+    private var canProceed: Bool {
+        step != 1 || !name.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
     private var button: some View {
         Button(action: next) {
             Text(step >= lastStep ? "Погнали! 🚀" : "Далее")
@@ -113,11 +125,14 @@ struct OnboardingView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .foregroundStyle(.white)
-                .background(Theme.accentGradient)
+                .background {
+                    if canProceed { Theme.accentGradient } else { Color.gray.opacity(0.4) }
+                }
                 .clipShape(Capsule())
-                .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 5)
+                .shadow(color: Theme.accent.opacity(canProceed ? 0.35 : 0), radius: 10, y: 5)
         }
         .buttonStyle(BouncyButtonStyle())
+        .disabled(!canProceed)
     }
 
     private func next() {
@@ -129,7 +144,8 @@ struct OnboardingView: View {
     }
 
     private func finish() {
-        let child = Child(name: name, birthDate: birthDate, feedingProfileId: profileId)
+        let child = Child(name: name.trimmingCharacters(in: .whitespaces),
+                          birthDate: birthDate, feedingProfileId: profileId)
         if profileId == FeedingProfile.customId {
             child.customStartAgeMonths = draftChild.customStartAgeMonths
             child.customObservationDays = draftChild.customObservationDays

@@ -104,6 +104,27 @@ struct BigButton: View {
     }
 }
 
+/// Вторичная (контурная) кнопка на всю ширину — для менее частых действий
+/// (например «была реакция»), чтобы не перетягивать внимание с главной.
+struct GhostButton: View {
+    let title: String
+    var tint: Color = Theme.accent
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .fontWeight(.semibold)
+                .foregroundStyle(tint)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(tint.opacity(0.10), in: Capsule())
+                .overlay(Capsule().stroke(tint.opacity(0.40), lineWidth: 1.5))
+        }
+        .buttonStyle(BouncyButtonStyle())
+    }
+}
+
 /// Компактная капсула-кнопка действия (например «Дал», «Полить»).
 struct PillButton: View {
     let title: String

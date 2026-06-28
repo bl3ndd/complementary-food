@@ -105,10 +105,10 @@ struct FoodDetailView: View {
             if canComplete {
                 BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
             }
-            BigButton(title: "Была реакция / аллергия 😟", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Была реакция / аллергия", tint: .red) { showLogSheet = true }
         case .introduced:
             BigButton(title: "Записать кормление") { showLogSheet = true }
-            BigButton(title: "Появилась реакция / аллергия 😟", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Появилась реакция / аллергия", tint: .red) { showLogSheet = true }
         case .paused:
             BigButton(title: "Повторить ввод") { start() }
         case .allergy:
