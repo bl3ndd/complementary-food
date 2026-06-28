@@ -6,6 +6,8 @@ struct ProfileView: View {
     @Bindable var child: Child
     @Environment(\.modelContext) private var context
     @State private var showResetConfirm = false
+    @AppStorage("app.language") private var language: AppLanguage = .system
+    @State private var showLanguageRestart = false
 
     var body: some View {
         NavigationStack {
@@ -14,7 +16,7 @@ struct ProfileView: View {
                     TextField("Имя", text: $child.name)
                     DatePicker("Дата рождения", selection: $child.birthDate,
                                in: ...Date(), displayedComponents: .date)
-                    LabeledContent("Возраст", value: "\(child.ageInMonths) мес")
+                    LabeledContent("Возраст", value: String(localized: "\(child.ageInMonths) мес"))
                 }
 
                 Section("Методика прикорма") {
@@ -37,6 +39,16 @@ struct ProfileView: View {
                     }
                 }
 
+                Section("Язык") {
+                    Picker(selection: $language) {
+                        ForEach(AppLanguage.allCases) { lang in
+                            Text(lang.title).tag(lang)
+                        }
+                    } label: {
+                        Label("Язык", systemImage: "globe")
+                    }
+                }
+
                 Section("О приложении") {
                     Link(destination: AppLinks.privacyPolicyURL) {
                         Label("Политика конфиденциальности", systemImage: "lock.shield")
@@ -45,7 +57,7 @@ struct ProfileView: View {
                         Label("Условия использования", systemImage: "doc.text")
                     }
                     Link(destination: AppLinks.supportMailto) {
-                        Label("Поддержка", systemImage: "envelope")
+                        Label(String(localized: "support.link", defaultValue: "Поддержка"), systemImage: "envelope")
                     }
                     LabeledContent("Версия", value: Bundle.main.appVersion)
                 }
@@ -76,11 +88,20 @@ struct ProfileView: View {
             .navigationTitle("Профиль")
             .onChange(of: child.feedingProfileId) { persist() }
             .onChange(of: customSignature) { persist() }
+            .onChange(of: language) {
+                LanguageManager.apply(language)
+                showLanguageRestart = true
+            }
             .alert("Сбросить все данные?", isPresented: $showResetConfirm) {
                 Button("Сбросить", role: .destructive) { resetAll() }
                 Button("Отмена", role: .cancel) {}
             } message: {
                 Text("Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу.")
+            }
+            .alert("Язык изменён", isPresented: $showLanguageRestart) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Перезапустите приложение, чтобы применить новый язык.")
             }
         }
     }

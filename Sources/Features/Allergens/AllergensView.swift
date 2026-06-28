@@ -31,11 +31,11 @@ struct AllergensView: View {
                 Mascot(mood: MascotMood.forDue(dueCount), size: 46)
             }
             VStack(alignment: .leading, spacing: 3) {
-                Text(dueCount > 0 ? "Пора освежить" : "Всё под контролем")
+                Text(dueCount > 0 ? String(localized: "Пора освежить") : String(localized: "Всё под контролем"))
                     .font(.title3.bold()).foregroundStyle(.white)
                 Text(dueCount > 0
-                     ? "\(dueCount) \(allergenWord(dueCount)) ждут — дай, чтобы сохранить толерантность"
-                     : "Знакомые аллергены повторяются вовремя")
+                     ? String(localized: "\(dueCount) аллергенов ждут — дай, чтобы сохранить толерантность")
+                     : String(localized: "Знакомые аллергены повторяются вовремя"))
                     .font(.caption.weight(.medium)).foregroundStyle(.white.opacity(0.9))
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -83,23 +83,28 @@ struct AllergensView: View {
 
     private func info(for group: AllergenGroupStatus) -> RowInfo {
         if group.hasAllergy {
-            return RowInfo(badge: "Аллергия", subtitle: "Только по согласованию с врачом",
+            return RowInfo(badge: String(localized: "Аллергия"),
+                           subtitle: String(localized: "Только по согласованию с врачом"),
                            color: .red, canGive: false)
         }
         if !group.isIntroduced {
-            return RowInfo(badge: "Не введён", subtitle: "Ещё не вводили этот аллерген",
+            return RowInfo(badge: String(localized: "Не введён"),
+                           subtitle: String(localized: "Ещё не вводили этот аллерген"),
                            color: .gray, canGive: false)
         }
         switch group.status {
         case .ok:
-            let due = group.nextDue.map { "Повторить до \($0.shortDate)" } ?? "Поддерживается"
-            return RowInfo(badge: "В норме", subtitle: due, color: Theme.mint, canGive: false)
+            let due = group.nextDue.map { String(localized: "Повторить до \($0.shortDate)") }
+                ?? String(localized: "Поддерживается")
+            return RowInfo(badge: String(localized: "В норме"), subtitle: due, color: Theme.mint, canGive: false)
         case .dueSoon:
-            let due = group.nextDue.map { "Лучше дать до \($0.shortDate)" } ?? "Скоро пора дать"
-            return RowInfo(badge: "Скоро", subtitle: due, color: .orange, canGive: true)
+            let due = group.nextDue.map { String(localized: "Лучше дать до \($0.shortDate)") }
+                ?? String(localized: "Скоро пора дать")
+            return RowInfo(badge: String(localized: "Скоро"), subtitle: due, color: .orange, canGive: true)
         case .overdue:
-            let last = group.lastGiven.map { "Давали \($0.shortDate)" } ?? "Ещё не давали в поддержку"
-            return RowInfo(badge: "Пора дать", subtitle: last, color: Theme.accent, canGive: true)
+            let last = group.lastGiven.map { String(localized: "Давали \($0.shortDate)") }
+                ?? String(localized: "Ещё не давали в поддержку")
+            return RowInfo(badge: String(localized: "Пора дать"), subtitle: last, color: Theme.accent, canGive: true)
         }
     }
 
@@ -122,13 +127,6 @@ struct AllergensView: View {
 
     private var dueCount: Int {
         groups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
-    }
-
-    private func allergenWord(_ n: Int) -> String {
-        let mod10 = n % 10, mod100 = n % 100
-        if mod10 == 1 && mod100 != 11 { return "аллерген" }
-        if (2...4).contains(mod10) && !(12...14).contains(mod100) { return "аллергена" }
-        return "аллергенов"
     }
 
     private func give(_ group: AllergenGroupStatus) {

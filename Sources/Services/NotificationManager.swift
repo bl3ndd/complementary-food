@@ -96,7 +96,7 @@ final class NotificationManager {
 
             let content = UNMutableNotificationContent()
             content.title = "Pudding"
-            content.body = "Пора освежить введённый аллерген — загляни в приложение."
+            content.body = String(localized: "Пора освежить введённый аллерген — загляни в приложение.")
             content.sound = .default
 
             var comps = DateComponents()
@@ -134,7 +134,7 @@ final class NotificationManager {
 
                     let content = UNMutableNotificationContent()
                     content.title = "Pudding"
-                    content.body = "Продолжай вводить продукт — день \(day) из \(observationDays). Следи за реакцией 👀"
+                    content.body = String(localized: "Продолжай вводить продукт — день \(day) из \(observationDays). Следи за реакцией 👀")
                     content.sound = .default
 
                     let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)

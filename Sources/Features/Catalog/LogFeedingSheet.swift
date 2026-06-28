@@ -61,7 +61,7 @@ struct LogFeedingSheet: View {
         HStack(spacing: 12) {
             FoodIcon(food: food, size: 52)
             VStack(alignment: .leading, spacing: 2) {
-                Text(food.name).font(.title3.bold())
+                Text(food.localizedName).font(.title3.bold())
                 Text("Как прошло кормление?").font(.subheadline).foregroundStyle(.secondary)
             }
             Spacer()

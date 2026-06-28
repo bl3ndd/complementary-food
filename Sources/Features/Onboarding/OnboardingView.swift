@@ -120,7 +120,7 @@ struct OnboardingView: View {
 
     private var button: some View {
         Button(action: next) {
-            Text(step >= lastStep ? "Погнали! 🚀" : "Далее")
+            Text(step >= lastStep ? String(localized: "Погнали! 🚀") : String(localized: "Далее"))
                 .font(.headline.bold())
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)

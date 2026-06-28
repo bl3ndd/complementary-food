@@ -65,7 +65,7 @@ struct MethodologyCard: View {
         .shadow(color: Theme.accentDeep.opacity(0.10), radius: 12, y: 6)
     }
 
-    private func paramChip(_ icon: String, _ title: String, _ value: String) -> some View {
+    private func paramChip(_ icon: String, _ title: LocalizedStringKey, _ value: LocalizedStringKey) -> some View {
         VStack(spacing: 3) {
             Image(systemName: icon).font(.caption).foregroundStyle(Theme.accent)
             Text(value).font(.subheadline.bold())

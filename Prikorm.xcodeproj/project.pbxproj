@@ -39,6 +39,7 @@
 		83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */; };
 		8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */; };
 		8D99DEE880F75760A39518B4 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */; };
+		99C0A75ED7B0D7512C975255 /* AppLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */; };
 		9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */; };
 		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
 		B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */; };
@@ -47,10 +48,12 @@
 		BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6CBE520BAA18B97B67374 /* FoodLog.swift */; };
 		BC6154128575F7506FCE9C36 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */; };
 		BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4088924D10FC333495FBF4AE /* AppLinks.swift */; };
+		C260263DBC9B0417E64CF911 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */; };
 		C5D0EAB39E7C11FC66DEC3DB /* FeedingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */; };
 		E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E7FEF7218059F4616EC495 /* CalendarService.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
 		F57A8FBC6AF6B7038AE1BE86 /* CustomFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49835FD1784A5B3FA0982C87 /* CustomFood.swift */; };
+		F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */; };
 		F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85E899E48B738A329E5CB660 /* Media.xcassets */; };
 		F889822FF247BB7C7BB8704C /* MethodologyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7AD38E0F78CFEC90743B90 /* MethodologyCard.swift */; };
 		F957DD6E4373E648D08274F9 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21161D9379ED59AF6BECDBFB /* Child.swift */; };
@@ -81,6 +84,8 @@
 		218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		24B3F9D6390A41694B9F5043 /* AddCustomFoodSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomFoodSheet.swift; sourceTree = "<group>"; };
 		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageTests.swift; sourceTree = "<group>"; };
+		3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
 		4088924D10FC333495FBF4AE /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		49835FD1784A5B3FA0982C87 /* CustomFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFood.swift; sourceTree = "<group>"; };
 		4CF87C40EB3D72ED2F5C39B7 /* foods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = foods.json; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		57582D03E1DD713519F97F27 /* AllergenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTests.swift; sourceTree = "<group>"; };
 		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingProfile.swift; sourceTree = "<group>"; };
+		6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		6EEE512BF23D205F3A40501F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
@@ -152,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				57582D03E1DD713519F97F27 /* AllergenTests.swift */,
+				2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */,
 				E1CA74998939067F427B3264 /* AppShellTests.swift */,
 				CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */,
 				0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */,
@@ -181,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				4CF87C40EB3D72ED2F5C39B7 /* foods.json */,
+				6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */,
 				85E899E48B738A329E5CB660 /* Media.xcassets */,
 			);
 			path = Resources;
@@ -283,6 +291,7 @@
 		E89C952FA3A34A1CACCAE9AD /* App */ = {
 			isa = PBXGroup;
 			children = (
+				3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */,
 				4088924D10FC333495FBF4AE /* AppLinks.swift */,
 				DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */,
 				95348E771F9D85BF57C252EA /* PrikormApp.swift */,
@@ -355,11 +364,12 @@
 				};
 			};
 			buildConfigurationList = E95CB6DFAE307A18CF82430C /* Build configuration list for PBXProject "Prikorm" */;
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
 				en,
+				ru,
 			);
 			mainGroup = 96BD03F1B06475427E7BDC98;
 			minimizedProjectReferenceProxies = 1;
@@ -379,6 +389,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C260263DBC9B0417E64CF911 /* Localizable.xcstrings in Resources */,
 				F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */,
 				51E1607B81EE325063A2D1E4 /* foods.json in Resources */,
 			);
@@ -392,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11D010D47663E97F43330F26 /* AllergenTests.swift in Sources */,
+				99C0A75ED7B0D7512C975255 /* AppLanguageTests.swift in Sources */,
 				11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */,
 				FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */,
 				8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */,
@@ -413,6 +425,7 @@
 				03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */,
 				B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */,
 				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
+				F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */,
 				BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */,
 				E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */,
 				14A679536E76A2808BB20159 /* CalendarView.swift in Sources */,

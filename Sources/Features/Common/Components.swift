@@ -77,7 +77,7 @@ struct ProgressRingOnColor: View {
 
 /// Крупная primary-кнопка на всю ширину с градиентом и мягкой тенью.
 struct BigButton: View {
-    let title: String
+    let title: LocalizedStringKey
     var tint: Color? = nil          // nil → фирменный градиент-акцент
     let action: () -> Void
 
@@ -107,7 +107,7 @@ struct BigButton: View {
 /// Вторичная (контурная) кнопка на всю ширину — для менее частых действий
 /// (например «была реакция»), чтобы не перетягивать внимание с главной.
 struct GhostButton: View {
-    let title: String
+    let title: LocalizedStringKey
     var tint: Color = Theme.accent
     let action: () -> Void
 
@@ -127,7 +127,7 @@ struct GhostButton: View {
 
 /// Компактная капсула-кнопка действия (например «Дал», «Полить»).
 struct PillButton: View {
-    let title: String
+    let title: LocalizedStringKey
     var tint: Color = Theme.accent
     let action: () -> Void
 

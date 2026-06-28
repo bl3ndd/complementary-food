@@ -25,7 +25,7 @@ struct DayDetailView: View {
             }
         }
         .background(AppBackground())
-        .navigationTitle(date.formatted(.dateTime.day().month().year().locale(.ru)))
+        .navigationTitle(date.formatted(.dateTime.day().month().year()))
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -37,11 +37,13 @@ struct DayDetailView: View {
                 EmojiAvatar(emoji: "🍽️", asset: "ui_plate")
             }
             VStack(alignment: .leading, spacing: 4) {
-                Text(entry.foodName).font(.headline)
+                Text(entry.food?.localizedName ?? entry.foodName).font(.headline)
                 HStack(spacing: 6) {
-                    Text(entry.date.formatted(.dateTime.hour().minute().locale(.ru)))
+                    Text(entry.date.formatted(.dateTime.hour().minute()))
                         .font(.caption).foregroundStyle(.secondary)
-                    StatusBadge(text: entry.type == .intro ? "Ввод" : "Поддержка",
+                    StatusBadge(text: entry.type == .intro
+                                ? String(localized: "Ввод")
+                                : String(localized: "maintenance.type", defaultValue: "Поддержка"),
                                 color: entry.type == .intro ? Theme.accent : .blue)
                     if let reaction = entry.reaction, reaction != .none {
                         StatusBadge(text: reaction.title, color: .red)

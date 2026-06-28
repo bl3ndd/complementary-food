@@ -45,7 +45,7 @@ struct FoodDetailView: View {
             .padding()
         }
         .background(AppBackground())
-        .navigationTitle(food.name)
+        .navigationTitle(food.localizedName)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showLogSheet) {
             LogFeedingSheet(food: food, child: child)
@@ -75,10 +75,10 @@ struct FoodDetailView: View {
     private var heroCard: some View {
         VStack(spacing: 12) {
             FoodIcon(food: food, size: 88)
-            Text(food.name).font(.title.bold())
+            Text(food.localizedName).font(.title.bold())
             StatusBadge(text: state.title, color: state.color)
             HStack(spacing: 8) {
-                Chip("с \(food.minAgeMonths) мес", icon: "calendar")
+                Chip(String(localized: "с \(food.minAgeMonths) мес"), icon: "calendar")
                 Chip(food.category.title, icon: "square.grid.2x2",
                      color: Theme.categoryColor(food.category))
                 if let group = food.allergenGroup {
@@ -126,8 +126,8 @@ struct FoodDetailView: View {
                 Text("День \(min(day, observationDays)) из \(observationDays)")
                     .font(.subheadline.bold())
                 Text(canComplete
-                     ? "Окно наблюдения прошло. Если реакции не было — отметь «ввёл успешно»."
-                     : "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после \(observationDays) дн.")
+                     ? String(localized: "Окно наблюдения прошло. Если реакции не было — отметь «ввёл успешно».")
+                     : String(localized: "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после \(observationDays) дн."))
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -168,10 +168,12 @@ struct FoodDetailView: View {
     /// Описание записи журнала: тип, иконка, цвет.
     private func entryKind(_ log: FoodLog) -> (label: String, icon: String, color: Color) {
         if log.note != nil && log.liking == nil && (log.reaction == nil || log.reaction == ReactionType.none) {
-            return ("Заметка", "note.text", Theme.lilac)
+            return (String(localized: "Заметка"), "note.text", Theme.lilac)
         }
-        if log.type == .maintenance { return ("Поддержка", "drop.fill", Theme.sky) }
-        return ("Ввод", "leaf.fill", Theme.mint)
+        if log.type == .maintenance {
+            return (String(localized: "maintenance.type", defaultValue: "Поддержка"), "drop.fill", Theme.sky)
+        }
+        return (String(localized: "Ввод"), "leaf.fill", Theme.mint)
     }
 
     private func historyRow(_ log: FoodLog) -> some View {
@@ -195,7 +197,7 @@ struct FoodDetailView: View {
                         OpenMojiIcon(asset: "like_\(liking.rawValue)",
                                      fallback: liking.emoji, size: 22)
                     }
-                    Text(log.date.formatted(.dateTime.day().month().hour().minute().locale(.ru)))
+                    Text(log.date.formatted(.dateTime.day().month().hour().minute()))
                         .font(.caption2).foregroundStyle(.secondary)
                 }
                 if let note = log.note, !note.isEmpty {

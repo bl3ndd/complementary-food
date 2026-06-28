@@ -48,7 +48,7 @@ struct AddCustomFoodSheet: View {
                             in: RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .stroke(.white.opacity(0.6), lineWidth: 1))
-            Text(name.isEmpty ? "Название" : name)
+            Text(name.isEmpty ? String(localized: "Название") : name)
                 .font(.headline)
                 .foregroundStyle(name.isEmpty ? .secondary : .primary)
         }

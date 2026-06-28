@@ -46,7 +46,7 @@ struct DashboardView: View {
     // MARK: - Секции
 
     @ViewBuilder
-    private func section<Content: View>(title: String, icon: String? = nil,
+    private func section<Content: View>(title: LocalizedStringKey, icon: String? = nil,
                                         @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
@@ -81,7 +81,7 @@ struct DashboardView: View {
         NavigationLink(value: item.food) {
             HStack(spacing: 12) {
                 FoodIcon(food: item.food)
-                Text(item.food.name).font(.headline).foregroundStyle(.primary)
+                Text(item.food.localizedName).font(.headline).foregroundStyle(.primary)
                 Spacer()
                 Text(dayInfo(item.status))
                     .font(.caption.weight(.semibold))
@@ -134,11 +134,11 @@ struct DashboardView: View {
                        size: 50)
             }
             VStack(alignment: .leading, spacing: 4) {
-                Text(child.name.isEmpty ? "Малыш" : child.name)
+                Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
                     .font(.title2.bold()).foregroundStyle(.white)
                 Text("\(child.ageInMonths) мес").font(.subheadline.weight(.medium))
                     .foregroundStyle(.white.opacity(0.9))
-                Text("\(introducedCount) \(introducedCount.plural("продукт", "продукта", "продуктов")) \(introducedCount.plural("введён", "введено", "введено"))")
+                Text(String(localized: "\(introducedCount) продуктов введено"))
                     .font(.caption.weight(.semibold)).foregroundStyle(.white.opacity(0.95))
             }
             Spacer()
@@ -165,7 +165,7 @@ struct DashboardView: View {
     private func dayInfo(_ s: IntroductionStatus) -> String {
         guard let start = s.introStartedAt else { return "" }
         let day = FeedingService.observationDay(start: start)
-        return "День \(day) из \(child.feedingProfile.observationDays)"
+        return String(localized: "День \(day) из \(child.feedingProfile.observationDays)")
     }
 
     private func give(_ group: AllergenGroupStatus) {

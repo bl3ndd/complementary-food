@@ -18,6 +18,14 @@ struct CatalogView: View {
         case foods = "Продукты"
         case allergens = "Аллергены"
         var id: String { rawValue }
+
+        /// Локализованная подпись сегмента (rawValue — ключ каталога/идентификатор).
+        var title: String {
+            switch self {
+            case .foods:     return String(localized: "Продукты")
+            case .allergens: return String(localized: "Аллергены")
+            }
+        }
     }
 
     var body: some View {
@@ -48,7 +56,7 @@ struct CatalogView: View {
         HStack(spacing: 0) {
             ForEach(CatalogSection.allCases) { s in
                 let on = section == s
-                Text(s.rawValue)
+                Text(s.title)
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(on ? .white : Color.secondary)
                     .frame(maxWidth: .infinity)
@@ -137,9 +145,9 @@ struct CatalogView: View {
     private func row(for food: Food) -> some View {
         HStack(spacing: 12) {
             FoodIcon(food: food, size: 38)
-            Text(food.name).fontWeight(.medium)
+            Text(food.localizedName).fontWeight(.medium)
             if food.isAllergen {
-                StatusBadge(text: "аллерген", color: .orange)
+                StatusBadge(text: String(localized: "аллерген"), color: .orange)
             }
             Spacer()
             let state = state(for: food)

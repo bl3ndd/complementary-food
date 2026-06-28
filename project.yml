@@ -1,6 +1,7 @@
 name: Prikorm
 options:
   bundleIdPrefix: com.prikorm
+  developmentLanguage: ru          # язык-исходник; English добавлен через Localizable.xcstrings
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true

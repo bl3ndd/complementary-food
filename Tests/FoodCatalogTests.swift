@@ -132,4 +132,15 @@ final class FoodCatalogTests: XCTestCase {
         XCTAssertTrue(catalog.search("компот").contains { $0.id == cf.id })
         XCTAssertEqual(cf.asFood.emoji, "🧃")
     }
+
+    // MARK: - Локализованное имя (localizedName)
+
+    /// Имя своего продукта (нет в String Catalog) показывается как есть — на любом
+    /// языке устройства, без «перевода». `name` остаётся исходным ключом для поиска.
+    func testLocalizedNameFallsBackForUnknownName() {
+        let custom = Food(id: "custom-xyz", name: "Зубочистка-компот-42", category: .other,
+                          emoji: "🧃", isAllergen: false, allergenGroup: nil, minAgeMonths: 8)
+        XCTAssertEqual(custom.localizedName, "Зубочистка-компот-42")
+        XCTAssertEqual(custom.name, "Зубочистка-компот-42")
+    }
 }

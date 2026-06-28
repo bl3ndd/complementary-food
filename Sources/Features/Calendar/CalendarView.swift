@@ -9,6 +9,7 @@ struct CalendarView: View {
 
     private let catalog = FoodCatalog.shared
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
+    /// Русские ключи; локализуются в каталоге (`String.LocalizationValue` ниже).
     private let weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
 
     @State private var monthAnchor = Date()
@@ -49,7 +50,8 @@ struct CalendarView: View {
             monthHeader
             LazyVGrid(columns: columns, spacing: 4) {
                 ForEach(weekdays, id: \.self) { d in
-                    Text(d).font(.caption2.weight(.bold)).foregroundStyle(.secondary)
+                    Text(String(localized: String.LocalizationValue(d)))
+                        .font(.caption2.weight(.bold)).foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -72,7 +74,7 @@ struct CalendarView: View {
                 Image(systemName: "chevron.left").font(.headline).foregroundStyle(Theme.accent)
             }
             Spacer()
-            Text(monthAnchor.formatted(.dateTime.month(.wide).year().locale(.ru)).capitalized)
+            Text(monthAnchor.formatted(.dateTime.month(.wide).year()).capitalized)
                 .font(.headline)
             Spacer()
             Button { shiftMonth(1) } label: {
@@ -126,7 +128,7 @@ struct CalendarView: View {
         .frame(maxWidth: .infinity)
     }
 
-    private func legendDot(_ color: Color, _ text: String) -> some View {
+    private func legendDot(_ color: Color, _ text: LocalizedStringKey) -> some View {
         HStack(spacing: 6) {
             Circle().fill(color).frame(width: 10, height: 10)
             Text(text)

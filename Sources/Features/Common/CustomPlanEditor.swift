@@ -27,8 +27,8 @@ struct CustomPlanEditor: View {
 
     // MARK: - Параметр с кастомным степпером
 
-    private func paramRow(_ icon: String, _ title: String, color: Color,
-                          value: Binding<Int>, range: ClosedRange<Int>, unit: String) -> some View {
+    private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color,
+                          value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
         HStack(spacing: 12) {
             ZStack {
                 RoundedRectangle(cornerRadius: 11, style: .continuous)
@@ -43,7 +43,7 @@ struct CustomPlanEditor: View {
         }
     }
 
-    private func stepper(value: Binding<Int>, range: ClosedRange<Int>, unit: String) -> some View {
+    private func stepper(value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
         HStack(spacing: 10) {
             roundButton("minus", enabled: value.wrappedValue > range.lowerBound) {
                 value.wrappedValue = max(range.lowerBound, value.wrappedValue - 1)

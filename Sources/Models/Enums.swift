@@ -10,11 +10,11 @@ enum IntroState: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .notIntroduced: return "Не введён"
-        case .introducing:   return "Вводится"
-        case .introduced:    return "Введён"
-        case .paused:        return "Пауза"
-        case .allergy:       return "Аллергия"
+        case .notIntroduced: return String(localized: "Не введён")
+        case .introducing:   return String(localized: "Вводится")
+        case .introduced:    return String(localized: "Введён")
+        case .paused:        return String(localized: "Пауза")
+        case .allergy:       return String(localized: "Аллергия")
         }
     }
 }
@@ -25,15 +25,15 @@ enum FoodCategory: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .vegetable: return "Овощи"
-        case .porridge:  return "Каши"
-        case .fruit:     return "Фрукты"
-        case .meat:      return "Мясо"
-        case .fish:      return "Рыба"
-        case .dairy:     return "Молочные"
-        case .egg:       return "Яйцо"
-        case .allergen:  return "Аллергены"
-        case .other:     return "Другое"
+        case .vegetable: return String(localized: "Овощи")
+        case .porridge:  return String(localized: "Каши")
+        case .fruit:     return String(localized: "Фрукты")
+        case .meat:      return String(localized: "Мясо")
+        case .fish:      return String(localized: "Рыба")
+        case .dairy:     return String(localized: "Молочные")
+        case .egg:       return String(localized: "Яйцо")
+        case .allergen:  return String(localized: "Аллергены")
+        case .other:     return String(localized: "Другое")
         }
     }
 }
@@ -44,16 +44,16 @@ enum AllergenGroup: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .egg:       return "Яйцо"
-        case .peanut:    return "Арахис"
-        case .treenut:   return "Орехи"
-        case .dairy:     return "Молочные"
-        case .gluten:    return "Глютен"
-        case .fish:      return "Рыба"
-        case .shellfish: return "Морепродукты"
-        case .soy:       return "Соя"
-        case .sesame:    return "Кунжут"
-        case .other:     return "Другое"
+        case .egg:       return String(localized: "Яйцо")
+        case .peanut:    return String(localized: "Арахис")
+        case .treenut:   return String(localized: "Орехи")
+        case .dairy:     return String(localized: "Молочные")
+        case .gluten:    return String(localized: "Глютен")
+        case .fish:      return String(localized: "Рыба")
+        case .shellfish: return String(localized: "Морепродукты")
+        case .soy:       return String(localized: "Соя")
+        case .sesame:    return String(localized: "Кунжут")
+        case .other:     return String(localized: "Другое")
         }
     }
 }
@@ -70,11 +70,11 @@ enum ReactionType: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .none:      return "Нет реакции"
-        case .skin:      return "Кожа (сыпь)"
-        case .gi:        return "ЖКТ"
-        case .breathing: return "Дыхание"
-        case .other:     return "Другое"
+        case .none:      return String(localized: "Нет реакции")
+        case .skin:      return String(localized: "Кожа (сыпь)")
+        case .gi:        return String(localized: "ЖКТ")
+        case .breathing: return String(localized: "Дыхание")
+        case .other:     return String(localized: "Другое")
         }
     }
 
@@ -105,18 +105,18 @@ enum Liking: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .disliked: return "Не понравилось"
-        case .neutral:  return "Нейтрально"
-        case .liked:    return "Понравилось"
+        case .disliked: return String(localized: "Не понравилось")
+        case .neutral:  return String(localized: "Нейтрально")
+        case .liked:    return String(localized: "Понравилось")
         }
     }
 
     /// Короткая подпись для компактных мест (карточки оценки вкуса).
     var shortTitle: String {
         switch self {
-        case .disliked: return "Не оч"
-        case .neutral:  return "Норм"
-        case .liked:    return "Класс"
+        case .disliked: return String(localized: "Не оч")
+        case .neutral:  return String(localized: "Норм")
+        case .liked:    return String(localized: "Класс")
         }
     }
 }
@@ -137,9 +137,9 @@ enum AllergenStatus: String {
 
     var title: String {
         switch self {
-        case .ok:      return "В норме"
-        case .dueSoon: return "Скоро пора"
-        case .overdue: return "Просрочено"
+        case .ok:      return String(localized: "В норме")
+        case .dueSoon: return String(localized: "Скоро пора")
+        case .overdue: return String(localized: "Просрочено")
         }
     }
 }
