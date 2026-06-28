@@ -94,8 +94,9 @@ struct CalendarView: View {
         let active = summary != nil
         let hasReaction = summary?.hasReaction ?? false
         let isToday = cal.isDateInToday(date)
-        // «Есть записи» — холодный синий, «реакция» — красный: явно разные хюэ (п.6).
-        let fill = hasReaction ? Color.red : Theme.sky
+        let plannedOnly = summary?.isPlannedOnly ?? false
+        // «Есть записи» — синий, «реакция» — красный, «план» — сиреневый: разные хюэ (п.6/21).
+        let fill = hasReaction ? Color.red : (plannedOnly ? Theme.lilac : Theme.sky)
 
         return NavigationLink(value: start) {
             Text("\(cal.component(.day, from: date))")
@@ -121,9 +122,10 @@ struct CalendarView: View {
     }
 
     private var legend: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 18) {
             legendDot(Theme.sky, "есть записи")
             legendDot(.red, "реакция")
+            legendDot(Theme.lilac, "план")
         }
         .font(.caption).foregroundStyle(.secondary)
         .frame(maxWidth: .infinity)
@@ -170,8 +172,9 @@ struct CalendarView: View {
         }
     }
 
-    /// Не пускаем в будущее дальше текущего месяца.
+    /// Можно листать в будущее (до +6 месяцев) — чтобы планировать ввод (п.21).
     private var canGoNext: Bool {
-        cal.compare(monthAnchor, to: Date(), toGranularity: .month) == .orderedAscending
+        guard let maxMonth = cal.date(byAdding: .month, value: 6, to: Date()) else { return false }
+        return cal.compare(monthAnchor, to: maxMonth, toGranularity: .month) == .orderedAscending
     }
 }

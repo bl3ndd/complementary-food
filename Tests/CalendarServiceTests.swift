@@ -128,6 +128,21 @@ final class CalendarServiceTests: XCTestCase {
         XCTAssertTrue(reacted.day(date("2026-06-10T08:00:00Z")).hasReaction)
     }
 
+    // MARK: - Планирование на будущее (п.21)
+
+    func testPlannedFutureLogAppearsAsPlannedDay() {
+        let planned = FoodLog(foodId: "broccoli", date: date("2026-07-01T09:00:00Z"),
+                              type: .intro, planned: true)
+        let service = CalendarService(catalog: catalog, logs: [planned], calendar: utc)
+
+        let day = service.day(date("2026-07-01T12:00:00Z"))
+        XCTAssertTrue(day.hasActivity)
+        XCTAssertTrue(day.hasPlanned)
+        XCTAssertTrue(day.isPlannedOnly)
+        XCTAssertFalse(day.hasReaction, "план — не реакция")
+        XCTAssertTrue(service.activeDays().contains(date("2026-07-01T00:00:00Z")))
+    }
+
     // MARK: - Неизвестный продукт деградирует к foodId
 
     func testUnknownFoodFallsBackToFoodId() {

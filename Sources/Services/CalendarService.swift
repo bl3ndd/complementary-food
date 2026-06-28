@@ -13,6 +13,7 @@ struct DayEntry: Identifiable {
     var reaction: ReactionType? { log.reaction }
     var liking: Liking? { log.liking }
     var date: Date { log.date }
+    var planned: Bool { log.planned }
 }
 
 /// Сводка по одному календарному дню: что давали (ввод/поддержка), с реакциями.
@@ -24,7 +25,11 @@ struct DaySummary: Identifiable {
     var hasActivity: Bool { !entries.isEmpty }
     var introCount: Int { entries.filter { $0.type == .intro }.count }
     var maintenanceCount: Int { entries.filter { $0.type == .maintenance }.count }
-    var hasReaction: Bool { entries.contains { ($0.reaction ?? .none) != .none } }
+    var hasReaction: Bool { entries.contains { !$0.planned && ($0.reaction ?? .none) != .none } }
+    /// Есть ли запланированные на будущее вводы (п.21).
+    var hasPlanned: Bool { entries.contains { $0.planned } }
+    /// День состоит только из планов (фактических записей нет).
+    var isPlannedOnly: Bool { !entries.isEmpty && entries.allSatisfy { $0.planned } }
 }
 
 /// Группирует записи журнала по календарным дням для экрана-таймлайна (SPEC §7).

@@ -12,19 +12,23 @@ final class FoodLog {
     /// Вкусовая оценка: понравилось / нейтрально / не понравилось.
     var likingRaw: String?
     var note: String?
+    /// Запланированный на будущее ввод (ещё не дан), п.21.
+    var planned: Bool = false
 
     init(foodId: String,
          date: Date = Date(),
          type: LogType = .intro,
          reaction: ReactionType? = nil,
          liking: Liking? = nil,
-         note: String? = nil) {
+         note: String? = nil,
+         planned: Bool = false) {
         self.foodId = foodId
         self.date = date
         self.typeRaw = type.rawValue
         self.reactionRaw = reaction?.rawValue
         self.likingRaw = liking?.rawValue
         self.note = note
+        self.planned = planned
     }
 
     var type: LogType {
