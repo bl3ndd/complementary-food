@@ -21,6 +21,6 @@ struct RootView: View {
 
 #Preview {
     RootView()
-        .modelContainer(for: [Child.self, IntroductionStatus.self, FoodLog.self],
+        .modelContainer(for: [Child.self, IntroductionStatus.self, FoodLog.self, CustomFood.self],
                         inMemory: true)
 }

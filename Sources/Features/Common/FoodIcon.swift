@@ -27,7 +27,9 @@ struct FoodIcon: View {
     var size: CGFloat = 46
 
     private var image: UIImage? {
-        UIImage(named: "food_\(food.id)") ?? UIImage(named: "cat_\(food.category.rawValue)")
+        // Свои продукты рисуем выбранным эмодзи (нет ассета) — не подменяем иконкой категории.
+        if food.id.hasPrefix("custom-") { return nil }
+        return UIImage(named: "food_\(food.id)") ?? UIImage(named: "cat_\(food.category.rawValue)")
     }
 
     var body: some View {

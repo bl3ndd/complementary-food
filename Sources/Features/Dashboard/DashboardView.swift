@@ -4,6 +4,7 @@ import SwiftData
 /// Экран «Сегодня»: что в окне наблюдения + какие аллергены пора дать (SPEC §7).
 struct DashboardView: View {
     let child: Child
+    var goToCatalog: () -> Void = {}
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
@@ -104,12 +105,15 @@ struct DashboardView: View {
     }
 
     private var emptyState: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 14) {
             Mascot(mood: .happy)
             Text("Всё под контролем!").font(.title3.bold())
             Text("Загляни в каталог и выбери первый продукт.")
                 .font(.subheadline).foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+            BigButton(title: "Добавить продукт") { goToCatalog() }
+                .padding(.horizontal, 40)
+                .padding(.top, 4)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 50)

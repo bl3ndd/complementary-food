@@ -118,4 +118,18 @@ final class FoodCatalogTests: XCTestCase {
         XCTAssertEqual(local.search("желток").map(\.id), ["egg_yolk"])
         XCTAssertEqual(local.search("ЖЁЛТОК").map(\.id), ["egg_yolk"])
     }
+
+    // MARK: - Свои продукты подмешиваются в каталог
+
+    func testCustomFoodsMergeIntoCatalog() {
+        let cf = CustomFood(name: "Компот", emoji: "🧃", minAgeMonths: 7)
+        FoodCatalog.setCustom([cf])
+        defer { FoodCatalog.custom = [] }
+
+        let catalog = FoodCatalog.shared
+        XCTAssertEqual(catalog.food(id: cf.id)?.category, .other)
+        XCTAssertTrue(catalog.byCategory(.other).contains { $0.id == cf.id })
+        XCTAssertTrue(catalog.search("компот").contains { $0.id == cf.id })
+        XCTAssertEqual(cf.asFood.emoji, "🧃")
+    }
 }

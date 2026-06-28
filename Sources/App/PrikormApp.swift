@@ -6,7 +6,7 @@ struct PrikormApp: App {
     let container: ModelContainer
 
     init() {
-        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self])
+        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, CustomFood.self])
         // Пока локально. CloudKit включим, когда будет dev-аккаунт + entitlement (SPEC §8).
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {

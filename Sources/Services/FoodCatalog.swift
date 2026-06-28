@@ -6,6 +6,17 @@ struct FoodCatalog {
 
     static let shared = FoodCatalog.load()
 
+    /// Свои продукты пользователя (из SwiftData), подмешиваются ко всем выборкам.
+    /// Обновляется из `CustomFood` при запуске и изменениях каталога.
+    nonisolated(unsafe) static var custom: [Food] = []
+
+    static func setCustom(_ foods: [CustomFood]) {
+        custom = foods.map(\.asFood)
+    }
+
+    /// Каталожные + свои продукты вместе.
+    private var combined: [Food] { foods + FoodCatalog.custom }
+
     private struct Wrapper: Codable {
         let foods: [Food]
     }
@@ -30,23 +41,23 @@ struct FoodCatalog {
         return FoodCatalog(foods: wrapper.foods)
     }
 
-    /// Все продукты каталога.
-    var all: [Food] { foods }
+    /// Все продукты каталога (включая свои).
+    var all: [Food] { combined }
 
     func food(id: String) -> Food? {
-        foods.first { $0.id == id }
+        combined.first { $0.id == id }
     }
 
     func byCategory(_ category: FoodCategory) -> [Food] {
-        foods.filter { $0.category == category }
+        combined.filter { $0.category == category }
     }
 
     /// Поиск по названию (без учёта регистра/диакритики, напр. ё≈е); пустой
     /// запрос → весь каталог.
     func search(_ query: String) -> [Food] {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return foods }
-        return foods.filter {
+        guard !trimmed.isEmpty else { return combined }
+        return combined.filter {
             $0.name.range(of: trimmed,
                           options: [.caseInsensitive, .diacriticInsensitive],
                           locale: .current) != nil

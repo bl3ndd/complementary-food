@@ -5,9 +5,12 @@ import SwiftData
 /// Продукты — каталог по категориям с поиском; Аллергены — список поддержки.
 struct CatalogView: View {
     let child: Child
+    @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
+    @Query private var customFoods: [CustomFood]
     @State private var search = ""
     @State private var section: CatalogSection = .foods
+    @State private var showAddCustom = false
 
     private let catalog = FoodCatalog.shared
 
@@ -40,6 +43,9 @@ struct CatalogView: View {
             .navigationDestination(for: Food.self) { food in
                 FoodDetailView(food: food, child: child)
             }
+            .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet() }
+            .onAppear { FoodCatalog.setCustom(customFoods) }
+            .onChange(of: customFoods.map(\.id)) { FoodCatalog.setCustom(customFoods) }
         }
     }
 
@@ -47,18 +53,49 @@ struct CatalogView: View {
         List {
             ForEach(FoodCategory.allCases, id: \.self) { category in
                 let foods = foods(in: category)
-                if !foods.isEmpty {
+                if category == .other {
                     Section(category.title) {
-                        ForEach(foods) { food in
-                            NavigationLink(value: food) { row(for: food) }
-                                .listRowBackground(Color.white)
-                        }
+                        ForEach(foods) { food in foodRow(food) }
+                        addCustomRow
+                    }
+                } else if !foods.isEmpty {
+                    Section(category.title) {
+                        ForEach(foods) { food in foodRow(food) }
                     }
                 }
             }
         }
         .scrollContentBackground(.hidden)
         .safeAreaInset(edge: .top) { searchBar }
+    }
+
+    @ViewBuilder
+    private func foodRow(_ food: Food) -> some View {
+        NavigationLink(value: food) { row(for: food) }
+            .listRowBackground(Color.white)
+            .swipeActions(edge: .trailing) {
+                if food.id.hasPrefix("custom-") {
+                    Button(role: .destructive) { deleteCustom(food.id) } label: {
+                        Label("Удалить", systemImage: "trash")
+                    }
+                }
+            }
+    }
+
+    private var addCustomRow: some View {
+        Button { showAddCustom = true } label: {
+            Label("Добавить свой продукт", systemImage: "plus.circle.fill")
+                .foregroundStyle(Theme.accent).fontWeight(.semibold)
+        }
+        .listRowBackground(Color.white)
+    }
+
+    private func deleteCustom(_ id: String) {
+        if let cf = customFoods.first(where: { $0.id == id }) {
+            context.delete(cf)
+            try? context.save()
+            FoodCatalog.setCustom(customFoods.filter { $0.id != id })
+        }
     }
 
     /// Свой поиск: системный `.searchable` не рисуется внутри страничного TabView.

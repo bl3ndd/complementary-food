@@ -49,6 +49,38 @@ soy 1FAD8
 honey 1F36F
 citrus 1F34B
 strawberry 1F353
+tomato 1F345
+eggplant 1F346
+bell_pepper 1FAD1
+spinach 1F96C
+avocado 1F951
+sweet_potato 1F360
+watermelon 1F349
+melon 1F348
+grapes 1F347
+kiwi 1F95D
+mango 1F96D
+blueberry 1FAD0
+cherry 1F352
+pineapple 1F34D
+millet_porridge 1F35A
+barley_porridge 1F33E
+veal 1F969
+pork 1F953
+lamb 1F356
+duck 1F986
+pollock 1F41F
+shrimp 1F990
+mackerel 1F420
+cheese 1F9C0
+butter 1F9C8
+ryazhenka 1F95B
+wheat 1F33E
+crab 1F980
+water 1F4A7
+compote 1F9C3
+bread 1F35E
+olive_oil 1FAD2
 "
 
 # реакция -> кодпоинт (экран записи кормления)

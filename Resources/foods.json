@@ -2,53 +2,653 @@
   "_comment": "Черновик каталога продуктов для прикорма (СНГ). Поля: id, name, category, emoji, isAllergen, allergenGroup, minAgeMonths. minAgeMonths — нижняя безопасная граница (не зависит от методики), реальные сроки регулирует FeedingProfile. ЧЕРНОВИК — проверить перед релизом.",
   "version": 1,
   "foods": [
-    { "id": "zucchini",      "name": "Кабачок",            "category": "vegetable", "emoji": "🥒", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 4 },
-    { "id": "cauliflower",   "name": "Цветная капуста",    "category": "vegetable", "emoji": "🥦", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 4 },
-    { "id": "broccoli",      "name": "Брокколи",           "category": "vegetable", "emoji": "🥦", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 4 },
-    { "id": "pumpkin",       "name": "Тыква",              "category": "vegetable", "emoji": "🎃", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 5 },
-    { "id": "potato",        "name": "Картофель",          "category": "vegetable", "emoji": "🥔", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 5 },
-    { "id": "carrot",        "name": "Морковь",            "category": "vegetable", "emoji": "🥕", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 6 },
-    { "id": "green_peas",    "name": "Зелёный горошек",    "category": "vegetable", "emoji": "🫛", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 7 },
-    { "id": "beet",          "name": "Свёкла",             "category": "vegetable", "emoji": "🫜", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 8 },
-
-    { "id": "buckwheat",     "name": "Гречневая каша",     "category": "porridge",  "emoji": "🥣", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 4 },
-    { "id": "rice_porridge", "name": "Рисовая каша",       "category": "porridge",  "emoji": "🍚", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 4 },
-    { "id": "corn_porridge", "name": "Кукурузная каша",    "category": "porridge",  "emoji": "🌽", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 5 },
-    { "id": "oatmeal",       "name": "Овсяная каша",       "category": "porridge",  "emoji": "🥣", "isAllergen": true,  "allergenGroup": "gluten",  "minAgeMonths": 6 },
-    { "id": "wheat_porridge","name": "Пшеничная каша",     "category": "porridge",  "emoji": "🌾", "isAllergen": true,  "allergenGroup": "gluten",  "minAgeMonths": 7 },
-    { "id": "semolina",      "name": "Манная каша",        "category": "porridge",  "emoji": "🥣", "isAllergen": true,  "allergenGroup": "gluten",  "minAgeMonths": 8 },
-
-    { "id": "apple",         "name": "Яблоко",             "category": "fruit",     "emoji": "🍎", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 5 },
-    { "id": "pear",          "name": "Груша",              "category": "fruit",     "emoji": "🍐", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 5 },
-    { "id": "banana",        "name": "Банан",              "category": "fruit",     "emoji": "🍌", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 6 },
-    { "id": "prune",         "name": "Чернослив",          "category": "fruit",     "emoji": "🟣", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 6 },
-    { "id": "peach",         "name": "Персик",             "category": "fruit",     "emoji": "🍑", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 7 },
-    { "id": "apricot",       "name": "Абрикос",            "category": "fruit",     "emoji": "🟠", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 7 },
-
-    { "id": "turkey",        "name": "Индейка",            "category": "meat",      "emoji": "🦃", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 6 },
-    { "id": "rabbit",        "name": "Кролик",             "category": "meat",      "emoji": "🐰", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 6 },
-    { "id": "beef",          "name": "Говядина",           "category": "meat",      "emoji": "🐄", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 7 },
-    { "id": "chicken",       "name": "Курица",             "category": "meat",      "emoji": "🐔", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 7 },
-
-    { "id": "cod",           "name": "Треска",             "category": "fish",      "emoji": "🐟", "isAllergen": true,  "allergenGroup": "fish",    "minAgeMonths": 8 },
-    { "id": "hake",          "name": "Хек",                "category": "fish",      "emoji": "🐟", "isAllergen": true,  "allergenGroup": "fish",    "minAgeMonths": 8 },
-    { "id": "salmon",        "name": "Лосось",             "category": "fish",      "emoji": "🐟", "isAllergen": true,  "allergenGroup": "fish",    "minAgeMonths": 9 },
-
-    { "id": "cottage_cheese","name": "Творог",             "category": "dairy",     "emoji": "🧀", "isAllergen": true,  "allergenGroup": "dairy",   "minAgeMonths": 6 },
-    { "id": "kefir",         "name": "Кефир",              "category": "dairy",     "emoji": "🥛", "isAllergen": true,  "allergenGroup": "dairy",   "minAgeMonths": 8 },
-    { "id": "yogurt",        "name": "Йогурт",             "category": "dairy",     "emoji": "🥛", "isAllergen": true,  "allergenGroup": "dairy",   "minAgeMonths": 8 },
-    { "id": "cow_milk",      "name": "Коровье молоко",     "category": "dairy",     "emoji": "🐄", "isAllergen": true,  "allergenGroup": "dairy",   "minAgeMonths": 12 },
-
-    { "id": "egg_yolk",      "name": "Яичный желток",      "category": "egg",       "emoji": "🥚", "isAllergen": true,  "allergenGroup": "egg",     "minAgeMonths": 7 },
-    { "id": "egg_white",     "name": "Яичный белок",       "category": "egg",       "emoji": "🥚", "isAllergen": true,  "allergenGroup": "egg",     "minAgeMonths": 9 },
-
-    { "id": "peanut",        "name": "Арахис",             "category": "allergen",  "emoji": "🥜", "isAllergen": true,  "allergenGroup": "peanut",  "minAgeMonths": 6 },
-    { "id": "tree_nuts",     "name": "Орехи",              "category": "allergen",  "emoji": "🌰", "isAllergen": true,  "allergenGroup": "treenut", "minAgeMonths": 7 },
-    { "id": "sesame",        "name": "Кунжут",             "category": "allergen",  "emoji": "◻️", "isAllergen": true,  "allergenGroup": "sesame",  "minAgeMonths": 7 },
-    { "id": "soy",           "name": "Соя",                "category": "allergen",  "emoji": "🫘", "isAllergen": true,  "allergenGroup": "soy",     "minAgeMonths": 7 },
-
-    { "id": "honey",         "name": "Мёд",                "category": "other",     "emoji": "🍯", "isAllergen": false, "allergenGroup": null,      "minAgeMonths": 12 },
-    { "id": "citrus",        "name": "Цитрусовые",         "category": "fruit",     "emoji": "🍊", "isAllergen": true,  "allergenGroup": "other",   "minAgeMonths": 9 },
-    { "id": "strawberry",    "name": "Клубника",           "category": "fruit",     "emoji": "🍓", "isAllergen": true,  "allergenGroup": "other",   "minAgeMonths": 9 }
+    {
+      "id": "zucchini",
+      "name": "Кабачок",
+      "category": "vegetable",
+      "emoji": "🥒",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 4
+    },
+    {
+      "id": "cauliflower",
+      "name": "Цветная капуста",
+      "category": "vegetable",
+      "emoji": "🥦",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 4
+    },
+    {
+      "id": "broccoli",
+      "name": "Брокколи",
+      "category": "vegetable",
+      "emoji": "🥦",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 4
+    },
+    {
+      "id": "pumpkin",
+      "name": "Тыква",
+      "category": "vegetable",
+      "emoji": "🎃",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 5
+    },
+    {
+      "id": "potato",
+      "name": "Картофель",
+      "category": "vegetable",
+      "emoji": "🥔",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 5
+    },
+    {
+      "id": "carrot",
+      "name": "Морковь",
+      "category": "vegetable",
+      "emoji": "🥕",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "green_peas",
+      "name": "Зелёный горошек",
+      "category": "vegetable",
+      "emoji": "🫛",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "beet",
+      "name": "Свёкла",
+      "category": "vegetable",
+      "emoji": "🫜",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "buckwheat",
+      "name": "Гречневая каша",
+      "category": "porridge",
+      "emoji": "🥣",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 4
+    },
+    {
+      "id": "rice_porridge",
+      "name": "Рисовая каша",
+      "category": "porridge",
+      "emoji": "🍚",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 4
+    },
+    {
+      "id": "corn_porridge",
+      "name": "Кукурузная каша",
+      "category": "porridge",
+      "emoji": "🌽",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 5
+    },
+    {
+      "id": "oatmeal",
+      "name": "Овсяная каша",
+      "category": "porridge",
+      "emoji": "🥣",
+      "isAllergen": true,
+      "allergenGroup": "gluten",
+      "minAgeMonths": 6
+    },
+    {
+      "id": "wheat_porridge",
+      "name": "Пшеничная каша",
+      "category": "porridge",
+      "emoji": "🌾",
+      "isAllergen": true,
+      "allergenGroup": "gluten",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "semolina",
+      "name": "Манная каша",
+      "category": "porridge",
+      "emoji": "🥣",
+      "isAllergen": true,
+      "allergenGroup": "gluten",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "apple",
+      "name": "Яблоко",
+      "category": "fruit",
+      "emoji": "🍎",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 5
+    },
+    {
+      "id": "pear",
+      "name": "Груша",
+      "category": "fruit",
+      "emoji": "🍐",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 5
+    },
+    {
+      "id": "banana",
+      "name": "Банан",
+      "category": "fruit",
+      "emoji": "🍌",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "prune",
+      "name": "Чернослив",
+      "category": "fruit",
+      "emoji": "🟣",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "peach",
+      "name": "Персик",
+      "category": "fruit",
+      "emoji": "🍑",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "apricot",
+      "name": "Абрикос",
+      "category": "fruit",
+      "emoji": "🟠",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "turkey",
+      "name": "Индейка",
+      "category": "meat",
+      "emoji": "🦃",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "rabbit",
+      "name": "Кролик",
+      "category": "meat",
+      "emoji": "🐰",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "beef",
+      "name": "Говядина",
+      "category": "meat",
+      "emoji": "🐄",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "chicken",
+      "name": "Курица",
+      "category": "meat",
+      "emoji": "🐔",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "cod",
+      "name": "Треска",
+      "category": "fish",
+      "emoji": "🐟",
+      "isAllergen": true,
+      "allergenGroup": "fish",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "hake",
+      "name": "Хек",
+      "category": "fish",
+      "emoji": "🐟",
+      "isAllergen": true,
+      "allergenGroup": "fish",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "salmon",
+      "name": "Лосось",
+      "category": "fish",
+      "emoji": "🐟",
+      "isAllergen": true,
+      "allergenGroup": "fish",
+      "minAgeMonths": 9
+    },
+    {
+      "id": "cottage_cheese",
+      "name": "Творог",
+      "category": "dairy",
+      "emoji": "🧀",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 6
+    },
+    {
+      "id": "kefir",
+      "name": "Кефир",
+      "category": "dairy",
+      "emoji": "🥛",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "yogurt",
+      "name": "Йогурт",
+      "category": "dairy",
+      "emoji": "🥛",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "cow_milk",
+      "name": "Коровье молоко",
+      "category": "dairy",
+      "emoji": "🐄",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 12
+    },
+    {
+      "id": "egg_yolk",
+      "name": "Яичный желток",
+      "category": "egg",
+      "emoji": "🥚",
+      "isAllergen": true,
+      "allergenGroup": "egg",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "egg_white",
+      "name": "Яичный белок",
+      "category": "egg",
+      "emoji": "🥚",
+      "isAllergen": true,
+      "allergenGroup": "egg",
+      "minAgeMonths": 9
+    },
+    {
+      "id": "peanut",
+      "name": "Арахис",
+      "category": "allergen",
+      "emoji": "🥜",
+      "isAllergen": true,
+      "allergenGroup": "peanut",
+      "minAgeMonths": 6
+    },
+    {
+      "id": "tree_nuts",
+      "name": "Орехи",
+      "category": "allergen",
+      "emoji": "🌰",
+      "isAllergen": true,
+      "allergenGroup": "treenut",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "sesame",
+      "name": "Кунжут",
+      "category": "allergen",
+      "emoji": "◻️",
+      "isAllergen": true,
+      "allergenGroup": "sesame",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "soy",
+      "name": "Соя",
+      "category": "allergen",
+      "emoji": "🫘",
+      "isAllergen": true,
+      "allergenGroup": "soy",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "honey",
+      "name": "Мёд",
+      "category": "other",
+      "emoji": "🍯",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 12
+    },
+    {
+      "id": "citrus",
+      "name": "Цитрусовые",
+      "category": "fruit",
+      "emoji": "🍊",
+      "isAllergen": true,
+      "allergenGroup": "other",
+      "minAgeMonths": 9
+    },
+    {
+      "id": "strawberry",
+      "name": "Клубника",
+      "category": "fruit",
+      "emoji": "🍓",
+      "isAllergen": true,
+      "allergenGroup": "other",
+      "minAgeMonths": 9
+    },
+    {
+      "id": "tomato",
+      "name": "Помидор",
+      "category": "vegetable",
+      "emoji": "🍅",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "eggplant",
+      "name": "Баклажан",
+      "category": "vegetable",
+      "emoji": "🍆",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "bell_pepper",
+      "name": "Болгарский перец",
+      "category": "vegetable",
+      "emoji": "🫑",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "spinach",
+      "name": "Шпинат",
+      "category": "vegetable",
+      "emoji": "🥬",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "avocado",
+      "name": "Авокадо",
+      "category": "vegetable",
+      "emoji": "🥑",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "sweet_potato",
+      "name": "Батат",
+      "category": "vegetable",
+      "emoji": "🍠",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "watermelon",
+      "name": "Арбуз",
+      "category": "fruit",
+      "emoji": "🍉",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "melon",
+      "name": "Дыня",
+      "category": "fruit",
+      "emoji": "🍈",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "grapes",
+      "name": "Виноград",
+      "category": "fruit",
+      "emoji": "🍇",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 9
+    },
+    {
+      "id": "kiwi",
+      "name": "Киви",
+      "category": "fruit",
+      "emoji": "🥝",
+      "isAllergen": true,
+      "allergenGroup": "other",
+      "minAgeMonths": 9
+    },
+    {
+      "id": "mango",
+      "name": "Манго",
+      "category": "fruit",
+      "emoji": "🥭",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "blueberry",
+      "name": "Черника",
+      "category": "fruit",
+      "emoji": "🫐",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "cherry",
+      "name": "Вишня",
+      "category": "fruit",
+      "emoji": "🍒",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "pineapple",
+      "name": "Ананас",
+      "category": "fruit",
+      "emoji": "🍍",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 9
+    },
+    {
+      "id": "millet_porridge",
+      "name": "Пшённая каша",
+      "category": "porridge",
+      "emoji": "🍚",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 7
+    },
+    {
+      "id": "barley_porridge",
+      "name": "Перловая каша",
+      "category": "porridge",
+      "emoji": "🌾",
+      "isAllergen": true,
+      "allergenGroup": "gluten",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "veal",
+      "name": "Телятина",
+      "category": "meat",
+      "emoji": "🥩",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "pork",
+      "name": "Свинина",
+      "category": "meat",
+      "emoji": "🥓",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "lamb",
+      "name": "Баранина",
+      "category": "meat",
+      "emoji": "🍖",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "duck",
+      "name": "Утка",
+      "category": "meat",
+      "emoji": "🦆",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 9
+    },
+    {
+      "id": "pollock",
+      "name": "Минтай",
+      "category": "fish",
+      "emoji": "🐟",
+      "isAllergen": true,
+      "allergenGroup": "fish",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "shrimp",
+      "name": "Креветка",
+      "category": "fish",
+      "emoji": "🦐",
+      "isAllergen": true,
+      "allergenGroup": "shellfish",
+      "minAgeMonths": 12
+    },
+    {
+      "id": "mackerel",
+      "name": "Скумбрия",
+      "category": "fish",
+      "emoji": "🐠",
+      "isAllergen": true,
+      "allergenGroup": "fish",
+      "minAgeMonths": 9
+    },
+    {
+      "id": "cheese",
+      "name": "Сыр",
+      "category": "dairy",
+      "emoji": "🧀",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 10
+    },
+    {
+      "id": "butter",
+      "name": "Сливочное масло",
+      "category": "dairy",
+      "emoji": "🧈",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "ryazhenka",
+      "name": "Ряженка",
+      "category": "dairy",
+      "emoji": "🥛",
+      "isAllergen": true,
+      "allergenGroup": "dairy",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "wheat",
+      "name": "Пшеница",
+      "category": "allergen",
+      "emoji": "🌾",
+      "isAllergen": true,
+      "allergenGroup": "gluten",
+      "minAgeMonths": 7
+    },
+    {
+      "id": "crab",
+      "name": "Краб",
+      "category": "allergen",
+      "emoji": "🦀",
+      "isAllergen": true,
+      "allergenGroup": "shellfish",
+      "minAgeMonths": 12
+    },
+    {
+      "id": "water",
+      "name": "Вода",
+      "category": "other",
+      "emoji": "💧",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    },
+    {
+      "id": "compote",
+      "name": "Компот",
+      "category": "other",
+      "emoji": "🧃",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 8
+    },
+    {
+      "id": "bread",
+      "name": "Хлеб",
+      "category": "other",
+      "emoji": "🍞",
+      "isAllergen": true,
+      "allergenGroup": "gluten",
+      "minAgeMonths": 8
+    },
+    {
+      "id": "olive_oil",
+      "name": "Оливковое масло",
+      "category": "other",
+      "emoji": "🫒",
+      "isAllergen": false,
+      "allergenGroup": null,
+      "minAgeMonths": 6
+    }
   ]
 }
