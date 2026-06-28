@@ -1,8 +1,9 @@
 import SwiftUI
 import SwiftData
 
-/// Экран аллергенов: список групп с понятным статусом поддержки толерантности.
+/// Список аллергенов: группы с понятным статусом поддержки толерантности.
 /// Сверху — то, что пора дать; ниже — в норме / не введены / аллергия (SPEC §4.3, §7).
+/// Встраивается во вкладку «Каталог» (сегмент «Аллергены»); навбар/фон даёт родитель.
 struct AllergensView: View {
     let child: Child
     @Environment(\.modelContext) private var context
@@ -12,16 +13,12 @@ struct AllergensView: View {
     private let catalog = FoodCatalog.shared
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 14) {
-                    summaryCard
-                    ForEach(sortedGroups) { row(for: $0) }
-                }
-                .padding()
+        ScrollView {
+            VStack(spacing: 14) {
+                summaryCard
+                ForEach(sortedGroups) { row(for: $0) }
             }
-            .background(AppBackground())
-            .navigationTitle("Аллергены")
+            .padding()
         }
     }
 
