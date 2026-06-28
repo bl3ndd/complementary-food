@@ -104,7 +104,7 @@ final class FeedingServiceTests: XCTestCase {
     }
 
     @MainActor
-    func testLogFeedingWithReactionDuringIntroPauses() throws {
+    func testLogFeedingWithReactionDuringIntroDoesNotChangeState() throws {
         let context = try makeContext()
         let service = FeedingService(context: context)
         let food = makeFood()
@@ -113,7 +113,7 @@ final class FeedingServiceTests: XCTestCase {
         service.logFeeding(food, liking: nil, reaction: .skin)
 
         let s = service.status(for: food.id)
-        XCTAssertEqual(s.state, .paused, "реакция при вводе → пауза")
+        XCTAssertEqual(s.state, .introducing, "реакция — только запись, статус не меняется")
 
         let rows = try logs(context, foodId: food.id)
         XCTAssertTrue(rows.allSatisfy { $0.type == .intro })
@@ -141,7 +141,7 @@ final class FeedingServiceTests: XCTestCase {
     }
 
     @MainActor
-    func testLogFeedingWithReactionOnIntroducedMarksAllergy() throws {
+    func testLogFeedingWithReactionOnIntroducedKeepsIntroduced() throws {
         let context = try makeContext()
         let service = FeedingService(context: context)
         let food = makeFood()
@@ -151,12 +151,43 @@ final class FeedingServiceTests: XCTestCase {
         service.logFeeding(food, liking: nil, reaction: .gi)
 
         let s = service.status(for: food.id)
-        XCTAssertEqual(s.state, .allergy, "реакция на введённый продукт → аллергия")
+        XCTAssertEqual(s.state, .introduced, "реакция — только запись, авто-аллергии больше нет")
 
         let rows = try logs(context, foodId: food.id)
         let maintenance = rows.filter { $0.type == .maintenance }
         XCTAssertEqual(maintenance.count, 1)
         XCTAssertEqual(maintenance.first?.reaction, .gi)
+    }
+
+    // MARK: - Расширенные теги реакции (ЖКТ → запор/диарея), без авто-переходов
+
+    @MainActor
+    func testGiReactionTagsAreRecordedWithoutStateChange() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+
+        service.startIntroduction(food)
+        service.logFeeding(food, liking: nil, reaction: .constipation)
+        service.logFeeding(food, liking: nil, reaction: .diarrhea)
+
+        XCTAssertEqual(service.status(for: food.id).state, .introducing)
+        let rows = try logs(context, foodId: food.id)
+        XCTAssertEqual(rows.filter { $0.reaction == .constipation }.count, 1)
+        XCTAssertEqual(rows.filter { $0.reaction == .diarrhea }.count, 1)
+    }
+
+    func testEveryReactionTypeHasNonEmptyTitle() {
+        for r in ReactionType.allCases {
+            XCTAssertFalse(r.title.isEmpty, "у реакции \(r.rawValue) пустой title")
+            XCTAssertFalse(r.emoji.isEmpty)
+        }
+    }
+
+    /// Старые логи с raw «gi»/«breathing» должны декодироваться (совместимость).
+    func testLegacyReactionRawValuesStillDecode() {
+        XCTAssertEqual(ReactionType(rawValue: "gi"), .gi)
+        XCTAssertEqual(ReactionType(rawValue: "breathing"), .breathing)
     }
 
     // MARK: - Ручные переходы

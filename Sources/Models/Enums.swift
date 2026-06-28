@@ -64,27 +64,33 @@ enum LogType: String, Codable {
     case maintenance
 }
 
-/// Тип реакции при логировании.
+/// Тип реакции при логировании. Реакция — это только запись в журнале, она НЕ
+/// двигает стейт-машину ввода (остановку выбирает пользователь вручную, SPEC §4.4).
+/// Raw-значения `gi`/`breathing` сохранены ради совместимости со старыми логами.
 enum ReactionType: String, Codable, CaseIterable {
-    case none, skin, gi, breathing, other
+    case none, skin, gi, constipation, diarrhea, breathing, other
 
     var title: String {
         switch self {
-        case .none:      return String(localized: "Нет реакции")
-        case .skin:      return String(localized: "Кожа (сыпь)")
-        case .gi:        return String(localized: "ЖКТ")
-        case .breathing: return String(localized: "Дыхание")
-        case .other:     return String(localized: "Другое")
+        case .none:         return String(localized: "Нет реакции")
+        case .skin:         return String(localized: "Кожа (сыпь)")
+        case .gi:           return String(localized: "Срыгивание / рвота")
+        case .constipation: return String(localized: "Запор")
+        case .diarrhea:     return String(localized: "Диарея")
+        case .breathing:    return String(localized: "Затруднённое дыхание")
+        case .other:        return String(localized: "Другое")
         }
     }
 
     var emoji: String {
         switch self {
-        case .none:      return "👍"
-        case .skin:      return "🔴"
-        case .gi:        return "🤢"
-        case .breathing: return "😮‍💨"
-        case .other:     return "❓"
+        case .none:         return "👍"
+        case .skin:         return "🔴"
+        case .gi:           return "🤮"
+        case .constipation: return "😖"
+        case .diarrhea:     return "💩"
+        case .breathing:    return "😮‍💨"
+        case .other:        return "❓"
         }
     }
 }

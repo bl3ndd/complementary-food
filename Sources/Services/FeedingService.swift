@@ -38,20 +38,19 @@ struct FeedingService {
         save()
     }
 
-    /// Запись кормления. Реакция двигает стейт-машину:
-    /// реакция при вводе → paused; реакция на уже введённый → allergy (SPEC §4.4).
+    /// Запись кормления. Реакция — только запись в журнал и НЕ меняет статус ввода
+    /// (остановку/паузу пользователь выбирает вручную, SPEC §4.4). Заметка пишется
+    /// в этот же лог, а не отдельной записью.
     func logFeeding(_ food: Food, liking: Liking?, reaction: ReactionType?,
-                    date: Date = Date()) {
+                    date: Date = Date(), note: String? = nil) {
         let s = status(for: food.id)
         let isMaintenance = (s.state == .introduced)
         context.insert(FoodLog(foodId: food.id,
                                date: date,
                                type: isMaintenance ? .maintenance : .intro,
                                reaction: reaction,
-                               liking: liking))
-        if let reaction, reaction != .none {
-            s.state = isMaintenance ? .allergy : .paused
-        }
+                               liking: liking,
+                               note: note))
         save()
     }
 
