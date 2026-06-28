@@ -20,13 +20,14 @@ struct FeedingService {
         return created
     }
 
-    /// notIntroduced/paused → introducing.
-    func startIntroduction(_ food: Food) {
+    /// notIntroduced/paused → introducing. Дату старта можно задать задним числом
+    /// (родитель отмечает, что реально начал раньше) — окно наблюдения считается от неё.
+    func startIntroduction(_ food: Food, date: Date = Date()) {
         let s = status(for: food.id)
         s.state = .introducing
-        s.introStartedAt = Date()
+        s.introStartedAt = date
         s.completedAt = nil
-        context.insert(FoodLog(foodId: food.id, type: .intro))
+        context.insert(FoodLog(foodId: food.id, date: date, type: .intro))
         save()
     }
 
@@ -51,6 +52,11 @@ struct FeedingService {
                                reaction: reaction,
                                liking: liking,
                                note: note))
+        // Бэкдейт кормления во время ввода тянет старт окна назад, чтобы запись
+        // «за прошлую дату» реально засчитывалась в окно наблюдения (п.22).
+        if s.state == .introducing, let start = s.introStartedAt, date < start {
+            s.introStartedAt = date
+        }
         save()
     }
 
@@ -81,10 +87,10 @@ struct FeedingService {
     }
 
     /// Вернуть продукт в оборот (возобновить ввод). Сбрасывает напоминание-retry.
-    func reintroduce(_ food: Food) {
+    func reintroduce(_ food: Food, date: Date = Date()) {
         let s = status(for: food.id)
         s.state = .introducing
-        s.introStartedAt = Date()
+        s.introStartedAt = date
         s.completedAt = nil
         s.retryAt = nil
         save()
@@ -111,5 +117,11 @@ extension FeedingService {
                                       now: Date = Date(),
                                       calendar: Calendar = .current) -> Bool {
         observationDay(start: start, now: now, calendar: calendar) >= observationDays
+    }
+
+    /// Начало окна наблюдения = самая ранняя из дат: отметка старта и любой intro-лог.
+    /// Гарантирует, что записи задним числом «двигают» окно (п.22).
+    static func windowStart(introStartedAt: Date?, introLogDates: [Date]) -> Date? {
+        ([introStartedAt].compactMap { $0 } + introLogDates).min()
     }
 }

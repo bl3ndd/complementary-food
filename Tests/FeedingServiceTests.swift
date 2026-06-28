@@ -315,4 +315,47 @@ final class FeedingServiceTests: XCTestCase {
         XCTAssertTrue(FeedingService.isObservationComplete(start: start, observationDays: 3,
                                                            now: day(5, cal), calendar: cal))
     }
+
+    // MARK: - Бэкдейт ввода и якорь окна (п.22)
+
+    @MainActor
+    func testStartIntroductionWithPastDateAnchorsWindow() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+        let cal = utcCalendar()
+
+        service.startIntroduction(food, date: day(1, cal))
+
+        let s = service.status(for: food.id)
+        XCTAssertEqual(s.introStartedAt, day(1, cal))
+        let rows = try logs(context, foodId: food.id)
+        XCTAssertEqual(rows.first?.date, day(1, cal))
+    }
+
+    @MainActor
+    func testBackdatedFeedingPullsWindowStartBack() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+        let cal = utcCalendar()
+
+        service.startIntroduction(food, date: day(5, cal))
+        service.logFeeding(food, liking: nil, reaction: nil, date: day(2, cal))
+
+        // Кормление за 2-е число тянет старт окна назад к 2-му.
+        XCTAssertEqual(service.status(for: food.id).introStartedAt, day(2, cal))
+    }
+
+    func testWindowStartTakesEarliestOfStartAndLogs() {
+        let cal = utcCalendar()
+        XCTAssertEqual(
+            FeedingService.windowStart(introStartedAt: day(5, cal),
+                                       introLogDates: [day(3, cal), day(8, cal)]),
+            day(3, cal))
+        XCTAssertEqual(
+            FeedingService.windowStart(introStartedAt: nil, introLogDates: [day(4, cal)]),
+            day(4, cal))
+        XCTAssertNil(FeedingService.windowStart(introStartedAt: nil, introLogDates: []))
+    }
 }
