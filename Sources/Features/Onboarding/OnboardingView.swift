@@ -11,8 +11,11 @@ struct OnboardingView: View {
     @State private var birthDate = Calendar.current.date(byAdding: .month, value: -5, to: Date()) ?? Date()
     /// Черновик для настроек «своего плана» (вставляется в контекст только в finish).
     @State private var draftChild = Child()
+    /// id продуктов, уже введённых до начала работы с приложением (п.23).
+    @State private var introduced: Set<String> = []
 
-    private let lastStep = 2
+    private let catalog = FoodCatalog.shared
+    private let lastStep = 3
 
     var body: some View {
         VStack(spacing: 16) {
@@ -20,7 +23,8 @@ struct OnboardingView: View {
                 switch step {
                 case 0:  centered(welcomeStep)
                 case 1:  centered(childStep)
-                default: planStep
+                case 2:  planStep
+                default: alreadyStep
                 }
             }
             .frame(maxHeight: .infinity)
@@ -88,6 +92,46 @@ struct OnboardingView: View {
         .scrollIndicators(.hidden)
     }
 
+    private var alreadyStep: some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                Text("Что уже ввели?").font(.title2.bold())
+                Text("Отметь продукты, которые малыш уже пробовал без проблем. Можно пропустить.")
+                    .font(.footnote).foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 104), spacing: 8)], spacing: 8) {
+                    ForEach(catalog.foods) { food in introducedChip(food) }
+                }
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 3)
+        }
+        .scrollIndicators(.hidden)
+    }
+
+    private func introducedChip(_ food: Food) -> some View {
+        let on = introduced.contains(food.id)
+        return Button {
+            withAnimation(.snappy) {
+                if on { introduced.remove(food.id) } else { introduced.insert(food.id) }
+            }
+        } label: {
+            HStack(spacing: 6) {
+                Text(food.emoji)
+                Text(food.localizedName).font(.caption.weight(.semibold))
+                    .foregroundStyle(on ? Theme.accent : .primary).lineLimit(1)
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 10).padding(.vertical, 9)
+            .background(on ? Theme.accent.opacity(0.14) : Color.black.opacity(0.03),
+                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(on ? Theme.accent.opacity(0.5) : .clear, lineWidth: 1.5))
+        }
+        .buttonStyle(.plain)
+    }
+
     /// Маскот-гид в мягком цветном круге.
     private func haloMascot(_ mood: MascotMood, color: Color = Theme.accent) -> some View {
         Mascot(mood: mood, size: 96)
@@ -139,6 +183,10 @@ struct OnboardingView: View {
         child.customAllergenGroupsRaw = draftChild.customAllergenGroupsRaw
         child.clampCustom()
         context.insert(child)
+        if !introduced.isEmpty {
+            let foods = introduced.compactMap { catalog.food(id: $0) }
+            FeedingService(context: context).markIntroduced(foods)
+        }
         try? context.save()
     }
 }

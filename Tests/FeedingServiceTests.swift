@@ -347,6 +347,23 @@ final class FeedingServiceTests: XCTestCase {
         XCTAssertEqual(service.status(for: food.id).introStartedAt, day(2, cal))
     }
 
+    // MARK: - Засев «уже введённых» из онбординга (п.23)
+
+    @MainActor
+    func testMarkIntroducedCreatesIntroducedStatusesNoDupes() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let a = makeFood(id: "apple"), b = makeFood(id: "pear")
+
+        service.markIntroduced([a, b])
+        XCTAssertEqual(service.status(for: "apple").state, .introduced)
+        XCTAssertEqual(service.status(for: "pear").state, .introduced)
+
+        // Повторный вызов не создаёт дублей статусов.
+        service.markIntroduced([a])
+        XCTAssertEqual(try context.fetch(FetchDescriptor<IntroductionStatus>()).count, 2)
+    }
+
     func testWindowStartTakesEarliestOfStartAndLogs() {
         let cal = utcCalendar()
         XCTAssertEqual(

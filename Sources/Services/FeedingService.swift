@@ -60,6 +60,18 @@ struct FeedingService {
         save()
     }
 
+    /// Отмечает продукты как уже введённые (онбординг — что малыш уже ест без проблем).
+    /// Идемпотентно: повторный вызов не плодит статусы и не трогает уже введённые.
+    func markIntroduced(_ foods: [Food], now: Date = Date()) {
+        for food in foods {
+            let s = status(for: food.id)
+            guard s.state == .notIntroduced else { continue }
+            s.state = .introduced
+            s.completedAt = now
+        }
+        save()
+    }
+
     /// Ручная пометка аллергии (для уже введённого аллергена — гасит напоминания
     /// поддержки). Авто-перехода по реакции больше нет, только этот ручной выбор.
     func markAllergy(_ food: Food) {
