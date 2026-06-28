@@ -37,13 +37,10 @@ private struct MascotArc: Shape {
 }
 
 /// Бренд-маскот «Pudding» — мягкий пудинг-персонаж, нарисованный средствами SwiftUI
-/// (плейсхолдер до заказного арта). Лицо меняется по `mood`, есть лёгкий idle-wobble.
+/// (плейсхолдер до заказного арта). Лицо меняется по `mood`. Статичный — без анимации.
 struct Mascot: View {
     var mood: MascotMood = .neutral
     var size: CGFloat = 96
-    var animated: Bool = true
-
-    @State private var wobble = false
 
     private var custard: LinearGradient {
         LinearGradient(colors: [Color(red: 1.00, green: 0.87, blue: 0.55),
@@ -66,11 +63,7 @@ struct Mascot: View {
                 .zIndex(1)
             puddingBody
         }
-        .frame(width: size, height: size)
-        .rotationEffect(.degrees(animated ? (wobble ? 3 : -3) : 0), anchor: .bottom)
-        .animation(animated ? .easeInOut(duration: 1.6).repeatForever(autoreverses: true) : .default,
-                   value: wobble)
-        .onAppear { wobble = animated }
+        .frame(width: size, height: size * 0.7)
     }
 
     private var puddingBody: some View {
