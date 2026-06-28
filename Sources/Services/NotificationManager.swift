@@ -38,6 +38,7 @@ final class NotificationManager {
     private let center: NotificationScheduling
     private let allergenPrefix = "allergen-"
     private let introPrefix = "intro-"
+    private let retryPrefix = "retry-"
     /// Время суток напоминания.
     private let hour = 10
     private let minute = 0
@@ -50,7 +51,7 @@ final class NotificationManager {
     func clearAll() {
         Task {
             let ours = (await center.pendingIdentifiers())
-                .filter { $0.hasPrefix(allergenPrefix) || $0.hasPrefix(introPrefix) }
+                .filter { $0.hasPrefix(allergenPrefix) || $0.hasPrefix(introPrefix) || $0.hasPrefix(retryPrefix) }
             center.removePending(identifiers: ours)
         }
     }
@@ -71,6 +72,7 @@ final class NotificationManager {
                                          logs: logs).groups()
         let all = requests(for: groups)
             + introRequests(statuses: statuses, observationDays: profile.observationDays)
+            + retryRequests(statuses: statuses)
         Task { await apply(all) }
     }
 
@@ -78,7 +80,7 @@ final class NotificationManager {
     /// Чужие заявки не трогаем. Async — для детерминированного теста с моком центра.
     func apply(_ requests: [UNNotificationRequest]) async {
         let stale = (await center.pendingIdentifiers())
-            .filter { $0.hasPrefix(allergenPrefix) || $0.hasPrefix(introPrefix) }
+            .filter { $0.hasPrefix(allergenPrefix) || $0.hasPrefix(introPrefix) || $0.hasPrefix(retryPrefix) }
         center.removePending(identifiers: stale)
         for request in requests {
             center.add(request)
@@ -144,5 +146,29 @@ final class NotificationManager {
                 }
             }
             .flatMap { $0 }
+    }
+
+    /// Чистая функция: одноразовые напоминания «попробовать продукт снова». Для
+    /// статусов с будущим `retryAt` ставим one-shot на эту дату (10:00). Один
+    /// запрос на продукт, id `retry-<foodId>` — повторный refresh заменяет, не плодит.
+    func retryRequests(statuses: [IntroductionStatus],
+                       now: Date = Date(),
+                       calendar: Calendar = .current) -> [UNNotificationRequest] {
+        statuses.compactMap { status in
+            guard let retryAt = status.retryAt, retryAt > now else { return nil }
+
+            let content = UNMutableNotificationContent()
+            content.title = "Pudding"
+            content.body = String(localized: "Можно снова попробовать отложенный продукт — загляни в приложение.")
+            content.sound = .default
+
+            var comps = calendar.dateComponents([.year, .month, .day], from: retryAt)
+            comps.hour = hour
+            comps.minute = minute
+            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+
+            return UNNotificationRequest(identifier: retryPrefix + status.foodId,
+                                         content: content, trigger: trigger)
+        }
     }
 }

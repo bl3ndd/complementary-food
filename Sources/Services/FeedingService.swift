@@ -54,19 +54,39 @@ struct FeedingService {
         save()
     }
 
-    /// Ручная пометка аллергии.
+    /// Ручная пометка аллергии (для уже введённого аллергена — гасит напоминания
+    /// поддержки). Авто-перехода по реакции больше нет, только этот ручной выбор.
     func markAllergy(_ food: Food) {
         let s = status(for: food.id)
         s.state = .allergy
         save()
     }
 
-    /// Вернуть продукт в оборот (только по решению врача, SPEC §4.4).
+    /// Пользователь вручную останавливает ввод (была реакция / решил отложить) → пауза.
+    func stopIntroduction(_ food: Food) {
+        let s = status(for: food.id)
+        s.state = .paused
+        s.retryAt = nil
+        save()
+    }
+
+    /// Оставить продукт в паузе и поставить напоминание «попробовать снова через N
+    /// месяцев» (по умолчанию 2). Дату хранит `IntroductionStatus.retryAt`.
+    func scheduleRetry(_ food: Food, after months: Int = 2,
+                       now: Date = Date(), calendar: Calendar = .current) {
+        let s = status(for: food.id)
+        s.state = .paused
+        s.retryAt = calendar.date(byAdding: .month, value: months, to: now)
+        save()
+    }
+
+    /// Вернуть продукт в оборот (возобновить ввод). Сбрасывает напоминание-retry.
     func reintroduce(_ food: Food) {
         let s = status(for: food.id)
         s.state = .introducing
         s.introStartedAt = Date()
         s.completedAt = nil
+        s.retryAt = nil
         save()
     }
 

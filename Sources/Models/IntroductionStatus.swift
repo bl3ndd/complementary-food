@@ -9,6 +9,8 @@ final class IntroductionStatus {
     var stateRaw: String = IntroState.notIntroduced.rawValue
     var introStartedAt: Date?
     var completedAt: Date?
+    /// Если стоит — дата напоминания «попробовать продукт снова» (пауза + retry).
+    var retryAt: Date?
 
     init(foodId: String, state: IntroState = .notIntroduced) {
         self.foodId = foodId

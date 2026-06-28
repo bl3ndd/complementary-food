@@ -175,4 +175,24 @@ final class NotificationManagerTests: XCTestCase {
 
         XCTAssertTrue(reqs.isEmpty)
     }
+
+    // MARK: - retry-: одноразовое напоминание «попробовать снова»
+
+    func testRetryRequestsBuildOneShotForFutureRetryDateOnly() {
+        let cal = utcCal()
+        let future = IntroductionStatus(foodId: "egg", state: .paused)
+        future.retryAt = at(20, 9, cal)               // в будущем → ставим
+        let past = IntroductionStatus(foodId: "fish", state: .paused)
+        past.retryAt = at(1, 9, cal)                  // в прошлом → пропуск
+        let none = IntroductionStatus(foodId: "soy", state: .paused) // retryAt nil → пропуск
+
+        let reqs = NotificationManager(center: MockCenter())
+            .retryRequests(statuses: [future, past, none], now: at(10, 8, cal), calendar: cal)
+
+        XCTAssertEqual(reqs.map(\.identifier), ["retry-egg"])
+        let trigger = reqs.first?.trigger as? UNCalendarNotificationTrigger
+        XCTAssertEqual(trigger?.repeats, false)
+        XCTAssertEqual(trigger?.dateComponents.day, 20)
+        XCTAssertEqual(trigger?.dateComponents.hour, 10)
+    }
 }

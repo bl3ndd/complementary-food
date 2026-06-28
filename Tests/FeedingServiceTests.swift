@@ -219,6 +219,50 @@ final class FeedingServiceTests: XCTestCase {
         XCTAssertNil(s.completedAt)
     }
 
+    // MARK: - Остановить / повторить через 2 месяца (ручное управление, п.16)
+
+    @MainActor
+    func testStopIntroductionPausesAndClearsRetry() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+
+        service.startIntroduction(food)
+        service.stopIntroduction(food)
+
+        let s = service.status(for: food.id)
+        XCTAssertEqual(s.state, .paused)
+        XCTAssertNil(s.retryAt)
+    }
+
+    @MainActor
+    func testScheduleRetryKeepsPausedAndSetsRetryDate() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+        let cal = utcCalendar()
+        let now = day(1, cal)
+
+        service.scheduleRetry(food, after: 2, now: now, calendar: cal)
+
+        let s = service.status(for: food.id)
+        XCTAssertEqual(s.state, .paused)
+        XCTAssertEqual(s.retryAt, cal.date(byAdding: .month, value: 2, to: now))
+    }
+
+    @MainActor
+    func testReintroduceClearsRetry() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+
+        service.scheduleRetry(food)
+        XCTAssertNotNil(service.status(for: food.id).retryAt)
+
+        service.reintroduce(food)
+        XCTAssertNil(service.status(for: food.id).retryAt)
+    }
+
     // MARK: - Реакция .none трактуется как «нет реакции»
 
     @MainActor
