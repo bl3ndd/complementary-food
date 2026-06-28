@@ -60,20 +60,22 @@ final class ScenarioTests: XCTestCase {
         XCTAssertNotNil(service.status(for: broccoli.id).completedAt)
     }
 
-    // MARK: - E2: реакция при вводе аллергена → пауза, не «введён»
+    // MARK: - E2: реакция при вводе — запись в журнал, остановка вручную (п.16)
 
     @MainActor
-    func testE2_ReactionDuringIntroPausesNotIntroduced() throws {
+    func testE2_ReactionDuringIntroIsRecordedThenManualStop() throws {
         let ctx = try makeContext()
         let service = FeedingService(context: ctx)
         let egg = try food("egg_yolk")
 
         service.startIntroduction(egg)
         service.logFeeding(egg, liking: nil, reaction: .skin)
+        // Реакция сама по себе статус не двигает.
+        XCTAssertEqual(service.status(for: egg.id).state, .introducing)
 
-        let state = service.status(for: egg.id).state
-        XCTAssertEqual(state, .paused)
-        XCTAssertNotEqual(state, .introduced)
+        // Пользователь решает остановить ввод.
+        service.stopIntroduction(egg)
+        XCTAssertEqual(service.status(for: egg.id).state, .paused)
     }
 
     // MARK: - E3: введённый аллерген без поддержки → due → строится напоминание
@@ -91,7 +93,7 @@ final class ScenarioTests: XCTestCase {
         // Смотрим спустя 10 дней без поддержки → аллерген пора освежить.
         let later = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
         let maintenance = AllergenMaintenance(
-            catalog: catalog, profile: .who,
+            catalog: catalog, profile: testProfile,
             statuses: fetchStatuses(ctx), logs: fetchLogs(ctx), now: later)
         let due = maintenance.dueForDashboard()
         XCTAssertTrue(due.contains { $0.group == .egg },
@@ -103,23 +105,33 @@ final class ScenarioTests: XCTestCase {
         XCTAssertTrue(requests.contains { $0.identifier == "allergen-egg" })
     }
 
-    // MARK: - E4: аллергия на введённый → реинтродукция врачом
+    // MARK: - E4: ручная пометка аллергии на введённый → реинтродукция врачом
 
     @MainActor
-    func testE4_AllergyThenReintroduce() throws {
+    func testE4_ManualAllergyThenReintroduce() throws {
         let ctx = try makeContext()
         let service = FeedingService(context: ctx)
         let egg = try food("egg_yolk")
 
         service.startIntroduction(egg)
         service.completeIntroduction(egg)
-        service.logFeeding(egg, liking: nil, reaction: .skin)   // реакция на введённый
+        service.logFeeding(egg, liking: nil, reaction: .skin)   // реакция — только запись
+        XCTAssertEqual(service.status(for: egg.id).state, .introduced)
+
+        service.markAllergy(egg)                                // пометка вручную
         XCTAssertEqual(service.status(for: egg.id).state, .allergy)
 
         service.reintroduce(egg)
         let s = service.status(for: egg.id)
         XCTAssertEqual(s.state, .introducing)
         XCTAssertNil(s.completedAt)
+    }
+
+    /// Свой план с частотой 1/нед (egg входит в дефолтные аллергены своего плана).
+    private var testProfile: FeedingProfile {
+        let c = Child()
+        c.customAllergenFrequencyPerWeek = 1
+        return c.feedingProfile
     }
 
     /// Заглушка центра уведомлений (E3 строит заявки, планировать не нужно).

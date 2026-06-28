@@ -9,17 +9,19 @@ final class Child {
     var id: UUID = UUID()
     var name: String = ""
     var birthDate: Date = Date()
-    /// id выбранной методики (FeedingProfile.preset или FeedingProfile.customId).
-    var feedingProfileId: String = FeedingProfile.who.id
+    /// id методики. Метод всегда «свой план», поле оставлено ради CloudKit-совместимости.
+    var feedingProfileId: String = FeedingProfile.customId
 
-    // MARK: - Параметры «своего плана» (custom). Дефолты — от ВОЗ; CloudKit-safe.
+    // MARK: - Параметры «своего плана» (custom). CloudKit-safe дефолты.
     var customStartAgeMonths: Int = 6
-    var customObservationDays: Int = 3
+    /// Окно наблюдения для обычного продукта и для аллергена — раздельно (п.10).
+    var customObservationDaysRegular: Int = 3
+    var customObservationDaysAllergen: Int = 5
     var customAllergenFrequencyPerWeek: Int = 2
     /// Список групп аллергенов строкой rawValue через запятую (примитив — для CloudKit).
     var customAllergenGroupsRaw: String = "egg,peanut,dairy,gluten,fish,soy,treenut,sesame"
 
-    init(name: String = "", birthDate: Date = Date(), feedingProfileId: String = FeedingProfile.who.id) {
+    init(name: String = "", birthDate: Date = Date(), feedingProfileId: String = FeedingProfile.customId) {
         self.name = name
         self.birthDate = birthDate
         self.feedingProfileId = feedingProfileId
@@ -35,7 +37,8 @@ final class Child {
     /// Приводит custom-параметры в допустимые границы (защита от мусора в сторе).
     func clampCustom() {
         customStartAgeMonths = customStartAgeMonths.clamped(to: FeedingProfile.CustomLimits.startAge)
-        customObservationDays = customObservationDays.clamped(to: FeedingProfile.CustomLimits.observation)
+        customObservationDaysRegular = customObservationDaysRegular.clamped(to: FeedingProfile.CustomLimits.observation)
+        customObservationDaysAllergen = customObservationDaysAllergen.clamped(to: FeedingProfile.CustomLimits.observation)
         customAllergenFrequencyPerWeek = customAllergenFrequencyPerWeek.clamped(to: FeedingProfile.CustomLimits.frequency)
     }
 
@@ -49,10 +52,9 @@ final class Child {
         calendar.dateComponents([.month], from: birthDate, to: now).month ?? 0
     }
 
+    /// Методика всегда собирается из custom-полей (пресеты убраны, п.11).
     var feedingProfile: FeedingProfile {
-        feedingProfileId == FeedingProfile.customId
-            ? FeedingProfile.custom(from: self)
-            : FeedingProfile.preset(id: feedingProfileId)
+        FeedingProfile.custom(from: self)
     }
 }
 

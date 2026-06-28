@@ -25,7 +25,7 @@ struct FoodDetailView: View {
     private var service: FeedingService { FeedingService(context: context) }
 
     private var introStartedAt: Date? { statuses.first?.introStartedAt }
-    private var observationDays: Int { child.feedingProfile.observationDays }
+    private var observationDays: Int { child.feedingProfile.observationDays(for: food) }
     private var observationDay: Int? {
         introStartedAt.map { FeedingService.observationDay(start: $0) }
     }

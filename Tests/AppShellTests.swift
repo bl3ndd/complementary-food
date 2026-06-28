@@ -24,13 +24,12 @@ final class AppShellTests: XCTestCase {
     private func profile(frequencyPerWeek: Int,
                          groups: [AllergenGroup]) -> FeedingProfile {
         FeedingProfile(id: "test", name: "Test", startAgeMonths: 6,
-                       observationDays: 3, allergenFrequencyPerWeek: frequencyPerWeek,
-                       allergenGroups: groups, isPreset: false,
-                       source: "Test", sourceURL: "https://example.com", caveat: "Test")
+                       observationDaysRegular: 3, observationDaysAllergen: 5,
+                       allergenFrequencyPerWeek: frequencyPerWeek, allergenGroups: groups)
     }
 
     private func food(_ id: String, group: AllergenGroup) -> Food {
-        Food(id: id, name: id.capitalized, category: .allergen,
+        Food(id: id, name: id.capitalized, category: .other,
              emoji: "🥚", isAllergen: true, allergenGroup: group, minAgeMonths: 6)
     }
 
@@ -47,7 +46,7 @@ final class AppShellTests: XCTestCase {
                       "до онбординга детей нет → показывается онбординг")
 
         let birth = Calendar.current.date(byAdding: .month, value: -6, to: now)!
-        let child = Child(name: "Аня", birthDate: birth, feedingProfileId: FeedingProfile.aap.id)
+        let child = Child(name: "Аня", birthDate: birth, feedingProfileId: FeedingProfile.customId)
         context.insert(child)
         try context.save()
 
@@ -56,8 +55,8 @@ final class AppShellTests: XCTestCase {
         let loaded = try XCTUnwrap(children.first)
         XCTAssertEqual(loaded.name, "Аня")
         XCTAssertEqual(loaded.birthDate, birth)
-        XCTAssertEqual(loaded.feedingProfile.id, FeedingProfile.aap.id,
-                       "выбранная в онбординге методика резолвится в валидный пресет")
+        XCTAssertEqual(loaded.feedingProfile.id, FeedingProfile.customId,
+                       "методика всегда «свой план»")
         XCTAssertEqual(loaded.ageInMonths(now: now), 6)
     }
 
@@ -74,8 +73,8 @@ final class AppShellTests: XCTestCase {
 
         let loaded = try XCTUnwrap(try context.fetch(FetchDescriptor<Child>()).first)
         XCTAssertEqual(loaded.name, "")
-        XCTAssertTrue(FeedingProfile.presets.contains { $0.id == loaded.feedingProfile.id },
-                      "методика по умолчанию — валидный пресет")
+        XCTAssertEqual(loaded.feedingProfile.id, FeedingProfile.customId,
+                       "методика по умолчанию — свой план")
     }
 
     // MARK: - Дашборд: выбор «пора дать аллерген»

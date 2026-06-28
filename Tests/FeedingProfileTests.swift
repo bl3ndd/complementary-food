@@ -1,85 +1,94 @@
 import XCTest
 @testable import Prikorm
 
-/// Тесты пресетов методик: верифицированность (источник + оговорка у каждого) и
-/// разумность цифр (App Review 1.4.1 — methodology disclosure).
+/// Тесты методики «свой план» (пресеты убраны, п.11) и раздельного окна
+/// наблюдения для обычного продукта vs аллергена (п.10).
 final class FeedingProfileTests: XCTestCase {
 
-    func testEveryPresetCarriesAVerifiedSource() {
-        for p in FeedingProfile.presets {
-            XCTAssertFalse(p.source.trimmingCharacters(in: .whitespaces).isEmpty,
-                           "\(p.id): пустой source")
-            XCTAssertFalse(p.caveat.trimmingCharacters(in: .whitespaces).isEmpty,
-                           "\(p.id): пустой caveat")
-            let url = URL(string: p.sourceURL)
-            XCTAssertNotNil(url, "\(p.id): невалидный sourceURL")
-            XCTAssertEqual(url?.scheme, "https", "\(p.id): sourceURL должен быть https")
-        }
+    private func food(_ id: String, allergen: Bool) -> Food {
+        Food(id: id, name: id, category: .other, emoji: "🍎",
+             isAllergen: allergen, allergenGroup: allergen ? .other : nil, minAgeMonths: 6)
     }
 
-    func testPresetNumbersInSaneRanges() {
-        for p in FeedingProfile.presets {
-            XCTAssertTrue((4...7).contains(p.startAgeMonths), "\(p.id): старт вне 4–7")
-            XCTAssertTrue((1...14).contains(p.observationDays), "\(p.id): окно вне 1–14")
-            XCTAssertTrue((1...7).contains(p.allergenFrequencyPerWeek), "\(p.id): частота вне 1–7")
-            XCTAssertFalse(p.allergenGroups.isEmpty, "\(p.id): пустой список аллергенов")
-            XCTAssertGreaterThanOrEqual(p.maintenanceIntervalDays, 1, "\(p.id): интервал < 1")
-        }
-    }
-
-    func testPresetLookupFallsBackToWho() {
-        XCTAssertEqual(FeedingProfile.preset(id: "does-not-exist").id, FeedingProfile.who.id)
-        XCTAssertEqual(FeedingProfile.preset(id: "aap").id, "aap")
-    }
-
-    // MARK: - Свой план (custom)
+    // MARK: - Сборка своего плана из Child
 
     func testCustomProfileBuiltFromChild() {
         let child = Child(feedingProfileId: FeedingProfile.customId)
         child.customStartAgeMonths = 5
-        child.customObservationDays = 7
+        child.customObservationDaysRegular = 4
+        child.customObservationDaysAllergen = 8
         child.customAllergenFrequencyPerWeek = 1
         child.customAllergenGroups = [.egg, .fish]
 
         let p = child.feedingProfile
         XCTAssertEqual(p.id, FeedingProfile.customId)
-        XCTAssertFalse(p.isPreset)
         XCTAssertEqual(p.startAgeMonths, 5)
-        XCTAssertEqual(p.observationDays, 7)
+        XCTAssertEqual(p.observationDaysRegular, 4)
+        XCTAssertEqual(p.observationDaysAllergen, 8)
         XCTAssertEqual(p.allergenFrequencyPerWeek, 1)
         XCTAssertEqual(p.allergenGroups, [.egg, .fish])
-        XCTAssertFalse(p.source.isEmpty)
-        XCTAssertFalse(p.caveat.isEmpty)
+        XCTAssertFalse(p.name.isEmpty)
     }
 
-    func testChildFallsBackToPresetForNonCustomId() {
-        XCTAssertEqual(Child(feedingProfileId: "aap").feedingProfile.id, "aap")
-        XCTAssertEqual(Child(feedingProfileId: "nope").feedingProfile.id, FeedingProfile.who.id)
+    /// Любой Child даёт «свой план» — других методик нет.
+    func testChildAlwaysResolvesToCustom() {
+        XCTAssertEqual(Child(feedingProfileId: "aap").feedingProfile.id, FeedingProfile.customId)
+        XCTAssertEqual(Child(feedingProfileId: "nope").feedingProfile.id, FeedingProfile.customId)
     }
+
+    // MARK: - Раздельное окно наблюдения (п.10)
+
+    func testObservationWindowDiffersForAllergen() {
+        let child = Child(feedingProfileId: FeedingProfile.customId)
+        child.customObservationDaysRegular = 3
+        child.customObservationDaysAllergen = 7
+        let p = child.feedingProfile
+
+        XCTAssertEqual(p.observationDays(for: food("zucchini", allergen: false)), 3)
+        XCTAssertEqual(p.observationDays(for: food("egg", allergen: true)), 7)
+    }
+
+    // MARK: - Интервал поддержки из частоты
+
+    func testMaintenanceIntervalFromFrequency() {
+        func interval(_ freq: Int) -> Int {
+            let c = Child(); c.customAllergenFrequencyPerWeek = freq
+            return c.feedingProfile.maintenanceIntervalDays
+        }
+        XCTAssertEqual(interval(1), 7)
+        XCTAssertEqual(interval(2), 4)   // round(3.5)
+        XCTAssertEqual(interval(3), 2)   // round(2.33)
+        XCTAssertEqual(interval(7), 1)
+    }
+
+    // MARK: - Аллергены round-trip + клэмп границ
 
     func testCustomAllergenGroupsRoundTrip() {
         let child = Child()
         child.customAllergenGroups = [.peanut, .treenut, .sesame]
         XCTAssertEqual(child.customAllergenGroups, [.peanut, .treenut, .sesame])
-        // Дефолт парсится в непустой список.
         XCTAssertFalse(Child().customAllergenGroups.isEmpty)
     }
 
     func testClampCustomBringsValuesIntoRange() {
         let child = Child()
         child.customStartAgeMonths = 99
-        child.customObservationDays = 0
+        child.customObservationDaysRegular = 0
+        child.customObservationDaysAllergen = 99
         child.customAllergenFrequencyPerWeek = 50
         child.clampCustom()
         XCTAssertEqual(child.customStartAgeMonths, FeedingProfile.CustomLimits.startAge.upperBound)
-        XCTAssertEqual(child.customObservationDays, FeedingProfile.CustomLimits.observation.lowerBound)
+        XCTAssertEqual(child.customObservationDaysRegular, FeedingProfile.CustomLimits.observation.lowerBound)
+        XCTAssertEqual(child.customObservationDaysAllergen, FeedingProfile.CustomLimits.observation.upperBound)
         XCTAssertEqual(child.customAllergenFrequencyPerWeek, FeedingProfile.CustomLimits.frequency.upperBound)
     }
 
     func testCustomDefaultsAreSane() {
         let p = Child(feedingProfileId: FeedingProfile.customId).feedingProfile
         XCTAssertTrue((4...8).contains(p.startAgeMonths))
-        XCTAssertTrue((1...14).contains(p.observationDays))
+        XCTAssertTrue((1...14).contains(p.observationDaysRegular))
+        XCTAssertTrue((1...14).contains(p.observationDaysAllergen))
         XCTAssertGreaterThanOrEqual(p.maintenanceIntervalDays, 1)
+        XCTAssertFalse(p.allergenGroups.isEmpty)
     }
 }

@@ -66,12 +66,18 @@ final class NotificationManager {
     func refresh(context: ModelContext, profile: FeedingProfile) {
         let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>())) ?? []
         let logs = (try? context.fetch(FetchDescriptor<FoodLog>())) ?? []
-        let groups = AllergenMaintenance(catalog: .shared,
+        let catalog = FoodCatalog.shared
+        let groups = AllergenMaintenance(catalog: catalog,
                                          profile: profile,
                                          statuses: statuses,
                                          logs: logs).groups()
+        // Окно ввода зависит от типа продукта (аллерген/обычный) — считаем раздельно (п.10).
+        let introducing = statuses.filter { $0.state == .introducing }
+        let allergenIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen == true }
+        let regularIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen != true }
         let all = requests(for: groups)
-            + introRequests(statuses: statuses, observationDays: profile.observationDays)
+            + introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen)
+            + introRequests(statuses: regularIntro, observationDays: profile.observationDaysRegular)
             + retryRequests(statuses: statuses)
         Task { await apply(all) }
     }

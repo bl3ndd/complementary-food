@@ -19,24 +19,10 @@ struct ProfileView: View {
                     LabeledContent("Возраст", value: String(localized: "\(child.ageInMonths) мес"))
                 }
 
-                Section("Методика прикорма") {
-                    Picker("Методика", selection: $child.feedingProfileId) {
-                        ForEach(FeedingProfile.visiblePresets()) { preset in
-                            Text(preset.name).tag(preset.id)
-                        }
-                        Text("Свой план").tag(FeedingProfile.customId)
-                    }
-                }
-
-                Section {
-                    MethodologyCard(profile: child.feedingProfile, expanded: true)
+                Section("Свой план прикорма") {
+                    CustomPlanEditor(child: child)
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
-                    if child.feedingProfileId == FeedingProfile.customId {
-                        CustomPlanEditor(child: child)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
-                    }
                 }
 
                 Section("Язык") {
@@ -86,7 +72,6 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .background(AppBackground())
             .navigationTitle("Профиль")
-            .onChange(of: child.feedingProfileId) { persist() }
             .onChange(of: customSignature) { persist() }
             .onChange(of: language) {
                 LanguageManager.apply(language)
@@ -119,7 +104,7 @@ struct ProfileView: View {
 
     /// Подпись custom-параметров — чтобы реагировать на правки своего плана.
     private var customSignature: String {
-        "\(child.customStartAgeMonths)/\(child.customObservationDays)/\(child.customAllergenFrequencyPerWeek)/\(child.customAllergenGroupsRaw)"
+        "\(child.customStartAgeMonths)/\(child.customObservationDaysRegular)/\(child.customObservationDaysAllergen)/\(child.customAllergenFrequencyPerWeek)/\(child.customAllergenGroupsRaw)"
     }
 
     private func persist() {

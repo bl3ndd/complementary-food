@@ -22,7 +22,7 @@ final class ModelTests: XCTestCase {
         let context = container.mainContext
 
         let birth = Date(timeIntervalSince1970: 1_600_000_000)
-        let child = Child(name: "Маша", birthDate: birth, feedingProfileId: FeedingProfile.russia.id)
+        let child = Child(name: "Маша", birthDate: birth, feedingProfileId: FeedingProfile.customId)
         context.insert(child)
         try context.save()
 
@@ -31,8 +31,8 @@ final class ModelTests: XCTestCase {
         let loaded = try XCTUnwrap(fetched.first)
         XCTAssertEqual(loaded.name, "Маша")
         XCTAssertEqual(loaded.birthDate, birth)
-        XCTAssertEqual(loaded.feedingProfileId, FeedingProfile.russia.id)
-        XCTAssertEqual(loaded.feedingProfile.id, FeedingProfile.russia.id)
+        XCTAssertEqual(loaded.feedingProfileId, FeedingProfile.customId)
+        XCTAssertEqual(loaded.feedingProfile.id, FeedingProfile.customId)
     }
 
     @MainActor
@@ -124,16 +124,13 @@ final class ModelTests: XCTestCase {
         XCTAssertEqual(child.ageInMonths(now: twoWeeks, calendar: cal), 0)
     }
 
-    // MARK: - FeedingProfile config
+    // MARK: - FeedingProfile config (свой план)
 
-    func testFeedingProfileMaintenanceInterval() {
-        XCTAssertEqual(FeedingProfile.who.maintenanceIntervalDays, 4)      // 7/2 ≈ 3.5 → 4
-        XCTAssertEqual(FeedingProfile.aap.maintenanceIntervalDays, 2)      // 7/3 ≈ 2.33 → 2
-        XCTAssertEqual(FeedingProfile.russia.maintenanceIntervalDays, 7)   // 7/1 → 7
-    }
-
-    func testFeedingProfilePresetLookupFallsBackToWho() {
-        XCTAssertEqual(FeedingProfile.preset(id: "russia").id, "russia")
-        XCTAssertEqual(FeedingProfile.preset(id: "does-not-exist").id, FeedingProfile.who.id)
+    func testCustomFeedingProfileMaintenanceInterval() {
+        let child = Child(feedingProfileId: FeedingProfile.customId)
+        child.customAllergenFrequencyPerWeek = 2
+        XCTAssertEqual(child.feedingProfile.maintenanceIntervalDays, 4)  // 7/2 ≈ 3.5 → 4
+        child.customAllergenFrequencyPerWeek = 1
+        XCTAssertEqual(child.feedingProfile.maintenanceIntervalDays, 7)  // 7/1 → 7
     }
 }

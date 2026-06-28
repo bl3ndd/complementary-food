@@ -16,13 +16,12 @@ final class AllergenTests: XCTestCase {
     private func profile(frequencyPerWeek: Int,
                          groups: [AllergenGroup]) -> FeedingProfile {
         FeedingProfile(id: "test", name: "Test", startAgeMonths: 6,
-                       observationDays: 3, allergenFrequencyPerWeek: frequencyPerWeek,
-                       allergenGroups: groups, isPreset: false,
-                       source: "Test", sourceURL: "https://example.com", caveat: "Test")
+                       observationDaysRegular: 3, observationDaysAllergen: 5,
+                       allergenFrequencyPerWeek: frequencyPerWeek, allergenGroups: groups)
     }
 
     private func food(_ id: String, group: AllergenGroup) -> Food {
-        Food(id: id, name: id.capitalized, category: .allergen,
+        Food(id: id, name: id.capitalized, category: .other,
              emoji: "🥚", isAllergen: true, allergenGroup: group, minAgeMonths: 6)
     }
 

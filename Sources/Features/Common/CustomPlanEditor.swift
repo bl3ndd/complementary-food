@@ -11,8 +11,10 @@ struct CustomPlanEditor: View {
         VStack(alignment: .leading, spacing: 14) {
             paramRow("calendar", "Старт прикорма", color: Theme.sunny,
                      value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
-            paramRow("eye.fill", "Окно наблюдения", color: Theme.sky,
-                     value: $child.customObservationDays, range: limits.observation, unit: "дн")
+            paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky,
+                     value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
+            paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep,
+                     value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
             paramRow("repeat", "Частота аллергена", color: Theme.mint,
                      value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
 

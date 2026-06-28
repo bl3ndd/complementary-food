@@ -9,7 +9,6 @@ struct OnboardingView: View {
     @State private var step = 0
     @State private var name = ""
     @State private var birthDate = Calendar.current.date(byAdding: .month, value: -5, to: Date()) ?? Date()
-    @State private var profileId = FeedingProfile.who.id
     /// Черновик для настроек «своего плана» (вставляется в контекст только в finish).
     @State private var draftChild = Child()
 
@@ -21,7 +20,7 @@ struct OnboardingView: View {
                 switch step {
                 case 0:  centered(welcomeStep)
                 case 1:  centered(childStep)
-                default: methodologyStep
+                default: planStep
                 }
             }
             .frame(maxHeight: .infinity)
@@ -73,31 +72,18 @@ struct OnboardingView: View {
         }
     }
 
-    private var methodologyStep: some View {
+    private var planStep: some View {
         ScrollView {
             VStack(spacing: 14) {
-                Text("Методика прикорма").font(.title2.bold())
-                Text("Выбери готовую или собери свой план. Можно сменить позже.")
+                Text("Свой план прикорма").font(.title2.bold())
+                Text("Настрой старт, окна наблюдения и аллергены. Можно изменить позже.")
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                ForEach(FeedingProfile.visiblePresets()) { preset in
-                    MethodologyCard(profile: preset, selected: profileId == preset.id) {
-                        withAnimation(.snappy) { profileId = preset.id }
-                    }
-                }
-
-                MethodologyCard(profile: FeedingProfile.custom(from: draftChild),
-                                selected: profileId == FeedingProfile.customId) {
-                    withAnimation(.snappy) { profileId = FeedingProfile.customId }
-                }
-
-                if profileId == FeedingProfile.customId {
-                    CustomPlanEditor(child: draftChild)
-                }
+                CustomPlanEditor(child: draftChild)
             }
             .padding(.vertical, 8)
-            .padding(.horizontal, 3)   // чтобы рамка выбранной карточки не обрезалась о край скролла
+            .padding(.horizontal, 3)
         }
         .scrollIndicators(.hidden)
     }
@@ -145,14 +131,13 @@ struct OnboardingView: View {
 
     private func finish() {
         let child = Child(name: name.trimmingCharacters(in: .whitespaces),
-                          birthDate: birthDate, feedingProfileId: profileId)
-        if profileId == FeedingProfile.customId {
-            child.customStartAgeMonths = draftChild.customStartAgeMonths
-            child.customObservationDays = draftChild.customObservationDays
-            child.customAllergenFrequencyPerWeek = draftChild.customAllergenFrequencyPerWeek
-            child.customAllergenGroupsRaw = draftChild.customAllergenGroupsRaw
-            child.clampCustom()
-        }
+                          birthDate: birthDate, feedingProfileId: FeedingProfile.customId)
+        child.customStartAgeMonths = draftChild.customStartAgeMonths
+        child.customObservationDaysRegular = draftChild.customObservationDaysRegular
+        child.customObservationDaysAllergen = draftChild.customObservationDaysAllergen
+        child.customAllergenFrequencyPerWeek = draftChild.customAllergenFrequencyPerWeek
+        child.customAllergenGroupsRaw = draftChild.customAllergenGroupsRaw
+        child.clampCustom()
         context.insert(child)
         try? context.save()
     }

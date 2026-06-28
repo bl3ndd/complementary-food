@@ -165,7 +165,9 @@ struct DashboardView: View {
     private func dayInfo(_ s: IntroductionStatus) -> String {
         guard let start = s.introStartedAt else { return "" }
         let day = FeedingService.observationDay(start: start)
-        return String(localized: "День \(day) из \(child.feedingProfile.observationDays)")
+        let window = catalog.food(id: s.foodId).map { child.feedingProfile.observationDays(for: $0) }
+            ?? child.feedingProfile.observationDaysRegular
+        return String(localized: "День \(day) из \(window)")
     }
 
     private func give(_ group: AllergenGroupStatus) {

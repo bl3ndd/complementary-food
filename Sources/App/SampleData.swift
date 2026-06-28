@@ -9,7 +9,7 @@ enum SampleData {
         guard existing.isEmpty else { return }
 
         let birth = Calendar.current.date(byAdding: .month, value: -6, to: Date()) ?? Date()
-        context.insert(Child(name: "Маша", birthDate: birth, feedingProfileId: FeedingProfile.who.id))
+        context.insert(Child(name: "Маша", birthDate: birth, feedingProfileId: FeedingProfile.customId))
 
         // Брокколи — в процессе ввода (идёт окно наблюдения).
         let broc = IntroductionStatus(foodId: "broccoli", state: .introducing)
