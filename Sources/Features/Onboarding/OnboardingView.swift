@@ -100,7 +100,8 @@ struct OnboardingView: View {
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 104), spacing: 8)], spacing: 8) {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 8),
+                                    GridItem(.flexible(), spacing: 8)], spacing: 8) {
                     ForEach(catalog.foods) { food in introducedChip(food) }
                 }
             }
@@ -117,16 +118,20 @@ struct OnboardingView: View {
                 if on { introduced.remove(food.id) } else { introduced.insert(food.id) }
             }
         } label: {
-            HStack(spacing: 6) {
-                Text(food.emoji)
-                Text(food.localizedName).font(.caption.weight(.semibold))
+            HStack(spacing: 8) {
+                FoodIcon(food: food, size: 32)
+                Text(food.localizedName).font(.subheadline.weight(.semibold))
                     .foregroundStyle(on ? Theme.accent : .primary).lineLimit(1)
                 Spacer(minLength: 0)
+                if on {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.footnote).foregroundStyle(Theme.accent)
+                }
             }
-            .padding(.horizontal, 10).padding(.vertical, 9)
+            .padding(.horizontal, 10).padding(.vertical, 8)
             .background(on ? Theme.accent.opacity(0.14) : Color.black.opacity(0.03),
-                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .stroke(on ? Theme.accent.opacity(0.5) : .clear, lineWidth: 1.5))
         }
         .buttonStyle(.plain)
