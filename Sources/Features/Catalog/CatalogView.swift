@@ -74,25 +74,28 @@ struct CatalogView: View {
     }
 
     private var foodList: some View {
-        List {
-            searchBar
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets(top: 2, leading: 16, bottom: 2, trailing: 16))
-                .listRowSeparator(.hidden)
-            // Кнопка «свой продукт» — сразу под поиском (п.19).
-            addCustomRow
-                .listRowInsets(EdgeInsets(top: 2, leading: 16, bottom: 6, trailing: 16))
-                .listRowSeparator(.hidden)
-            ForEach(FoodCategory.allCases, id: \.self) { category in
-                let foods = foods(in: category)
-                if !foods.isEmpty {
-                    Section(category.title) {
-                        ForEach(foods) { food in foodRow(food) }
+        VStack(spacing: 10) {
+            // Поиск и «свой продукт» — над списком, чтобы не было большого инсета List
+            // и кнопка не обрезалась рядом.
+            VStack(spacing: 8) {
+                searchBar
+                addCustomButton
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+
+            List {
+                ForEach(FoodCategory.allCases, id: \.self) { category in
+                    let foods = foods(in: category)
+                    if !foods.isEmpty {
+                        Section(category.title) {
+                            ForEach(foods) { food in foodRow(food) }
+                        }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
         }
-        .scrollContentBackground(.hidden)
     }
 
     @ViewBuilder
@@ -108,12 +111,17 @@ struct CatalogView: View {
             }
     }
 
-    private var addCustomRow: some View {
+    private var addCustomButton: some View {
         Button { showAddCustom = true } label: {
             Label("Добавить свой продукт", systemImage: "plus.circle.fill")
-                .foregroundStyle(Theme.accent).fontWeight(.semibold)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.accent)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 14).padding(.vertical, 11)
+                .background(.white, in: Capsule())
+                .overlay(Capsule().stroke(.black.opacity(0.06), lineWidth: 1))
         }
-        .listRowBackground(Color.white)
+        .buttonStyle(.plain)
     }
 
     private func deleteCustom(_ id: String) {
