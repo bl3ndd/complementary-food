@@ -13,6 +13,8 @@ struct FoodDetailView: View {
     @State private var showCheer = false
     @State private var startDate = Date()
     @State private var editingLog: FoodLog?
+    @State private var confirmStop = false
+    @State private var confirmAllergy = false
 
     init(food: Food, child: Child) {
         self.food = food
@@ -59,6 +61,16 @@ struct FoodDetailView: View {
             LogFeedingSheet(food: food, child: child, mode: mode)
         }
         .sheet(item: $editingLog) { EditLogSheet(log: $0) }
+        .confirmationDialog("Приостановить ввод этого продукта?",
+                            isPresented: $confirmStop, titleVisibility: .visible) {
+            Button("Приостановить", role: .destructive) { stop() }
+            Button("Отмена", role: .cancel) {}
+        }
+        .confirmationDialog("Пометить аллергию? Напоминания по этому аллергену отключатся.",
+                            isPresented: $confirmAllergy, titleVisibility: .visible) {
+            Button("Пометить аллергию", role: .destructive) { flagAllergy() }
+            Button("Отмена", role: .cancel) {}
+        }
         .overlay {
             if showCheer { cheerOverlay }
         }
@@ -119,11 +131,11 @@ struct FoodDetailView: View {
                 BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
             }
             GhostButton(title: "Была реакция", tint: .red) { logMode = .reaction }
-            GhostButton(title: "Приостановить ввод", tint: .gray) { stop() }
+            GhostButton(title: "Приостановить ввод", tint: .gray) { confirmStop = true }
         case .introduced:
             BigButton(title: "Записать кормление") { logMode = .feeding }
             GhostButton(title: "Появилась реакция", tint: .red) { logMode = .reaction }
-            GhostButton(title: "Пометить аллергию", tint: .gray) { flagAllergy() }
+            GhostButton(title: "Пометить аллергию", tint: .gray) { confirmAllergy = true }
         case .paused:
             if let retry = statuses.first?.retryAt {
                 Text("Напомним попробовать снова \(retry.shortDate)")

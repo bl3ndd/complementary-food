@@ -12,6 +12,16 @@
         }
       }
     },
+    "%@ — %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ — %2$@"
+          }
+        }
+      }
+    },
     "%lld аллергенов ждут — дай, чтобы сохранить толерантность": {
       "extractionState": "manual",
       "localizations": {
@@ -396,6 +406,7 @@
       }
     },
     "Бахчевая культура с высоким содержанием воды. Источник витамина C.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -406,6 +417,7 @@
       }
     },
     "Бахчевая культура. Источник витамина C и бета-каротина.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -416,6 +428,7 @@
       }
     },
     "Безглютеновая крупа. Источник железа, магния и растительного белка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -426,6 +439,7 @@
       }
     },
     "Безглютеновая крупа. Источник магния и железа.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -436,6 +450,7 @@
       }
     },
     "Безглютеновая крупа. Источник углеводов и клетчатки.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -446,6 +461,7 @@
       }
     },
     "Безглютеновая крупа. Источник углеводов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -467,6 +483,7 @@
       }
     },
     "Белок яйца. Источник белка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -499,6 +516,7 @@
       }
     },
     "Бобовая культура. Источник белка, полезных жиров и витамина E.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -509,6 +527,7 @@
       }
     },
     "Бобовая культура. Источник растительного белка, железа и кальция.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -519,6 +538,7 @@
       }
     },
     "Бобовый овощ. Источник растительного белка, клетчатки и железа.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1226,6 +1246,7 @@
       }
     },
     "Желток яйца. Источник холина, витамина D, железа и белка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1236,6 +1257,7 @@
       }
     },
     "Жирная рыба. Источник омега-3 (DHA), витамина D и белка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1246,6 +1268,7 @@
       }
     },
     "Жирная рыба. Источник омега-3, витамина D и белка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1300,6 +1323,7 @@
       }
     },
     "Запись": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1397,6 +1421,7 @@
       }
     },
     "Зелёный овощ. Источник витамина C, витамина K и фолатов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1407,6 +1432,7 @@
       }
     },
     "Злак (пшеница). Источник углеводов, белка и витаминов группы B. Содержит глютен.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1417,6 +1443,7 @@
       }
     },
     "Злак с растворимой клетчаткой (бета-глюкан). Источник железа и белка. Содержит глютен.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1427,6 +1454,7 @@
       }
     },
     "Злак. Источник клетчатки и углеводов. Содержит глютен.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1437,6 +1465,7 @@
       }
     },
     "Злак. Источник углеводов, белка и витаминов группы B. Содержит глютен.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1678,6 +1707,7 @@
       }
     },
     "Кисломолочный напиток. Источник кальция, белка и пробиотиков.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1688,6 +1718,7 @@
       }
     },
     "Кисломолочный продукт. Источник кальция, белка и пробиотиков.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1698,6 +1729,7 @@
       }
     },
     "Кисломолочный продукт. Источник кальция, белка и фосфора.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1741,6 +1773,7 @@
       }
     },
     "Когда": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1784,6 +1817,7 @@
       }
     },
     "Корнеплод. Источник бета-каротина (витамин A) и клетчатки.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1794,6 +1828,7 @@
       }
     },
     "Корнеплод. Источник фолатов, железа и клетчатки.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1826,6 +1861,7 @@
       }
     },
     "Красное мясо. Источник гемового железа, белка и цинка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1836,6 +1872,7 @@
       }
     },
     "Красное мясо. Источник железа, цинка и белка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1846,6 +1883,7 @@
       }
     },
     "Крахмалистый корнеплод. Источник углеводов и калия.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1922,6 +1960,7 @@
       }
     },
     "Листовой овощ. Источник железа, фолатов и витамина K.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1954,6 +1993,7 @@
       }
     },
     "Лёгкий овощ с высоким содержанием воды. Источник калия и витамина C.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2074,6 +2114,7 @@
       }
     },
     "Молочный жир. Источник жиров и витамина A.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2084,6 +2125,7 @@
       }
     },
     "Молочный продукт. Источник кальция, белка и витамина A.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2094,6 +2136,7 @@
       }
     },
     "Молочный продукт. Источник кальция, белка и витамина B12.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2115,6 +2158,7 @@
       }
     },
     "Морепродукт. Источник белка, йода и селена.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2125,6 +2169,7 @@
       }
     },
     "Морепродукт. Источник белка, цинка и витамина B12.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2168,6 +2213,7 @@
       }
     },
     "Мясо птицы. Источник белка и железа.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2178,6 +2224,7 @@
       }
     },
     "Мясо. Источник белка, цинка и витаминов B1/B12.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2221,6 +2268,7 @@
       }
     },
     "Напиток из фруктов или ягод. Источник воды.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2339,6 +2387,7 @@
       }
     },
     "Нежирная белая рыба. Источник белка и йода.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2349,6 +2398,7 @@
       }
     },
     "Нежирная белая рыба. Источник белка и фосфора.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2359,6 +2409,7 @@
       }
     },
     "Нежирная белая рыба. Источник белка, йода и омега-3.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2369,6 +2420,7 @@
       }
     },
     "Нежирное мясо птицы. Источник белка и фосфора.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2379,6 +2431,7 @@
       }
     },
     "Нежирное мясо птицы. Источник белка, железа и цинка.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2444,6 +2497,7 @@
       }
     },
     "Овощ с высоким содержанием витамина C. Также источник бета-каротина.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2454,6 +2508,7 @@
       }
     },
     "Овощ с мягкой мякотью. Источник клетчатки и калия.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2464,6 +2519,7 @@
       }
     },
     "Овощ семейства капустных. Источник витамина C, витамина K и фолатов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2474,6 +2530,7 @@
       }
     },
     "Овощ. Источник витамина C, калия и антиоксиданта ликопина.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2594,6 +2651,7 @@
       }
     },
     "Оранжевый овощ. Источник бета-каротина (витамин A) и калия.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2615,6 +2673,7 @@
       }
     },
     "Орехи. Источник полезных жиров, белка и витамина E.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2734,6 +2793,7 @@
       }
     },
     "Плод с высоким содержанием жиров. Источник полезных жиров, калия и витамина E.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2755,6 +2815,7 @@
       }
     },
     "По выбранной методике прикорм лучше начинать ~%@ мес.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2776,6 +2837,7 @@
       }
     },
     "По плану: освежить": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2786,6 +2848,7 @@
       }
     },
     "По твоему плану: %lld пора освежить": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2894,6 +2957,16 @@
         }
       }
     },
+    "Пометить аллергию? Напоминания по этому аллергену отключатся.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark as allergy? Reminders for this allergen will turn off."
+          }
+        }
+      }
+    },
     "Помидор": {
       "extractionState": "manual",
       "localizations": {
@@ -2917,6 +2990,7 @@
       }
     },
     "Понятно": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2992,6 +3066,7 @@
       }
     },
     "Постное красное мясо. Источник белка и железа.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3002,6 +3077,7 @@
       }
     },
     "Постное мясо. Источник белка и железа.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3034,6 +3110,7 @@
       }
     },
     "Предыдущий месяц": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3053,12 +3130,33 @@
         }
       }
     },
+    "Приостановить": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause"
+          }
+        }
+      }
+    },
     "Приостановить ввод": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pause introduction"
+          }
+        }
+      }
+    },
+    "Приостановить ввод этого продукта?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause introduction of this food?"
           }
         }
       }
@@ -3097,6 +3195,7 @@
       }
     },
     "Продукт из злаков. Источник углеводов и витаминов группы B. Содержит глютен.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3107,6 +3206,7 @@
       }
     },
     "Продукт из пшеницы. Источник углеводов и белка. Содержит глютен.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3117,6 +3217,7 @@
       }
     },
     "Продукт пчеловодства. Источник простых сахаров.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3215,6 +3316,7 @@
       }
     },
     "Растительное масло. Источник мононенасыщенных жиров и витамина E.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3455,6 +3557,7 @@
       }
     },
     "Семена. Источник кальция, полезных жиров и железа.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3531,6 +3634,7 @@
       }
     },
     "Сладкий корнеплод. Источник бета-каротина (витамин A) и углеводов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3541,6 +3645,7 @@
       }
     },
     "Следующий месяц": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3584,6 +3689,7 @@
       }
     },
     "Сочный фрукт. Источник витамина C и калия.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3693,6 +3799,7 @@
       }
     },
     "Сушёная слива. Источник клетчатки, калия и сорбита.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3758,6 +3865,7 @@
       }
     },
     "Тропический фрукт. Источник витамина C и бета-каротина (витамин A).": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3768,6 +3876,7 @@
       }
     },
     "Тропический фрукт. Источник витамина C и марганца.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3811,6 +3920,7 @@
       }
     },
     "Удалить запись": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3876,6 +3986,7 @@
       }
     },
     "Фрукт с высоким содержанием витамина C. Также источник клетчатки.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3886,6 +3997,7 @@
       }
     },
     "Фрукт с высоким содержанием углеводов. Источник калия и витамина B6.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3896,6 +4008,7 @@
       }
     },
     "Фрукт. Источник бета-каротина (витамин A) и калия.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3906,6 +4019,7 @@
       }
     },
     "Фрукт. Источник витамина C, пектина и клетчатки.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3916,6 +4030,7 @@
       }
     },
     "Фрукт. Источник клетчатки, витамина C и калия.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3937,6 +4052,7 @@
       }
     },
     "Фрукты с высоким содержанием витамина C. Также источник фолатов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4133,6 +4249,7 @@
       }
     },
     "Ягода. Источник антиоксидантов, витамина C и витамина K.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4143,6 +4260,7 @@
       }
     },
     "Ягода. Источник витамина C, витамина K и антиоксидантов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4153,6 +4271,7 @@
       }
     },
     "Ягода. Источник витамина C, калия и антиоксидантов.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4163,6 +4282,7 @@
       }
     },
     "Ягода. Источник витамина C, фолатов и марганца.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4239,6 +4359,7 @@
       }
     },
     "была реакция": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4271,6 +4392,7 @@
       }
     },
     "запланировано": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4303,6 +4425,7 @@
       }
     },
     "нет записей": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
