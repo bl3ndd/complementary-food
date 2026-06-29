@@ -1,15 +1,51 @@
 import SwiftUI
 
-/// Редактор «своего плана» прикорма. По умолчанию свёрнут до сводки (прогрессивное
-/// раскрытие), параметры выбираются тапом по значению (выпадающее меню), а не +/-.
+/// Редактор «своего плана»: компактная карточка-сводка. Детальная настройка
+/// открывается отдельным листом (нативная анимация, без лагающего inline-раскрытия).
 struct CustomPlanEditor: View {
     @Bindable var child: Child
-    @State private var expanded = false
+    @State private var showDetail = false
+
+    var body: some View {
+        Button { showDetail = true } label: { summaryCard }
+            .buttonStyle(.plain)
+            .sheet(isPresented: $showDetail) { PlanDetailSheet(child: child) }
+    }
+
+    private var summaryCard: some View {
+        HStack(spacing: 12) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Theme.softGradient(Theme.accent))
+                Image(systemName: "slider.horizontal.3").foregroundStyle(Theme.accent)
+            }
+            .frame(width: 42, height: 42)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Твой план прикорма").font(.subheadline.bold()).foregroundStyle(.primary)
+                Text(summary).font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 8)
+            Image(systemName: "chevron.right").font(.subheadline).foregroundStyle(.tertiary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .cartoonCard()
+    }
+
+    private var summary: String {
+        String(localized: "Старт \(child.customStartAgeMonths) мес · окна \(child.customObservationDaysRegular)/\(child.customObservationDaysAllergen) дн · аллерген \(child.customAllergenFrequencyPerWeek)×/нед")
+    }
+}
+
+// MARK: - Лист детальной настройки плана
+
+private struct PlanDetailSheet: View {
+    @Bindable var child: Child
+    @Environment(\.dismiss) private var dismiss
     @State private var shownInfo: PlanInfo?
 
     private let limits = FeedingProfile.CustomLimits.self
 
-    /// Какой параметр поясняем во всплывашке ⓘ.
     enum PlanInfo: String, Identifiable {
         case start, windowRegular, windowAllergen, frequency
         var id: String { rawValue }
@@ -28,55 +64,39 @@ struct CustomPlanEditor: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            summaryRow
-            if expanded {
-                VStack(alignment: .leading, spacing: 14) {
-                    Divider()
-                    paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
-                             value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
-                    paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
-                             value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
-                    paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep, info: .windowAllergen,
-                             value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
-                    paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
-                             value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
-                    Divider()
-                    Text("Аллергены для ввода").font(.subheadline.bold())
-                    allergenGrid
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    VStack(spacing: 16) {
+                        paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
+                                 value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
+                        paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
+                                 value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
+                        paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep, info: .windowAllergen,
+                                 value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
+                        paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
+                                 value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
+                    }
+                    .cartoonCard()
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Аллергены для ввода").font(.subheadline.bold())
+                        allergenGrid
+                    }
+                    .cartoonCard()
                 }
-                .transition(.opacity)
+                .padding()
+            }
+            .background(AppBackground())
+            .navigationTitle("Свой план прикорма")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) { Button("Готово") { dismiss() } }
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .cartoonCard()
     }
 
-    // MARK: - Сводка + раскрытие (прогрессивное раскрытие, вариант C)
-
-    private var summaryRow: some View {
-        Button { withAnimation(.smooth(duration: 0.28)) { expanded.toggle() } } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("Твой план прикорма").font(.subheadline.bold()).foregroundStyle(.primary)
-                    Text(summary).font(.caption).foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                Spacer(minLength: 8)
-                Image(systemName: expanded ? "chevron.up" : "slider.horizontal.3")
-                    .font(.subheadline).foregroundStyle(Theme.accent)
-                    .frame(width: 34, height: 34)
-                    .background(Theme.accent.opacity(0.12), in: Circle())
-            }
-        }
-        .buttonStyle(.plain)
-    }
-
-    private var summary: String {
-        String(localized: "Старт \(child.customStartAgeMonths) мес · окна \(child.customObservationDaysRegular)/\(child.customObservationDaysAllergen) дн · аллерген \(child.customAllergenFrequencyPerWeek)×/нед")
-    }
-
-    // MARK: - Параметр: тап по значению → выпадающее меню (вариант A)
+    // MARK: - Параметр: тап по значению → выпадающее меню
 
     private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color, info: PlanInfo,
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
@@ -117,7 +137,6 @@ struct CustomPlanEditor: View {
         .frame(width: 30, height: 30)
     }
 
-    /// Кнопка ⓘ с всплывающим пояснением «зачем этот параметр».
     private func infoButton(_ info: PlanInfo) -> some View {
         Button { shownInfo = info } label: {
             Image(systemName: "info.circle").font(.footnote).foregroundStyle(.secondary)
@@ -139,7 +158,6 @@ struct CustomPlanEditor: View {
 
     private var allergenGrid: some View {
         let columns = [GridItem(.adaptive(minimum: 108), spacing: 8)]
-        // «Другое» — это категория продукта, а не реальная группа аллергенов; не показываем.
         return LazyVGrid(columns: columns, spacing: 8) {
             ForEach(AllergenGroup.allCases.filter { $0 != .other }, id: \.self) { group in
                 allergenChip(group)
