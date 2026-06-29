@@ -1,129 +1,58 @@
 {
-  "sourceLanguage": "ru",
-  "strings": {
-    "%@": {},
-    "%@ мес": {},
-    "%lld аллергенов ждут — дай, чтобы сохранить толерантность": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld allergen is waiting — give it to keep tolerance"
+  "sourceLanguage" : "ru",
+  "strings" : {
+    "%@" : {
+
+    },
+    "%@ мес" : {
+
+    },
+    "%lld аллергенов ждут — дай, чтобы сохранить толерантность" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld allergen is waiting — give it to keep tolerance"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld allergens are waiting — give them to keep tolerance"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld allergens are waiting — give them to keep tolerance"
                 }
               }
             }
           }
         },
-        "ru": {
-          "variations": {
-            "plural": {
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld аллергена ждут — дай, чтобы сохранить толерантность"
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld аллергена ждут — дай, чтобы сохранить толерантность"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld аллергенов ждут — дай, чтобы сохранить толерантность"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld аллергенов ждут — дай, чтобы сохранить толерантность"
                 }
               },
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld аллерген ждёт — дай, чтобы сохранить толерантность"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld аллерген ждёт — дай, чтобы сохранить толерантность"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld аллергенов ждут — дай, чтобы сохранить толерантность"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "%lld дн": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld days"
-          }
-        }
-      }
-    },
-    "%lld мес": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld mo"
-          }
-        }
-      }
-    },
-    "%lld продуктов введено": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld food introduced"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld foods introduced"
-                }
-              }
-            }
-          }
-        },
-        "ru": {
-          "variations": {
-            "plural": {
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld продукта введено"
-                }
-              },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld продуктов введено"
-                }
-              },
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld продукт введён"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld продуктов введено"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld аллергенов ждут — дай, чтобы сохранить толерантность"
                 }
               }
             }
@@ -131,3985 +60,4172 @@
         }
       }
     },
-    "%lld×/нед": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld×/wk"
+    "%lld дн" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days"
           }
         }
       }
     },
-    "AAP (HealthyChildren) + NIAID 2017": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AAP (HealthyChildren) + NIAID 2017"
+    "%lld мес" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld mo"
           }
         }
       }
     },
-    "AAP / NIAID (США)": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AAP / NIAID (USA)"
-          }
-        }
-      }
-    },
-    "Pudding": {},
-    "Pudding — дневник-помощник, а не медицинский совет. Перед введением новых продуктов, аллергенов и любыми решениями о здоровье ребёнка проконсультируйся с педиатром. При признаках аллергической реакции немедленно обратись за медицинской помощью.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pudding is a helper diary, not medical advice. Before introducing new foods or allergens, and for any decisions about your child’s health, consult your pediatrician. At the first signs of an allergic reaction, seek medical help immediately."
-          }
-        }
-      }
-    },
-    "maintenance.type": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maintenance"
+    "%lld продуктов введено" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld food introduced"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld foods introduced"
+                }
+              }
+            }
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поддержка"
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld продукта введено"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld продуктов введено"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld продукт введён"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld продуктов введено"
+                }
+              }
+            }
           }
         }
       }
     },
-    "support.link": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Support"
+    "%lld×/нед" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld×/wk"
+          }
+        }
+      }
+    },
+    "×/нед" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "×/wk"
+          }
+        }
+      }
+    },
+    "⚠️ Нельзя до 12 месяцев (риск ботулизма). После года — источник простых сахаров и антиоксидантов." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ Not before 12 months (botulism risk). After age one — a source of simple sugars and antioxidants."
+          }
+        }
+      }
+    },
+    "AAP (HealthyChildren) + NIAID 2017" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AAP (HealthyChildren) + NIAID 2017"
+          }
+        }
+      }
+    },
+    "AAP / NIAID (США)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AAP / NIAID (USA)"
+          }
+        }
+      }
+    },
+    "maintenance.type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenance"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поддержка"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поддержка"
           }
         }
       }
     },
-    "×/нед": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "×/wk"
+    "Pudding" : {
+
+    },
+    "Pudding — дневник-помощник, а не медицинский совет. Перед введением новых продуктов, аллергенов и любыми решениями о здоровье ребёнка проконсультируйся с педиатром. При признаках аллергической реакции немедленно обратись за медицинской помощью." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding is a helper diary, not medical advice. Before introducing new foods or allergens, and for any decisions about your child’s health, consult your pediatrician. At the first signs of an allergic reaction, seek medical help immediately."
           }
         }
       }
     },
-    "Абрикос": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apricot"
+    "support.link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поддержка"
+          }
         }
       }
     },
-    "Авокадо": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avocado"
+    "Абрикос" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apricot"
           }
         }
       }
     },
-    "Аллерген": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allergen"
+    "Авокадо" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avocado"
           }
         }
       }
     },
-    "Аллергены": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allergens"
+    "аллерген" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "allergen"
           }
         }
       }
     },
-    "Аллергены для ввода": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allergens to introduce"
+    "Аллерген" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergen"
           }
         }
       }
     },
-    "Аллергены: %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allergens: %@"
+    "Аллергены" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergens"
           }
         }
       }
     },
-    "Аллергия": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allergy"
+    "Аллергены для ввода" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergens to introduce"
           }
         }
       }
     },
-    "Ананас": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pineapple"
+    "Аллергены: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergens: %@"
           }
         }
       }
     },
-    "Антиоксиданты": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Antioxidants"
+    "Аллергия" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergy"
           }
         }
       }
     },
-    "Антиоксиданты и витамин C; давать без косточек.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Antioxidants and vitamin C; serve pitted."
+    "Ананас" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pineapple"
           }
         }
       }
     },
-    "Антиоксиданты и витамин C; ягоды разминать или резать.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Antioxidants and vitamin C; mash or cut the berries."
+    "Антиоксиданты" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antioxidants"
           }
         }
       }
     },
-    "Антиоксиданты и витамины; обязательно резать вдоль на четвертинки.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Antioxidants and vitamins; always quarter lengthwise."
+    "Антиоксиданты и витамин C; давать без косточек." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antioxidants and vitamin C; serve pitted."
           }
         }
       }
     },
-    "Арахис": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peanut"
+    "Антиоксиданты и витамин C; ягоды разминать или резать." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antioxidants and vitamin C; mash or cut the berries."
           }
         }
       }
     },
-    "Арбуз": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Watermelon"
+    "Антиоксиданты и витамины; обязательно резать вдоль на четвертинки." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Antioxidants and vitamins; always quarter lengthwise."
           }
         }
       }
     },
-    "Баклажан": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eggplant"
+    "Арахис" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peanut"
           }
         }
       }
     },
-    "Банан": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Banana"
+    "Арбуз" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watermelon"
           }
         }
       }
     },
-    "Баранина": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lamb"
+    "Баклажан" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eggplant"
           }
         }
       }
     },
-    "Батат": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sweet potato"
+    "Банан" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Banana"
           }
         }
       }
     },
-    "Безглютеновая крупа с железом и растительным белком — хороший старт среди каш.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A gluten-free grain with iron and plant protein — a good first porridge."
+    "Баранина" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lamb"
           }
         }
       }
     },
-    "Безглютеновая крупа с магнием и железом.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A gluten-free grain with magnesium and iron."
+    "Батат" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sweet potato"
           }
         }
       }
     },
-    "Безглютеновая крупа: энергия и клетчатка.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A gluten-free grain: energy and fiber."
+    "Безглютеновая крупа с железом и растительным белком — хороший старт среди каш." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gluten-free grain with iron and plant protein — a good first porridge."
           }
         }
       }
     },
-    "Безглютеновая, мягкая и легко усваивается — деликатная первая каша.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gluten-free, smooth and easy to digest — a gentle first porridge."
+    "Безглютеновая крупа с магнием и железом." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gluten-free grain with magnesium and iron."
           }
         }
       }
     },
-    "Белок": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protein"
+    "Безглютеновая крупа: энергия и клетчатка." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gluten-free grain: energy and fiber."
           }
         }
       }
     },
-    "Белок и витамины B1/B12; выбирать постные части.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protein and vitamins B1/B12; choose lean cuts."
+    "Безглютеновая, мягкая и легко усваивается — деликатная первая каша." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gluten-free, smooth and easy to digest — a gentle first porridge."
           }
         }
       }
     },
-    "Белок и железо; мясо жирнее, вводить понемногу.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protein and iron; fattier meat, introduce in small amounts."
+    "Белок" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protein"
           }
         }
       }
     },
-    "Белок и йод; аллерген — морепродукты, вводить позже.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protein and iodine; a shellfish allergen, introduce later."
+    "Белок и витамины B1/B12; выбирать постные части." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protein and vitamins B1/B12; choose lean cuts."
           }
         }
       }
     },
-    "Белок и цинк; аллерген — морепродукты, вводить позже.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protein and zinc; a shellfish allergen, introduce later."
+    "Белок и железо; мясо жирнее, вводить понемногу." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protein and iron; fattier meat, introduce in small amounts."
           }
         }
       }
     },
-    "Бета-каротин": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta-carotene"
+    "Белок и йод; аллерген — морепродукты, вводить позже." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protein and iodine; a shellfish allergen, introduce later."
           }
         }
       }
     },
-    "Бета-каротин (вит. A)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta-carotene (vit. A)"
+    "Белок и цинк; аллерген — морепродукты, вводить позже." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protein and zinc; a shellfish allergen, introduce later."
           }
         }
       }
     },
-    "Бета-каротин (витамин A) для зрения и кожи, мягкая природная сладость.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta-carotene (vitamin A) for vision and skin, with a mild natural sweetness."
+    "Бета-каротин" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta-carotene"
           }
         }
       }
     },
-    "Бета-каротин для зрения и природная сладость, которая нравится малышам.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta-carotene for vision and a natural sweetness babies love."
+    "Бета-каротин (вит. A)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta-carotene (vit. A)"
           }
         }
       }
     },
-    "Бета-каротин и калий, природная сладость.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta-carotene and potassium, naturally sweet."
+    "Бета-каротин (витамин A) для зрения и кожи, мягкая природная сладость." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta-carotene (vitamin A) for vision and skin, with a mild natural sweetness."
           }
         }
       }
     },
-    "Бета-каротин и медленные углеводы, сладкая мякоть.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beta-carotene and slow carbs, with sweet flesh."
+    "Бета-каротин для зрения и природная сладость, которая нравится малышам." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta-carotene for vision and a natural sweetness babies love."
           }
         }
       }
     },
-    "Богата железом и цинком, источник белка.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rich in iron and zinc, a source of protein."
+    "Бета-каротин и калий, природная сладость." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta-carotene and potassium, naturally sweet."
           }
         }
       }
     },
-    "Богата омега-3 и витамином D.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rich in omega-3 and vitamin D."
+    "Бета-каротин и медленные углеводы, сладкая мякоть." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta-carotene and slow carbs, with sweet flesh."
           }
         }
       }
     },
-    "Болгарский перец": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bell pepper"
+    "Богата железом и цинком, источник белка." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rich in iron and zinc, a source of protein."
           }
         }
       }
     },
-    "Брокколи": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Broccoli"
+    "Богата омега-3 и витамином D." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rich in omega-3 and vitamin D."
           }
         }
       }
     },
-    "Была реакция": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Had a reaction"
+    "Болгарский перец" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bell pepper"
           }
         }
       }
     },
-    "Была реакция / аллергия": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "There was a reaction / allergy"
+    "Брокколи" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Broccoli"
           }
         }
       }
     },
-    "В норме": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On track"
+    "Была реакция" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Had a reaction"
           }
         }
       }
     },
-    "В процессе ввода": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Being introduced"
+    "Была реакция / аллергия" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was a reaction / allergy"
           }
         }
       }
     },
-    "В этот день ничего не давали": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nothing was given on this day"
+    "В норме" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On track"
           }
         }
       }
     },
-    "ВОЗ / ESPGHAN (Европа)": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "WHO / ESPGHAN (Europe)"
+    "В процессе ввода" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Being introduced"
           }
         }
       }
     },
-    "ВОЗ 2023 + ESPGHAN 2017 (JPGN)": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "WHO 2023 + ESPGHAN 2017 (JPGN)"
+    "В этот день ничего не давали" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing was given on this day"
           }
         }
       }
     },
-    "Важно": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Important"
+    "Важно" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Important"
           }
         }
       }
     },
-    "Введён": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduced"
+    "Введён" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduced"
           }
         }
       }
     },
-    "Ввод": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduction"
+    "Ввёл успешно ✅" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduced successfully ✅"
           }
         }
       }
     },
-    "Ввод остановлен": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduction stopped"
+    "Ввод" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduction"
           }
         }
       }
     },
-    "Вводится": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introducing"
+    "Ввод остановлен" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduction stopped"
           }
         }
       }
     },
-    "Ввёл успешно ✅": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduced successfully ✅"
+    "Вводится" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introducing"
           }
         }
       }
     },
-    "Вернуть в оборот (врач разрешил)": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reintroduce (doctor approved)"
+    "Вернуть в оборот (врач разрешил)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintroduce (doctor approved)"
           }
         }
       }
     },
-    "Версия": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Version"
+    "Версия" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
           }
         }
       }
     },
-    "Виноград": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Grapes"
+    "Виноград" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grapes"
           }
         }
       }
     },
-    "Витамин A": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin A"
+    "Витамин A" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin A"
           }
         }
       }
     },
-    "Витамин B1": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin B1"
+    "Витамин B1" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin B1"
           }
         }
       }
     },
-    "Витамин B12": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin B12"
+    "Витамин B2" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin B2"
           }
         }
       }
     },
-    "Витамин B2": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin B2"
+    "Витамин B6" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin B6"
           }
         }
       }
     },
-    "Витамин B6": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin B6"
+    "Витамин B12" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin B12"
           }
         }
       }
     },
-    "Витамин C": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C"
+    "Витамин C" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C"
           }
         }
       }
     },
-    "Витамин C и антиоксидант ликопин.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and the antioxidant lycopene."
+    "Витамин C и антиоксидант ликопин." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and the antioxidant lycopene."
           }
         }
       }
     },
-    "Витамин C и антиоксиданты.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and antioxidants."
+    "Витамин C и антиоксиданты." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and antioxidants."
           }
         }
       }
     },
-    "Витамин C и бета-каротин, сладкая мякоть.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and beta-carotene, with sweet flesh."
+    "Витамин C и бета-каротин, сладкая мякоть." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and beta-carotene, with sweet flesh."
           }
         }
       }
     },
-    "Витамин C и бета-каротин, сочная мякоть.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and beta-carotene, with juicy flesh."
+    "Витамин C и бета-каротин, сочная мякоть." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and beta-carotene, with juicy flesh."
           }
         }
       }
     },
-    "Витамин C и марганец, фермент бромелайн.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and manganese, plus the enzyme bromelain."
+    "Витамин C и марганец, фермент бромелайн." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and manganese, plus the enzyme bromelain."
           }
         }
       }
     },
-    "Витамин C и пектин — мягкое знакомство со вкусом фруктов.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and pectin — a gentle introduction to fruit."
+    "Витамин C и пектин — мягкое знакомство со вкусом фруктов." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and pectin — a gentle introduction to fruit."
           }
         }
       }
     },
-    "Витамин C и сочная нежная мякоть.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C and juicy, tender flesh."
+    "Витамин C и сочная нежная мякоть." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C and juicy, tender flesh."
           }
         }
       }
     },
-    "Витамин C, K и фолаты для иммунитета и роста; клетчатка помогает пищеварению.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin C, K and folate for immunity and growth; fiber aids digestion."
+    "Витамин C, K и фолаты для иммунитета и роста; клетчатка помогает пищеварению." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin C, K and folate for immunity and growth; fiber aids digestion."
           }
         }
       }
     },
-    "Витамин D": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin D"
+    "Витамин D" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin D"
           }
         }
       }
     },
-    "Витамин E": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin E"
+    "Витамин E" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin E"
           }
         }
       }
     },
-    "Витамин K": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitamin K"
+    "Витамин K" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitamin K"
           }
         }
       }
     },
-    "Витамины B": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "B vitamins"
+    "Витамины B" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B vitamins"
           }
         }
       }
     },
-    "Вишня": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cherry"
+    "Вишня" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cherry"
           }
         }
       }
     },
-    "Вода": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Water"
+    "Вода" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water"
           }
         }
       }
     },
-    "Возобновить ввод": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resume introduction"
+    "ВОЗ / ESPGHAN (Европа)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WHO / ESPGHAN (Europe)"
           }
         }
       }
     },
-    "Возраст": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Age"
+    "ВОЗ 2023 + ESPGHAN 2017 (JPGN)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WHO 2023 + ESPGHAN 2017 (JPGN)"
           }
         }
       }
     },
-    "Вс": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sun"
+    "Возобновить ввод" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume introduction"
           }
         }
       }
     },
-    "Всё под контролем": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All under control"
+    "Возраст" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Age"
           }
         }
       }
     },
-    "Всё под контролем!": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All under control!"
+    "Вс" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sun"
           }
         }
       }
     },
-    "Вт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tue"
+    "Всё под контролем" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All under control"
           }
         }
       }
     },
-    "Выбери готовую или собери свой план. Можно сменить позже.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pick a ready-made one or build your own. You can change it later."
+    "Всё под контролем!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All under control!"
           }
         }
       }
     },
-    "Высокое содержание витамина C, помогает усвоению железа.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "High in vitamin C, helps iron absorption."
+    "Вт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tue"
           }
         }
       }
     },
-    "Глютен": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gluten"
+    "Выбери готовую или собери свой план. Можно сменить позже." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick a ready-made one or build your own. You can change it later."
           }
         }
       }
     },
-    "Говядина": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beef"
+    "Высокое содержание витамина C, помогает усвоению железа." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High in vitamin C, helps iron absorption."
           }
         }
       }
     },
-    "Готово": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Done"
+    "Глютен" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gluten"
           }
         }
       }
     },
-    "Гречневая каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buckwheat porridge"
+    "Говядина" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beef"
           }
         }
       }
     },
-    "Груша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pear"
+    "Готово" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
     },
-    "Давали %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Last given %@"
+    "Гречневая каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buckwheat porridge"
           }
         }
       }
     },
-    "Дал": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gave it"
+    "Груша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pear"
           }
         }
       }
     },
-    "Далее": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next"
+    "Давали %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last given %@"
           }
         }
       }
     },
-    "Дата рождения": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Birth date"
+    "Дал" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gave it"
           }
         }
       }
     },
-    "Дата старта": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start date"
+    "Далее" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         }
       }
     },
-    "День %@ из %@": {
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "new",
-            "value": "День %1$@ из %2$@"
+    "Дата рождения" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Birth date"
           }
         }
       }
     },
-    "День %lld из %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Day %lld of %lld"
+    "Дата старта" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start date"
           }
         }
       }
     },
-    "Диарея": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diarrhea"
+    "День %@ из %@" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "День %1$@ из %2$@"
           }
         }
       }
     },
-    "Для аллергенов окно наблюдения обычно длиннее: реакция может проявиться не сразу, поэтому следим дольше.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "For allergens the observation window is usually longer: a reaction may appear later, so watch for more days."
+    "День %lld из %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day %lld of %lld"
           }
         }
       }
     },
-    "Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A stress-free feeding diary: what to introduce, when, and never forget the allergens."
+    "Диарея" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diarrhea"
           }
         }
       }
     },
-    "Добавить": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add"
+    "Для аллергенов окно наблюдения обычно длиннее: реакция может проявиться не сразу, поэтому следим дольше." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For allergens the observation window is usually longer: a reaction may appear later, so watch for more days."
           }
         }
       }
     },
-    "Добавить продукт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add a food"
+    "дн" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "days"
           }
         }
       }
     },
-    "Добавить свой продукт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add a custom food"
+    "Дневник прикорма без паники: что вводить, когда и не забыть про аллергены." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A stress-free feeding diary: what to introduce, when, and never forget the allergens."
           }
         }
       }
     },
-    "Другое": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Other"
+    "Добавить" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
           }
         }
       }
     },
-    "Дыня": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Melon"
+    "Добавить продукт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a food"
           }
         }
       }
     },
-    "Дыхание": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Breathing"
+    "Добавить свой продукт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a custom food"
           }
         }
       }
     },
-    "Ещё не вводили этот аллерген": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This allergen hasn't been introduced yet"
+    "Другое" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
           }
         }
       }
     },
-    "Ещё не давали в поддержку": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Not given for maintenance yet"
+    "Дыня" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Melon"
           }
         }
       }
     },
-    "ЖКТ": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "GI"
+    "Дыхание" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathing"
           }
         }
       }
     },
-    "Железо": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Iron"
+    "есть записи" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "has entries"
           }
         }
       }
     },
-    "Железо, фолаты и витамин K (давать умеренно из-за нитратов).": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Iron, folate and vitamin K (serve in moderation due to nitrates)."
+    "Ещё не вводили этот аллерген" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This allergen hasn't been introduced yet"
           }
         }
       }
     },
-    "Желток богат холином и витамином D — важны для мозга и костей; ранний ввод снижает риск аллергии.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The yolk is rich in choline and vitamin D — key for brain and bones; early introduction lowers allergy risk."
+    "Ещё не давали в поддержку" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not given for maintenance yet"
           }
         }
       }
     },
-    "Жидкость и немного витамина C; готовить без сахара.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fluid and a little vitamin C; make it without sugar."
+    "Железо" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iron"
           }
         }
       }
     },
-    "Жиры": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fats"
+    "Железо, фолаты и витамин K (давать умеренно из-за нитратов)." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iron, folate and vitamin K (serve in moderation due to nitrates)."
           }
         }
       }
     },
-    "Загляни в каталог и выбери первый продукт.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open the catalog and pick the first food."
+    "Желток богат холином и витамином D — важны для мозга и костей; ранний ввод снижает риск аллергии." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The yolk is rich in choline and vitamin D — key for brain and bones; early introduction lowers allergy risk."
           }
         }
       }
     },
-    "Заметка": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Note"
+    "Жидкость и немного витамина C; готовить без сахара." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fluid and a little vitamin C; make it without sugar."
           }
         }
       }
     },
-    "Записать кормление": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Log a feeding"
+    "Жиры" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fats"
           }
         }
       }
     },
-    "Запись кормления": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Feeding entry"
+    "ЖКТ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GI"
           }
         }
       }
     },
-    "Запланировать ввод": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan introduction"
+    "Загляни в каталог и выбери первый продукт." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the catalog and pick the first food."
           }
         }
       }
     },
-    "Запор": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Constipation"
+    "Заметка" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
           }
         }
       }
     },
-    "Затруднённое дыхание": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Difficulty breathing"
+    "Записать кормление" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log a feeding"
           }
         }
       }
     },
-    "Зафиксирована аллергия. Обратись к педиатру. Возвращать продукт — только по согласованию с врачом.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "An allergy was recorded. See your pediatrician. Only reintroduce this food with your doctor's approval."
+    "Запись кормления" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feeding entry"
           }
         }
       }
     },
-    "Здесь будут отмечаться дни, в которые ты давал продукты.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Days when you gave foods will show up here."
+    "Запланировать ввод" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan introduction"
           }
         }
       }
     },
-    "Зелёный горошек": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Green peas"
+    "Запор" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Constipation"
           }
         }
       }
     },
-    "Знакомство с глютеном; углеводы, белок и витамины группы B.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "An introduction to gluten; carbs, protein and B vitamins."
+    "Затруднённое дыхание" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficulty breathing"
           }
         }
       }
     },
-    "Знакомые аллергены повторяются вовремя": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Familiar allergens are repeated on time"
+    "Зафиксирована аллергия. Обратись к педиатру. Возвращать продукт — только по согласованию с врачом." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An allergy was recorded. See your pediatrician. Only reintroduce this food with your doctor's approval."
           }
         }
       }
     },
-    "Иконка": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Icon"
+    "Здесь будут отмечаться дни, в которые ты давал продукты." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days when you gave foods will show up here."
           }
         }
       }
     },
-    "Иконки: OpenMoji (CC BY-SA 4.0)": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Icons: OpenMoji (CC BY-SA 4.0)"
+    "Зелёный горошек" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green peas"
           }
         }
       }
     },
-    "Имя": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Name"
+    "Знакомство с глютеном; углеводы, белок и витамины группы B." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An introduction to gluten; carbs, protein and B vitamins."
           }
         }
       }
     },
-    "Имя малыша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Baby's name"
+    "Знакомые аллергены повторяются вовремя" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Familiar allergens are repeated on time"
           }
         }
       }
     },
-    "Индейка": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turkey"
+    "Иконка" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon"
           }
         }
       }
     },
-    "История": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "History"
+    "Иконки: OpenMoji (CC BY-SA 4.0)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icons: OpenMoji (CC BY-SA 4.0)"
           }
         }
       }
     },
-    "Источник энергии (крахмал) и калия, мягкая текстура для пюре.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A source of energy (starch) and potassium, with a smooth texture for purées."
+    "Имя" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
           }
         }
       }
     },
-    "Йогурт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yogurt"
+    "Имя малыша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baby's name"
           }
         }
       }
     },
-    "Йод": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Iodine"
+    "Индейка" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turkey"
           }
         }
       }
     },
-    "Кабачок": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zucchini"
+    "История" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
           }
         }
       }
     },
-    "Как зашло?": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How was it?"
+    "Источник энергии (крахмал) и калия, мягкая текстура для пюре." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A source of energy (starch) and potassium, with a smooth texture for purées."
           }
         }
       }
     },
-    "Как прошло кормление?": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How did the feeding go?"
+    "Йогурт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yogurt"
           }
         }
       }
     },
-    "Как часто в неделю давать уже введённый аллерген, чтобы поддерживать толерантность (клинический консенсус LEAP/EAT).": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How often per week to give an already-introduced allergen to keep up tolerance (LEAP/EAT clinical consensus)."
+    "Йод" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iodine"
           }
         }
       }
     },
-    "Календарь": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calendar"
+    "к %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by %@"
           }
         }
       }
     },
-    "Калий": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Potassium"
+    "Кабачок" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zucchini"
           }
         }
       }
     },
-    "Калий и быстрые углеводы для энергии, удобно держать в руке.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Potassium and quick carbs for energy, easy to hold."
+    "Как зашло?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How was it?"
           }
         }
       }
     },
-    "Кальций": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium"
+    "Как прошло кормление?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How did the feeding go?"
           }
         }
       }
     },
-    "Кальций и белок для крепких костей.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium and protein for strong bones."
+    "Как часто в неделю давать уже введённый аллерген, чтобы поддерживать толерантность (клинический консенсус LEAP/EAT)." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How often per week to give an already-introduced allergen to keep up tolerance (LEAP/EAT clinical consensus)."
           }
         }
       }
     },
-    "Кальций и белок; как основной напиток — только после года.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium and protein; as a main drink only after age one."
+    "Календарь" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar"
           }
         }
       }
     },
-    "Кальций и полезные жиры; удобно давать пастой тахини.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium and healthy fats; easy to serve as tahini paste."
+    "Калий" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potassium"
           }
         }
       }
     },
-    "Кальций, белок и пробиотики для пищеварения.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium, protein and probiotics for digestion."
+    "Калий и быстрые углеводы для энергии, удобно держать в руке." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potassium and quick carbs for energy, easy to hold."
           }
         }
       }
     },
-    "Кальций, белок и пробиотики, мягкий кисломолочный вкус.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium, protein and probiotics, with a mild cultured taste."
+    "Кальций" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium"
           }
         }
       }
     },
-    "Кальций, белок и пробиотики; кисломолочка усваивается мягче молока.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcium, protein and probiotics; cultured dairy is gentler than milk."
+    "Кальций и белок для крепких костей." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium and protein for strong bones."
           }
         }
       }
     },
-    "Картофель": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Potato"
+    "Кальций и белок; как основной напиток — только после года." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium and protein; as a main drink only after age one."
           }
         }
       }
     },
-    "Каталог": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Catalog"
+    "Кальций и полезные жиры; удобно давать пастой тахини." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium and healthy fats; easy to serve as tahini paste."
           }
         }
       }
     },
-    "Качественный белок; обычно вводят позже желтка.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "High-quality protein; usually introduced after the yolk."
+    "Кальций, белок и пробиотики для пищеварения." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium, protein and probiotics for digestion."
           }
         }
       }
     },
-    "Каши": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cereals"
+    "Кальций, белок и пробиотики, мягкий кисломолочный вкус." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium, protein and probiotics, with a mild cultured taste."
           }
         }
       }
     },
-    "Кефир": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kefir"
+    "Кальций, белок и пробиотики; кисломолочка усваивается мягче молока." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calcium, protein and probiotics; cultured dairy is gentler than milk."
           }
         }
       }
     },
-    "Киви": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kiwi"
+    "Картофель" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potato"
           }
         }
       }
     },
-    "Класс": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Loved it"
+    "Каталог" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catalog"
           }
         }
       }
     },
-    "Клетчатка": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fiber"
+    "Качественный белок; обычно вводят позже желтка." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High-quality protein; usually introduced after the yolk."
           }
         }
       }
     },
-    "Клетчатка и антиоксиданты, мягкая мякоть.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fiber and antioxidants, with soft flesh."
+    "Каши" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cereals"
           }
         }
       }
     },
-    "Клетчатка и медленные углеводы; содержит глютен.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fiber and slow carbs; contains gluten."
+    "Кефир" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kefir"
           }
         }
       }
     },
-    "Клетчатка и сорбит мягко помогают при запоре.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fiber and sorbitol gently help with constipation."
+    "Киви" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiwi"
           }
         }
       }
     },
-    "Клубника": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Strawberry"
+    "Класс" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loved it"
           }
         }
       }
     },
-    "Когда давали": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "When given"
+    "Клетчатка" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiber"
           }
         }
       }
     },
-    "Кожа (сыпь)": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skin (rash)"
+    "Клетчатка и антиоксиданты, мягкая мякоть." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiber and antioxidants, with soft flesh."
           }
         }
       }
     },
-    "Компот": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compote"
+    "Клетчатка и медленные углеводы; содержит глютен." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiber and slow carbs; contains gluten."
           }
         }
       }
     },
-    "Концентрированный кальций и белок для костей.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concentrated calcium and protein for bones."
+    "Клетчатка и сорбит мягко помогают при запоре." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fiber and sorbitol gently help with constipation."
           }
         }
       }
     },
-    "Коровье молоко": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cow's milk"
+    "Клубника" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strawberry"
           }
         }
       }
     },
-    "Краб": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crab"
+    "Когда давали" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When given"
           }
         }
       }
     },
-    "Креветка": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shrimp"
+    "Кожа (сыпь)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skin (rash)"
           }
         }
       }
     },
-    "Кролик": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rabbit"
+    "Компот" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compote"
           }
         }
       }
     },
-    "Кукурузная каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Corn porridge"
+    "Концентрированный кальций и белок для костей." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concentrated calcium and protein for bones."
           }
         }
       }
     },
-    "Кунжут": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sesame"
+    "Коровье молоко" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cow's milk"
           }
         }
       }
     },
-    "Курица": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chicken"
+    "Краб" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crab"
           }
         }
       }
     },
-    "Ликопин": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lycopene"
+    "Креветка" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shrimp"
           }
         }
       }
     },
-    "Лосось": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salmon"
+    "Кролик" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rabbit"
           }
         }
       }
     },
-    "Лучше дать до %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Better to give by %@"
+    "Кукурузная каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Corn porridge"
           }
         }
       }
     },
-    "Лёгкий гипоаллергенный овощ — мягкий для животика, частый первый прикорм.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A light, low-allergen vegetable — gentle on the tummy, a common first food."
+    "Кунжут" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sesame"
           }
         }
       }
     },
-    "Магний": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Magnesium"
+    "Курица" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chicken"
           }
         }
       }
     },
-    "Малыш": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Baby"
+    "Лёгкий гипоаллергенный овощ — мягкий для животика, частый первый прикорм." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A light, low-allergen vegetable — gentle on the tummy, a common first food."
           }
         }
       }
     },
-    "Манго": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mango"
+    "Ликопин" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lycopene"
           }
         }
       }
     },
-    "Манная каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Semolina porridge"
+    "Лосось" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salmon"
           }
         }
       }
     },
-    "Марганец": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manganese"
+    "Лучше дать до %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Better to give by %@"
           }
         }
       }
     },
-    "Методика": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Method"
+    "Магний" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magnesium"
           }
         }
       }
     },
-    "Методика прикорма": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Feeding method"
+    "Малыш" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baby"
           }
         }
       }
     },
-    "Минтай": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pollock"
+    "Манго" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mango"
           }
         }
       }
     },
-    "Много воды и витамин C — освежает в жару.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lots of water and vitamin C — refreshing in the heat."
+    "Манная каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semolina porridge"
           }
         }
       }
     },
-    "Можно снова попробовать отложенный продукт — загляни в приложение.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You can try the paused food again — open the app."
+    "Марганец" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manganese"
           }
         }
       }
     },
-    "Молочные": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dairy"
+    "Мёд" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Honey"
           }
         }
       }
     },
-    "Мононенасыщенные жиры": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Monounsaturated fats"
+    "мес" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mo"
           }
         }
       }
     },
-    "Морепродукты": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shellfish"
+    "Методика" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Method"
           }
         }
       }
     },
-    "Морковь": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carrot"
+    "Методика прикорма" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feeding method"
           }
         }
       }
     },
-    "Мягкая клетчатка и калий, редко вызывает реакцию.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gentle fiber and potassium, rarely causes a reaction."
+    "Минтай" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pollock"
           }
         }
       }
     },
-    "Мягкая текстура, энергия и белок; содержит глютен.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Smooth texture, energy and protein; contains gluten."
+    "Много воды и витамин C — освежает в жару." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lots of water and vitamin C — refreshing in the heat."
           }
         }
       }
     },
-    "Мясо": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meat"
+    "Можно снова попробовать отложенный продукт — загляни в приложение." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can try the paused food again — open the app."
           }
         }
       }
     },
-    "Мёд": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Honey"
+    "Молочные" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dairy"
           }
         }
       }
     },
-    "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после %lld дн.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Watch for a reaction. The introduced button will appear after %lld days."
+    "Мононенасыщенные жиры" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monounsaturated fats"
           }
         }
       }
     },
-    "Название": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Name"
+    "Морепродукты" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shellfish"
           }
         }
       }
     },
-    "Напомним попробовать снова %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "We'll remind you to try again on %@"
+    "Морковь" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carrot"
           }
         }
       }
     },
-    "Например: компот": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "e.g. compote"
+    "Мягкая клетчатка и калий, редко вызывает реакцию." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gentle fiber and potassium, rarely causes a reaction."
           }
         }
       }
     },
-    "Например: съел половину": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "e.g. ate half"
+    "Мягкая текстура, энергия и белок; содержит глютен." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smooth texture, energy and protein; contains gluten."
           }
         }
       }
     },
-    "Настрой старт, окна наблюдения и аллергены. Можно изменить позже.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Set the start age, observation windows and allergens. You can change this later."
+    "Мясо" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meat"
           }
         }
       }
     },
-    "Нац. программа оптимизации вскармливания детей 1-го года жизни в РФ": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "National program for optimizing feeding of children in the 1st year of life (Russia)"
+    "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после %lld дн." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch for a reaction. The introduced button will appear after %lld days."
           }
         }
       }
     },
-    "Начать введение": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start introducing"
+    "Название" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
           }
         }
       }
     },
-    "Не введён": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Not introduced"
+    "Напомним попробовать снова %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We'll remind you to try again on %@"
           }
         }
       }
     },
-    "Не оч": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meh"
+    "Например: компот" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. compote"
           }
         }
       }
     },
-    "Не понравилось": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Disliked"
+    "Например: съел половину" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. ate half"
           }
         }
       }
     },
-    "Нежирная белая рыба — белок и фосфор.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A lean white fish — protein and phosphorus."
+    "Настрой старт, окна наблюдения и аллергены. Можно изменить позже." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set the start age, observation windows and allergens. You can change this later."
           }
         }
       }
     },
-    "Нежирная белая рыба: белок, йод и немного омега-3.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A lean white fish: protein, iodine and some omega-3."
+    "Нац. программа оптимизации вскармливания детей 1-го года жизни в РФ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "National program for optimizing feeding of children in the 1st year of life (Russia)"
           }
         }
       }
     },
-    "Нежирное гипоаллергенное мясо — источник легкоусвояемого белка и железа.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean, low-allergen meat — a source of easily absorbed protein and iron."
+    "Начать введение" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start introducing"
           }
         }
       }
     },
-    "Нежирный белок, легко усваивается.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean protein that's easy to digest."
+    "Не введён" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not introduced"
           }
         }
       }
     },
-    "Нежная клетчатка и витамин C, легко усваивается — хороший ранний овощ.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gentle fiber and vitamin C, easy to digest — a good early vegetable."
+    "Не оч" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meh"
           }
         }
       }
     },
-    "Нейтрально": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neutral"
+    "Не понравилось" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disliked"
           }
         }
       }
     },
-    "Нет реакции": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No reaction"
+    "Нежирная белая рыба — белок и фосфор." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lean white fish — protein and phosphorus."
           }
         }
       }
     },
-    "Норм": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+    "Нежирная белая рыба: белок, йод и немного омега-3." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lean white fish: protein, iodine and some omega-3."
           }
         }
       }
     },
-    "О приложении": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About"
+    "Нежирное гипоаллергенное мясо — источник легкоусвояемого белка и железа." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean, low-allergen meat — a source of easily absorbed protein and iron."
           }
         }
       }
     },
-    "О ребёнке": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About your baby"
+    "Нежирный белок, легко усваивается." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean protein that's easy to digest."
           }
         }
       }
     },
-    "Овощи": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vegetables"
+    "Нежная клетчатка и витамин C, легко усваивается — хороший ранний овощ." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gentle fiber and vitamin C, easy to digest — a good early vegetable."
           }
         }
       }
     },
-    "Овсяная каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oatmeal"
+    "Нейтрально" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neutral"
           }
         }
       }
     },
-    "Окно": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Window"
+    "Нет реакции" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reaction"
           }
         }
       }
     },
-    "Окно наблюдения": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Observation window"
+    "Норм" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
     },
-    "Окно наблюдения прошло. Если реакции не было — отметь «ввёл успешно».": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The observation window is over. If there was no reaction, mark it as introduced."
+    "О приложении" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
           }
         }
       }
     },
-    "Окно: аллерген": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Window: allergen"
+    "О ребёнке" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About your baby"
           }
         }
       }
     },
-    "Окно: обычный продукт": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Window: regular food"
+    "Овощи" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetables"
           }
         }
       }
     },
-    "Оливковое масло": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Olive oil"
+    "Овсяная каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oatmeal"
           }
         }
       }
     },
-    "Омега-3": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Omega-3"
+    "Окно" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Window"
           }
         }
       }
     },
-    "Омега-3 (DHA)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Omega-3 (DHA)"
+    "Окно наблюдения" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Observation window"
           }
         }
       }
     },
-    "Омега-3 (DHA) для развития мозга и витамин D.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Omega-3 (DHA) for brain development and vitamin D."
+    "Окно наблюдения прошло. Если реакции не было — отметь «ввёл успешно»." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The observation window is over. If there was no reaction, mark it as introduced."
           }
         }
       }
     },
-    "Орехи": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tree nuts"
+    "Окно: аллерген" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Window: allergen"
           }
         }
       }
     },
-    "Остановить ввод": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stop introduction"
+    "Окно: обычный продукт" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Window: regular food"
           }
         }
       }
     },
-    "Отложенные продукты": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paused foods"
+    "Оливковое масло" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olive oil"
           }
         }
       }
     },
-    "Отмена": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+    "Омега-3" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omega-3"
           }
         }
       }
     },
-    "Отметь продукты, которые малыш уже пробовал без проблем. Можно пропустить.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mark foods your baby has already tried without issues. You can skip this."
+    "Омега-3 (DHA)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omega-3 (DHA)"
           }
         }
       }
     },
-    "Очень богат витамином C и клетчаткой.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Very high in vitamin C and fiber."
+    "Омега-3 (DHA) для развития мозга и витамин D." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omega-3 (DHA) for brain development and vitamin D."
           }
         }
       }
     },
-    "Очень богат витамином C — помогает усвоению железа из других продуктов.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Very high in vitamin C — helps absorb iron from other foods."
+    "Орехи" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tree nuts"
           }
         }
       }
     },
-    "Пауза": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paused"
+    "Остановить ввод" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop introduction"
           }
         }
       }
     },
-    "Пектин": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pectin"
+    "Отложенные продукты" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused foods"
           }
         }
       }
     },
-    "Перезапустите приложение, чтобы применить новый язык.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restart the app to apply the new language."
+    "Отмена" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         }
       }
     },
-    "Перловая каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Barley porridge"
+    "Отметь продукты, которые малыш уже пробовал без проблем. Можно пропустить." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark foods your baby has already tried without issues. You can skip this."
           }
         }
       }
     },
-    "Персик": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peach"
+    "Очень богат витамином C — помогает усвоению железа из других продуктов." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Very high in vitamin C — helps absorb iron from other foods."
           }
         }
       }
     },
-    "Пн": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mon"
+    "Очень богат витамином C и клетчаткой." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Very high in vitamin C and fiber."
           }
         }
       }
     },
-    "По выбранной методике прикорм лучше начинать ~%@ мес.": {},
-    "По выбранной методике прикорм лучше начинать ~%lld мес.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "With the chosen method, solids are best started around %lld mo."
+    "Пауза" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
           }
         }
       }
     },
-    "Повторить ввод": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Introduce again"
+    "Пектин" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pectin"
           }
         }
       }
     },
-    "Повторить до %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Repeat by %@"
+    "Перезапустите приложение, чтобы применить новый язык." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart the app to apply the new language."
           }
         }
       }
     },
-    "Погнали! 🚀": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Let's go! 🚀"
+    "Перловая каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barley porridge"
           }
         }
       }
     },
-    "Поддерживается": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maintained"
+    "Персик" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peach"
           }
         }
       }
     },
-    "Поиск продукта": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search foods"
+    "план" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "planned"
           }
         }
       }
     },
-    "Полезные жиры": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Healthy fats"
+    "Пн" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon"
           }
         }
       }
+    },
+    "По выбранной методике прикорм лучше начинать ~%@ мес." : {
+
     },
-    "Полезные жиры и калий для мозга и энергии, кремовая текстура.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Healthy fats and potassium for brain and energy, with a creamy texture."
+    "По выбранной методике прикорм лучше начинать ~%lld мес." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With the chosen method, solids are best started around %lld mo."
           }
         }
       }
     },
-    "Полезные жиры, белок и витамин E. Давать только молотыми или пастой.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Healthy fats, protein and vitamin E. Serve only ground or as a paste."
+    "Повторить ввод" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce again"
           }
         }
       }
     },
-    "Полезные мононенасыщенные жиры и витамин E; добавлять каплю в пюре.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Healthy monounsaturated fats and vitamin E; add a drop to purées."
+    "Повторить до %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat by %@"
           }
         }
       }
     },
-    "Политика конфиденциальности": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Privacy policy"
+    "Погнали! 🚀" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's go! 🚀"
           }
         }
       }
     },
-    "Пометим как аллерген и будем осторожнее при вводе.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "We'll mark it as an allergen and be more careful introducing it."
+    "Поддерживается" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintained"
           }
         }
       }
     },
-    "Пометить аллергию": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mark as allergy"
+    "Поиск продукта" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search foods"
           }
         }
       }
     },
-    "Помидор": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tomato"
+    "Полезные жиры" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Healthy fats"
           }
         }
       }
     },
-    "Понравилось": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Liked"
+    "Полезные жиры и калий для мозга и энергии, кремовая текстура." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Healthy fats and potassium for brain and energy, with a creamy texture."
           }
         }
       }
     },
-    "Попробовать снова %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try again on %@"
+    "Полезные жиры, белок и витамин E. Давать только молотыми или пастой." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Healthy fats, protein and vitamin E. Serve only ground or as a paste."
           }
         }
       }
     },
-    "Попробовать через 2 месяца": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try again in 2 months"
+    "Полезные мононенасыщенные жиры и витамин E; добавлять каплю в пюре." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Healthy monounsaturated fats and vitamin E; add a drop to purées."
           }
         }
       }
     },
-    "Пора дать": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time to give"
+    "Политика конфиденциальности" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
           }
         }
       }
     },
-    "Пора дать аллерген": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time for an allergen"
+    "Пометим как аллерген и будем осторожнее при вводе." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We'll mark it as an allergen and be more careful introducing it."
           }
         }
       }
     },
-    "Пора освежить": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time to refresh"
+    "Пометить аллергию" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as allergy"
           }
         }
       }
     },
-    "Пора освежить введённый аллерген — загляни в приложение.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time to refresh an introduced allergen — open the app."
+    "Помидор" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomato"
           }
         }
       }
     },
-    "Постная белая рыба — белок и йод.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A lean white fish — protein and iodine."
+    "Понравилось" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liked"
           }
         }
       }
     },
-    "Постное гипоаллергенное мясо, белок и железо.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean, low-allergen meat with protein and iron."
+    "Попробовать снова %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again on %@"
           }
         }
       }
     },
-    "Постное мясо — белок и железо для роста.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean meat — protein and iron for growth."
+    "Попробовать через 2 месяца" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again in 2 months"
           }
         }
       }
     },
-    "Появилась реакция": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reaction appeared"
+    "Пора дать" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time to give"
           }
         }
       }
     },
-    "Появилась реакция / аллергия": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A reaction / allergy appeared"
+    "Пора дать аллерген" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time for an allergen"
           }
         }
       }
     },
-    "Пробиотики": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Probiotics"
+    "Пора освежить" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time to refresh"
           }
         }
       }
     },
-    "Продолжай вводить продукт — день %lld из %lld. Следи за реакцией 👀": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keep introducing the food — day %lld of %lld. Watch for a reaction 👀"
+    "Пора освежить введённый аллерген — загляни в приложение." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time to refresh an introduced allergen — open the app."
           }
         }
       }
     },
-    "Продукт введён! 🎉": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Food introduced! 🎉"
+    "Постная белая рыба — белок и йод." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lean white fish — protein and iodine."
           }
         }
       }
     },
-    "Продукты": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Foods"
+    "Постное гипоаллергенное мясо, белок и железо." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean, low-allergen meat with protein and iron."
           }
         }
       }
     },
-    "Просрочено": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Overdue"
+    "Постное мясо — белок и железо для роста." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean meat — protein and iron for growth."
           }
         }
       }
     },
-    "Простые сахара": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Simple sugars"
+    "Появилась реакция" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reaction appeared"
           }
         }
       }
     },
-    "Профиль": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profile"
+    "Появилась реакция / аллергия" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A reaction / allergy appeared"
           }
         }
       }
     },
-    "Пт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fri"
+    "Пробиотики" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probiotics"
           }
         }
       }
     },
-    "Пшеница": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wheat"
+    "Продолжай вводить продукт — день %lld из %lld. Следи за реакцией 👀" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep introducing the food — day %lld of %lld. Watch for a reaction 👀"
           }
         }
       }
     },
-    "Пшеничная каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wheat porridge"
+    "Продукт введён! 🎉" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food introduced! 🎉"
           }
         }
       }
     },
-    "Пшённая каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Millet porridge"
+    "Продукты" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foods"
           }
         }
       }
     },
-    "Ранний ввод снижает риск аллергии; белок и полезные жиры. Только в виде пасты/тонко — не целым (риск подавиться).": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Early introduction lowers allergy risk; protein and healthy fats. Only as a thin paste — never whole (choking risk)."
+    "Просрочено" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overdue"
           }
         }
       }
     },
-    "Растворимая клетчатка (бета-глюкан), железо и белок.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soluble fiber (beta-glucan), iron and protein."
+    "Простые сахара" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simple sugars"
           }
         }
       }
     },
-    "Растительный белок и железо; один из основных аллергенов.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plant protein and iron; one of the major allergens."
+    "Профиль" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
           }
         }
       }
     },
-    "Растительный белок, клетчатка и немного железа.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plant protein, fiber and some iron."
+    "Пт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fri"
           }
         }
       }
     },
-    "Реакция": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reaction"
+    "Пшеница" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheat"
           }
         }
       }
     },
-    "Реакция переведёт продукт в «паузу», а если он уже введён — в «аллергию».": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A reaction moves the food to paused, or to allergy if it's already introduced."
+    "Пшеничная каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheat porridge"
           }
         }
       }
     },
-    "Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The reaction is saved to the log. You can stop the introduction from the product card."
+    "Пшённая каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Millet porridge"
           }
         }
       }
     },
-    "Ребёнок": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Child"
+    "Ранний ввод снижает риск аллергии; белок и полезные жиры. Только в виде пасты/тонко — не целым (риск подавиться)." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Early introduction lowers allergy risk; protein and healthy fats. Only as a thin paste — never whole (choking risk)."
           }
         }
       }
     },
-    "Рисовая каша": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rice porridge"
+    "Растворимая клетчатка (бета-глюкан), железо и белок." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soluble fiber (beta-glucan), iron and protein."
           }
         }
       }
     },
-    "Рыба": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fish"
+    "Растительный белок и железо; один из основных аллергенов." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plant protein and iron; one of the major allergens."
           }
         }
       }
     },
-    "Ряженка": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ryazhenka"
+    "Растительный белок, клетчатка и немного железа." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plant protein, fiber and some iron."
           }
         }
       }
     },
-    "С какого возраста": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "From what age"
+    "реакция" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reaction"
           }
         }
       }
     },
-    "С какого возраста начинать прикорм. Обычно 4–6 месяцев — точные сроки и готовность малыша согласуй с педиатром.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "When to start solids. Usually 4–6 months — confirm timing and your baby's readiness with a pediatrician."
+    "Реакция" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reaction"
           }
         }
       }
     },
-    "Сб": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sat"
+    "Реакция переведёт продукт в «паузу», а если он уже введён — в «аллергию»." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A reaction moves the food to paused, or to allergy if it's already introduced."
           }
         }
       }
     },
-    "Сбросить": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset"
+    "Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The reaction is saved to the log. You can stop the introduction from the product card."
           }
         }
       }
     },
-    "Сбросить все данные": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset all data"
+    "Ребёнок" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Child"
           }
         }
       }
     },
-    "Сбросить все данные?": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset all data?"
+    "Рисовая каша" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rice porridge"
           }
         }
       }
     },
-    "Свинина": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pork"
+    "Рыба" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fish"
           }
         }
       }
     },
-    "Свой план": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Custom plan"
+    "Ряженка" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ryazhenka"
           }
         }
       }
     },
-    "Свой план прикорма": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your feeding plan"
+    "с %lld мес" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "from %lld mo"
           }
         }
       }
     },
-    "Свой план — настроен вами": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Custom plan — set up by you"
+    "С какого возраста" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From what age"
           }
         }
       }
     },
-    "Свой продукт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Custom food"
+    "С какого возраста начинать прикорм. Обычно 4–6 месяцев — точные сроки и готовность малыша согласуй с педиатром." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When to start solids. Usually 4–6 months — confirm timing and your baby's readiness with a pediatrician."
           }
         }
       }
     },
-    "Свёкла": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beet"
+    "Сб" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sat"
           }
         }
       }
     },
-    "Сегодня": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Today"
+    "Сбросить" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
           }
         }
       }
     },
-    "Селен": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Selenium"
+    "Сбросить все данные" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset all data"
           }
         }
       }
     },
-    "Системный": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "System"
+    "Сбросить все данные?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset all data?"
           }
         }
       }
     },
-    "Сколько дней наблюдать за реакцией на новый обычный продукт, прежде чем считать его введённым.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How many days to watch for a reaction to a new regular food before counting it as introduced."
+    "Свёкла" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beet"
           }
         }
       }
     },
-    "Скоро": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soon"
+    "Свинина" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pork"
           }
         }
       }
     },
-    "Скоро пора": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Due soon"
+    "Свой план" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom plan"
           }
         }
       }
     },
-    "Скоро пора дать": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coming up soon"
+    "Свой план — настроен вами" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom plan — set up by you"
           }
         }
       }
     },
-    "Скумбрия": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mackerel"
+    "Свой план прикорма" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your feeding plan"
           }
         }
       }
     },
-    "Сливочное масло": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Butter"
+    "Свой продукт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom food"
           }
         }
       }
     },
-    "Сорбит": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sorbitol"
+    "Сегодня" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
           }
         }
       }
     },
-    "Сохранить": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Save"
+    "Селен" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selenium"
           }
         }
       }
     },
-    "Союз педиатров РФ": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Russian Pediatric Union"
+    "Системный" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
           }
         }
       }
     },
-    "Соя": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soy"
+    "Сколько дней наблюдать за реакцией на новый обычный продукт, прежде чем считать его введённым." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many days to watch for a reaction to a new regular food before counting it as introduced."
           }
         }
       }
     },
-    "Ср": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wed"
+    "Скоро" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soon"
           }
         }
       }
     },
-    "Срыгивание / рвота": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spit-up / vomiting"
+    "Скоро пора" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due soon"
           }
         }
       }
     },
-    "Старт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+    "Скоро пора дать" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming up soon"
           }
         }
       }
     },
-    "Старт 5 мес — дословный оптимум программы для ГВ. Окно 7 дней — верх диапазона «вводить за 5–7 дней». Важно: регулярной «поддержки аллергена для толерантности» в программе РФ нет (она прямо считает раннее введение аллергенов требующим дальнейших исследований) — параметр оставлен как осторожный ориентир по западному консенсусу.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A 5-month start is the program’s literal optimum for breastfed infants. The 7-day window is the top of its “introduce over 5–7 days” range. Note: the Russian program has no regular “allergen maintenance for tolerance” (it explicitly treats early allergen introduction as needing further research) — this parameter is kept as a cautious guide based on the Western consensus."
+    "Скумбрия" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mackerel"
           }
         }
       }
     },
-    "Старт ~6 мес («around 6 months»). «3 дня» — низ официального диапазона AAP «3–5 дней». Список аллергенов = FDA «Big 9» (вкл. кунжут, FASTER Act). Частота 3×/нед — это пинат-протокол LEAP/NIAID, распространённый на другие аллергены как консенсус, а не отдельная цифра гайдлайна.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start around 6 months (“around 6 months”). The “3 days” is the low end of the AAP’s official “3–5 days” range. The allergen list is the FDA “Big 9” (incl. sesame, FASTER Act). The 3×/week frequency is the LEAP/NIAID peanut protocol extended to other allergens as a consensus, not a separate guideline figure."
+    "Сливочное масло" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Butter"
           }
         }
       }
     },
-    "Старт по ВОЗ — 6 мес (ESPGHAN допускает с 4, окно 4–6). «3 дня наблюдения» — общий консенсус (вводить по одному продукту и следить за реакцией), а не прямая цифра ВОЗ/ESPGHAN. Частота поддержки аллергена — клинический консенсус из исследований LEAP/EAT, не буква гайдлайна.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "WHO recommends starting at 6 months (ESPGHAN allows from 4, with a 4–6 month window). The “3-day observation” is a general consensus (introduce one food at a time and watch for a reaction), not a specific WHO/ESPGHAN figure. The allergen maintenance frequency is a clinical consensus from the LEAP/EAT studies, not a guideline figure."
+    "Сорбит" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorbitol"
           }
         }
       }
     },
-    "Старт прикорма": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solids start"
+    "Сохранить" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         }
       }
     },
-    "Сыр": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cheese"
+    "Союз педиатров РФ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Russian Pediatric Union"
           }
         }
       }
     },
-    "Творог": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cottage cheese"
+    "Соя" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soy"
           }
         }
       }
     },
-    "Телятина": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Veal"
+    "Ср" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wed"
           }
         }
       }
     },
-    "Только по согласованию с врачом": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only with your doctor's approval"
+    "Срыгивание / рвота" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spit-up / vomiting"
           }
         }
       }
     },
-    "Треска": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cod"
+    "Старт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         }
       }
     },
-    "Тыква": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pumpkin"
+    "Старт ~6 мес («around 6 months»). «3 дня» — низ официального диапазона AAP «3–5 дней». Список аллергенов = FDA «Big 9» (вкл. кунжут, FASTER Act). Частота 3×/нед — это пинат-протокол LEAP/NIAID, распространённый на другие аллергены как консенсус, а не отдельная цифра гайдлайна." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start around 6 months (“around 6 months”). The “3 days” is the low end of the AAP’s official “3–5 days” range. The allergen list is the FDA “Big 9” (incl. sesame, FASTER Act). The 3×/week frequency is the LEAP/NIAID peanut protocol extended to other allergens as a consensus, not a separate guideline figure."
           }
         }
       }
     },
-    "Углеводы": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carbohydrates"
+    "Старт 5 мес — дословный оптимум программы для ГВ. Окно 7 дней — верх диапазона «вводить за 5–7 дней». Важно: регулярной «поддержки аллергена для толерантности» в программе РФ нет (она прямо считает раннее введение аллергенов требующим дальнейших исследований) — параметр оставлен как осторожный ориентир по западному консенсусу." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A 5-month start is the program’s literal optimum for breastfed infants. The 7-day window is the top of its “introduce over 5–7 days” range. Note: the Russian program has no regular “allergen maintenance for tolerance” (it explicitly treats early allergen introduction as needing further research) — this parameter is kept as a cautious guide based on the Western consensus."
           }
         }
       }
     },
-    "Углеводы для энергии и витамины группы B; содержит глютен.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carbs for energy and B vitamins; contains gluten."
+    "Старт по ВОЗ — 6 мес (ESPGHAN допускает с 4, окно 4–6). «3 дня наблюдения» — общий консенсус (вводить по одному продукту и следить за реакцией), а не прямая цифра ВОЗ/ESPGHAN. Частота поддержки аллергена — клинический консенсус из исследований LEAP/EAT, не буква гайдлайна." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WHO recommends starting at 6 months (ESPGHAN allows from 4, with a 4–6 month window). The “3-day observation” is a general consensus (introduce one food at a time and watch for a reaction), not a specific WHO/ESPGHAN figure. The allergen maintenance frequency is a clinical consensus from the LEAP/EAT studies, not a guideline figure."
           }
         }
       }
     },
-    "Удалить": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
+    "Старт прикорма" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solids start"
           }
         }
       }
     },
-    "Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This deletes the child's profile, feeding history, and custom foods. It can't be undone — the app will start over."
+    "Сыр" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cheese"
           }
         }
       }
     },
-    "Условия использования": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terms of use"
+    "Творог" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cottage cheese"
           }
         }
       }
     },
-    "Утка": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Duck"
+    "Телятина" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veal"
           }
         }
       }
     },
-    "Фолаты": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Folate"
+    "Только по согласованию с врачом" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only with your doctor's approval"
           }
         }
       }
     },
-    "Фолаты и железо, насыщенная природная сладость.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Folate and iron, with a rich natural sweetness."
+    "Треска" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cod"
           }
         }
       }
     },
-    "Фосфор": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Phosphorus"
+    "Тыква" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pumpkin"
           }
         }
       }
     },
-    "Фрукты": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fruits"
+    "Углеводы" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbohydrates"
           }
         }
       }
     },
-    "Хек": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hake"
+    "Углеводы для энергии и витамины группы B; содержит глютен." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carbs for energy and B vitamins; contains gluten."
           }
         }
       }
     },
-    "Хлеб": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bread"
+    "Удалить" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
           }
         }
       }
     },
-    "Холин": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choline"
+    "Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This deletes the child's profile, feeding history, and custom foods. It can't be undone — the app will start over."
           }
         }
       }
     },
-    "Хорошо усваиваемое (гемовое) железо, белок и цинк для роста.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Well-absorbed (heme) iron, protein and zinc for growth."
+    "Условия использования" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of use"
           }
         }
       }
     },
-    "Цветная капуста": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cauliflower"
+    "Утка" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duck"
           }
         }
       }
     },
-    "Цинк": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zinc"
+    "Фолаты" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folate"
           }
         }
       }
     },
-    "Цитрусовые": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Citrus"
+    "Фолаты и железо, насыщенная природная сладость." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folate and iron, with a rich natural sweetness."
           }
         }
       }
     },
-    "Частота аллергена": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allergen frequency"
+    "Фосфор" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phosphorus"
           }
         }
       }
     },
-    "Чем полезен": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Why it's good"
+    "Фрукты" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fruits"
           }
         }
       }
     },
-    "Черника": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Blueberry"
+    "Хек" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hake"
           }
         }
       }
     },
-    "Чернослив": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prune"
+    "Хлеб" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bread"
           }
         }
       }
     },
-    "Чт": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thu"
+    "Холин" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choline"
           }
         }
       }
     },
-    "Что уже ввели?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Already introduced?"
+    "Хорошо усваиваемое (гемовое) железо, белок и цинк для роста." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Well-absorbed (heme) iron, protein and zinc for growth."
           }
         }
       }
     },
-    "Шпинат": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spinach"
+    "Цветная капуста" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cauliflower"
           }
         }
       }
     },
-    "Энергия и витамин A; добавлять немного в блюда.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Energy and vitamin A; add a little to meals."
+    "Цинк" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zinc"
           }
         }
       }
     },
-    "Энергия, белок и витамины группы B; содержит глютен.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Energy, protein and B vitamins; contains gluten."
+    "Цитрусовые" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Citrus"
           }
         }
       }
     },
-    "Это аллерген": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "It's an allergen"
+    "Частота аллергена" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergen frequency"
           }
         }
       }
     },
-    "Это ваши собственные настройки, а не клиническая рекомендация. Сроки введения продуктов и аллергенов согласуйте с педиатром.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "These are your own settings, not a clinical recommendation. Discuss the timing of foods and allergens with your pediatrician."
+    "Чем полезен" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Why it's good"
           }
         }
       }
     },
-    "Яблоко": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apple"
+    "Черника" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blueberry"
           }
         }
       }
     },
-    "Язык": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Language"
+    "Чернослив" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prune"
           }
         }
       }
     },
-    "Язык изменён": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Language changed"
+    "Чт" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thu"
           }
         }
       }
     },
-    "Яичный белок": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Egg white"
+    "Что уже ввели?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already introduced?"
           }
         }
       }
     },
-    "Яичный желток": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Egg yolk"
+    "Шпинат" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spinach"
           }
         }
       }
     },
-    "Яйцо": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Egg"
+    "Энергия и витамин A; добавлять немного в блюда." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Energy and vitamin A; add a little to meals."
           }
         }
       }
     },
-    "аллерген": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "allergen"
+    "Энергия, белок и витамины группы B; содержит глютен." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Energy, protein and B vitamins; contains gluten."
           }
         }
       }
     },
-    "дн": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "days"
+    "Это аллерген" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's an allergen"
           }
         }
       }
     },
-    "есть записи": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "has entries"
+    "Это ваши собственные настройки, а не клиническая рекомендация. Сроки введения продуктов и аллергенов согласуйте с педиатром." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "These are your own settings, not a clinical recommendation. Discuss the timing of foods and allergens with your pediatrician."
           }
         }
       }
     },
-    "к %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "by %@"
+    "Яблоко" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple"
           }
         }
       }
     },
-    "мес": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "mo"
+    "Язык" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
           }
         }
       }
     },
-    "план": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "planned"
+    "Язык изменён" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language changed"
           }
         }
       }
     },
-    "реакция": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "reaction"
+    "Яичный белок" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egg white"
           }
         }
       }
     },
-    "с %lld мес": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "from %lld mo"
+    "Яичный желток" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egg yolk"
           }
         }
       }
     },
-    "⚠️ Нельзя до 12 месяцев (риск ботулизма). После года — источник простых сахаров и антиоксидантов.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "⚠️ Not before 12 months (botulism risk). After age one — a source of simple sugars and antioxidants."
+    "Яйцо" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egg"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

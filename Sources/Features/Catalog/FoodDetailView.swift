@@ -143,11 +143,11 @@ struct FoodDetailView: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 if let nutrients = food.nutrients, !nutrients.isEmpty {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 84), spacing: 6)],
-                              alignment: .leading, spacing: 6) {
+                    FlowLayout(spacing: 6) {
                         ForEach(nutrients, id: \.self) { n in
                             Chip(String(localized: String.LocalizationValue(n)),
                                  icon: "leaf.fill", color: Theme.mint)
+                                .fixedSize()
                         }
                     }
                 }
