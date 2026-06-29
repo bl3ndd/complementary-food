@@ -74,6 +74,7 @@ struct CalendarView: View {
             Button { shiftMonth(-1) } label: {
                 Image(systemName: "chevron.left").font(.headline).foregroundStyle(Theme.accent)
             }
+            .accessibilityLabel("Предыдущий месяц")
             Spacer()
             Text(monthAnchor.formatted(.dateTime.month(.wide).year()).capitalized)
                 .font(.headline)
@@ -83,6 +84,7 @@ struct CalendarView: View {
                     .font(.headline)
                     .foregroundStyle(canGoNext ? Theme.accent : Color.secondary.opacity(0.35))
             }
+            .accessibilityLabel("Следующий месяц")
             .disabled(!canGoNext)
         }
     }
@@ -98,6 +100,11 @@ struct CalendarView: View {
         let plannedOnly = summary?.isPlannedOnly ?? false
         // «Есть записи» — синий, «реакция» — красный, «план» — сиреневый: разные хюэ (п.6/21).
         let fill = hasReaction ? Color.red : (plannedOnly ? Theme.lilac : Theme.sky)
+        // Статус не только цветом — дублируем в VoiceOver (доступность).
+        let statusText = hasReaction ? String(localized: "была реакция")
+            : plannedOnly ? String(localized: "запланировано")
+            : active ? String(localized: "есть записи")
+            : String(localized: "нет записей")
 
         return NavigationLink(value: start) {
             Text("\(cal.component(.day, from: date))")
@@ -120,6 +127,7 @@ struct CalendarView: View {
                 }
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(Text("\(cal.component(.day, from: date)) — \(statusText)"))
     }
 
     private var legend: some View {

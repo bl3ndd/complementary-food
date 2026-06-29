@@ -34,7 +34,7 @@ struct AllergensView: View {
                 Text(dueCount > 0 ? String(localized: "Пора освежить") : String(localized: "Всё под контролем"))
                     .font(.title3.bold()).foregroundStyle(.white)
                 Text(dueCount > 0
-                     ? String(localized: "\(dueCount) аллергенов ждут — дай, чтобы сохранить толерантность")
+                     ? String(localized: "По твоему плану: \(dueCount) пора освежить")
                      : String(localized: "Знакомые аллергены повторяются вовремя"))
                     .font(.caption.weight(.medium)).foregroundStyle(.white.opacity(0.9))
                     .fixedSize(horizontal: false, vertical: true)

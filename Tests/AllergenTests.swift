@@ -54,6 +54,16 @@ final class AllergenTests: XCTestCase {
         XCTAssertEqual(tracker.status(lastGiven: daysAgo(8), now: now), .overdue)
     }
 
+    // MARK: - Дневная частота: interval=1 не залипает в dueSoon (B6)
+
+    func testDailyIntervalStatus() {
+        let tracker = AllergenTracker(profile: profile(frequencyPerWeek: 7, groups: []))
+        // interval=1: дали сегодня → ok, вчера → пора (dueSoon), позавчера → просрочено.
+        XCTAssertEqual(tracker.status(lastGiven: daysAgo(0), now: now), .ok)
+        XCTAssertEqual(tracker.status(lastGiven: daysAgo(1), now: now), .dueSoon)
+        XCTAssertEqual(tracker.status(lastGiven: daysAgo(2), now: now), .overdue)
+    }
+
     // MARK: - Граница для интервала 2 (частота 3/нед)
 
     func testStatusBoundariesForShortInterval() {

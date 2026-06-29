@@ -17,7 +17,7 @@ struct DashboardView: View {
                 VStack(spacing: 18) {
                     heroCard
                     if !dueGroups.isEmpty {
-                        section(title: "Пора дать аллерген", icon: "ui_bell") {
+                        section(title: "По плану: освежить", icon: "ui_bell") {
                             ForEach(dueGroups) { dueRow($0) }
                         }
                     }

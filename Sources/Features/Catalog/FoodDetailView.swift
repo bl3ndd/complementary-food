@@ -58,7 +58,7 @@ struct FoodDetailView: View {
         .sheet(item: $logMode) { mode in
             LogFeedingSheet(food: food, child: child, mode: mode)
         }
-        .sheet(item: $editingLog) { EditNoteSheet(log: $0) }
+        .sheet(item: $editingLog) { EditLogSheet(log: $0) }
         .overlay {
             if showCheer { cheerOverlay }
         }
@@ -119,7 +119,7 @@ struct FoodDetailView: View {
                 BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
             }
             GhostButton(title: "Была реакция", tint: .red) { logMode = .reaction }
-            GhostButton(title: "Остановить ввод", tint: .gray) { stop() }
+            GhostButton(title: "Приостановить ввод", tint: .gray) { stop() }
         case .introduced:
             BigButton(title: "Записать кормление") { logMode = .feeding }
             GhostButton(title: "Появилась реакция", tint: .red) { logMode = .reaction }

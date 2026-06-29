@@ -64,6 +64,7 @@ struct Mascot: View {
             puddingBody
         }
         .frame(width: size, height: size * 0.7)
+        .accessibilityHidden(true)   // декоративный маскот — скрыт от VoiceOver
     }
 
     private var puddingBody: some View {

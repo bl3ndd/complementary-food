@@ -44,7 +44,7 @@ struct DayDetailView: View {
         .background(AppBackground())
         .navigationTitle(date.formatted(.dateTime.day().month().year()))
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $editingLog) { EditNoteSheet(log: $0) }
+        .sheet(item: $editingLog) { EditLogSheet(log: $0) }
         .sheet(isPresented: $showPlan) { PlanFeedingSheet(date: date) }
     }
 

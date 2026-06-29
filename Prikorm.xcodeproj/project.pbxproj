@@ -42,11 +42,12 @@
 		99C0A75ED7B0D7512C975255 /* AppLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */; };
 		9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */; };
 		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
+		ADE88BC5FE14C1B0EBD7FCF5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33137266140F2522867A45A1 /* AppRouter.swift */; };
 		B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */; };
 		B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95348E771F9D85BF57C252EA /* PrikormApp.swift */; };
 		B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */; };
+		BA6883AE8CA59600E865195B /* EditLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */; };
 		BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6CBE520BAA18B97B67374 /* FoodLog.swift */; };
-		BC14D107B44B6203FC737713 /* EditNoteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5786FA57EC965EDF5D09CB /* EditNoteSheet.swift */; };
 		BC6154128575F7506FCE9C36 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */; };
 		BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4088924D10FC333495FBF4AE /* AppLinks.swift */; };
 		C260263DBC9B0417E64CF911 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */; };
@@ -86,6 +87,7 @@
 		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageTests.swift; sourceTree = "<group>"; };
 		3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		33137266140F2522867A45A1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		4088924D10FC333495FBF4AE /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		49835FD1784A5B3FA0982C87 /* CustomFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFood.swift; sourceTree = "<group>"; };
 		4CF87C40EB3D72ED2F5C39B7 /* foods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = foods.json; sourceTree = "<group>"; };
@@ -103,10 +105,10 @@
 		85E899E48B738A329E5CB660 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		95348E771F9D85BF57C252EA /* PrikormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrikormApp.swift; sourceTree = "<group>"; };
 		9922FB2EF938071E03BD65DA /* PrikormTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PrikormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E5786FA57EC965EDF5D09CB /* EditNoteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteSheet.swift; sourceTree = "<group>"; };
 		9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingServiceTests.swift; sourceTree = "<group>"; };
 		A4E7FEF7218059F4616EC495 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFeedingSheet.swift; sourceTree = "<group>"; };
+		B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogSheet.swift; sourceTree = "<group>"; };
 		B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 		BA18465713D438512E16B883 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingService.swift; sourceTree = "<group>"; };
@@ -279,7 +281,7 @@
 			children = (
 				2516DDFC738C31AB56AA9408 /* Components.swift */,
 				11BE039C641EEE3C9C5F00E2 /* CustomPlanEditor.swift */,
-				9E5786FA57EC965EDF5D09CB /* EditNoteSheet.swift */,
+				B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */,
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
 				C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */,
 				6EEE512BF23D205F3A40501F /* Theme.swift */,
@@ -293,6 +295,7 @@
 			children = (
 				3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */,
 				4088924D10FC333495FBF4AE /* AppLinks.swift */,
+				33137266140F2522867A45A1 /* AppRouter.swift */,
 				DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */,
 				95348E771F9D85BF57C252EA /* PrikormApp.swift */,
 				218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */,
@@ -427,6 +430,7 @@
 				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
 				F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */,
 				BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */,
+				ADE88BC5FE14C1B0EBD7FCF5 /* AppRouter.swift in Sources */,
 				E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */,
 				14A679536E76A2808BB20159 /* CalendarView.swift in Sources */,
 				2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */,
@@ -437,7 +441,7 @@
 				5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */,
 				0A08FA37922C0D8AD99A83F1 /* DayDetailView.swift in Sources */,
 				9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */,
-				BC14D107B44B6203FC737713 /* EditNoteSheet.swift in Sources */,
+				BA6883AE8CA59600E865195B /* EditLogSheet.swift in Sources */,
 				E7B506A7E08332292C71C790 /* Enums.swift in Sources */,
 				2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */,
 				B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */,

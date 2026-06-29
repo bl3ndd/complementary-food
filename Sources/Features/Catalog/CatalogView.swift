@@ -1,76 +1,30 @@
 import SwiftUI
 import SwiftData
 
-/// Вкладка «Каталог» с сегментным переключателем «Продукты | Аллергены» (SPEC §7).
-/// Продукты — каталог по категориям с поиском; Аллергены — список поддержки.
+/// Вкладка «Каталог»: продукты по категориям с поиском. Аллергены — отдельный таб.
 struct CatalogView: View {
     let child: Child
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
     @Query private var customFoods: [CustomFood]
     @State private var search = ""
-    @State private var section: CatalogSection = .foods
     @State private var showAddCustom = false
 
     private let catalog = FoodCatalog.shared
 
-    enum CatalogSection: String, CaseIterable, Identifiable {
-        case foods = "Продукты"
-        case allergens = "Аллергены"
-        var id: String { rawValue }
-
-        /// Локализованная подпись сегмента (rawValue — ключ каталога/идентификатор).
-        var title: String {
-            switch self {
-            case .foods:     return String(localized: "Продукты")
-            case .allergens: return String(localized: "Аллергены")
-            }
-        }
-    }
-
     var body: some View {
         NavigationStack {
-            TabView(selection: $section) {
-                foodList.tag(CatalogSection.foods)
-                AllergensView(child: child).tag(CatalogSection.allergens)
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.snappy, value: section)
-            .background(AppBackground())
-            .navigationTitle("Каталог")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) { segmentControl }
-            }
-            .navigationDestination(for: Food.self) { food in
-                FoodDetailView(food: food, child: child)
-            }
-            .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet() }
-            .onAppear { FoodCatalog.setCustom(customFoods) }
-            .onChange(of: customFoods.map(\.id)) { FoodCatalog.setCustom(customFoods) }
+            foodList
+                .background(AppBackground())
+                .navigationTitle("Каталог")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(for: Food.self) { food in
+                    FoodDetailView(food: food, child: child)
+                }
+                .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet() }
+                .onAppear { FoodCatalog.setCustom(customFoods) }
+                .onChange(of: customFoods.map(\.id)) { FoodCatalog.setCustom(customFoods) }
         }
-    }
-
-    /// Капсульный сегмент-контрол в стиле приложения (системный выглядит «квадратным»).
-    private var segmentControl: some View {
-        HStack(spacing: 0) {
-            ForEach(CatalogSection.allCases) { s in
-                let on = section == s
-                Text(s.title)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(on ? .white : Color.secondary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 7)
-                    .background {
-                        if on { Capsule().fill(Theme.accentGradient) }
-                    }
-                    .contentShape(Capsule())
-                    .onTapGesture { withAnimation(.snappy) { section = s } }
-            }
-        }
-        .padding(3)
-        .background(Capsule().fill(.black.opacity(0.06)))
-        .frame(width: 240)
     }
 
     private var foodList: some View {

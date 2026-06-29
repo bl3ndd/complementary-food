@@ -13,7 +13,9 @@ struct AllergenTracker {
         let interval = profile.maintenanceIntervalDays
         let days = calendar.dateComponents([.day], from: lastGiven, to: now).day ?? 0
         if days > interval { return .overdue }
-        if days >= interval - 1 { return .dueSoon }
+        // max(1, …): при дневной частоте (interval=1) «сегодня» (days=0) — это ok,
+        // а не вечный dueSoon (B6). Для обычных интервалов поведение прежнее.
+        if days >= max(1, interval - 1) { return .dueSoon }
         return .ok
     }
 

@@ -86,10 +86,13 @@ final class NotificationManager {
         let introducing = statuses.filter { $0.state == .introducing }
         let allergenIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen == true }
         let regularIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen != true }
-        let all = requests(for: groups)
-            + introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen)
+        // Приоритет при лимите iOS (64 локальных уведомления): поддержка аллергенов и
+        // retry важнее окна ввода — их ставим всегда, окно ввода добиваем до лимита (B7).
+        let priority = requests(for: groups) + retryRequests(statuses: statuses)
+        let intro = introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen)
             + introRequests(statuses: regularIntro, observationDays: profile.observationDaysRegular)
-            + retryRequests(statuses: statuses)
+        let cap = 60
+        let all = priority + Array(intro.prefix(max(0, cap - priority.count)))
         Task {
             if !all.isEmpty { await ensureAuthorized() }
             await apply(all)
@@ -111,6 +114,7 @@ final class NotificationManager {
     /// Берём введённые группы без аллергии со статусом не `.ok` (пора/скоро) и
     /// датой следующего приёма. Триггер — еженедельный повтор по дню недели.
     func requests(for groups: [AllergenGroupStatus],
+                  now: Date = Date(),
                   calendar: Calendar = .current) -> [UNNotificationRequest] {
         groups.compactMap { group in
             guard group.isIntroduced, !group.hasAllergy, group.status != .ok,
@@ -121,8 +125,11 @@ final class NotificationManager {
             content.body = String(localized: "Пора освежить введённый аллерген — загляни в приложение.")
             content.sound = .default
 
+            // Если срок уже прошёл, якорим день недели к ближайшему (а не к прошедшему
+            // nextDue), иначе первый пуш только на следующей неделе (B8).
+            let anchor = max(due, now)
             var comps = DateComponents()
-            comps.weekday = calendar.component(.weekday, from: due)
+            comps.weekday = calendar.component(.weekday, from: anchor)
             comps.hour = hour
             comps.minute = minute
             let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
