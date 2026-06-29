@@ -3774,6 +3774,16 @@
         }
       }
     },
+    "Старт %lld мес · окна %lld/%lld дн · аллерген %lld×/нед": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start %lld mo · windows %lld/%lld d · allergen %lld×/wk"
+          }
+        }
+      }
+    },
     "Старт 5 мес — дословный оптимум программы для ГВ. Окно 7 дней — верх диапазона «вводить за 5–7 дней». Важно: регулярной «поддержки аллергена для толерантности» в программе РФ нет (она прямо считает раннее введение аллергенов требующим дальнейших исследований) — параметр оставлен как осторожный ориентир по западному консенсусу.": {
       "extractionState": "manual",
       "localizations": {
@@ -3836,6 +3846,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cheese"
+          }
+        }
+      }
+    },
+    "Твой план прикорма": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your feeding plan"
           }
         }
       }
