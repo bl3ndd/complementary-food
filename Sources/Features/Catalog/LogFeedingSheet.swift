@@ -38,6 +38,8 @@ struct LogFeedingSheet: View {
                 .padding()
             }
             .background(AppBackground())
+            .scrollDismissesKeyboard(.interactively)
+            .hideKeyboardOnTap()
             .navigationTitle(mode == .feeding ? Text("Запись кормления") : Text("Запись реакции"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

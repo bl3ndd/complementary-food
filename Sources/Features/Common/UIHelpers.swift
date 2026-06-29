@@ -1,4 +1,15 @@
 import SwiftUI
+import UIKit
+
+extension View {
+    /// Прячет клавиатуру по тапу по пустому месту (тапы по полям/кнопкам не перехватываются).
+    func hideKeyboardOnTap() -> some View {
+        onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                            to: nil, from: nil, for: nil)
+        }
+    }
+}
 
 extension AllergenStatus {
     var color: Color {
