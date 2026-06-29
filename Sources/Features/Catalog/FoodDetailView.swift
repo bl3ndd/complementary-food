@@ -146,7 +146,8 @@ struct FoodDetailView: View {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 84), spacing: 6)],
                               alignment: .leading, spacing: 6) {
                         ForEach(nutrients, id: \.self) { n in
-                            Chip(n, icon: "leaf.fill", color: Theme.mint)
+                            Chip(String(localized: String.LocalizationValue(n)),
+                                 icon: "leaf.fill", color: Theme.mint)
                         }
                     }
                 }
