@@ -89,7 +89,7 @@ struct OnboardingView: View {
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                CustomPlanEditor(child: draftChild)
+                PlanDetailEditor(child: draftChild)
             }
             .padding(.top, 28)
             .padding(.bottom, 8)

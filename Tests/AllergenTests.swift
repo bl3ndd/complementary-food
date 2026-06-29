@@ -173,4 +173,18 @@ final class AllergenTests: XCTestCase {
         XCTAssertEqual(g.lastGiven, daysAgo(2),
                        "реакция/план/будущее не считаются за последний приём")
     }
+
+    // MARK: - Введён без логов (онбординг) → база из completedAt, не «просрочен»
+
+    func testIntroducedWithoutLogsUsesCompletedAtBaseline() throws {
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg])
+        let s = IntroductionStatus(foodId: "egg_yolk", state: .introduced)
+        s.completedAt = daysAgo(1)   // отмечено «уже введено» вчера, фактических доз нет
+
+        let g = try XCTUnwrap(AllergenMaintenance(catalog: catalog, profile: prof,
+                                                  statuses: [s], logs: [], now: now).groups().first)
+        XCTAssertEqual(g.lastGiven, daysAgo(1), "база — дата завершения ввода")
+        XCTAssertNotEqual(g.status, .overdue, "введённый без логов не должен быть сразу просрочен")
+    }
 }

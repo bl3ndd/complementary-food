@@ -350,7 +350,7 @@ final class FeedingServiceTests: XCTestCase {
     // MARK: - Засев «уже введённых» из онбординга (п.23)
 
     @MainActor
-    func testMarkIntroducedCreatesIntroducedStatusesAndLogsNoDupes() throws {
+    func testMarkIntroducedCreatesIntroducedStatusesNoLogsNoDupes() throws {
         let context = try makeContext()
         let service = FeedingService(context: context)
         let a = makeFood(id: "apple"), b = makeFood(id: "pear")
@@ -358,13 +358,14 @@ final class FeedingServiceTests: XCTestCase {
         service.markIntroduced([a, b])
         XCTAssertEqual(service.status(for: "apple").state, .introduced)
         XCTAssertEqual(service.status(for: "pear").state, .introduced)
-        // По логу на продукт → lastGiven=now, иначе аллерген сразу «просрочен».
-        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 2)
+        XCTAssertNotNil(service.status(for: "apple").completedAt, "база для поддержки — completedAt")
+        // Логи НЕ создаются — иначе попали бы в дневник как «дали сегодня».
+        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 0)
 
-        // Повторный вызов не плодит ни статусы, ни логи.
+        // Повторный вызов не плодит статусы.
         service.markIntroduced([a])
         XCTAssertEqual(try context.fetch(FetchDescriptor<IntroductionStatus>()).count, 2)
-        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 2)
+        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 0)
     }
 
     // MARK: - Подтверждение запланированного ввода (B1/B4)

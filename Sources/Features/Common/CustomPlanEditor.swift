@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// Редактор «своего плана»: компактная карточка-сводка. Детальная настройка
-/// открывается отдельным листом (нативная анимация, без лагающего inline-раскрытия).
+/// Компактная карточка-сводка плана; по тапу открывает детальную настройку листом.
+/// Используется там, где не нужна развёрнутая форма (Профиль).
 struct CustomPlanEditor: View {
     @Bindable var child: Child
     @State private var showDetail = false
@@ -9,7 +9,19 @@ struct CustomPlanEditor: View {
     var body: some View {
         Button { showDetail = true } label: { summaryCard }
             .buttonStyle(.plain)
-            .sheet(isPresented: $showDetail) { PlanDetailSheet(child: child) }
+            .sheet(isPresented: $showDetail) {
+                NavigationStack {
+                    ScrollView { PlanDetailEditor(child: child).padding() }
+                        .background(AppBackground())
+                        .navigationTitle("Свой план прикорма")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Готово") { showDetail = false }
+                            }
+                        }
+                }
+            }
     }
 
     private var summaryCard: some View {
@@ -37,11 +49,10 @@ struct CustomPlanEditor: View {
     }
 }
 
-// MARK: - Лист детальной настройки плана
-
-private struct PlanDetailSheet: View {
+/// Полная форма настройки «своего плана» (инлайн): параметры тап-меню + аллергены.
+/// В онбординге встраивается напрямую, в Профиле — внутрь листа из CustomPlanEditor.
+struct PlanDetailEditor: View {
     @Bindable var child: Child
-    @Environment(\.dismiss) private var dismiss
     @State private var shownInfo: PlanInfo?
 
     private let limits = FeedingProfile.CustomLimits.self
@@ -64,35 +75,24 @@ private struct PlanDetailSheet: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    VStack(spacing: 16) {
-                        paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
-                                 value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
-                        paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
-                                 value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
-                        paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep, info: .windowAllergen,
-                                 value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
-                        paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
-                                 value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
-                    }
-                    .cartoonCard()
+        VStack(spacing: 16) {
+            VStack(spacing: 16) {
+                paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
+                         value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
+                paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
+                         value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
+                paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep, info: .windowAllergen,
+                         value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
+                paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
+                         value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
+            }
+            .cartoonCard()
 
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Аллергены для ввода").font(.subheadline.bold())
-                        allergenGrid
-                    }
-                    .cartoonCard()
-                }
-                .padding()
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Аллергены для ввода").font(.subheadline.bold())
+                allergenGrid
             }
-            .background(AppBackground())
-            .navigationTitle("Свой план прикорма")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) { Button("Готово") { dismiss() } }
-            }
+            .cartoonCard()
         }
     }
 

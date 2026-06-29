@@ -67,9 +67,9 @@ struct FeedingService {
             let s = status(for: food.id)
             guard s.state == .notIntroduced else { continue }
             s.state = .introduced
+            // completedAt — база для поддержки аллергена. Лог НЕ создаём: иначе он попадёт
+            // в дневник как «дали сегодня», хотя продукт просто отмечен уже введённым.
             s.completedAt = now
-            // Лог «дали» датой now: иначе lastGiven=nil и аллерген сразу «просрочен» (B-fix).
-            context.insert(FoodLog(foodId: food.id, date: now, type: .maintenance))
         }
         save()
     }

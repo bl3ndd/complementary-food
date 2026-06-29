@@ -38,10 +38,15 @@ struct AllergenMaintenance {
             let isIntroduced = groupStatuses.contains { $0.state == .introduced }
             // «Последний приём» — только фактические чистые дозы: без планов, без
             // будущих дат и без реакций (реакция ≠ доза для поддержки толерантности).
-            let lastGiven = logs.filter {
+            let cleanGiven = logs.filter {
                 foodIds.contains($0.foodId) && !$0.planned && $0.date <= now
                     && ($0.reaction ?? .none) == .none
             }.map(\.date).max()
+            // Если фактических доз нет (напр. «уже введено» из онбординга без логов),
+            // базой берём дату завершения ввода — иначе аллерген сразу «просрочен».
+            let introducedAt = groupStatuses.filter { $0.state == .introduced }
+                .compactMap { $0.completedAt }.max()
+            let lastGiven = cleanGiven ?? introducedAt
 
             // Представитель группы: первый введённый продукт, иначе первый из группы.
             let introducedFoodIds = Set(groupStatuses.filter { $0.state == .introduced }.map(\.foodId))
