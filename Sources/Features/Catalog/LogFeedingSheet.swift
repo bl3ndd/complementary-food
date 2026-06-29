@@ -4,8 +4,12 @@ import SwiftData
 /// Лист записи кормления: вкусовая оценка + реакция + заметка (SPEC §5).
 /// Мультяшный стиль: карточки, крупные эмодзи-кнопки, фирменная кнопка сохранения.
 struct LogFeedingSheet: View {
+    /// Режим листа: запись кормления (вкусовая оценка) или отметка реакции.
+    enum Mode: String, Identifiable { case feeding, reaction; var id: String { rawValue } }
+
     let food: Food
     let child: Child
+    var mode: Mode = .feeding
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
@@ -25,8 +29,8 @@ struct LogFeedingSheet: View {
                 VStack(spacing: 16) {
                     header
                     dateCard
-                    likingCard
-                    reactionCard
+                    if mode == .feeding { likingCard }
+                    if mode == .reaction { reactionCard }
                     noteCard
                     BigButton(title: "Сохранить") { save() }
                         .padding(.top, 4)
@@ -34,7 +38,7 @@ struct LogFeedingSheet: View {
                 .padding()
             }
             .background(AppBackground())
-            .navigationTitle("Запись кормления")
+            .navigationTitle(mode == .feeding ? Text("Запись кормления") : Text("Запись реакции"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -62,7 +66,10 @@ struct LogFeedingSheet: View {
             FoodIcon(food: food, size: 52)
             VStack(alignment: .leading, spacing: 2) {
                 Text(food.localizedName).font(.title3.bold())
-                Text("Как прошло кормление?").font(.subheadline).foregroundStyle(.secondary)
+                Text(mode == .feeding
+                     ? String(localized: "Как прошло кормление?")
+                     : String(localized: "Отметь реакцию на продукт"))
+                    .font(.subheadline).foregroundStyle(.secondary)
             }
             Spacer()
         }

@@ -1110,6 +1110,7 @@
       }
     },
     "Выполнено": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1242,16 +1243,16 @@
     },
     "День %@ из %@": {
       "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "new",
-            "value": "День %1$@ из %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Day %@ of %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "new",
+            "value": "День %1$@ из %2$@"
           }
         }
       }
@@ -1494,6 +1495,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Feeding entry"
+          }
+        }
+      }
+    },
+    "Запись реакции": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log a reaction"
           }
         }
       }
@@ -2432,6 +2443,7 @@
       }
     },
     "Не медицинский совет — сроки согласуй с педиатром.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2744,6 +2756,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mark foods your baby has already tried without issues. You can skip this."
+          }
+        }
+      }
+    },
+    "Отметь реакцию на продукт": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Note the reaction to this food"
           }
         }
       }
@@ -4098,6 +4120,7 @@
       }
     },
     "Это не медицинский совет — решения принимай вместе с педиатром.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {

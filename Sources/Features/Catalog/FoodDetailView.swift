@@ -9,7 +9,7 @@ struct FoodDetailView: View {
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
-    @State private var showLogSheet = false
+    @State private var logMode: LogFeedingSheet.Mode?
     @State private var showCheer = false
     @State private var startDate = Date()
     @State private var editingLog: FoodLog?
@@ -55,8 +55,8 @@ struct FoodDetailView: View {
         .background(AppBackground())
         .navigationTitle(food.localizedName)
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showLogSheet) {
-            LogFeedingSheet(food: food, child: child)
+        .sheet(item: $logMode) { mode in
+            LogFeedingSheet(food: food, child: child, mode: mode)
         }
         .sheet(item: $editingLog) { EditNoteSheet(log: $0) }
         .overlay {
@@ -114,15 +114,15 @@ struct FoodDetailView: View {
             BigButton(title: "Начать введение") { start(date: startDate) }
         case .introducing:
             if let day = observationDay { observationHint(day: day) }
-            BigButton(title: "Записать кормление") { showLogSheet = true }
+            BigButton(title: "Записать кормление") { logMode = .feeding }
             if canComplete {
                 BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
             }
-            GhostButton(title: "Была реакция", tint: .red) { showLogSheet = true }
+            GhostButton(title: "Была реакция", tint: .red) { logMode = .reaction }
             GhostButton(title: "Остановить ввод", tint: .gray) { stop() }
         case .introduced:
-            BigButton(title: "Записать кормление") { showLogSheet = true }
-            GhostButton(title: "Появилась реакция", tint: .red) { showLogSheet = true }
+            BigButton(title: "Записать кормление") { logMode = .feeding }
+            GhostButton(title: "Появилась реакция", tint: .red) { logMode = .reaction }
             GhostButton(title: "Пометить аллергию", tint: .gray) { flagAllergy() }
         case .paused:
             if let retry = statuses.first?.retryAt {
