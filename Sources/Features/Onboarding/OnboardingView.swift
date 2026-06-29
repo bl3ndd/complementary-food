@@ -86,7 +86,8 @@ struct OnboardingView: View {
 
                 CustomPlanEditor(child: draftChild)
             }
-            .padding(.vertical, 8)
+            .padding(.top, 28)
+            .padding(.bottom, 8)
             .padding(.horizontal, 3)
         }
         .scrollIndicators(.hidden)

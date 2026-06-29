@@ -28,11 +28,11 @@ struct CustomPlanEditor: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 14) {
             summaryRow
             if expanded {
-                Divider().padding(.vertical, 2)
-                VStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 14) {
+                    Divider()
                     paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
                              value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
                     paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
@@ -41,10 +41,11 @@ struct CustomPlanEditor: View {
                              value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
                     paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
                              value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
+                    Divider()
+                    Text("Аллергены для ввода").font(.subheadline.bold())
+                    allergenGrid
                 }
-                Divider().padding(.vertical, 2)
-                Text("Аллергены для ввода").font(.subheadline.bold())
-                allergenGrid
+                .transition(.opacity)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,7 +55,7 @@ struct CustomPlanEditor: View {
     // MARK: - Сводка + раскрытие (прогрессивное раскрытие, вариант C)
 
     private var summaryRow: some View {
-        Button { withAnimation(.snappy) { expanded.toggle() } } label: {
+        Button { withAnimation(.smooth(duration: 0.28)) { expanded.toggle() } } label: {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Твой план прикорма").font(.subheadline.bold()).foregroundStyle(.primary)
