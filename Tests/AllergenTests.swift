@@ -144,4 +144,23 @@ final class AllergenTests: XCTestCase {
         XCTAssertNil(fish.lastGiven)
         XCTAssertEqual(fish.representativeFood?.id, "cod", "без введённых — первый из группы")
     }
+
+    // MARK: - lastGiven: план/будущее/реакция не считаются за приём (B3/B4/B5)
+
+    func testLastGivenIgnoresPlannedFutureAndReactionLogs() throws {
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg])
+        let statuses = [IntroductionStatus(foodId: "egg_yolk", state: .introduced)]
+        let future = Calendar.current.date(byAdding: .day, value: 5, to: now)!
+        let logs = [
+            FoodLog(foodId: "egg_yolk", date: daysAgo(2), type: .maintenance),            // считается
+            FoodLog(foodId: "egg_yolk", date: now, type: .maintenance, reaction: .skin),  // реакция → нет
+            FoodLog(foodId: "egg_yolk", date: future, type: .intro, planned: true),       // план/будущее → нет
+        ]
+
+        let g = try XCTUnwrap(AllergenMaintenance(catalog: catalog, profile: prof,
+                                                  statuses: statuses, logs: logs, now: now).groups().first)
+        XCTAssertEqual(g.lastGiven, daysAgo(2),
+                       "реакция/план/будущее не считаются за последний приём")
+    }
 }

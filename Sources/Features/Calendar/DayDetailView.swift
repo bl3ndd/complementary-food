@@ -7,6 +7,7 @@ struct DayDetailView: View {
     let date: Date
     @Environment(\.modelContext) private var context
     @Query private var logs: [FoodLog]
+    @Query private var children: [Child]
     @State private var editingLog: FoodLog?
     @State private var showPlan = false
 
@@ -19,6 +20,11 @@ struct DayDetailView: View {
     /// Сегодня или будущее — можно запланировать ввод (п.21).
     private var isTodayOrFuture: Bool {
         Calendar.current.startOfDay(for: date) >= Calendar.current.startOfDay(for: Date())
+    }
+
+    /// Строго будущий день — «Выполнено» прятать (нельзя «дать» в будущем).
+    private var isFutureDay: Bool {
+        Calendar.current.startOfDay(for: date) > Calendar.current.startOfDay(for: Date())
     }
 
     var body: some View {
@@ -71,9 +77,9 @@ struct DayDetailView: View {
                 }
             }
             Spacer()
-            if entry.planned {
+            if entry.planned && !isFutureDay {
                 PillButton(title: "Выполнено") { markDone(entry.log) }
-            } else if let liking = entry.liking {
+            } else if !entry.planned, let liking = entry.liking {
                 OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 30)
             }
         }
@@ -82,10 +88,13 @@ struct DayDetailView: View {
         .onTapGesture { editingLog = entry.log }
     }
 
-    /// Отметить запланированный ввод выполненным — становится обычной записью журнала.
+    /// Отметить запланированный ввод выполненным — запускает стейт-машину (introducing)
+    /// и переставляет напоминания (B1).
     private func markDone(_ log: FoodLog) {
-        log.planned = false
-        try? context.save()
+        FeedingService(context: context).confirmPlanned(log)
+        if let profile = children.first?.feedingProfile {
+            NotificationManager.shared.refresh(context: context, profile: profile)
+        }
     }
 
     private var emptyState: some View {

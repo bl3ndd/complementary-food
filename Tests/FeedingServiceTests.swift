@@ -350,7 +350,7 @@ final class FeedingServiceTests: XCTestCase {
     // MARK: - Засев «уже введённых» из онбординга (п.23)
 
     @MainActor
-    func testMarkIntroducedCreatesIntroducedStatusesNoDupes() throws {
+    func testMarkIntroducedCreatesIntroducedStatusesAndLogsNoDupes() throws {
         let context = try makeContext()
         let service = FeedingService(context: context)
         let a = makeFood(id: "apple"), b = makeFood(id: "pear")
@@ -358,10 +358,53 @@ final class FeedingServiceTests: XCTestCase {
         service.markIntroduced([a, b])
         XCTAssertEqual(service.status(for: "apple").state, .introduced)
         XCTAssertEqual(service.status(for: "pear").state, .introduced)
+        // По логу на продукт → lastGiven=now, иначе аллерген сразу «просрочен».
+        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 2)
 
-        // Повторный вызов не создаёт дублей статусов.
+        // Повторный вызов не плодит ни статусы, ни логи.
         service.markIntroduced([a])
         XCTAssertEqual(try context.fetch(FetchDescriptor<IntroductionStatus>()).count, 2)
+        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 2)
+    }
+
+    // MARK: - Подтверждение запланированного ввода (B1/B4)
+
+    @MainActor
+    func testConfirmPlannedStartsIntroductionReusingLog() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let cal = utcCalendar()
+        let food = makeFood()
+
+        let log = FoodLog(foodId: food.id, date: day(2, cal), type: .intro, planned: true)
+        context.insert(log)
+        try context.save()
+
+        service.confirmPlanned(log, now: day(5, cal))
+
+        let s = service.status(for: food.id)
+        XCTAssertEqual(s.state, .introducing)
+        XCTAssertEqual(s.introStartedAt, day(2, cal))
+        XCTAssertFalse(log.planned)
+        // Лог переиспользован — дубля intro-записи нет.
+        XCTAssertEqual(try context.fetch(FetchDescriptor<FoodLog>()).count, 1)
+    }
+
+    @MainActor
+    func testConfirmPlannedClampsFutureDateToNow() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let cal = utcCalendar()
+        let food = makeFood()
+
+        let log = FoodLog(foodId: food.id, date: day(10, cal), type: .intro, planned: true)
+        context.insert(log)
+        try context.save()
+
+        service.confirmPlanned(log, now: day(5, cal))
+
+        XCTAssertFalse(log.planned)
+        XCTAssertEqual(log.date, day(5, cal), "будущую дату клампим к now")
     }
 
     func testWindowStartTakesEarliestOfStartAndLogs() {

@@ -253,11 +253,8 @@ struct FoodDetailView: View {
     // MARK: - Действия
 
     private func start(date: Date = Date()) {
-        Task {
-            if food.isAllergen { _ = await NotificationManager.shared.requestAuthorization() }
-            service.startIntroduction(food, date: date)
-            refresh()
-        }
+        service.startIntroduction(food, date: date)
+        refresh()   // refresh сам запросит разрешение на уведомления при первом планировании.
     }
 
     private func stop() { service.stopIntroduction(food); refresh() }

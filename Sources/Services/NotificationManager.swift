@@ -62,6 +62,17 @@ final class NotificationManager {
         return (try? await center.requestAuthorization(options: [.alert, .badge, .sound])) ?? false
     }
 
+    /// Просит разрешение ОДИН раз — при первом фактическом планировании любого
+    /// напоминания (а не только при старте ввода аллергена). Если статус уже определён
+    /// (выдан/отклонён) — повторно не дёргаем (iOS и так покажет промпт лишь однажды).
+    func ensureAuthorized() async {
+        let center = UNUserNotificationCenter.current()
+        let settings = await center.notificationSettings()
+        if settings.authorizationStatus == .notDetermined {
+            _ = await requestAuthorization()
+        }
+    }
+
     /// Пересчитывает и переставляет все напоминания (окно ввода + поддержка).
     func refresh(context: ModelContext, profile: FeedingProfile) {
         let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>())) ?? []
@@ -79,7 +90,10 @@ final class NotificationManager {
             + introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen)
             + introRequests(statuses: regularIntro, observationDays: profile.observationDaysRegular)
             + retryRequests(statuses: statuses)
-        Task { await apply(all) }
+        Task {
+            if !all.isEmpty { await ensureAuthorized() }
+            await apply(all)
+        }
     }
 
     /// Снимает наши прошлые напоминания (intro-/allergen-) и ставит переданные.

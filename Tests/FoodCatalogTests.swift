@@ -181,8 +181,11 @@ final class FoodCatalogTests: XCTestCase {
             Food(id: "apple", name: "Яблоко", category: .fruit, emoji: "🍎",
                  isAllergen: false, allergenGroup: nil, minAgeMonths: 5),
         ])
-        XCTAssertEqual(Set(local.search("овощи").map(\.id)), ["zucchini", "broccoli"],
-                       "«овощи» показывает всю категорию овощей (п.17)")
+        // Поиск идёт по локализованному названию категории → запрос на языке симулятора
+        // (тесты хостятся, String(localized:) резолвится в язык сима — CLAUDE.md).
+        XCTAssertEqual(Set(local.search(FoodCategory.vegetable.title).map(\.id)),
+                       ["zucchini", "broccoli"],
+                       "название категории показывает всю категорию (п.17)")
     }
 
     func testSearchByAllergenGroupName() {
@@ -192,8 +195,8 @@ final class FoodCatalogTests: XCTestCase {
             Food(id: "apple", name: "Яблоко", category: .fruit, emoji: "🍎",
                  isAllergen: false, allergenGroup: nil, minAgeMonths: 5),
         ])
-        XCTAssertEqual(local.search("глютен").map(\.id), ["bread"],
-                       "запрос по группе аллергена находит продукт группы")
+        XCTAssertEqual(local.search(AllergenGroup.gluten.title).map(\.id), ["bread"],
+                       "название группы аллергена находит продукт группы")
     }
 
     func testSearchRanksExactBeforeSubstring() {

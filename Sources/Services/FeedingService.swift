@@ -68,6 +68,29 @@ struct FeedingService {
             guard s.state == .notIntroduced else { continue }
             s.state = .introduced
             s.completedAt = now
+            // Лог «дали» датой now: иначе lastGiven=nil и аллерген сразу «просрочен» (B-fix).
+            context.insert(FoodLog(foodId: food.id, date: now, type: .maintenance))
+        }
+        save()
+    }
+
+    /// Превращает запланированный ввод (planned-лог) в фактическую запись. Лог уже
+    /// существует — новую запись не создаём; будущую дату клампим к now (нельзя «дать»
+    /// в будущем). notIntroduced/paused → introducing; уже введённый → лог как поддержка.
+    func confirmPlanned(_ log: FoodLog, now: Date = Date()) {
+        log.planned = false
+        if log.date > now { log.date = now }
+        let s = status(for: log.foodId)
+        switch s.state {
+        case .notIntroduced, .paused:
+            s.state = .introducing
+            s.introStartedAt = log.date
+            s.completedAt = nil
+            s.retryAt = nil
+        case .introduced:
+            log.type = .maintenance
+        case .introducing, .allergy:
+            break
         }
         save()
     }

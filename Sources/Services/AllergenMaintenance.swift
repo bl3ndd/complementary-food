@@ -36,7 +36,12 @@ struct AllergenMaintenance {
             let groupStatuses = statuses.filter { foodIds.contains($0.foodId) }
             let hasAllergy = groupStatuses.contains { $0.state == .allergy }
             let isIntroduced = groupStatuses.contains { $0.state == .introduced }
-            let lastGiven = logs.filter { foodIds.contains($0.foodId) }.map(\.date).max()
+            // «Последний приём» — только фактические чистые дозы: без планов, без
+            // будущих дат и без реакций (реакция ≠ доза для поддержки толерантности).
+            let lastGiven = logs.filter {
+                foodIds.contains($0.foodId) && !$0.planned && $0.date <= now
+                    && ($0.reaction ?? .none) == .none
+            }.map(\.date).max()
 
             // Представитель группы: первый введённый продукт, иначе первый из группы.
             let introducedFoodIds = Set(groupStatuses.filter { $0.state == .introduced }.map(\.foodId))

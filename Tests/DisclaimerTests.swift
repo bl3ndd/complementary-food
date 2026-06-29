@@ -17,6 +17,9 @@ final class DisclaimerTests: XCTestCase {
 
     func testShortDisclaimerNotEmpty() {
         XCTAssertFalse(Disclaimer.short.trimmingCharacters(in: .whitespaces).isEmpty)
-        XCTAssertTrue(Disclaimer.short.localizedCaseInsensitiveContains("педиатр"))
+        // Disclaimer.short локализован → проверяем призыв к врачу локале-независимо.
+        XCTAssertTrue(Disclaimer.short.localizedCaseInsensitiveContains("педиатр")
+                      || Disclaimer.short.localizedCaseInsensitiveContains("pediatric"),
+                      "короткий дисклеймер зовёт к педиатру (ru/en)")
     }
 }

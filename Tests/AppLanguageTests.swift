@@ -33,9 +33,11 @@ final class AppLanguageTests: XCTestCase {
         LanguageManager.apply(.ru, to: d)
         XCTAssertEqual(d.stringArray(forKey: key), ["ru"])
 
-        // Системный — снимаем override, язык снова берётся из настроек устройства.
+        // Системный — снимаем override. Читаем НАШ домен, а не глобальный AppleLanguages
+        // (он протекает в симулятор как [en-RU, ru-RU] и ломал бы array(forKey:)).
         LanguageManager.apply(.system, to: d)
-        XCTAssertNil(d.array(forKey: key))
+        XCTAssertNil(d.persistentDomain(forName: suite)?[key],
+                     "системный режим убирает override из нашего домена")
     }
 
     func testEveryCaseHasNonEmptyTitle() {
