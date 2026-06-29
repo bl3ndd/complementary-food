@@ -68,10 +68,12 @@ final class FoodCatalogTests: XCTestCase {
         XCTAssertNil(plain.localizedBenefits)
     }
 
-    /// В бандле есть продукты с заполненной пользой (образцы наполнения).
-    func testBundledCatalogHasSomeBenefits() {
-        XCTAssertTrue(catalog.all.contains { $0.benefits?.isEmpty == false },
-                      "ожидаются продукты с описанием пользы")
+    /// Каждый каталожный продукт имеет описание пользы и список нутриентов (п.12).
+    func testEveryBundledFoodHasBenefitsAndNutrients() {
+        for food in catalog.foods {
+            XCTAssertFalse(food.benefits?.isEmpty ?? true, "у \(food.id) нет описания пользы")
+            XCTAssertFalse(food.nutrients?.isEmpty ?? true, "у \(food.id) пустые нутриенты")
+        }
     }
 
     // MARK: - Целостность данных

@@ -1,5 +1,5 @@
 {
-  "_comment": "Черновик каталога продуктов для прикорма (СНГ). Поля: id, name, category, emoji, isAllergen, allergenGroup, minAgeMonths. minAgeMonths — нижняя безопасная граница (не зависит от методики), реальные сроки регулирует FeedingProfile. ЧЕРНОВИК — проверить перед релизом.",
+  "_comment": "Черновик каталога продуктов для прикорма (СНГ). Поля: id, name, category, emoji, isAllergen, allergenGroup, minAgeMonths. minAgeMonths — нижняя безопасная граница (не зависит от методики), реальные сроки регулирует FeedingProfile. ЧЕРНОВИК — проверить перед релизом. Источник пользы/нутриентов: USDA FoodData Central (fdc.nal.usda.gov, public domain) + педиатрический контекст первых продуктов (NHS, Solid Starts). Не медицинский совет.",
   "version": 1,
   "foods": [
     {
@@ -10,8 +10,12 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Лёгкий гипоаллергенный овощ — частый первый прикорм. Мягкий для животика, легко усваивается.",
-      "nutrients": ["Калий", "Витамин C", "Клетчатка"]
+      "benefits": "Лёгкий гипоаллергенный овощ — мягкий для животика, частый первый прикорм.",
+      "nutrients": [
+        "Калий",
+        "Витамин C",
+        "Клетчатка"
+      ]
     },
     {
       "id": "cauliflower",
@@ -20,7 +24,14 @@
       "emoji": "🥦",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 4
+      "minAgeMonths": 4,
+      "benefits": "Нежная клетчатка и витамин C, легко усваивается — хороший ранний овощ.",
+      "nutrients": [
+        "Витамин C",
+        "Витамин K",
+        "Фолаты",
+        "Клетчатка"
+      ]
     },
     {
       "id": "broccoli",
@@ -30,8 +41,13 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Богат витамином C и фолатами, поддерживает иммунитет. Клетчатка помогает пищеварению.",
-      "nutrients": ["Витамин C", "Витамин K", "Фолаты", "Клетчатка"]
+      "benefits": "Витамин C, K и фолаты для иммунитета и роста; клетчатка помогает пищеварению.",
+      "nutrients": [
+        "Витамин C",
+        "Витамин K",
+        "Фолаты",
+        "Клетчатка"
+      ]
     },
     {
       "id": "pumpkin",
@@ -40,7 +56,13 @@
       "emoji": "🎃",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 5
+      "minAgeMonths": 5,
+      "benefits": "Бета-каротин (витамин A) для зрения и кожи, мягкая природная сладость.",
+      "nutrients": [
+        "Бета-каротин (вит. A)",
+        "Калий",
+        "Клетчатка"
+      ]
     },
     {
       "id": "potato",
@@ -49,7 +71,13 @@
       "emoji": "🥔",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 5
+      "minAgeMonths": 5,
+      "benefits": "Источник энергии (крахмал) и калия, мягкая текстура для пюре.",
+      "nutrients": [
+        "Калий",
+        "Витамин C",
+        "Углеводы"
+      ]
     },
     {
       "id": "carrot",
@@ -58,7 +86,13 @@
       "emoji": "🥕",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Бета-каротин для зрения и природная сладость, которая нравится малышам.",
+      "nutrients": [
+        "Бета-каротин (вит. A)",
+        "Калий",
+        "Клетчатка"
+      ]
     },
     {
       "id": "green_peas",
@@ -67,7 +101,14 @@
       "emoji": "🫛",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Растительный белок, клетчатка и немного железа.",
+      "nutrients": [
+        "Белок",
+        "Клетчатка",
+        "Железо",
+        "Витамин C"
+      ]
     },
     {
       "id": "beet",
@@ -76,7 +117,13 @@
       "emoji": "🫜",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Фолаты и железо, насыщенная природная сладость.",
+      "nutrients": [
+        "Фолаты",
+        "Железо",
+        "Клетчатка"
+      ]
     },
     {
       "id": "buckwheat",
@@ -86,8 +133,13 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Безглютеновая каша с железом и растительным белком — хороший старт среди круп.",
-      "nutrients": ["Железо", "Магний", "Белок", "Клетчатка"]
+      "benefits": "Безглютеновая крупа с железом и растительным белком — хороший старт среди каш.",
+      "nutrients": [
+        "Железо",
+        "Магний",
+        "Белок",
+        "Клетчатка"
+      ]
     },
     {
       "id": "rice_porridge",
@@ -96,7 +148,13 @@
       "emoji": "🍚",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 4
+      "minAgeMonths": 4,
+      "benefits": "Безглютеновая, мягкая и легко усваивается — деликатная первая каша.",
+      "nutrients": [
+        "Углеводы",
+        "Марганец",
+        "Магний"
+      ]
     },
     {
       "id": "corn_porridge",
@@ -105,7 +163,13 @@
       "emoji": "🌽",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 5
+      "minAgeMonths": 5,
+      "benefits": "Безглютеновая крупа: энергия и клетчатка.",
+      "nutrients": [
+        "Углеводы",
+        "Клетчатка",
+        "Магний"
+      ]
     },
     {
       "id": "oatmeal",
@@ -114,7 +178,14 @@
       "emoji": "🥣",
       "isAllergen": true,
       "allergenGroup": "gluten",
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Растворимая клетчатка (бета-глюкан), железо и белок.",
+      "nutrients": [
+        "Клетчатка",
+        "Железо",
+        "Белок",
+        "Магний"
+      ]
     },
     {
       "id": "wheat_porridge",
@@ -123,7 +194,14 @@
       "emoji": "🌾",
       "isAllergen": true,
       "allergenGroup": "gluten",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Энергия, белок и витамины группы B; содержит глютен.",
+      "nutrients": [
+        "Углеводы",
+        "Белок",
+        "Витамины B",
+        "Железо"
+      ]
     },
     {
       "id": "semolina",
@@ -132,7 +210,13 @@
       "emoji": "🥣",
       "isAllergen": true,
       "allergenGroup": "gluten",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Мягкая текстура, энергия и белок; содержит глютен.",
+      "nutrients": [
+        "Углеводы",
+        "Белок",
+        "Витамины B"
+      ]
     },
     {
       "id": "apple",
@@ -142,8 +226,12 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 5,
-      "benefits": "Источник витамина C и пектина. Мягко знакомит малыша со вкусом фруктов.",
-      "nutrients": ["Витамин C", "Пектин", "Клетчатка"]
+      "benefits": "Витамин C и пектин — мягкое знакомство со вкусом фруктов.",
+      "nutrients": [
+        "Витамин C",
+        "Пектин",
+        "Клетчатка"
+      ]
     },
     {
       "id": "pear",
@@ -152,7 +240,13 @@
       "emoji": "🍐",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 5
+      "minAgeMonths": 5,
+      "benefits": "Мягкая клетчатка и калий, редко вызывает реакцию.",
+      "nutrients": [
+        "Клетчатка",
+        "Витамин C",
+        "Калий"
+      ]
     },
     {
       "id": "banana",
@@ -161,7 +255,13 @@
       "emoji": "🍌",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Калий и быстрые углеводы для энергии, удобно держать в руке.",
+      "nutrients": [
+        "Калий",
+        "Витамин B6",
+        "Углеводы"
+      ]
     },
     {
       "id": "prune",
@@ -170,7 +270,13 @@
       "emoji": "🟣",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Клетчатка и сорбит мягко помогают при запоре.",
+      "nutrients": [
+        "Клетчатка",
+        "Калий",
+        "Сорбит"
+      ]
     },
     {
       "id": "peach",
@@ -179,7 +285,13 @@
       "emoji": "🍑",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Витамин C и сочная нежная мякоть.",
+      "nutrients": [
+        "Витамин C",
+        "Калий",
+        "Бета-каротин"
+      ]
     },
     {
       "id": "apricot",
@@ -188,7 +300,13 @@
       "emoji": "🟠",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Бета-каротин и калий, природная сладость.",
+      "nutrients": [
+        "Бета-каротин (вит. A)",
+        "Калий",
+        "Клетчатка"
+      ]
     },
     {
       "id": "turkey",
@@ -198,8 +316,13 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Нежирное гипоаллергенное мясо — источник легкоусвояемого белка и железа для роста.",
-      "nutrients": ["Белок", "Железо", "Цинк", "Витамин B12"]
+      "benefits": "Нежирное гипоаллергенное мясо — источник легкоусвояемого белка и железа.",
+      "nutrients": [
+        "Белок",
+        "Железо",
+        "Цинк",
+        "Витамин B12"
+      ]
     },
     {
       "id": "rabbit",
@@ -208,7 +331,14 @@
       "emoji": "🐰",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Постное гипоаллергенное мясо, белок и железо.",
+      "nutrients": [
+        "Белок",
+        "Железо",
+        "Витамин B12",
+        "Фосфор"
+      ]
     },
     {
       "id": "beef",
@@ -217,7 +347,14 @@
       "emoji": "🐄",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Хорошо усваиваемое (гемовое) железо, белок и цинк для роста.",
+      "nutrients": [
+        "Железо",
+        "Белок",
+        "Цинк",
+        "Витамин B12"
+      ]
     },
     {
       "id": "chicken",
@@ -226,7 +363,14 @@
       "emoji": "🐔",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Нежирный белок, легко усваивается.",
+      "nutrients": [
+        "Белок",
+        "Витамин B6",
+        "Фосфор",
+        "Селен"
+      ]
     },
     {
       "id": "cod",
@@ -235,7 +379,14 @@
       "emoji": "🐟",
       "isAllergen": true,
       "allergenGroup": "fish",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Нежирная белая рыба: белок, йод и немного омега-3.",
+      "nutrients": [
+        "Белок",
+        "Йод",
+        "Омега-3",
+        "Витамин B12"
+      ]
     },
     {
       "id": "hake",
@@ -244,7 +395,14 @@
       "emoji": "🐟",
       "isAllergen": true,
       "allergenGroup": "fish",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Нежирная белая рыба — белок и фосфор.",
+      "nutrients": [
+        "Белок",
+        "Фосфор",
+        "Йод",
+        "Омега-3"
+      ]
     },
     {
       "id": "salmon",
@@ -253,7 +411,14 @@
       "emoji": "🐟",
       "isAllergen": true,
       "allergenGroup": "fish",
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Омега-3 (DHA) для развития мозга и витамин D.",
+      "nutrients": [
+        "Омега-3 (DHA)",
+        "Витамин D",
+        "Белок",
+        "Витамин B12"
+      ]
     },
     {
       "id": "cottage_cheese",
@@ -262,7 +427,14 @@
       "emoji": "🧀",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Кальций и белок для крепких костей.",
+      "nutrients": [
+        "Кальций",
+        "Белок",
+        "Фосфор",
+        "Витамин B12"
+      ]
     },
     {
       "id": "kefir",
@@ -271,7 +443,14 @@
       "emoji": "🥛",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Кальций, белок и пробиотики для пищеварения.",
+      "nutrients": [
+        "Кальций",
+        "Белок",
+        "Пробиотики",
+        "Витамин B12"
+      ]
     },
     {
       "id": "yogurt",
@@ -280,7 +459,14 @@
       "emoji": "🥛",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Кальций, белок и пробиотики; кисломолочка усваивается мягче молока.",
+      "nutrients": [
+        "Кальций",
+        "Белок",
+        "Пробиотики",
+        "Витамин B2"
+      ]
     },
     {
       "id": "cow_milk",
@@ -289,7 +475,14 @@
       "emoji": "🐄",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 12
+      "minAgeMonths": 12,
+      "benefits": "Кальций и белок; как основной напиток — только после года.",
+      "nutrients": [
+        "Кальций",
+        "Белок",
+        "Витамин B12",
+        "Фосфор"
+      ]
     },
     {
       "id": "egg_yolk",
@@ -299,8 +492,13 @@
       "isAllergen": true,
       "allergenGroup": "egg",
       "minAgeMonths": 7,
-      "benefits": "Желток богат холином и витамином D — важны для мозга и костей. Ранний ввод снижает риск аллергии.",
-      "nutrients": ["Холин", "Витамин D", "Железо", "Белок"]
+      "benefits": "Желток богат холином и витамином D — важны для мозга и костей; ранний ввод снижает риск аллергии.",
+      "nutrients": [
+        "Холин",
+        "Витамин D",
+        "Железо",
+        "Белок"
+      ]
     },
     {
       "id": "egg_white",
@@ -309,7 +507,13 @@
       "emoji": "🥚",
       "isAllergen": true,
       "allergenGroup": "egg",
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Качественный белок; обычно вводят позже желтка.",
+      "nutrients": [
+        "Белок",
+        "Витамин B2",
+        "Селен"
+      ]
     },
     {
       "id": "peanut",
@@ -318,7 +522,14 @@
       "emoji": "🥜",
       "isAllergen": true,
       "allergenGroup": "peanut",
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Ранний ввод снижает риск аллергии; белок и полезные жиры. Только в виде пасты/тонко — не целым (риск подавиться).",
+      "nutrients": [
+        "Белок",
+        "Полезные жиры",
+        "Витамин E",
+        "Фолаты"
+      ]
     },
     {
       "id": "tree_nuts",
@@ -327,7 +538,14 @@
       "emoji": "🌰",
       "isAllergen": true,
       "allergenGroup": "treenut",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Полезные жиры, белок и витамин E. Давать только молотыми или пастой.",
+      "nutrients": [
+        "Полезные жиры",
+        "Белок",
+        "Витамин E",
+        "Магний"
+      ]
     },
     {
       "id": "sesame",
@@ -336,7 +554,14 @@
       "emoji": "◻️",
       "isAllergen": true,
       "allergenGroup": "sesame",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Кальций и полезные жиры; удобно давать пастой тахини.",
+      "nutrients": [
+        "Кальций",
+        "Полезные жиры",
+        "Железо",
+        "Магний"
+      ]
     },
     {
       "id": "soy",
@@ -345,7 +570,14 @@
       "emoji": "🫘",
       "isAllergen": true,
       "allergenGroup": "soy",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Растительный белок и железо; один из основных аллергенов.",
+      "nutrients": [
+        "Белок",
+        "Железо",
+        "Фолаты",
+        "Кальций"
+      ]
     },
     {
       "id": "honey",
@@ -354,7 +586,12 @@
       "emoji": "🍯",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 12
+      "minAgeMonths": 12,
+      "benefits": "⚠️ Нельзя до 12 месяцев (риск ботулизма). После года — источник простых сахаров и антиоксидантов.",
+      "nutrients": [
+        "Простые сахара",
+        "Антиоксиданты"
+      ]
     },
     {
       "id": "citrus",
@@ -363,7 +600,13 @@
       "emoji": "🍊",
       "isAllergen": true,
       "allergenGroup": "other",
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Высокое содержание витамина C, помогает усвоению железа.",
+      "nutrients": [
+        "Витамин C",
+        "Фолаты",
+        "Калий"
+      ]
     },
     {
       "id": "strawberry",
@@ -372,7 +615,13 @@
       "emoji": "🍓",
       "isAllergen": true,
       "allergenGroup": "other",
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Витамин C и антиоксиданты.",
+      "nutrients": [
+        "Витамин C",
+        "Фолаты",
+        "Марганец"
+      ]
     },
     {
       "id": "tomato",
@@ -381,7 +630,13 @@
       "emoji": "🍅",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Витамин C и антиоксидант ликопин.",
+      "nutrients": [
+        "Витамин C",
+        "Калий",
+        "Ликопин"
+      ]
     },
     {
       "id": "eggplant",
@@ -390,7 +645,13 @@
       "emoji": "🍆",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Клетчатка и антиоксиданты, мягкая мякоть.",
+      "nutrients": [
+        "Клетчатка",
+        "Калий",
+        "Антиоксиданты"
+      ]
     },
     {
       "id": "bell_pepper",
@@ -399,7 +660,13 @@
       "emoji": "🫑",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Очень богат витамином C — помогает усвоению железа из других продуктов.",
+      "nutrients": [
+        "Витамин C",
+        "Бета-каротин",
+        "Витамин B6"
+      ]
     },
     {
       "id": "spinach",
@@ -408,7 +675,14 @@
       "emoji": "🥬",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Железо, фолаты и витамин K (давать умеренно из-за нитратов).",
+      "nutrients": [
+        "Железо",
+        "Фолаты",
+        "Витамин K",
+        "Витамин A"
+      ]
     },
     {
       "id": "avocado",
@@ -417,7 +691,14 @@
       "emoji": "🥑",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Полезные жиры и калий для мозга и энергии, кремовая текстура.",
+      "nutrients": [
+        "Полезные жиры",
+        "Калий",
+        "Фолаты",
+        "Витамин E"
+      ]
     },
     {
       "id": "sweet_potato",
@@ -426,7 +707,13 @@
       "emoji": "🍠",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Бета-каротин и медленные углеводы, сладкая мякоть.",
+      "nutrients": [
+        "Бета-каротин (вит. A)",
+        "Калий",
+        "Клетчатка"
+      ]
     },
     {
       "id": "watermelon",
@@ -435,7 +722,13 @@
       "emoji": "🍉",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Много воды и витамин C — освежает в жару.",
+      "nutrients": [
+        "Вода",
+        "Витамин C",
+        "Ликопин"
+      ]
     },
     {
       "id": "melon",
@@ -444,7 +737,13 @@
       "emoji": "🍈",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Витамин C и бета-каротин, сочная мякоть.",
+      "nutrients": [
+        "Витамин C",
+        "Бета-каротин",
+        "Калий"
+      ]
     },
     {
       "id": "grapes",
@@ -453,7 +752,13 @@
       "emoji": "🍇",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Антиоксиданты и витамины; обязательно резать вдоль на четвертинки.",
+      "nutrients": [
+        "Витамин C",
+        "Витамин K",
+        "Антиоксиданты"
+      ]
     },
     {
       "id": "kiwi",
@@ -462,7 +767,13 @@
       "emoji": "🥝",
       "isAllergen": true,
       "allergenGroup": "other",
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Очень богат витамином C и клетчаткой.",
+      "nutrients": [
+        "Витамин C",
+        "Витамин K",
+        "Клетчатка"
+      ]
     },
     {
       "id": "mango",
@@ -471,7 +782,13 @@
       "emoji": "🥭",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Витамин C и бета-каротин, сладкая мякоть.",
+      "nutrients": [
+        "Витамин C",
+        "Бета-каротин (вит. A)",
+        "Фолаты"
+      ]
     },
     {
       "id": "blueberry",
@@ -480,7 +797,14 @@
       "emoji": "🫐",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Антиоксиданты и витамин C; ягоды разминать или резать.",
+      "nutrients": [
+        "Антиоксиданты",
+        "Витамин C",
+        "Витамин K",
+        "Клетчатка"
+      ]
     },
     {
       "id": "cherry",
@@ -489,7 +813,13 @@
       "emoji": "🍒",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Антиоксиданты и витамин C; давать без косточек.",
+      "nutrients": [
+        "Витамин C",
+        "Калий",
+        "Антиоксиданты"
+      ]
     },
     {
       "id": "pineapple",
@@ -498,7 +828,13 @@
       "emoji": "🍍",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Витамин C и марганец, фермент бромелайн.",
+      "nutrients": [
+        "Витамин C",
+        "Марганец",
+        "Клетчатка"
+      ]
     },
     {
       "id": "millet_porridge",
@@ -507,7 +843,13 @@
       "emoji": "🍚",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Безглютеновая крупа с магнием и железом.",
+      "nutrients": [
+        "Магний",
+        "Железо",
+        "Белок"
+      ]
     },
     {
       "id": "barley_porridge",
@@ -516,7 +858,14 @@
       "emoji": "🌾",
       "isAllergen": true,
       "allergenGroup": "gluten",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Клетчатка и медленные углеводы; содержит глютен.",
+      "nutrients": [
+        "Клетчатка",
+        "Углеводы",
+        "Магний",
+        "Селен"
+      ]
     },
     {
       "id": "veal",
@@ -525,7 +874,14 @@
       "emoji": "🥩",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Постное мясо — белок и железо для роста.",
+      "nutrients": [
+        "Белок",
+        "Железо",
+        "Цинк",
+        "Витамин B12"
+      ]
     },
     {
       "id": "pork",
@@ -534,7 +890,14 @@
       "emoji": "🥓",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Белок и витамины B1/B12; выбирать постные части.",
+      "nutrients": [
+        "Белок",
+        "Витамин B1",
+        "Цинк",
+        "Витамин B12"
+      ]
     },
     {
       "id": "lamb",
@@ -543,7 +906,14 @@
       "emoji": "🍖",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Богата железом и цинком, источник белка.",
+      "nutrients": [
+        "Железо",
+        "Цинк",
+        "Белок",
+        "Витамин B12"
+      ]
     },
     {
       "id": "duck",
@@ -552,7 +922,14 @@
       "emoji": "🦆",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Белок и железо; мясо жирнее, вводить понемногу.",
+      "nutrients": [
+        "Белок",
+        "Железо",
+        "Цинк",
+        "Витамин B12"
+      ]
     },
     {
       "id": "pollock",
@@ -561,7 +938,14 @@
       "emoji": "🐟",
       "isAllergen": true,
       "allergenGroup": "fish",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Постная белая рыба — белок и йод.",
+      "nutrients": [
+        "Белок",
+        "Йод",
+        "Омега-3",
+        "Фосфор"
+      ]
     },
     {
       "id": "shrimp",
@@ -570,7 +954,14 @@
       "emoji": "🦐",
       "isAllergen": true,
       "allergenGroup": "shellfish",
-      "minAgeMonths": 12
+      "minAgeMonths": 12,
+      "benefits": "Белок и йод; аллерген — морепродукты, вводить позже.",
+      "nutrients": [
+        "Белок",
+        "Йод",
+        "Селен",
+        "Витамин B12"
+      ]
     },
     {
       "id": "mackerel",
@@ -579,7 +970,14 @@
       "emoji": "🐠",
       "isAllergen": true,
       "allergenGroup": "fish",
-      "minAgeMonths": 9
+      "minAgeMonths": 9,
+      "benefits": "Богата омега-3 и витамином D.",
+      "nutrients": [
+        "Омега-3",
+        "Витамин D",
+        "Белок",
+        "Витамин B12"
+      ]
     },
     {
       "id": "cheese",
@@ -588,7 +986,14 @@
       "emoji": "🧀",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 10
+      "minAgeMonths": 10,
+      "benefits": "Концентрированный кальций и белок для костей.",
+      "nutrients": [
+        "Кальций",
+        "Белок",
+        "Витамин A",
+        "Фосфор"
+      ]
     },
     {
       "id": "butter",
@@ -597,7 +1002,13 @@
       "emoji": "🧈",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Энергия и витамин A; добавлять немного в блюда.",
+      "nutrients": [
+        "Жиры",
+        "Витамин A",
+        "Витамин D"
+      ]
     },
     {
       "id": "ryazhenka",
@@ -606,7 +1017,13 @@
       "emoji": "🥛",
       "isAllergen": true,
       "allergenGroup": "dairy",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Кальций, белок и пробиотики, мягкий кисломолочный вкус.",
+      "nutrients": [
+        "Кальций",
+        "Белок",
+        "Пробиотики"
+      ]
     },
     {
       "id": "wheat",
@@ -615,7 +1032,14 @@
       "emoji": "🌾",
       "isAllergen": true,
       "allergenGroup": "gluten",
-      "minAgeMonths": 7
+      "minAgeMonths": 7,
+      "benefits": "Знакомство с глютеном; углеводы, белок и витамины группы B.",
+      "nutrients": [
+        "Углеводы",
+        "Белок",
+        "Витамины B",
+        "Клетчатка"
+      ]
     },
     {
       "id": "crab",
@@ -624,7 +1048,14 @@
       "emoji": "🦀",
       "isAllergen": true,
       "allergenGroup": "shellfish",
-      "minAgeMonths": 12
+      "minAgeMonths": 12,
+      "benefits": "Белок и цинк; аллерген — морепродукты, вводить позже.",
+      "nutrients": [
+        "Белок",
+        "Цинк",
+        "Витамин B12",
+        "Селен"
+      ]
     },
     {
       "id": "compote",
@@ -633,7 +1064,12 @@
       "emoji": "🧃",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Жидкость и немного витамина C; готовить без сахара.",
+      "nutrients": [
+        "Вода",
+        "Витамин C"
+      ]
     },
     {
       "id": "bread",
@@ -642,7 +1078,14 @@
       "emoji": "🍞",
       "isAllergen": true,
       "allergenGroup": "gluten",
-      "minAgeMonths": 8
+      "minAgeMonths": 8,
+      "benefits": "Углеводы для энергии и витамины группы B; содержит глютен.",
+      "nutrients": [
+        "Углеводы",
+        "Клетчатка",
+        "Витамины B",
+        "Железо"
+      ]
     },
     {
       "id": "olive_oil",
@@ -651,7 +1094,13 @@
       "emoji": "🫒",
       "isAllergen": false,
       "allergenGroup": null,
-      "minAgeMonths": 6
+      "minAgeMonths": 6,
+      "benefits": "Полезные мононенасыщенные жиры и витамин E; добавлять каплю в пюре.",
+      "nutrients": [
+        "Мононенасыщенные жиры",
+        "Витамин E",
+        "Антиоксиданты"
+      ]
     }
   ]
 }
