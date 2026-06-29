@@ -19,7 +19,7 @@ final class Child {
     var customObservationDaysAllergen: Int = 5
     var customAllergenFrequencyPerWeek: Int = 2
     /// Список групп аллергенов строкой rawValue через запятую (примитив — для CloudKit).
-    var customAllergenGroupsRaw: String = "egg,peanut,dairy,gluten,fish,soy,treenut,sesame"
+    var customAllergenGroupsRaw: String = "egg,peanut,dairy,gluten,fish,shellfish,soy,treenut,sesame"
 
     init(name: String = "", birthDate: Date = Date(), feedingProfileId: String = FeedingProfile.customId) {
         self.name = name
