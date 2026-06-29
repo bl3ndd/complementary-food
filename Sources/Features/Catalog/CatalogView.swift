@@ -74,7 +74,10 @@ struct CatalogView: View {
     }
 
     private var foodList: some View {
-        VStack(spacing: 10) {
+        // Поиск считаем один раз за рендер (fuzzy с Левенштейном) — затем фильтруем
+        // по категориям, а не вызываем search() на каждую секцию.
+        let results = catalog.search(search)
+        return VStack(spacing: 10) {
             // Поиск и «свой продукт» — над списком, чтобы не было большого инсета List
             // и кнопка не обрезалась рядом.
             VStack(spacing: 8) {
@@ -86,7 +89,7 @@ struct CatalogView: View {
 
             List {
                 ForEach(FoodCategory.allCases, id: \.self) { category in
-                    let foods = foods(in: category)
+                    let foods = results.filter { $0.category == category }
                     if !foods.isEmpty {
                         Section(category.title) {
                             ForEach(foods) { food in foodRow(food) }
@@ -168,9 +171,5 @@ struct CatalogView: View {
 
     private func state(for food: Food) -> IntroState {
         statuses.first { $0.foodId == food.id }?.state ?? .notIntroduced
-    }
-
-    private func foods(in category: FoodCategory) -> [Food] {
-        catalog.search(search).filter { $0.category == category }
     }
 }

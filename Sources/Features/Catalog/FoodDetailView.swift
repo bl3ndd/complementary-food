@@ -28,11 +28,16 @@ struct FoodDetailView: View {
 
     private var introStartedAt: Date? { statuses.first?.introStartedAt }
     private var observationDays: Int { child.feedingProfile.observationDays(for: food) }
+    /// Начало окна = самая ранняя из отметки старта и intro-логов (учитывает бэкдейт).
+    private var windowStart: Date? {
+        FeedingService.windowStart(introStartedAt: introStartedAt,
+                                   introLogDates: logs.filter { $0.type == .intro }.map(\.date))
+    }
     private var observationDay: Int? {
-        introStartedAt.map { FeedingService.observationDay(start: $0) }
+        windowStart.map { FeedingService.observationDay(start: $0) }
     }
     private var canComplete: Bool {
-        guard let start = introStartedAt else { return false }
+        guard let start = windowStart else { return false }
         return FeedingService.isObservationComplete(start: start, observationDays: observationDays)
     }
 

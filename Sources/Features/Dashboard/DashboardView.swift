@@ -199,7 +199,7 @@ struct DashboardView: View {
         let day = FeedingService.observationDay(start: start)
         let window = catalog.food(id: s.foodId).map { child.feedingProfile.observationDays(for: $0) }
             ?? child.feedingProfile.observationDaysRegular
-        return String(localized: "День \(day) из \(window)")
+        return String(localized: "День \(min(day, window)) из \(window)")
     }
 
     private func give(_ group: AllergenGroupStatus) {

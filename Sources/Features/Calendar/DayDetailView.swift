@@ -5,6 +5,7 @@ import SwiftData
 /// вкусовой оценкой (SPEC §7).
 struct DayDetailView: View {
     let date: Date
+    @Environment(\.modelContext) private var context
     @Query private var logs: [FoodLog]
     @State private var editingLog: FoodLog?
     @State private var showPlan = false
@@ -70,13 +71,21 @@ struct DayDetailView: View {
                 }
             }
             Spacer()
-            if let liking = entry.liking {
+            if entry.planned {
+                PillButton(title: "Выполнено") { markDone(entry.log) }
+            } else if let liking = entry.liking {
                 Text(liking.emoji).font(.system(size: 30))
             }
         }
         .cartoonCard()
         .contentShape(Rectangle())
         .onTapGesture { editingLog = entry.log }
+    }
+
+    /// Отметить запланированный ввод выполненным — становится обычной записью журнала.
+    private func markDone(_ log: FoodLog) {
+        log.planned = false
+        try? context.save()
     }
 
     private var emptyState: some View {
