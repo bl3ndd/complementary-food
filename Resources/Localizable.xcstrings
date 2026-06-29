@@ -2278,6 +2278,16 @@
         }
       }
     },
+    "Напоминания по этому аллергену отключатся.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders for this allergen will turn off."
+          }
+        }
+      }
+    },
     "Напомним попробовать снова %@": {
       "localizations": {
         "en": {
@@ -2953,6 +2963,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mark as allergy"
+          }
+        }
+      }
+    },
+    "Пометить аллергию?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark as allergy?"
           }
         }
       }

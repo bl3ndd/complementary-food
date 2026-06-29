@@ -61,15 +61,15 @@ struct FoodDetailView: View {
             LogFeedingSheet(food: food, child: child, mode: mode)
         }
         .sheet(item: $editingLog) { EditLogSheet(log: $0) }
-        .confirmationDialog("Приостановить ввод этого продукта?",
-                            isPresented: $confirmStop, titleVisibility: .visible) {
+        .alert("Приостановить ввод этого продукта?", isPresented: $confirmStop) {
             Button("Приостановить", role: .destructive) { stop() }
             Button("Отмена", role: .cancel) {}
         }
-        .confirmationDialog("Пометить аллергию? Напоминания по этому аллергену отключатся.",
-                            isPresented: $confirmAllergy, titleVisibility: .visible) {
+        .alert("Пометить аллергию?", isPresented: $confirmAllergy) {
             Button("Пометить аллергию", role: .destructive) { flagAllergy() }
             Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Напоминания по этому аллергену отключатся.")
         }
         .overlay {
             if showCheer { cheerOverlay }
