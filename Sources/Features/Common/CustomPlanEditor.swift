@@ -81,8 +81,10 @@ struct CustomPlanEditor: View {
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
         HStack(spacing: 12) {
             iconChip(icon, color)
-            Text(title).font(.subheadline.weight(.medium))
-            infoButton(info)
+            HStack(spacing: 2) {
+                Text(title).font(.subheadline.weight(.medium))
+                infoButton(info)
+            }
             Spacer(minLength: 8)
             Menu {
                 Picker("", selection: value) {
