@@ -16,9 +16,6 @@ struct DashboardView: View {
             ScrollView {
                 VStack(spacing: 18) {
                     heroCard
-                    if child.ageInMonths < child.feedingProfile.startAgeMonths {
-                        earlyBanner
-                    }
                     if !dueGroups.isEmpty {
                         section(title: "Пора дать аллерген", icon: "ui_bell") {
                             ForEach(dueGroups) { dueRow($0) }
@@ -99,15 +96,6 @@ struct DashboardView: View {
             .cartoonCard()
         }
         .buttonStyle(.plain)
-    }
-
-    private var earlyBanner: some View {
-        HStack(spacing: 12) {
-            OpenMojiIcon(asset: "ui_chick", fallback: "🐣", size: 40)
-            Text("По выбранной методике прикорм лучше начинать ~\(child.feedingProfile.startAgeMonths) мес.")
-                .font(.subheadline)
-        }
-        .cartoonCard()
     }
 
     private var emptyState: some View {
