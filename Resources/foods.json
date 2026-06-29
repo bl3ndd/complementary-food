@@ -1,5 +1,5 @@
 {
-  "_comment": "Черновик каталога продуктов для прикорма (СНГ). Поля: id, name, category, emoji, isAllergen, allergenGroup, minAgeMonths. minAgeMonths — нижняя безопасная граница (не зависит от методики), реальные сроки регулирует FeedingProfile. ЧЕРНОВИК — проверить перед релизом. Источник пользы/нутриентов: USDA FoodData Central (fdc.nal.usda.gov, public domain) + педиатрический контекст первых продуктов (NHS, Solid Starts). Не медицинский совет.",
+  "_comment": "Каталог продуктов для прикорма. Поля: id, name, category, emoji, isAllergen, allergenGroup, minAgeMonths, benefits, nutrients. Тексты benefits/nutrients — справочная информация о составе (источник: USDA FoodData Central, public domain), НЕ медицинский совет и не инструкция по введению.",
   "version": 1,
   "foods": [
     {
@@ -10,7 +10,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Лёгкий гипоаллергенный овощ — мягкий для животика, частый первый прикорм.",
+      "benefits": "Лёгкий овощ с высоким содержанием воды. Источник калия и витамина C.",
       "nutrients": [
         "Калий",
         "Витамин C",
@@ -25,7 +25,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Нежная клетчатка и витамин C, легко усваивается — хороший ранний овощ.",
+      "benefits": "Овощ семейства капустных. Источник витамина C, витамина K и фолатов.",
       "nutrients": [
         "Витамин C",
         "Витамин K",
@@ -41,7 +41,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Витамин C, K и фолаты для иммунитета и роста; клетчатка помогает пищеварению.",
+      "benefits": "Зелёный овощ. Источник витамина C, витамина K и фолатов.",
       "nutrients": [
         "Витамин C",
         "Витамин K",
@@ -57,7 +57,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 5,
-      "benefits": "Бета-каротин (витамин A) для зрения и кожи, мягкая природная сладость.",
+      "benefits": "Оранжевый овощ. Источник бета-каротина (витамин A) и калия.",
       "nutrients": [
         "Бета-каротин (вит. A)",
         "Калий",
@@ -72,7 +72,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 5,
-      "benefits": "Источник энергии (крахмал) и калия, мягкая текстура для пюре.",
+      "benefits": "Крахмалистый корнеплод. Источник углеводов и калия.",
       "nutrients": [
         "Калий",
         "Витамин C",
@@ -87,7 +87,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Бета-каротин для зрения и природная сладость, которая нравится малышам.",
+      "benefits": "Корнеплод. Источник бета-каротина (витамин A) и клетчатки.",
       "nutrients": [
         "Бета-каротин (вит. A)",
         "Калий",
@@ -102,7 +102,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Растительный белок, клетчатка и немного железа.",
+      "benefits": "Бобовый овощ. Источник растительного белка, клетчатки и железа.",
       "nutrients": [
         "Белок",
         "Клетчатка",
@@ -118,7 +118,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Фолаты и железо, насыщенная природная сладость.",
+      "benefits": "Корнеплод. Источник фолатов, железа и клетчатки.",
       "nutrients": [
         "Фолаты",
         "Железо",
@@ -133,7 +133,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Безглютеновая крупа с железом и растительным белком — хороший старт среди каш.",
+      "benefits": "Безглютеновая крупа. Источник железа, магния и растительного белка.",
       "nutrients": [
         "Железо",
         "Магний",
@@ -149,7 +149,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 4,
-      "benefits": "Безглютеновая, мягкая и легко усваивается — деликатная первая каша.",
+      "benefits": "Безглютеновая крупа. Источник углеводов.",
       "nutrients": [
         "Углеводы",
         "Марганец",
@@ -164,7 +164,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 5,
-      "benefits": "Безглютеновая крупа: энергия и клетчатка.",
+      "benefits": "Безглютеновая крупа. Источник углеводов и клетчатки.",
       "nutrients": [
         "Углеводы",
         "Клетчатка",
@@ -179,7 +179,7 @@
       "isAllergen": true,
       "allergenGroup": "gluten",
       "minAgeMonths": 6,
-      "benefits": "Растворимая клетчатка (бета-глюкан), железо и белок.",
+      "benefits": "Злак с растворимой клетчаткой (бета-глюкан). Источник железа и белка. Содержит глютен.",
       "nutrients": [
         "Клетчатка",
         "Железо",
@@ -195,7 +195,7 @@
       "isAllergen": true,
       "allergenGroup": "gluten",
       "minAgeMonths": 7,
-      "benefits": "Энергия, белок и витамины группы B; содержит глютен.",
+      "benefits": "Злак. Источник углеводов, белка и витаминов группы B. Содержит глютен.",
       "nutrients": [
         "Углеводы",
         "Белок",
@@ -211,7 +211,7 @@
       "isAllergen": true,
       "allergenGroup": "gluten",
       "minAgeMonths": 8,
-      "benefits": "Мягкая текстура, энергия и белок; содержит глютен.",
+      "benefits": "Продукт из пшеницы. Источник углеводов и белка. Содержит глютен.",
       "nutrients": [
         "Углеводы",
         "Белок",
@@ -226,7 +226,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 5,
-      "benefits": "Витамин C и пектин — мягкое знакомство со вкусом фруктов.",
+      "benefits": "Фрукт. Источник витамина C, пектина и клетчатки.",
       "nutrients": [
         "Витамин C",
         "Пектин",
@@ -241,7 +241,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 5,
-      "benefits": "Мягкая клетчатка и калий, редко вызывает реакцию.",
+      "benefits": "Фрукт. Источник клетчатки, витамина C и калия.",
       "nutrients": [
         "Клетчатка",
         "Витамин C",
@@ -256,7 +256,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Калий и быстрые углеводы для энергии, удобно держать в руке.",
+      "benefits": "Фрукт с высоким содержанием углеводов. Источник калия и витамина B6.",
       "nutrients": [
         "Калий",
         "Витамин B6",
@@ -271,7 +271,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Клетчатка и сорбит мягко помогают при запоре.",
+      "benefits": "Сушёная слива. Источник клетчатки, калия и сорбита.",
       "nutrients": [
         "Клетчатка",
         "Калий",
@@ -286,7 +286,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Витамин C и сочная нежная мякоть.",
+      "benefits": "Сочный фрукт. Источник витамина C и калия.",
       "nutrients": [
         "Витамин C",
         "Калий",
@@ -301,7 +301,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Бета-каротин и калий, природная сладость.",
+      "benefits": "Фрукт. Источник бета-каротина (витамин A) и калия.",
       "nutrients": [
         "Бета-каротин (вит. A)",
         "Калий",
@@ -316,7 +316,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Нежирное гипоаллергенное мясо — источник легкоусвояемого белка и железа.",
+      "benefits": "Нежирное мясо птицы. Источник белка, железа и цинка.",
       "nutrients": [
         "Белок",
         "Железо",
@@ -332,7 +332,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Постное гипоаллергенное мясо, белок и железо.",
+      "benefits": "Постное мясо. Источник белка и железа.",
       "nutrients": [
         "Белок",
         "Железо",
@@ -348,7 +348,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Хорошо усваиваемое (гемовое) железо, белок и цинк для роста.",
+      "benefits": "Красное мясо. Источник гемового железа, белка и цинка.",
       "nutrients": [
         "Железо",
         "Белок",
@@ -364,7 +364,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Нежирный белок, легко усваивается.",
+      "benefits": "Нежирное мясо птицы. Источник белка и фосфора.",
       "nutrients": [
         "Белок",
         "Витамин B6",
@@ -380,7 +380,7 @@
       "isAllergen": true,
       "allergenGroup": "fish",
       "minAgeMonths": 8,
-      "benefits": "Нежирная белая рыба: белок, йод и немного омега-3.",
+      "benefits": "Нежирная белая рыба. Источник белка, йода и омега-3.",
       "nutrients": [
         "Белок",
         "Йод",
@@ -396,7 +396,7 @@
       "isAllergen": true,
       "allergenGroup": "fish",
       "minAgeMonths": 8,
-      "benefits": "Нежирная белая рыба — белок и фосфор.",
+      "benefits": "Нежирная белая рыба. Источник белка и фосфора.",
       "nutrients": [
         "Белок",
         "Фосфор",
@@ -412,7 +412,7 @@
       "isAllergen": true,
       "allergenGroup": "fish",
       "minAgeMonths": 9,
-      "benefits": "Омега-3 (DHA) для развития мозга и витамин D.",
+      "benefits": "Жирная рыба. Источник омега-3 (DHA), витамина D и белка.",
       "nutrients": [
         "Омега-3 (DHA)",
         "Витамин D",
@@ -428,7 +428,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 6,
-      "benefits": "Кальций и белок для крепких костей.",
+      "benefits": "Кисломолочный продукт. Источник кальция, белка и фосфора.",
       "nutrients": [
         "Кальций",
         "Белок",
@@ -444,7 +444,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 8,
-      "benefits": "Кальций, белок и пробиотики для пищеварения.",
+      "benefits": "Кисломолочный напиток. Источник кальция, белка и пробиотиков.",
       "nutrients": [
         "Кальций",
         "Белок",
@@ -460,7 +460,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 8,
-      "benefits": "Кальций, белок и пробиотики; кисломолочка усваивается мягче молока.",
+      "benefits": "Кисломолочный продукт. Источник кальция, белка и пробиотиков.",
       "nutrients": [
         "Кальций",
         "Белок",
@@ -476,7 +476,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 12,
-      "benefits": "Кальций и белок; как основной напиток — только после года.",
+      "benefits": "Молочный продукт. Источник кальция, белка и витамина B12.",
       "nutrients": [
         "Кальций",
         "Белок",
@@ -492,7 +492,7 @@
       "isAllergen": true,
       "allergenGroup": "egg",
       "minAgeMonths": 7,
-      "benefits": "Желток богат холином и витамином D — важны для мозга и костей; ранний ввод снижает риск аллергии.",
+      "benefits": "Желток яйца. Источник холина, витамина D, железа и белка.",
       "nutrients": [
         "Холин",
         "Витамин D",
@@ -508,7 +508,7 @@
       "isAllergen": true,
       "allergenGroup": "egg",
       "minAgeMonths": 9,
-      "benefits": "Качественный белок; обычно вводят позже желтка.",
+      "benefits": "Белок яйца. Источник белка.",
       "nutrients": [
         "Белок",
         "Витамин B2",
@@ -523,7 +523,7 @@
       "isAllergen": true,
       "allergenGroup": "peanut",
       "minAgeMonths": 6,
-      "benefits": "Ранний ввод снижает риск аллергии; белок и полезные жиры. Только в виде пасты/тонко — не целым (риск подавиться).",
+      "benefits": "Бобовая культура. Источник белка, полезных жиров и витамина E.",
       "nutrients": [
         "Белок",
         "Полезные жиры",
@@ -539,7 +539,7 @@
       "isAllergen": true,
       "allergenGroup": "treenut",
       "minAgeMonths": 7,
-      "benefits": "Полезные жиры, белок и витамин E. Давать только молотыми или пастой.",
+      "benefits": "Орехи. Источник полезных жиров, белка и витамина E.",
       "nutrients": [
         "Полезные жиры",
         "Белок",
@@ -555,7 +555,7 @@
       "isAllergen": true,
       "allergenGroup": "sesame",
       "minAgeMonths": 7,
-      "benefits": "Кальций и полезные жиры; удобно давать пастой тахини.",
+      "benefits": "Семена. Источник кальция, полезных жиров и железа.",
       "nutrients": [
         "Кальций",
         "Полезные жиры",
@@ -571,7 +571,7 @@
       "isAllergen": true,
       "allergenGroup": "soy",
       "minAgeMonths": 7,
-      "benefits": "Растительный белок и железо; один из основных аллергенов.",
+      "benefits": "Бобовая культура. Источник растительного белка, железа и кальция.",
       "nutrients": [
         "Белок",
         "Железо",
@@ -587,7 +587,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 12,
-      "benefits": "⚠️ Нельзя до 12 месяцев (риск ботулизма). После года — источник простых сахаров и антиоксидантов.",
+      "benefits": "Продукт пчеловодства. Источник простых сахаров.",
       "nutrients": [
         "Простые сахара",
         "Антиоксиданты"
@@ -601,7 +601,7 @@
       "isAllergen": true,
       "allergenGroup": "other",
       "minAgeMonths": 9,
-      "benefits": "Высокое содержание витамина C, помогает усвоению железа.",
+      "benefits": "Фрукты с высоким содержанием витамина C. Также источник фолатов.",
       "nutrients": [
         "Витамин C",
         "Фолаты",
@@ -616,7 +616,7 @@
       "isAllergen": true,
       "allergenGroup": "other",
       "minAgeMonths": 9,
-      "benefits": "Витамин C и антиоксиданты.",
+      "benefits": "Ягода. Источник витамина C, фолатов и марганца.",
       "nutrients": [
         "Витамин C",
         "Фолаты",
@@ -631,7 +631,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Витамин C и антиоксидант ликопин.",
+      "benefits": "Овощ. Источник витамина C, калия и антиоксиданта ликопина.",
       "nutrients": [
         "Витамин C",
         "Калий",
@@ -646,7 +646,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Клетчатка и антиоксиданты, мягкая мякоть.",
+      "benefits": "Овощ с мягкой мякотью. Источник клетчатки и калия.",
       "nutrients": [
         "Клетчатка",
         "Калий",
@@ -661,7 +661,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Очень богат витамином C — помогает усвоению железа из других продуктов.",
+      "benefits": "Овощ с высоким содержанием витамина C. Также источник бета-каротина.",
       "nutrients": [
         "Витамин C",
         "Бета-каротин",
@@ -676,7 +676,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Железо, фолаты и витамин K (давать умеренно из-за нитратов).",
+      "benefits": "Листовой овощ. Источник железа, фолатов и витамина K.",
       "nutrients": [
         "Железо",
         "Фолаты",
@@ -692,7 +692,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Полезные жиры и калий для мозга и энергии, кремовая текстура.",
+      "benefits": "Плод с высоким содержанием жиров. Источник полезных жиров, калия и витамина E.",
       "nutrients": [
         "Полезные жиры",
         "Калий",
@@ -708,7 +708,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Бета-каротин и медленные углеводы, сладкая мякоть.",
+      "benefits": "Сладкий корнеплод. Источник бета-каротина (витамин A) и углеводов.",
       "nutrients": [
         "Бета-каротин (вит. A)",
         "Калий",
@@ -723,7 +723,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Много воды и витамин C — освежает в жару.",
+      "benefits": "Бахчевая культура с высоким содержанием воды. Источник витамина C.",
       "nutrients": [
         "Вода",
         "Витамин C",
@@ -738,7 +738,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Витамин C и бета-каротин, сочная мякоть.",
+      "benefits": "Бахчевая культура. Источник витамина C и бета-каротина.",
       "nutrients": [
         "Витамин C",
         "Бета-каротин",
@@ -753,7 +753,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 9,
-      "benefits": "Антиоксиданты и витамины; обязательно резать вдоль на четвертинки.",
+      "benefits": "Ягода. Источник витамина C, витамина K и антиоксидантов.",
       "nutrients": [
         "Витамин C",
         "Витамин K",
@@ -768,7 +768,7 @@
       "isAllergen": true,
       "allergenGroup": "other",
       "minAgeMonths": 9,
-      "benefits": "Очень богат витамином C и клетчаткой.",
+      "benefits": "Фрукт с высоким содержанием витамина C. Также источник клетчатки.",
       "nutrients": [
         "Витамин C",
         "Витамин K",
@@ -783,7 +783,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Витамин C и бета-каротин, сладкая мякоть.",
+      "benefits": "Тропический фрукт. Источник витамина C и бета-каротина (витамин A).",
       "nutrients": [
         "Витамин C",
         "Бета-каротин (вит. A)",
@@ -798,7 +798,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Антиоксиданты и витамин C; ягоды разминать или резать.",
+      "benefits": "Ягода. Источник антиоксидантов, витамина C и витамина K.",
       "nutrients": [
         "Антиоксиданты",
         "Витамин C",
@@ -814,7 +814,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Антиоксиданты и витамин C; давать без косточек.",
+      "benefits": "Ягода. Источник витамина C, калия и антиоксидантов.",
       "nutrients": [
         "Витамин C",
         "Калий",
@@ -829,7 +829,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 9,
-      "benefits": "Витамин C и марганец, фермент бромелайн.",
+      "benefits": "Тропический фрукт. Источник витамина C и марганца.",
       "nutrients": [
         "Витамин C",
         "Марганец",
@@ -844,7 +844,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 7,
-      "benefits": "Безглютеновая крупа с магнием и железом.",
+      "benefits": "Безглютеновая крупа. Источник магния и железа.",
       "nutrients": [
         "Магний",
         "Железо",
@@ -859,7 +859,7 @@
       "isAllergen": true,
       "allergenGroup": "gluten",
       "minAgeMonths": 8,
-      "benefits": "Клетчатка и медленные углеводы; содержит глютен.",
+      "benefits": "Злак. Источник клетчатки и углеводов. Содержит глютен.",
       "nutrients": [
         "Клетчатка",
         "Углеводы",
@@ -875,7 +875,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Постное мясо — белок и железо для роста.",
+      "benefits": "Постное красное мясо. Источник белка и железа.",
       "nutrients": [
         "Белок",
         "Железо",
@@ -891,7 +891,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Белок и витамины B1/B12; выбирать постные части.",
+      "benefits": "Мясо. Источник белка, цинка и витаминов B1/B12.",
       "nutrients": [
         "Белок",
         "Витамин B1",
@@ -907,7 +907,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Богата железом и цинком, источник белка.",
+      "benefits": "Красное мясо. Источник железа, цинка и белка.",
       "nutrients": [
         "Железо",
         "Цинк",
@@ -923,7 +923,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 9,
-      "benefits": "Белок и железо; мясо жирнее, вводить понемногу.",
+      "benefits": "Мясо птицы. Источник белка и железа.",
       "nutrients": [
         "Белок",
         "Железо",
@@ -939,7 +939,7 @@
       "isAllergen": true,
       "allergenGroup": "fish",
       "minAgeMonths": 8,
-      "benefits": "Постная белая рыба — белок и йод.",
+      "benefits": "Нежирная белая рыба. Источник белка и йода.",
       "nutrients": [
         "Белок",
         "Йод",
@@ -955,7 +955,7 @@
       "isAllergen": true,
       "allergenGroup": "shellfish",
       "minAgeMonths": 12,
-      "benefits": "Белок и йод; аллерген — морепродукты, вводить позже.",
+      "benefits": "Морепродукт. Источник белка, йода и селена.",
       "nutrients": [
         "Белок",
         "Йод",
@@ -971,7 +971,7 @@
       "isAllergen": true,
       "allergenGroup": "fish",
       "minAgeMonths": 9,
-      "benefits": "Богата омега-3 и витамином D.",
+      "benefits": "Жирная рыба. Источник омега-3, витамина D и белка.",
       "nutrients": [
         "Омега-3",
         "Витамин D",
@@ -987,7 +987,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 10,
-      "benefits": "Концентрированный кальций и белок для костей.",
+      "benefits": "Молочный продукт. Источник кальция, белка и витамина A.",
       "nutrients": [
         "Кальций",
         "Белок",
@@ -1003,7 +1003,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 7,
-      "benefits": "Энергия и витамин A; добавлять немного в блюда.",
+      "benefits": "Молочный жир. Источник жиров и витамина A.",
       "nutrients": [
         "Жиры",
         "Витамин A",
@@ -1018,7 +1018,7 @@
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 8,
-      "benefits": "Кальций, белок и пробиотики, мягкий кисломолочный вкус.",
+      "benefits": "Кисломолочный напиток. Источник кальция, белка и пробиотиков.",
       "nutrients": [
         "Кальций",
         "Белок",
@@ -1033,7 +1033,7 @@
       "isAllergen": true,
       "allergenGroup": "gluten",
       "minAgeMonths": 7,
-      "benefits": "Знакомство с глютеном; углеводы, белок и витамины группы B.",
+      "benefits": "Злак (пшеница). Источник углеводов, белка и витаминов группы B. Содержит глютен.",
       "nutrients": [
         "Углеводы",
         "Белок",
@@ -1049,7 +1049,7 @@
       "isAllergen": true,
       "allergenGroup": "shellfish",
       "minAgeMonths": 12,
-      "benefits": "Белок и цинк; аллерген — морепродукты, вводить позже.",
+      "benefits": "Морепродукт. Источник белка, цинка и витамина B12.",
       "nutrients": [
         "Белок",
         "Цинк",
@@ -1065,7 +1065,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 8,
-      "benefits": "Жидкость и немного витамина C; готовить без сахара.",
+      "benefits": "Напиток из фруктов или ягод. Источник воды.",
       "nutrients": [
         "Вода",
         "Витамин C"
@@ -1079,7 +1079,7 @@
       "isAllergen": true,
       "allergenGroup": "gluten",
       "minAgeMonths": 8,
-      "benefits": "Углеводы для энергии и витамины группы B; содержит глютен.",
+      "benefits": "Продукт из злаков. Источник углеводов и витаминов группы B. Содержит глютен.",
       "nutrients": [
         "Углеводы",
         "Клетчатка",
@@ -1095,7 +1095,7 @@
       "isAllergen": false,
       "allergenGroup": null,
       "minAgeMonths": 6,
-      "benefits": "Полезные мононенасыщенные жиры и витамин E; добавлять каплю в пюре.",
+      "benefits": "Растительное масло. Источник мононенасыщенных жиров и витамина E.",
       "nutrients": [
         "Мононенасыщенные жиры",
         "Витамин E",
