@@ -51,22 +51,25 @@ struct CustomPlanEditor: View {
     private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color, info: PlanInfo,
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            // Первая строка: иконка + название + ⓘ.
-            HStack(spacing: 12) {
+            // Строка названия на всю ширину — длинный русский текст переносится, не режется.
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 11, style: .continuous)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Theme.softGradient(color))
-                    Image(systemName: icon).font(.subheadline).foregroundStyle(color)
+                    Image(systemName: icon).font(.footnote).foregroundStyle(color)
                 }
-                .frame(width: 36, height: 36)
+                .frame(width: 30, height: 30)
 
-                Text(title).font(.subheadline.weight(.medium))
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .fixedSize(horizontal: false, vertical: true)
                 infoButton(info)
                 Spacer(minLength: 0)
             }
-            // Вторая строка: − число + на всю ширину.
+            // Степпер-капсула во всю ширину: − слева, число по центру, + справа.
             stepper(value: value, range: range, unit: unit)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     /// Кнопка ⓘ с всплывающим пояснением «зачем этот параметр».
@@ -93,16 +96,18 @@ struct CustomPlanEditor: View {
                 value.wrappedValue = max(range.lowerBound, value.wrappedValue - 1)
             }
             Spacer(minLength: 0)
-            HStack(spacing: 4) {
-                Text("\(value.wrappedValue)").font(.title3.bold()).monospacedDigit()
-                Text(unit).font(.caption).foregroundStyle(.secondary)
+            HStack(spacing: 5) {
+                Text("\(value.wrappedValue)").font(.title3.bold().monospacedDigit())
+                Text(unit).font(.subheadline).foregroundStyle(.secondary)
             }
             Spacer(minLength: 0)
             roundButton("plus", enabled: value.wrappedValue < range.upperBound) {
                 value.wrappedValue = min(range.upperBound, value.wrappedValue + 1)
             }
         }
-        .padding(.horizontal, 4)
+        .padding(.horizontal, 8).padding(.vertical, 6)
+        .frame(maxWidth: .infinity)
+        .background(Color.black.opacity(0.045), in: Capsule())
     }
 
     private func roundButton(_ icon: String, enabled: Bool, action: @escaping () -> Void) -> some View {
