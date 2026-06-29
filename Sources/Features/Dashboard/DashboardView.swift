@@ -19,6 +19,11 @@ struct DashboardView: View {
                 VStack(spacing: 18) {
                     heroCard
                     todaySection
+                    if !todayPlanned.isEmpty {
+                        section(title: "Запланировано на сегодня", icon: "ui_seedling") {
+                            ForEach(todayPlanned) { todayRow($0) }
+                        }
+                    }
                     if !dueGroups.isEmpty {
                         section(title: "По плану: освежить", icon: "ui_bell") {
                             ForEach(dueGroups) { dueRow($0) }
@@ -62,24 +67,28 @@ struct DashboardView: View {
     private var today: DaySummary {
         CalendarService(catalog: catalog, logs: logs).day(Date())
     }
+    /// Фактически записанное сегодня (без планов).
+    private var todayLogged: [DayEntry] { today.entries.filter { !$0.planned } }
+    /// Запланированное на сегодня (ещё не дано).
+    private var todayPlanned: [DayEntry] { today.entries.filter { $0.planned } }
 
     private var todaySection: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
-                Text("Сегодня").font(.title3.bold())
+                Text("Записано сегодня").font(.title3.bold())
                 Spacer()
                 Button { showPlan = true } label: {
                     Label("Запланировать", systemImage: "calendar.badge.plus")
                         .font(.caption.weight(.semibold)).foregroundStyle(Theme.accent)
                 }
             }
-            if today.entries.isEmpty {
+            if todayLogged.isEmpty {
                 Text("Сегодня пока ничего не записано")
                     .font(.subheadline).foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .cartoonCard()
             } else {
-                ForEach(today.entries) { todayRow($0) }
+                ForEach(todayLogged) { todayRow($0) }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -1351,6 +1351,16 @@
         }
       }
     },
+    "Записано сегодня": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Logged today"
+          }
+        }
+      }
+    },
     "Записать кормление": {
       "extractionState": "manual",
       "localizations": {
@@ -1390,6 +1400,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Log a reaction"
+          }
+        }
+      }
+    },
+    "Запланировано на сегодня": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planned for today"
           }
         }
       }
