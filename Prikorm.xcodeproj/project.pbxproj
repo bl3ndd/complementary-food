@@ -54,6 +54,7 @@
 		C5D0EAB39E7C11FC66DEC3DB /* FeedingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */; };
 		E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E7FEF7218059F4616EC495 /* CalendarService.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
+		ECE49371C67DE382A0CB70AD /* PlanIntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */; };
 		F57A8FBC6AF6B7038AE1BE86 /* CustomFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49835FD1784A5B3FA0982C87 /* CustomFood.swift */; };
 		F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */; };
 		F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85E899E48B738A329E5CB660 /* Media.xcassets */; };
@@ -106,6 +107,7 @@
 		95348E771F9D85BF57C252EA /* PrikormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrikormApp.swift; sourceTree = "<group>"; };
 		9922FB2EF938071E03BD65DA /* PrikormTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PrikormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingServiceTests.swift; sourceTree = "<group>"; };
+		A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanIntroSheet.swift; sourceTree = "<group>"; };
 		A4E7FEF7218059F4616EC495 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFeedingSheet.swift; sourceTree = "<group>"; };
 		B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogSheet.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */,
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
 				C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */,
+				A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */,
 				6EEE512BF23D205F3A40501F /* Theme.swift */,
 				B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */,
 			);
@@ -456,6 +459,7 @@
 				42298FBF08BBE3C905CCC32F /* Mascot.swift in Sources */,
 				202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */,
 				164A13BA5D7639C071CE5F56 /* OnboardingView.swift in Sources */,
+				ECE49371C67DE382A0CB70AD /* PlanIntroSheet.swift in Sources */,
 				B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */,
 				30E885DD88EDACA5C7036245 /* ProfileView.swift in Sources */,
 				BC6154128575F7506FCE9C36 /* RootView.swift in Sources */,

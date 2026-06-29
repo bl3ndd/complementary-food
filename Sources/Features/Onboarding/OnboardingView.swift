@@ -29,6 +29,11 @@ struct OnboardingView: View {
             }
             .frame(maxHeight: .infinity)
             button
+            if step > 0 {
+                Button("Назад") { withAnimation { step -= 1 } }
+                    .font(.subheadline.weight(.medium)).foregroundStyle(.secondary)
+                    .padding(.top, 2)
+            }
         }
         .padding()
         .background(AppBackground())
@@ -149,10 +154,8 @@ struct OnboardingView: View {
 
     // MARK: - Кнопка / переходы
 
-    /// На шаге «О ребёнке» имя обязательно.
-    private var canProceed: Bool {
-        step != 1 || !name.trimmingCharacters(in: .whitespaces).isEmpty
-    }
+    /// Имя необязательно (SPEC §12) — двигаться можно всегда.
+    private var canProceed: Bool { true }
 
     private var button: some View {
         Button(action: next) {

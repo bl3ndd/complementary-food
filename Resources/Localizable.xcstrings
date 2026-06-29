@@ -866,6 +866,26 @@
         }
       }
     },
+    "Включены": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On"
+          }
+        }
+      }
+    },
+    "Включить в настройках": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable in Settings"
+          }
+        }
+      }
+    },
     "Вода": {
       "extractionState": "manual",
       "localizations": {
@@ -950,6 +970,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pick a ready-made one or build your own. You can change it later."
+          }
+        }
+      }
+    },
+    "Выключены": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
           }
         }
       }
@@ -1350,6 +1380,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Log a reaction"
+          }
+        }
+      }
+    },
+    "Запланировать": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan"
           }
         }
       }
@@ -2256,6 +2296,16 @@
         }
       }
     },
+    "Назад": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        }
+      }
+    },
     "Название": {
       "extractionState": "manual",
       "localizations": {
@@ -2278,12 +2328,32 @@
         }
       }
     },
+    "Напоминания": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders"
+          }
+        }
+      }
+    },
     "Напоминания по этому аллергену отключатся.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Reminders for this allergen will turn off."
+          }
+        }
+      }
+    },
+    "Напоминания поддерживают введённые аллергены — без них трекер не сработает.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders keep introduced allergens going — the tracker won't work without them."
           }
         }
       }
@@ -2359,6 +2429,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not introduced"
+          }
+        }
+      }
+    },
+    "Не запрошены": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not requested"
           }
         }
       }
@@ -3565,6 +3645,16 @@
         }
       }
     },
+    "Сегодня пока ничего не записано": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing logged today yet"
+          }
+        }
+      }
+    },
     "Селен": {
       "extractionState": "stale",
       "localizations": {
@@ -3824,6 +3914,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solids start"
+          }
+        }
+      }
+    },
+    "Статус": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status"
           }
         }
       }

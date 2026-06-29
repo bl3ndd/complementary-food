@@ -64,12 +64,47 @@ struct AllergensView: View {
             }
             Spacer(minLength: 8)
             if info.canGive {
-                PillButton(title: "Дал", tint: info.color) { give(group) }
+                giveControl(group, color: info.color)
             } else {
                 StatusBadge(text: info.badge, color: info.color)
             }
         }
         .cartoonCard()
+    }
+
+    /// «Дал»: если в группе введён один продукт — one-tap; если несколько — меню выбора,
+    /// чтобы в дневник попал именно тот продукт, что дали (а не representative).
+    @ViewBuilder
+    private func giveControl(_ group: AllergenGroupStatus, color: Color) -> some View {
+        let foods = introducedFoods(in: group)
+        if foods.count > 1 {
+            Menu {
+                ForEach(foods) { food in
+                    Button { give(food) } label: {
+                        Label(food.localizedName, systemImage: "checkmark.circle")
+                    }
+                }
+            } label: {
+                HStack(spacing: 4) {
+                    Text("Дал").font(.subheadline.weight(.bold))
+                    Image(systemName: "chevron.down").font(.caption2.weight(.bold))
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 14).padding(.vertical, 8)
+                .background(LinearGradient(colors: [color, color.opacity(0.82)],
+                                           startPoint: .top, endPoint: .bottom), in: Capsule())
+            }
+        } else {
+            PillButton(title: "Дал", tint: color) {
+                if let food = foods.first ?? group.representativeFood { give(food) }
+            }
+        }
+    }
+
+    private func introducedFoods(in group: AllergenGroupStatus) -> [Food] {
+        group.foods.filter { food in
+            statuses.first { $0.foodId == food.id }?.state == .introduced
+        }
     }
 
     // MARK: - Статус группы → текст/цвет/действие
@@ -129,8 +164,7 @@ struct AllergensView: View {
         groups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
     }
 
-    private func give(_ group: AllergenGroupStatus) {
-        guard let food = group.representativeFood else { return }
+    private func give(_ food: Food) {
         FeedingService(context: context).logFeeding(food, liking: nil, reaction: nil)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }

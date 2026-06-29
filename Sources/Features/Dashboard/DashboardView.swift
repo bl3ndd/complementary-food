@@ -8,6 +8,8 @@ struct DashboardView: View {
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
+    @State private var editingLog: FoodLog?
+    @State private var showPlan = false
 
     private let catalog = FoodCatalog.shared
 
@@ -16,6 +18,7 @@ struct DashboardView: View {
             ScrollView {
                 VStack(spacing: 18) {
                     heroCard
+                    todaySection
                     if !dueGroups.isEmpty {
                         section(title: "По плану: освежить", icon: "ui_bell") {
                             ForEach(dueGroups) { dueRow($0) }
@@ -31,7 +34,8 @@ struct DashboardView: View {
                             ForEach(pausedItems, id: \.status.foodId) { pausedRow($0) }
                         }
                     }
-                    if dueGroups.isEmpty && introducing.isEmpty && pausedItems.isEmpty {
+                    if dueGroups.isEmpty && introducing.isEmpty && pausedItems.isEmpty
+                        && today.entries.isEmpty && introducedCount == 0 {
                         emptyState
                     }
                 }
@@ -43,7 +47,66 @@ struct DashboardView: View {
             .navigationDestination(for: Food.self) { food in
                 FoodDetailView(food: food, child: child)
             }
+            .sheet(item: $editingLog) { EditLogSheet(log: $0) }
+            .sheet(isPresented: $showPlan) {
+                PlanIntroSheet(initialDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
+            }
         }
+    }
+
+    // MARK: - Блок «Сегодня» (дневник на главной)
+
+    private var today: DaySummary {
+        CalendarService(catalog: catalog, logs: logs).day(Date())
+    }
+
+    private var todaySection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Text("Сегодня").font(.title3.bold())
+                Spacer()
+                Button { showPlan = true } label: {
+                    Label("Запланировать", systemImage: "calendar.badge.plus")
+                        .font(.caption.weight(.semibold)).foregroundStyle(Theme.accent)
+                }
+            }
+            if today.entries.isEmpty {
+                Text("Сегодня пока ничего не записано")
+                    .font(.subheadline).foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .cartoonCard()
+            } else {
+                ForEach(today.entries) { todayRow($0) }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func todayRow(_ entry: DayEntry) -> some View {
+        HStack(spacing: 12) {
+            if let food = entry.food { FoodIcon(food: food) }
+            else { EmojiAvatar(emoji: "🍽️", asset: "ui_plate") }
+            VStack(alignment: .leading, spacing: 2) {
+                Text(entry.food?.localizedName ?? entry.foodName).font(.headline)
+                HStack(spacing: 6) {
+                    Text(entry.date.formatted(.dateTime.hour().minute()))
+                        .font(.caption).foregroundStyle(.secondary)
+                    if entry.planned {
+                        StatusBadge(text: String(localized: "план"), color: Theme.lilac)
+                    }
+                    if let r = entry.reaction, r != .none {
+                        StatusBadge(text: r.title, color: .red)
+                    }
+                }
+            }
+            Spacer()
+            if !entry.planned, let liking = entry.liking {
+                OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 28)
+            }
+        }
+        .cartoonCard()
+        .contentShape(Rectangle())
+        .onTapGesture { editingLog = entry.log }
     }
 
     // MARK: - Секции

@@ -1,13 +1,17 @@
 import SwiftUI
 import SwiftData
+import UIKit
+import UserNotifications
 
 /// Профиль ребёнка и настройки методики (SPEC §7).
 struct ProfileView: View {
     @Bindable var child: Child
     @Environment(\.modelContext) private var context
+    @Environment(\.scenePhase) private var scenePhase
     @State private var showResetConfirm = false
     @AppStorage("app.language") private var language: AppLanguage = .system
     @State private var showLanguageRestart = false
+    @State private var notifStatus: UNAuthorizationStatus = .notDetermined
 
     var body: some View {
         NavigationStack {
@@ -26,6 +30,24 @@ struct ProfileView: View {
                     CustomPlanEditor(child: child)
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+                }
+
+                Section("Напоминания") {
+                    LabeledContent("Статус") {
+                        Text(notifStatusText)
+                            .foregroundStyle(notifStatus == .authorized ? .green : .orange)
+                    }
+                    if notifStatus != .authorized {
+                        Button {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        } label: {
+                            Label("Включить в настройках", systemImage: "bell.badge")
+                        }
+                    }
+                    Text("Напоминания поддерживают введённые аллергены — без них трекер не сработает.")
+                        .font(.footnote).foregroundStyle(.secondary)
                 }
 
                 Section("Язык") {
@@ -76,6 +98,10 @@ struct ProfileView: View {
             .background(AppBackground())
             .navigationTitle("Профиль")
             .navigationBarTitleDisplayMode(.inline)
+            .task { await loadNotifStatus() }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { Task { await loadNotifStatus() } }
+            }
             .onChange(of: customSignature) { persist() }
             .onChange(of: language) {
                 LanguageManager.apply(language)
@@ -107,6 +133,18 @@ struct ProfileView: View {
     }
 
     /// Подпись custom-параметров — чтобы реагировать на правки своего плана.
+    private var notifStatusText: String {
+        switch notifStatus {
+        case .authorized, .provisional, .ephemeral: return String(localized: "Включены")
+        case .denied:                               return String(localized: "Выключены")
+        default:                                    return String(localized: "Не запрошены")
+        }
+    }
+
+    @MainActor private func loadNotifStatus() async {
+        notifStatus = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+    }
+
     private var customSignature: String {
         "\(child.customStartAgeMonths)/\(child.customObservationDaysRegular)/\(child.customObservationDaysAllergen)/\(child.customAllergenFrequencyPerWeek)/\(child.customAllergenGroupsRaw)"
     }
