@@ -60,10 +60,12 @@ struct CustomPlanEditor: View {
                 }
                 .frame(width: 30, height: 30)
 
-                Text(title)
-                    .font(.subheadline.weight(.semibold))
-                    .fixedSize(horizontal: false, vertical: true)
-                infoButton(info)
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(title)
+                        .font(.subheadline.weight(.semibold))
+                        .fixedSize(horizontal: false, vertical: true)
+                    infoButton(info)
+                }
                 Spacer(minLength: 0)
             }
             // Степпер-капсула во всю ширину: − слева, число по центру, + справа.
