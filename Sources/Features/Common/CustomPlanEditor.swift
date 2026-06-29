@@ -6,16 +6,35 @@ struct CustomPlanEditor: View {
     @Bindable var child: Child
 
     private let limits = FeedingProfile.CustomLimits.self
+    @State private var shownInfo: PlanInfo?
+
+    /// Какой параметр поясняем во всплывашке ⓘ.
+    enum PlanInfo: String, Identifiable {
+        case start, windowRegular, windowAllergen, frequency
+        var id: String { rawValue }
+        var text: LocalizedStringKey {
+            switch self {
+            case .start:
+                return "С какого возраста начинать прикорм. Обычно 4–6 месяцев — точные сроки и готовность малыша согласуй с педиатром."
+            case .windowRegular:
+                return "Сколько дней наблюдать за реакцией на новый обычный продукт, прежде чем считать его введённым."
+            case .windowAllergen:
+                return "Для аллергенов окно наблюдения обычно длиннее: реакция может проявиться не сразу, поэтому следим дольше."
+            case .frequency:
+                return "Как часто в неделю давать уже введённый аллерген, чтобы поддерживать толерантность (клинический консенсус LEAP/EAT)."
+            }
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            paramRow("calendar", "Старт прикорма", color: Theme.sunny,
+            paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
                      value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
-            paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky,
+            paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
                      value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
-            paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep,
+            paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep, info: .windowAllergen,
                      value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
-            paramRow("repeat", "Частота аллергена", color: Theme.mint,
+            paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
                      value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
 
             Divider().padding(.vertical, 2)
@@ -27,49 +46,69 @@ struct CustomPlanEditor: View {
         .cartoonCard()
     }
 
-    // MARK: - Параметр: выбор значения тапом по бейджу-числу (вместо +/-, п.9)
+    // MARK: - Параметр со степпером +/- и пояснением ⓘ
 
-    private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color,
+    private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color, info: PlanInfo,
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 12) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 11, style: .continuous)
-                        .fill(Theme.softGradient(color))
-                    Image(systemName: icon).font(.subheadline).foregroundStyle(color)
-                }
-                .frame(width: 36, height: 36)
-
-                Text(title).font(.subheadline.weight(.medium))
-                Spacer(minLength: 8)
-                HStack(spacing: 3) {
-                    Text("\(value.wrappedValue)").font(.subheadline.bold()).monospacedDigit()
-                    Text(unit).font(.caption2).foregroundStyle(.secondary)
-                }
+        HStack(spacing: 12) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                    .fill(Theme.softGradient(color))
+                Image(systemName: icon).font(.subheadline).foregroundStyle(color)
             }
-            valuePicker(value: value, range: range)
+            .frame(width: 36, height: 36)
+
+            Text(title).font(.subheadline.weight(.medium))
+            infoButton(info)
+            Spacer(minLength: 8)
+            stepper(value: value, range: range, unit: unit)
         }
     }
 
-    /// Горизонтальный ряд бейджей-чисел; тап выбирает значение.
-    private func valuePicker(value: Binding<Int>, range: ClosedRange<Int>) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 6) {
-                ForEach(Array(range), id: \.self) { n in
-                    let on = value.wrappedValue == n
-                    Text("\(n)")
-                        .font(.subheadline.weight(.bold)).monospacedDigit()
-                        .frame(width: 38, height: 34)
-                        .background(on ? AnyShapeStyle(Theme.accentGradient)
-                                       : AnyShapeStyle(Color.black.opacity(0.05)),
-                                    in: Capsule())
-                        .foregroundStyle(on ? .white : .primary)
-                        .contentShape(Capsule())
-                        .onTapGesture { withAnimation(.snappy) { value.wrappedValue = n } }
-                }
-            }
-            .padding(.vertical, 1)
+    /// Кнопка ⓘ с всплывающим пояснением «зачем этот параметр».
+    private func infoButton(_ info: PlanInfo) -> some View {
+        Button { shownInfo = info } label: {
+            Image(systemName: "info.circle").font(.footnote).foregroundStyle(.secondary)
         }
+        .buttonStyle(.plain)
+        .popover(isPresented: Binding(get: { shownInfo == info },
+                                      set: { if !$0 { shownInfo = nil } })) {
+            Text(info.text)
+                .font(.callout)
+                .padding(16)
+                .frame(maxWidth: 280)
+                .presentationCompactAdaptation(.popover)
+        }
+    }
+
+    private func stepper(value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
+        HStack(spacing: 10) {
+            roundButton("minus", enabled: value.wrappedValue > range.lowerBound) {
+                value.wrappedValue = max(range.lowerBound, value.wrappedValue - 1)
+            }
+            VStack(spacing: -1) {
+                Text("\(value.wrappedValue)").font(.headline.bold()).monospacedDigit()
+                Text(unit).font(.caption2).foregroundStyle(.secondary)
+            }
+            .frame(minWidth: 44)
+            roundButton("plus", enabled: value.wrappedValue < range.upperBound) {
+                value.wrappedValue = min(range.upperBound, value.wrappedValue + 1)
+            }
+        }
+    }
+
+    private func roundButton(_ icon: String, enabled: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(enabled ? .white : .secondary)
+                .frame(width: 32, height: 32)
+                .background(enabled ? AnyShapeStyle(Theme.accentGradient)
+                                    : AnyShapeStyle(Color.black.opacity(0.06)),
+                            in: Circle())
+        }
+        .buttonStyle(BouncyButtonStyle())
+        .disabled(!enabled)
     }
 
     // MARK: - Аллергены

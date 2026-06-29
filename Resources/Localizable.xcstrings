@@ -398,6 +398,7 @@
       }
     },
     "Была реакция": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -594,6 +595,7 @@
       }
     },
     "Возобновить ввод": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -692,6 +694,7 @@
       }
     },
     "Готово": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -768,6 +771,7 @@
       }
     },
     "Дата старта": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -799,11 +803,22 @@
       }
     },
     "Диарея": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Diarrhea"
+          }
+        }
+      }
+    },
+    "Для аллергенов окно наблюдения обычно длиннее: реакция может проявиться не сразу, поэтому следим дольше.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For allergens the observation window is usually longer: a reaction may appear later, so watch for more days."
           }
         }
       }
@@ -963,6 +978,7 @@
       }
     },
     "Запланировать ввод": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -973,6 +989,7 @@
       }
     },
     "Запор": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -983,6 +1000,7 @@
       }
     },
     "Затруднённое дыхание": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1142,6 +1160,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "How did the feeding go?"
+          }
+        }
+      }
+    },
+    "Как часто в неделю давать уже введённый аллерген, чтобы поддерживать толерантность (клинический консенсус LEAP/EAT).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How often per week to give an already-introduced allergen to keep up tolerance (LEAP/EAT clinical consensus)."
           }
         }
       }
@@ -1433,6 +1461,7 @@
       }
     },
     "Можно снова попробовать отложенный продукт — загляни в приложение.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1727,6 +1756,7 @@
       }
     },
     "Окно: аллерген": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1737,6 +1767,7 @@
       }
     },
     "Окно: обычный продукт": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1769,6 +1800,7 @@
       }
     },
     "Остановить ввод": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1779,6 +1811,7 @@
       }
     },
     "Отложенные продукты": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1954,6 +1987,7 @@
       }
     },
     "Пометить аллергию": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1996,6 +2030,7 @@
       }
     },
     "Попробовать через 2 месяца": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2050,6 +2085,7 @@
       }
     },
     "Появилась реакция": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2192,6 +2228,7 @@
       }
     },
     "Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2252,6 +2289,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "From what age"
+          }
+        }
+      }
+    },
+    "С какого возраста начинать прикорм. Обычно 4–6 месяцев — точные сроки и готовность малыша согласуй с педиатром.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When to start solids. Usually 4–6 months — confirm timing and your baby's readiness with a pediatrician."
           }
         }
       }
@@ -2387,6 +2434,16 @@
         }
       }
     },
+    "Сколько дней наблюдать за реакцией на новый обычный продукт, прежде чем считать его введённым.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How many days to watch for a reaction to a new regular food before counting it as introduced."
+          }
+        }
+      }
+    },
     "Скоро": {
       "extractionState": "manual",
       "localizations": {
@@ -2487,6 +2544,7 @@
       }
     },
     "Срыгивание / рвота": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2728,6 +2786,7 @@
       }
     },
     "Чем полезен": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2935,6 +2994,7 @@
       }
     },
     "план": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
