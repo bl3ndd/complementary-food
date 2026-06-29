@@ -99,7 +99,6 @@ struct FoodDetailView: View {
             Text(food.localizedName).font(.title.bold())
             StatusBadge(text: state.title, color: state.color)
             HStack(spacing: 8) {
-                Chip(String(localized: "с \(food.minAgeMonths) мес"), icon: "calendar")
                 Chip(food.category.title, icon: "square.grid.2x2",
                      color: Theme.categoryColor(food.category))
                 if let group = food.allergenGroup {
