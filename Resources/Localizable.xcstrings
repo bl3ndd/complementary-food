@@ -669,6 +669,16 @@
         }
       }
     },
+    "Ввести продукт": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduce a food"
+          }
+        }
+      }
+    },
     "Ввод": {
       "extractionState": "manual",
       "localizations": {

@@ -37,6 +37,9 @@ struct DashboardView: View {
                     if dueGroups.isEmpty && introducing.isEmpty && pausedItems.isEmpty
                         && today.entries.isEmpty && introducedCount == 0 {
                         emptyState
+                    } else {
+                        BigButton(title: "Ввести продукт") { goToCatalog() }
+                            .padding(.top, 4)
                     }
                 }
                 .padding()
