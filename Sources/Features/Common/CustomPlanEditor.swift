@@ -50,17 +50,21 @@ struct CustomPlanEditor: View {
 
     private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color, info: PlanInfo,
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
-        HStack(spacing: 12) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 11, style: .continuous)
-                    .fill(Theme.softGradient(color))
-                Image(systemName: icon).font(.subheadline).foregroundStyle(color)
-            }
-            .frame(width: 36, height: 36)
+        VStack(alignment: .leading, spacing: 10) {
+            // Первая строка: иконка + название + ⓘ.
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 11, style: .continuous)
+                        .fill(Theme.softGradient(color))
+                    Image(systemName: icon).font(.subheadline).foregroundStyle(color)
+                }
+                .frame(width: 36, height: 36)
 
-            Text(title).font(.subheadline.weight(.medium))
-            infoButton(info)
-            Spacer(minLength: 8)
+                Text(title).font(.subheadline.weight(.medium))
+                infoButton(info)
+                Spacer(minLength: 0)
+            }
+            // Вторая строка: − число + на всю ширину.
             stepper(value: value, range: range, unit: unit)
         }
     }
@@ -75,8 +79,10 @@ struct CustomPlanEditor: View {
                                       set: { if !$0 { shownInfo = nil } })) {
             Text(info.text)
                 .font(.callout)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(16)
-                .frame(maxWidth: 280)
+                .frame(width: 280)
                 .presentationCompactAdaptation(.popover)
         }
     }
@@ -86,15 +92,17 @@ struct CustomPlanEditor: View {
             roundButton("minus", enabled: value.wrappedValue > range.lowerBound) {
                 value.wrappedValue = max(range.lowerBound, value.wrappedValue - 1)
             }
-            VStack(spacing: -1) {
-                Text("\(value.wrappedValue)").font(.headline.bold()).monospacedDigit()
-                Text(unit).font(.caption2).foregroundStyle(.secondary)
+            Spacer(minLength: 0)
+            HStack(spacing: 4) {
+                Text("\(value.wrappedValue)").font(.title3.bold()).monospacedDigit()
+                Text(unit).font(.caption).foregroundStyle(.secondary)
             }
-            .frame(minWidth: 44)
+            Spacer(minLength: 0)
             roundButton("plus", enabled: value.wrappedValue < range.upperBound) {
                 value.wrappedValue = min(range.upperBound, value.wrappedValue + 1)
             }
         }
+        .padding(.horizontal, 4)
     }
 
     private func roundButton(_ icon: String, enabled: Bool, action: @escaping () -> Void) -> some View {
