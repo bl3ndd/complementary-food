@@ -74,7 +74,7 @@ struct DayDetailView: View {
             if entry.planned {
                 PillButton(title: "Выполнено") { markDone(entry.log) }
             } else if let liking = entry.liking {
-                Text(liking.emoji).font(.system(size: 30))
+                OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 30)
             }
         }
         .cartoonCard()
@@ -118,7 +118,7 @@ private struct PlanFeedingSheet: View {
                         dismiss()
                     } label: {
                         HStack(spacing: 10) {
-                            Text(food.emoji)
+                            FoodIcon(food: food, size: 30)
                             Text(food.localizedName).foregroundStyle(.primary)
                         }
                     }

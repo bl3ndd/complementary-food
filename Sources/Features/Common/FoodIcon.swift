@@ -31,7 +31,11 @@ struct FoodIcon: View {
         if food.id.hasPrefix("custom-") {
             return CustomFoodIcons.asset(for: food.emoji).flatMap { UIImage(named: $0) }
         }
-        return UIImage(named: "food_\(food.id)") ?? UIImage(named: "cat_\(food.category.rawValue)")
+        // Фолбэк: иконка продукта → OpenMoji по эмодзи продукта → иконка категории.
+        // Системный эмодзи (Text ниже) — крайний случай, когда OpenMoji не нашёлся.
+        return UIImage(named: "food_\(food.id)")
+            ?? CustomFoodIcons.asset(for: food.emoji).flatMap { UIImage(named: $0) }
+            ?? UIImage(named: "cat_\(food.category.rawValue)")
     }
 
     var body: some View {
