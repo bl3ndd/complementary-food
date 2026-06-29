@@ -273,6 +273,16 @@
         }
       }
     },
+    "Аллергенов пора освежить: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allergens to refresh: %lld"
+          }
+        }
+      }
+    },
     "Аллергены": {
       "extractionState": "manual",
       "localizations": {
@@ -669,6 +679,16 @@
         }
       }
     },
+    "Ввести новый продукт": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduce a new food"
+          }
+        }
+      }
+    },
     "Ввести продукт": {
       "localizations": {
         "en": {
@@ -973,6 +993,16 @@
         }
       }
     },
+    "Вчера": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yesterday"
+          }
+        }
+      }
+    },
     "Выбери готовую или собери свой план. Можно сменить позже.": {
       "extractionState": "manual",
       "localizations": {
@@ -1182,6 +1212,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add"
+          }
+        }
+      }
+    },
+    "Добавить запись": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add entry"
           }
         }
       }
@@ -1404,6 +1444,16 @@
         }
       }
     },
+    "Запиши первое кормление или начни вводить продукт.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log the first feeding or start introducing a food."
+          }
+        }
+      }
+    },
     "Запланировано на сегодня": {
       "localizations": {
         "en": {
@@ -1464,6 +1514,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "An allergy was recorded. See your pediatrician. Only reintroduce this food with your doctor's approval."
+          }
+        }
+      }
+    },
+    "Здесь будет дневник кормлений": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your feeding journal will appear here"
           }
         }
       }

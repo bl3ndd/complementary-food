@@ -43,6 +43,7 @@
 		9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */; };
 		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
 		ADE88BC5FE14C1B0EBD7FCF5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33137266140F2522867A45A1 /* AppRouter.swift */; };
+		AF68B2A9931993D03C664D81 /* QuickLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69338CE31B845A60469CFB85 /* QuickLogSheet.swift */; };
 		B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */; };
 		B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95348E771F9D85BF57C252EA /* PrikormApp.swift */; };
 		B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */; };
@@ -97,6 +98,7 @@
 		54502A32A1FC7C0FD91517B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		57582D03E1DD713519F97F27 /* AllergenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTests.swift; sourceTree = "<group>"; };
 		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		69338CE31B845A60469CFB85 /* QuickLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogSheet.swift; sourceTree = "<group>"; };
 		6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingProfile.swift; sourceTree = "<group>"; };
 		6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		6EEE512BF23D205F3A40501F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
 				C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */,
 				A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */,
+				69338CE31B845A60469CFB85 /* QuickLogSheet.swift */,
 				6EEE512BF23D205F3A40501F /* Theme.swift */,
 				B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */,
 			);
@@ -462,6 +465,7 @@
 				ECE49371C67DE382A0CB70AD /* PlanIntroSheet.swift in Sources */,
 				B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */,
 				30E885DD88EDACA5C7036245 /* ProfileView.swift in Sources */,
+				AF68B2A9931993D03C664D81 /* QuickLogSheet.swift in Sources */,
 				BC6154128575F7506FCE9C36 /* RootView.swift in Sources */,
 				1EC5CAB94A202012B0675F88 /* SampleData.swift in Sources */,
 				45F0644FCA6BC9FB8004630E /* Theme.swift in Sources */,
