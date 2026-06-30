@@ -49,43 +49,10 @@ struct DayDetailView: View {
     }
 
     private func entryRow(_ entry: DayEntry) -> some View {
-        HStack(spacing: 12) {
-            if let food = entry.food {
-                FoodIcon(food: food)
-            } else {
-                EmojiAvatar(emoji: "🍽️", asset: "ui_plate")
-            }
-            VStack(alignment: .leading, spacing: 4) {
-                Text(entry.food?.localizedName ?? entry.foodName).font(.headline)
-                HStack(spacing: 6) {
-                    Text(entry.date.formatted(.dateTime.hour().minute()))
-                        .font(.caption).foregroundStyle(.secondary)
-                    StatusBadge(text: entry.type == .intro
-                                ? String(localized: "Ввод")
-                                : String(localized: "maintenance.type", defaultValue: "Поддержка"),
-                                color: entry.type == .intro ? Theme.accent : .blue)
-                    if entry.planned {
-                        StatusBadge(text: String(localized: "план"), color: Theme.lilac)
-                    }
-                    if let reaction = entry.reaction, reaction != .none {
-                        StatusBadge(text: reaction.title, color: .red)
-                    }
-                }
-                if let note = entry.log.note, !note.isEmpty {
-                    Text(note).font(.caption).foregroundStyle(.secondary)
-                        .lineLimit(2)
-                }
-            }
-            Spacer()
-            if entry.planned && !isFutureDay {
-                PillButton(title: "Выполнено") { markDone(entry.log) }
-            } else if !entry.planned, let liking = entry.liking {
-                OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 30)
-            }
-        }
-        .cartoonCard()
-        .contentShape(Rectangle())
-        .onTapGesture { editingLog = entry.log }
+        DiaryEntryRow(entry: entry,
+                      showDone: entry.planned && !isFutureDay,
+                      onDone: { markDone(entry.log) })
+            .onTapGesture { editingLog = entry.log }
     }
 
     /// Отметить запланированный ввод выполненным — запускает стейт-машину (introducing)

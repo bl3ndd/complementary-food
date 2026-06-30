@@ -43,6 +43,7 @@
 		9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */; };
 		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
 		ADE88BC5FE14C1B0EBD7FCF5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33137266140F2522867A45A1 /* AppRouter.swift */; };
+		AE56D291E94D7068264C7E9A /* DiaryEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B29385AC89B87BF57873E /* DiaryEntryRow.swift */; };
 		AF68B2A9931993D03C664D81 /* QuickLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69338CE31B845A60469CFB85 /* QuickLogSheet.swift */; };
 		B32EA0251FC256254D19D2CF /* FeedingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */; };
 		B46F4866ACDA29A7A1D3E82E /* PrikormApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95348E771F9D85BF57C252EA /* PrikormApp.swift */; };
@@ -78,6 +79,7 @@
 		0384473595C9ED39DB0D9950 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioTests.swift; sourceTree = "<group>"; };
 		0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerTests.swift; sourceTree = "<group>"; };
+		067B29385AC89B87BF57873E /* DiaryEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryRow.swift; sourceTree = "<group>"; };
 		0B0E392B859BC3E337BF453F /* Prikorm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Prikorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1097FE0A50F9EEDF57EB7CBA /* FeedingProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingProfileTests.swift; sourceTree = "<group>"; };
 		11BE039C641EEE3C9C5F00E2 /* CustomPlanEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPlanEditor.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			children = (
 				2516DDFC738C31AB56AA9408 /* Components.swift */,
 				11BE039C641EEE3C9C5F00E2 /* CustomPlanEditor.swift */,
+				067B29385AC89B87BF57873E /* DiaryEntryRow.swift */,
 				B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */,
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
 				C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */,
@@ -446,6 +449,7 @@
 				051E64497EB9DEA0DB56EF16 /* CustomPlanEditor.swift in Sources */,
 				5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */,
 				0A08FA37922C0D8AD99A83F1 /* DayDetailView.swift in Sources */,
+				AE56D291E94D7068264C7E9A /* DiaryEntryRow.swift in Sources */,
 				9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */,
 				BA6883AE8CA59600E865195B /* EditLogSheet.swift in Sources */,
 				E7B506A7E08332292C71C790 /* Enums.swift in Sources */,

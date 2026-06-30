@@ -1,18 +1,26 @@
 import SwiftUI
 import SwiftData
 
-/// Экран «Календарь»: месячная сетка с подсветкой дней, в которые что-то давали
-/// (SPEC §7). Активные дни залиты, дни с реакцией — красным, сегодня в рамке.
-/// Тап по дню → детали дня.
+/// Экран «Дневник» (Concept A): основной вид — хронологическая лента записей
+/// (фильтр-линза + поиск), сетка-месяц вторична как навигатор/планировщик
+/// (SPEC §7). Лента отвечает на «что было», сетка — на «когда».
 struct CalendarView: View {
     @Query(sort: \FoodLog.date, order: .reverse) private var logs: [FoodLog]
+    @Query private var children: [Child]
+    @Environment(\.modelContext) private var context
 
     private let catalog = FoodCatalog.shared
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
     /// Русские ключи; локализуются в каталоге (`String.LocalizationValue` ниже).
     private let weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
 
+    private enum Mode: Hashable { case feed, month }
+    @State private var mode: Mode = .feed
+    @State private var filter: DiaryFilter = .all
+    @State private var search = ""
     @State private var monthAnchor = Date()
+    @State private var editingLog: FoodLog?
+    @State private var showPlan = false
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -20,31 +28,165 @@ struct CalendarView: View {
         return c
     }
 
-    /// Сводки по дням, ключ — начало дня.
-    private var summaries: [Date: DaySummary] {
-        Dictionary(uniqueKeysWithValues:
-            CalendarService(catalog: catalog, logs: logs).days().map { ($0.date, $0) })
+    private var service: CalendarService {
+        CalendarService(catalog: catalog, logs: logs)
     }
+
+    /// Поиск принудительно показывает ленту (искать в сетке бессмысленно).
+    private var showFeed: Bool { mode == .feed || !search.isEmpty }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    monthCard
-                    if logs.isEmpty { emptyHint }
+                    modeSegment
+                    if showFeed {
+                        feedSection
+                    } else {
+                        monthCard
+                        if logs.isEmpty { emptyHint }
+                    }
                 }
                 .padding()
             }
             .background(AppBackground())
-            .navigationTitle("Календарь")
+            .navigationTitle("Дневник")
             .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $search, prompt: Text("Поиск по дневнику"))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button { showPlan = true } label: {
+                        Image(systemName: "calendar.badge.plus")
+                    }
+                    .accessibilityLabel("Запланировать ввод")
+                }
+            }
             .navigationDestination(for: Date.self) { date in
                 DayDetailView(date: date)
+            }
+            .sheet(item: $editingLog) { EditLogSheet(log: $0) }
+            .sheet(isPresented: $showPlan) { PlanIntroSheet() }
+        }
+    }
+
+    // MARK: - Переключатель Лента / Месяц
+
+    private var modeSegment: some View {
+        HStack(spacing: 4) {
+            segmentButton("Лента", .feed)
+            segmentButton("Месяц", .month)
+        }
+        .padding(4)
+        .background(Color.black.opacity(0.05), in: Capsule())
+    }
+
+    private func segmentButton(_ title: LocalizedStringKey, _ value: Mode) -> some View {
+        let active = mode == value && search.isEmpty
+        return Button {
+            withAnimation(.snappy) { mode = value; search = "" }
+        } label: {
+            Text(title)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(active ? .white : .secondary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+                .background {
+                    if active { Capsule().fill(Theme.accentGradient) }
+                }
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Лента-дневник
+
+    private var feedSection: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            filterChips
+            let feed = service.feed(filter: filter, query: search)
+            if feed.isEmpty {
+                feedEmpty
+            } else {
+                let today = cal.startOfDay(for: Date())
+                let future = feed.filter { $0.date > today }
+                let past = feed.filter { $0.date <= today }
+                if !future.isEmpty {
+                    sectionLabel("Планы")
+                    ForEach(future) { dayGroup($0) }
+                }
+                ForEach(past) { dayGroup($0) }
             }
         }
     }
 
-    // MARK: - Карточка месяца
+    private var filterChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(DiaryFilter.allCases) { f in
+                    let active = filter == f
+                    Button {
+                        withAnimation(.snappy) { filter = f }
+                    } label: {
+                        Text(f.title)
+                            .font(.caption.weight(.semibold))
+                            .padding(.horizontal, 13).padding(.vertical, 7)
+                            .background(active ? Theme.accent.opacity(0.16) : Color.black.opacity(0.05),
+                                        in: Capsule())
+                            .overlay(Capsule().stroke(active ? Theme.accent.opacity(0.45) : .clear,
+                                                      lineWidth: 1.5))
+                            .foregroundStyle(active ? Theme.accent : .secondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 2)
+        }
+    }
+
+    private func dayGroup(_ day: DaySummary) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(dayHeader(day.date))
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(.secondary)
+                .padding(.leading, 4)
+            ForEach(day.entries) { entry in
+                DiaryEntryRow(entry: entry,
+                              showDone: entry.planned && day.date <= cal.startOfDay(for: Date()),
+                              onDone: { markDone(entry.log) })
+                    .onTapGesture { editingLog = entry.log }
+            }
+        }
+    }
+
+    private func sectionLabel(_ text: LocalizedStringKey) -> some View {
+        Text(text)
+            .font(.caption.weight(.heavy))
+            .foregroundStyle(Theme.lilac)
+            .textCase(.uppercase)
+            .padding(.leading, 4)
+    }
+
+    /// «Сегодня, 30 июн» / «Вчера, 29 июн» / «ср, 27 июн».
+    private func dayHeader(_ date: Date) -> String {
+        let short = date.formatted(.dateTime.day().month())
+        if cal.isDateInToday(date) { return "\(String(localized: "Сегодня")), \(short)" }
+        if cal.isDateInYesterday(date) { return "\(String(localized: "Вчера")), \(short)" }
+        return date.formatted(.dateTime.weekday(.abbreviated).day().month()).capitalized
+    }
+
+    private var feedEmpty: some View {
+        VStack(spacing: 10) {
+            Mascot(mood: search.isEmpty ? .curious : .sleepy, size: 64)
+            Text(search.isEmpty
+                 ? "Здесь будет история кормлений. Записывай продукты — и дневник наполнится."
+                 : "Ничего не нашлось")
+                .font(.subheadline).foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 32)
+    }
+
+    // MARK: - Карточка месяца (навигатор)
 
     private var monthCard: some View {
         VStack(spacing: 14) {
@@ -67,6 +209,13 @@ struct CalendarView: View {
             }
         }
         .cartoonCard()
+        .gesture(
+            DragGesture(minimumDistance: 30)
+                .onEnded { value in
+                    if value.translation.width < -40 { if canGoNext { shiftMonth(1) } }
+                    else if value.translation.width > 40 { shiftMonth(-1) }
+                }
+        )
     }
 
     private var monthHeader: some View {
@@ -76,8 +225,17 @@ struct CalendarView: View {
             }
             .accessibilityLabel("Предыдущий месяц")
             Spacer()
-            Text(monthAnchor.formatted(.dateTime.month(.wide).year()).capitalized)
-                .font(.headline)
+            VStack(spacing: 2) {
+                Text(monthAnchor.formatted(.dateTime.month(.wide).year()).capitalized)
+                    .font(.headline)
+                if !cal.isDate(monthAnchor, equalTo: Date(), toGranularity: .month) {
+                    Button("К сегодня") {
+                        withAnimation(.snappy) { monthAnchor = Date() }
+                    }
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Theme.accent)
+                }
+            }
             Spacer()
             Button { shiftMonth(1) } label: {
                 Image(systemName: "chevron.right")
@@ -89,7 +247,11 @@ struct CalendarView: View {
         }
     }
 
-    // MARK: - Ячейка дня
+    /// Сводки по дням, ключ — начало дня (для подсветки сетки; фильтр не применяем —
+    /// сетка показывает всю активность как карта покрытия).
+    private var summaries: [Date: DaySummary] {
+        Dictionary(uniqueKeysWithValues: service.days().map { ($0.date, $0) })
+    }
 
     private func dayCell(_ date: Date) -> some View {
         let start = cal.startOfDay(for: date)
@@ -150,7 +312,7 @@ struct CalendarView: View {
     private var emptyHint: some View {
         VStack(spacing: 8) {
             Mascot(mood: .curious, size: 64)
-            Text("Здесь будут отмечаться дни, в которые ты давал продукты.")
+            Text("Тапни день, чтобы запланировать ввод или посмотреть записи.")
                 .font(.subheadline).foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
@@ -158,7 +320,14 @@ struct CalendarView: View {
         .padding(.top, 8)
     }
 
-    // MARK: - Логика сетки
+    // MARK: - Действия / логика сетки
+
+    private func markDone(_ log: FoodLog) {
+        FeedingService(context: context).confirmPlanned(log)
+        if let profile = children.first?.feedingProfile {
+            NotificationManager.shared.refresh(context: context, profile: profile)
+        }
+    }
 
     /// Ячейки месяца: ведущие nil-паддинги до первого дня + дни месяца.
     private func monthCells() -> [Date?] {

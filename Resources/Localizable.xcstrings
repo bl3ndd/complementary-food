@@ -970,6 +970,17 @@
         }
       }
     },
+    "Всё": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        }
+      }
+    },
     "Всё под контролем": {
       "extractionState": "manual",
       "localizations": {
@@ -1155,6 +1166,17 @@
         }
       }
     },
+    "Действие нельзя отменить.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This can't be undone."
+          }
+        }
+      }
+    },
     "День %@ из %@": {
       "localizations": {
         "en": {
@@ -1200,6 +1222,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "For allergens the observation window is usually longer: a reaction may appear later, so watch for more days."
+          }
+        }
+      }
+    },
+    "Дневник": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diary"
           }
         }
       }
@@ -1578,6 +1611,17 @@
         }
       }
     },
+    "Здесь будет история кормлений. Записывай продукты — и дневник наполнится.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your feeding history will live here. Log foods and the diary fills up."
+          }
+        }
+      }
+    },
     "Здесь будут отмечаться дни, в которые ты давал продукты.": {
       "extractionState": "manual",
       "localizations": {
@@ -1750,6 +1794,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Iodine"
+          }
+        }
+      }
+    },
+    "К сегодня": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
           }
         }
       }
@@ -2138,6 +2193,17 @@
         }
       }
     },
+    "Лента": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feed"
+          }
+        }
+      }
+    },
     "Ликопин": {
       "extractionState": "stale",
       "localizations": {
@@ -2244,6 +2310,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Manganese"
+          }
+        }
+      }
+    },
+    "Месяц": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month"
           }
         }
       }
@@ -2703,6 +2780,17 @@
         }
       }
     },
+    "Ничего не нашлось": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing found"
+          }
+        }
+      }
+    },
     "Норм": {
       "extractionState": "manual",
       "localizations": {
@@ -2798,6 +2886,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oatmeal"
+          }
+        }
+      }
+    },
+    "Ок": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
           }
         }
       }
@@ -3032,6 +3131,28 @@
         }
       }
     },
+    "План": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan"
+          }
+        }
+      }
+    },
+    "Планы": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plans"
+          }
+        }
+      }
+    },
     "Плод с высоким содержанием жиров. Источник полезных жиров, калия и витамина E.": {
       "extractionState": "stale",
       "localizations": {
@@ -3138,6 +3259,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Maintained"
+          }
+        }
+      }
+    },
+    "Поиск по дневнику": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search the diary"
           }
         }
       }
@@ -3572,6 +3704,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "A vegetable oil. Source of monounsaturated fats and vitamin E."
+          }
+        }
+      }
+    },
+    "Реакции": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reactions"
           }
         }
       }
@@ -4130,6 +4273,17 @@
         }
       }
     },
+    "Тапни день, чтобы запланировать ввод или посмотреть записи.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap a day to plan an introduction or view entries."
+          }
+        }
+      }
+    },
     "Твой план прикорма": {
       "localizations": {
         "en": {
@@ -4250,6 +4404,39 @@
         }
       }
     },
+    "Удалить запись?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete entry?"
+          }
+        }
+      }
+    },
+    "Удалить план": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete plan"
+          }
+        }
+      }
+    },
+    "Удалить план?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete plan?"
+          }
+        }
+      }
+    },
     "Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу.": {
       "extractionState": "manual",
       "localizations": {
@@ -4257,6 +4444,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "This deletes the child's profile, feeding history, and custom foods. It can't be undone — the app will start over."
+          }
+        }
+      }
+    },
+    "Уже запланировано": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already planned"
           }
         }
       }
@@ -4553,6 +4751,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "This isn't medical advice — make decisions together with your pediatrician."
+          }
+        }
+      }
+    },
+    "Этот продукт уже запланирован на выбранную дату.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This food is already planned for the selected date."
           }
         }
       }

@@ -1,5 +1,23 @@
 import Foundation
 
+/// Фильтр-линза над журналом для экрана-ленты (SPEC §7): всё / ввод / поддержка /
+/// реакции / планы. «Реакции» — это и есть журнал «покажи педиатру», только факты.
+enum DiaryFilter: String, CaseIterable, Identifiable {
+    case all, intro, maintenance, reaction, planned
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .all:         return String(localized: "Всё")
+        case .intro:       return String(localized: "Ввод")
+        case .maintenance: return String(localized: "maintenance.type", defaultValue: "Поддержка")
+        case .reaction:    return String(localized: "Реакции")
+        case .planned:     return String(localized: "Планы")
+        }
+    }
+}
+
 /// Одна запись журнала в дне, связанная с продуктом из каталога (SPEC §7).
 struct DayEntry: Identifiable {
     let log: FoodLog
@@ -68,5 +86,52 @@ struct CalendarService {
     /// Множество дней (начало дня) с любой активностью — для подсветки в сетке.
     func activeDays() -> Set<Date> {
         Set(logs.map { calendar.startOfDay(for: $0.date) })
+    }
+
+    // MARK: - Лента-дневник (Concept A)
+
+    /// Лента-дневник: дни новые сверху, записи внутри дня — ранние сверху, с
+    /// фильтром-линзой и текстовым поиском. Пустые после фильтра дни отбрасываются.
+    /// `query` ищет по имени продукта (каноническому и локализованному) и заметке.
+    func feed(filter: DiaryFilter = .all, query: String = "") -> [DaySummary] {
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let matched = logs.filter { matches($0, filter: filter, query: q) }
+        return Dictionary(grouping: matched) { calendar.startOfDay(for: $0.date) }
+            .map { day, logs in
+                DaySummary(date: day,
+                           entries: logs.sorted { $0.date < $1.date }.map(entry))
+            }
+            .sorted { $0.date > $1.date }
+    }
+
+    /// Все реакции одной хронологической лентой (журнал «для педиатра»), новые
+    /// сверху. Только факты: запись с реакцией, не план. Статус не выводим.
+    func reactions(query: String = "") -> [DayEntry] {
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        return logs
+            .filter { matches($0, filter: .reaction, query: q) }
+            .sorted { $0.date > $1.date }
+            .map(entry)
+    }
+
+    private func matches(_ log: FoodLog, filter: DiaryFilter, query q: String) -> Bool {
+        guard passesFilter(log, filter) else { return false }
+        guard !q.isEmpty else { return true }
+        if let note = log.note?.lowercased(), note.contains(q) { return true }
+        if let food = catalog.food(id: log.foodId),
+           food.name.lowercased().contains(q) || food.localizedName.lowercased().contains(q) {
+            return true
+        }
+        return log.foodId.lowercased().contains(q)
+    }
+
+    private func passesFilter(_ log: FoodLog, _ filter: DiaryFilter) -> Bool {
+        switch filter {
+        case .all:         return true
+        case .intro:       return !log.planned && log.type == .intro
+        case .maintenance: return !log.planned && log.type == .maintenance
+        case .reaction:    return !log.planned && (log.reaction ?? .none) != .none
+        case .planned:     return log.planned
+        }
     }
 }

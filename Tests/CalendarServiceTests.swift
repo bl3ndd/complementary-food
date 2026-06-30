@@ -151,4 +151,98 @@ final class CalendarServiceTests: XCTestCase {
         XCTAssertEqual(service.day(date("2026-06-10T08:00:00Z")).entries[0].foodName,
                        "ghost_food")
     }
+
+    // MARK: - Лента-дневник: фильтр-линза (Concept A)
+
+    private func mixedFeedLogs() -> [FoodLog] {
+        [
+            log("broccoli", "2026-06-10T08:00:00Z", type: .intro),
+            log("egg_yolk", "2026-06-11T09:00:00Z", type: .maintenance),
+            log("egg_yolk", "2026-06-12T09:00:00Z", reaction: .skin),
+            FoodLog(foodId: "broccoli", date: date("2026-07-01T09:00:00Z"),
+                    type: .intro, planned: true),
+        ]
+    }
+
+    func testFeedAllReturnsEveryDayNewestFirst() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        let feed = service.feed()
+        XCTAssertEqual(feed.count, 4)
+        // План в июле — самый новый день, сверху.
+        XCTAssertEqual(utc.component(.month, from: feed[0].date), 7)
+        XCTAssertEqual(utc.component(.day, from: feed[3].date), 10)
+    }
+
+    func testFeedFilterIntroExcludesMaintenanceReactionAndPlanned() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        let feed = service.feed(filter: .intro)
+        // Только фактический ввод брокколи 10-го (план/поддержка/реакция отброшены).
+        XCTAssertEqual(feed.count, 1)
+        XCTAssertEqual(utc.component(.day, from: feed[0].date), 10)
+        XCTAssertFalse(feed[0].entries[0].planned)
+    }
+
+    func testFeedFilterMaintenanceKeepsOnlyMaintenance() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        let feed = service.feed(filter: .maintenance)
+        XCTAssertEqual(feed.count, 1)
+        XCTAssertEqual(feed[0].entries[0].type, .maintenance)
+    }
+
+    func testFeedFilterReactionKeepsOnlyReactions() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        let feed = service.feed(filter: .reaction)
+        XCTAssertEqual(feed.count, 1)
+        XCTAssertEqual(feed[0].entries[0].reaction, .skin)
+    }
+
+    func testFeedFilterPlannedKeepsOnlyPlans() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        let feed = service.feed(filter: .planned)
+        XCTAssertEqual(feed.count, 1)
+        XCTAssertTrue(feed[0].entries[0].planned)
+        XCTAssertEqual(utc.component(.month, from: feed[0].date), 7)
+    }
+
+    // MARK: - Лента-дневник: текстовый поиск
+
+    func testFeedQueryMatchesCanonicalFoodName() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        // Канонические имена русские независимо от языка симулятора.
+        let feed = service.feed(query: "брокк")
+        XCTAssertEqual(feed.count, 2, "оба лога брокколи: факт 10-го и план в июле")
+        XCTAssertTrue(feed.allSatisfy { $0.entries.allSatisfy { $0.foodName == "Брокколи" } })
+    }
+
+    func testFeedQueryMatchesNoteText() {
+        var logs = mixedFeedLogs()
+        logs.append(log("egg_yolk", "2026-06-15T08:00:00Z"))
+        logs[logs.count - 1].note = "съел половину"
+        let service = CalendarService(catalog: catalog, logs: logs, calendar: utc)
+        let feed = service.feed(query: "полов")
+        XCTAssertEqual(feed.count, 1)
+        XCTAssertEqual(utc.component(.day, from: feed[0].date), 15)
+    }
+
+    func testFeedQueryNoMatchReturnsEmpty() {
+        let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
+        XCTAssertTrue(service.feed(query: "несуществует").isEmpty)
+    }
+
+    // MARK: - Журнал реакций «для педиатра»
+
+    func testReactionsListsOnlyReactionsNewestFirst() {
+        let logs = [
+            log("broccoli", "2026-06-10T08:00:00Z"),                    // без реакции
+            log("egg_yolk", "2026-06-11T09:00:00Z", reaction: .skin),
+            log("egg_yolk", "2026-06-13T09:00:00Z", reaction: .gi),
+            FoodLog(foodId: "broccoli", date: date("2026-07-01T09:00:00Z"),
+                    type: .intro, reaction: .skin, planned: true),     // план — не считается
+        ]
+        let service = CalendarService(catalog: catalog, logs: logs, calendar: utc)
+        let reactions = service.reactions()
+        XCTAssertEqual(reactions.count, 2, "только фактические реакции, без планов")
+        XCTAssertEqual(reactions[0].reaction, .gi, "новые сверху")
+        XCTAssertEqual(reactions[1].reaction, .skin)
+    }
 }
