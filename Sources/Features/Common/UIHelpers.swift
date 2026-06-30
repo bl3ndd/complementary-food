@@ -94,3 +94,21 @@ extension Date {
         formatted(.dateTime.day().month())
     }
 }
+
+/// Системный share sheet (UIActivityViewController) для шаринга файла —
+/// например PDF-дневника «для педиатра».
+struct ActivityView: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
+}
+
+/// Обёртка-URL для `.sheet(item:)` (URL не Identifiable).
+struct ShareableFile: Identifiable {
+    let id = UUID()
+    let url: URL
+}

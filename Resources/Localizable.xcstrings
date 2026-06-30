@@ -1247,6 +1247,17 @@
         }
       }
     },
+    "Дневник прикорма": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solid foods diary"
+          }
+        }
+      }
+    },
     "Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.": {
       "extractionState": "manual",
       "localizations": {
@@ -1422,6 +1433,17 @@
         }
       }
     },
+    "Журнал": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log"
+          }
+        }
+      }
+    },
     "Загляни в каталог и выбери первый продукт.": {
       "extractionState": "manual",
       "localizations": {
@@ -1481,6 +1503,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Log a reaction"
+          }
+        }
+      }
+    },
+    "Записей пока нет": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No entries yet"
           }
         }
       }
@@ -3263,6 +3296,17 @@
         }
       }
     },
+    "Поддержка аллергенов": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allergen maintenance"
+          }
+        }
+      }
+    },
     "Поиск по дневнику": {
       "extractionState": "manual",
       "localizations": {
@@ -4262,6 +4306,17 @@
         }
       }
     },
+    "Сформировано": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Generated"
+          }
+        }
+      }
+    },
     "Сыр": {
       "extractionState": "manual",
       "localizations": {
@@ -4722,6 +4777,17 @@
         }
       }
     },
+    "Экспорт для педиатра": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export for pediatrician"
+          }
+        }
+      }
+    },
     "Это аллерген": {
       "extractionState": "manual",
       "localizations": {
@@ -4971,6 +5037,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "planned"
+          }
+        }
+      }
+    },
+    "последний приём": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "last given"
           }
         }
       }

@@ -7,6 +7,7 @@ import SwiftData
 struct CalendarView: View {
     @Query(sort: \FoodLog.date, order: .reverse) private var logs: [FoodLog]
     @Query private var children: [Child]
+    @Query private var statuses: [IntroductionStatus]
     @Environment(\.modelContext) private var context
 
     private let catalog = FoodCatalog.shared
@@ -21,6 +22,7 @@ struct CalendarView: View {
     @State private var monthAnchor = Date()
     @State private var editingLog: FoodLog?
     @State private var showPlan = false
+    @State private var shareFile: ShareableFile?
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -54,6 +56,13 @@ struct CalendarView: View {
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $search, prompt: Text("Поиск по дневнику"))
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button { exportPDF() } label: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .accessibilityLabel("Экспорт для педиатра")
+                    .disabled(logs.isEmpty || children.isEmpty)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showPlan = true } label: {
                         Image(systemName: "calendar.badge.plus")
@@ -66,6 +75,7 @@ struct CalendarView: View {
             }
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
             .sheet(isPresented: $showPlan) { PlanIntroSheet() }
+            .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
         }
     }
 
@@ -327,6 +337,17 @@ struct CalendarView: View {
         if let profile = children.first?.feedingProfile {
             NotificationManager.shared.refresh(context: context, profile: profile)
         }
+    }
+
+    /// Сформировать PDF-дневник и открыть системный share sheet («для педиатра»).
+    /// Включаем статус поддержки аллергенов — наша уникальная ценность в выгрузке.
+    private func exportPDF() {
+        guard let child = children.first else { return }
+        let allergens = AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
+                                            statuses: statuses, logs: logs).groups()
+        let export = DiaryPDFExport(childName: child.name, ageMonths: child.ageInMonths,
+                                    catalog: catalog, logs: logs, allergens: allergens)
+        if let url = export.writeTempFile() { shareFile = ShareableFile(url: url) }
     }
 
     /// Ячейки месяца: ведущие nil-паддинги до первого дня + дни месяца.
