@@ -23,10 +23,10 @@ struct DashboardView: View {
                 VStack(spacing: 16) {
                     heroCard
                     actionTiles
+                    todayCard
                     introducingCard
                     collectionCard
                     allergenCard
-                    todayCard
                 }
                 .padding()
             }
