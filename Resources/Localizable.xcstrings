@@ -3815,6 +3815,16 @@
         }
       }
     },
+    "Сейчас вводишь": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introducing now"
+          }
+        }
+      }
+    },
     "Селен": {
       "extractionState": "stale",
       "localizations": {

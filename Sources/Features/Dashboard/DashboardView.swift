@@ -23,6 +23,7 @@ struct DashboardView: View {
                 VStack(spacing: 16) {
                     heroCard
                     actionTiles
+                    introducingCard
                     collectionCard
                     allergenCard
                     todayCard
@@ -98,6 +99,50 @@ struct DashboardView: View {
             .shadow(color: color.opacity(0.35), radius: 12, x: 0, y: 7)
         }
         .buttonStyle(BouncyButtonStyle())
+    }
+
+    // MARK: - Сейчас вводишь (окно наблюдения)
+
+    @ViewBuilder private var introducingCard: some View {
+        if !introducingItems.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 6) {
+                    Image(systemName: "leaf.fill").foregroundStyle(Theme.mint)
+                    Text("Сейчас вводишь").font(.headline)
+                }
+                ForEach(Array(introducingItems.enumerated()), id: \.element.status.foodId) { idx, item in
+                    if idx > 0 { Divider() }
+                    NavigationLink(value: item.food) {
+                        HStack(spacing: 12) {
+                            FoodIcon(food: item.food, size: 40)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(item.food.localizedName).font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(.primary)
+                                Text(dayInfo(item.status)).font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .cartoonCard()
+        }
+    }
+
+    private var introducingItems: [(food: Food, status: IntroductionStatus)] {
+        statuses.filter { $0.state == .introducing }
+            .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
+    }
+
+    private func dayInfo(_ s: IntroductionStatus) -> String {
+        guard let start = s.introStartedAt else { return "" }
+        let day = FeedingService.observationDay(start: start)
+        let window = catalog.food(id: s.foodId).map { child.feedingProfile.observationDays(for: $0) }
+            ?? child.feedingProfile.observationDaysRegular
+        return String(localized: "День \(min(day, window)) из \(window)")
     }
 
     // MARK: - Коллекция продуктов (заполняется)
