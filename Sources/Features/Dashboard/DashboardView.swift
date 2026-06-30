@@ -75,24 +75,27 @@ struct DashboardView: View {
 
     private var actionTiles: some View {
         HStack(spacing: 12) {
-            actionTile("Записать", "square.and.pencil", Theme.mint) { showFeed = true }
-            actionTile("Реакция", "exclamationmark.bubble.fill", .orange) { showReaction = true }
+            actionTile("Записать", asset: "ui_plate", emoji: "🍽️", color: Theme.mint) { showFeed = true }
+            actionTile("Реакция", asset: "react_skin", emoji: "🩹", color: .orange) { showReaction = true }
         }
     }
 
-    private func actionTile(_ title: LocalizedStringKey, _ icon: String, _ color: Color,
+    private func actionTile(_ title: LocalizedStringKey, asset: String, emoji: String, color: Color,
                             _ action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            VStack(spacing: 8) {
-                Image(systemName: icon).font(.title2)
-                Text(title).font(.subheadline.bold())
+            VStack(spacing: 10) {
+                ZStack {
+                    Circle().fill(.white.opacity(0.92)).frame(width: 54, height: 54)
+                        .shadow(color: .black.opacity(0.08), radius: 3, x: 0, y: 2)
+                    OpenMojiIcon(asset: asset, fallback: emoji, size: 34)
+                }
+                Text(title).font(.subheadline.bold()).foregroundStyle(.white)
             }
-            .foregroundStyle(.white)
             .frame(maxWidth: .infinity).padding(.vertical, 18)
-            .background(LinearGradient(colors: [color, color.opacity(0.82)],
-                                       startPoint: .top, endPoint: .bottom),
-                        in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-            .shadow(color: color.opacity(0.32), radius: 10, x: 0, y: 6)
+            .background(LinearGradient(colors: [color, color.opacity(0.78)],
+                                       startPoint: .topLeading, endPoint: .bottomTrailing),
+                        in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+            .shadow(color: color.opacity(0.35), radius: 12, x: 0, y: 7)
         }
         .buttonStyle(BouncyButtonStyle())
     }
