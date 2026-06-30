@@ -1204,6 +1204,16 @@
         }
       }
     },
+    "Дневник за сегодня": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today's journal"
+          }
+        }
+      }
+    },
     "Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.": {
       "extractionState": "manual",
       "localizations": {

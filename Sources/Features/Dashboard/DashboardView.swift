@@ -240,7 +240,7 @@ struct DashboardView: View {
     private var todayCard: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
-                Text("Сегодня").font(.headline)
+                Text("Дневник за сегодня").font(.headline)
                 Spacer()
                 Button { showPlan = true } label: {
                     Label("Запланировать", systemImage: "calendar.badge.plus")
