@@ -1,8 +1,9 @@
 import SwiftUI
 import SwiftData
 
-/// Главная — журнал-лента (концепт A): спокойная шапка → «Добавить запись» →
-/// баннеры «требует внимания» → дневник записей по дням.
+/// Главная «Стена Pudding» (концепт A): маскот-барометр → быстрые действия →
+/// заполняющаяся коллекция продуктов → витрина аллергенов → лента дня.
+/// Коллекция показывает то, что УЖЕ сделано (ретроспектива), без советов/рекомендаций.
 struct DashboardView: View {
     let child: Child
     var goToCatalog: () -> Void = {}
@@ -10,8 +11,9 @@ struct DashboardView: View {
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
     @State private var editingLog: FoodLog?
+    @State private var showFeed = false
+    @State private var showReaction = false
     @State private var showPlan = false
-    @State private var showQuickLog = false
 
     private let catalog = FoodCatalog.shared
 
@@ -19,10 +21,11 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    greeting
-                    addButton
-                    attentionZone
-                    feed
+                    heroCard
+                    actionTiles
+                    collectionCard
+                    allergenCard
+                    todayCard
                 }
                 .padding()
             }
@@ -33,31 +36,33 @@ struct DashboardView: View {
                 FoodDetailView(food: food, child: child)
             }
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
-            .sheet(isPresented: $showQuickLog) { QuickLogSheet(child: child) }
+            .sheet(isPresented: $showFeed) { QuickLogSheet(child: child, mode: .feeding) }
+            .sheet(isPresented: $showReaction) { QuickLogSheet(child: child, mode: .reaction) }
             .sheet(isPresented: $showPlan) {
                 PlanIntroSheet(initialDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
             }
         }
     }
 
-    // MARK: - Шапка
+    // MARK: - Маскот-барометр
 
-    private var greeting: some View {
+    private var heroCard: some View {
         HStack(spacing: 14) {
             ZStack {
-                Circle().fill(.white.opacity(0.25)).frame(width: 58, height: 58)
-                Mascot(mood: .happy, size: 46)
+                Circle().fill(.white.opacity(0.25)).frame(width: 60, height: 60)
+                Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 50)
             }
             VStack(alignment: .leading, spacing: 3) {
                 Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
                     .font(.title2.bold()).foregroundStyle(.white)
                 Text("\(child.ageInMonths) мес")
                     .font(.subheadline.weight(.medium)).foregroundStyle(.white.opacity(0.9))
-                Text(String(localized: "\(introducedCount) продуктов введено"))
+                Text(todayEntries.isEmpty
+                     ? String(localized: "Сегодня записей пока нет")
+                     : String(localized: "Сегодня записей: \(todayEntries.count) 🎉"))
                     .font(.caption.weight(.semibold)).foregroundStyle(.white.opacity(0.95))
             }
             Spacer()
-            ProgressRingOnColor(value: introducedCount, total: catalog.foods.count)
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,180 +71,186 @@ struct DashboardView: View {
         .shadow(color: Theme.accentDeep.opacity(0.30), radius: 16, x: 0, y: 9)
     }
 
-    private var introducedCount: Int {
-        statuses.filter { $0.state == .introduced }.count
-    }
+    // MARK: - Быстрые действия
 
-    private var addButton: some View {
-        Menu {
-            Button { showQuickLog = true } label: { Label("Записать кормление", systemImage: "square.and.pencil") }
-            Button { showPlan = true } label: { Label("Запланировать ввод", systemImage: "calendar.badge.plus") }
-            Button { goToCatalog() } label: { Label("Ввести новый продукт", systemImage: "leaf.fill") }
-        } label: {
-            HStack(spacing: 8) {
-                Image(systemName: "plus")
-                Text("Добавить запись")
-            }
-            .font(.headline.bold()).foregroundStyle(.white)
-            .frame(maxWidth: .infinity).padding(.vertical, 15)
-            .background(Theme.accentGradient, in: Capsule())
-            .shadow(color: Theme.accent.opacity(0.35), radius: 10, x: 0, y: 5)
+    private var actionTiles: some View {
+        HStack(spacing: 12) {
+            actionTile("Записать", "square.and.pencil", Theme.mint) { showFeed = true }
+            actionTile("Реакция", "exclamationmark.bubble.fill", .orange) { showReaction = true }
         }
     }
 
-    // MARK: - Требует внимания
+    private func actionTile(_ title: LocalizedStringKey, _ icon: String, _ color: Color,
+                            _ action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                Image(systemName: icon).font(.title2)
+                Text(title).font(.subheadline.bold())
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity).padding(.vertical, 18)
+            .background(LinearGradient(colors: [color, color.opacity(0.82)],
+                                       startPoint: .top, endPoint: .bottom),
+                        in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .shadow(color: color.opacity(0.32), radius: 10, x: 0, y: 6)
+        }
+        .buttonStyle(BouncyButtonStyle())
+    }
 
-    @ViewBuilder
-    private var attentionZone: some View {
-        if dueCount > 0 {
-            Button { AppRouter.shared.selectedTab = .allergens } label: {
-                HStack(spacing: 12) {
-                    Image(systemName: "exclamationmark.shield.fill").font(.title3).foregroundStyle(.orange)
-                    Text("Аллергенов пора освежить: \(dueCount)")
-                        .font(.subheadline.weight(.semibold)).foregroundStyle(.primary)
+    // MARK: - Коллекция продуктов (заполняется)
+
+    private var collectionCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("Коллекция продуктов").font(.headline)
+                Spacer()
+                Text("\(introducedCount)/\(catalog.foods.count)")
+                    .font(.subheadline.bold()).foregroundStyle(Theme.accent)
+            }
+            ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.foods.count)))
+                .tint(Theme.accent)
+
+            let shown = Array(collectionFoods.prefix(20))
+            let ghosts = max(0, 20 - shown.count)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 46), spacing: 10)], spacing: 10) {
+                ForEach(shown) { food in
+                    NavigationLink(value: food) { FoodIcon(food: food, size: 44) }
+                        .buttonStyle(.plain)
+                }
+                ForEach(0..<ghosts, id: \.self) { _ in ghostCell }
+            }
+
+            Button { goToCatalog() } label: {
+                Label("Вся коллекция", systemImage: "square.grid.2x2")
+                    .font(.subheadline.weight(.semibold)).foregroundStyle(Theme.accent)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .cartoonCard()
+    }
+
+    private var ghostCell: some View {
+        Circle().fill(Color.black.opacity(0.035))
+            .frame(width: 44, height: 44)
+            .overlay(Circle().stroke(Color.black.opacity(0.08),
+                                     style: StrokeStyle(lineWidth: 1, dash: [3])))
+    }
+
+    // MARK: - Витрина аллергенов
+
+    private var allergenCard: some View {
+        Button { AppRouter.shared.selectedTab = .allergens } label: {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Аллергены").font(.headline)
                     Spacer()
+                    if dueCount > 0 {
+                        Text("\(dueCount)").font(.caption.bold()).foregroundStyle(.white)
+                            .padding(.horizontal, 7).padding(.vertical, 2)
+                            .background(Color.orange, in: Capsule())
+                    }
+                    Text("\(introducedAllergenCount)/\(allergenGroups.count)")
+                        .font(.subheadline.bold()).foregroundStyle(Theme.accent)
                     Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
                 }
-                .cartoonCard()
-            }
-            .buttonStyle(.plain)
-        }
-        if !introducing.isEmpty {
-            attentionLabel("В процессе ввода")
-            ForEach(introducing, id: \.status.foodId) { attentionRow($0.food, subtitle: dayInfo($0.status)) }
-        }
-        if !pausedItems.isEmpty {
-            attentionLabel("Отложенные продукты")
-            ForEach(pausedItems, id: \.status.foodId) { item in
-                attentionRow(item.food, subtitle: pausedSubtitle(item.status))
-            }
-        }
-    }
-
-    private func attentionLabel(_ text: LocalizedStringKey) -> some View {
-        Text(text).font(.subheadline.bold()).foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
-    private func attentionRow(_ food: Food, subtitle: String) -> some View {
-        NavigationLink(value: food) {
-            HStack(spacing: 12) {
-                FoodIcon(food: food, size: 38)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(food.localizedName).font(.subheadline.weight(.semibold)).foregroundStyle(.primary)
-                    if !subtitle.isEmpty {
-                        Text(subtitle).font(.caption).foregroundStyle(.secondary)
-                    }
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 56), spacing: 8)], spacing: 10) {
+                    ForEach(allergenGroups) { allergenCircle($0) }
                 }
-                Spacer()
-                Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
             }
-            .padding(.vertical, 10).padding(.horizontal, 14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(.white.opacity(0.9), lineWidth: 1))
-            .shadow(color: Theme.accentDeep.opacity(0.08), radius: 10, x: 0, y: 5)
+            .cartoonCard()
         }
         .buttonStyle(.plain)
     }
 
-    private func pausedSubtitle(_ s: IntroductionStatus) -> String {
-        if let retry = s.retryAt { return String(localized: "Попробовать снова \(retry.shortDate)") }
-        return String(localized: "Ввод остановлен")
-    }
-
-    // MARK: - Лента дневника
-
-    @ViewBuilder
-    private var feed: some View {
-        if feedDays.isEmpty {
-            emptyFeed
-        } else {
-            ForEach(feedDays) { day in
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(dayLabel(day.date)).font(.subheadline.bold()).foregroundStyle(.secondary)
-                        .padding(.top, 4)
-                    ForEach(day.entries) { feedRow($0) }
+    private func allergenCircle(_ g: AllergenGroupStatus) -> some View {
+        let due = g.isIntroduced && !g.hasAllergy && g.status != .ok
+        return VStack(spacing: 4) {
+            ZStack {
+                if let rep = g.representativeFood {
+                    FoodIcon(food: rep, size: 40)
+                        .grayscale(g.isIntroduced ? 0 : 1)
+                        .opacity(g.isIntroduced ? 1 : 0.4)
+                } else {
+                    ghostCell.frame(width: 40, height: 40)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                if due {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .stroke(Color.orange, lineWidth: 2).frame(width: 46, height: 46)
+                }
+                if g.hasAllergy {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .stroke(Color.red, lineWidth: 2).frame(width: 46, height: 46)
+                }
             }
+            Text(g.group.title).font(.system(size: 9)).foregroundStyle(.secondary).lineLimit(1)
         }
     }
 
-    private func feedRow(_ entry: DayEntry) -> some View {
-        HStack(spacing: 12) {
-            if let food = entry.food { FoodIcon(food: food) }
-            else { EmojiAvatar(emoji: "🍽️", asset: "ui_plate") }
-            VStack(alignment: .leading, spacing: 2) {
-                Text(entry.food?.localizedName ?? entry.foodName).font(.headline)
-                HStack(spacing: 6) {
-                    Text(entry.date.formatted(.dateTime.hour().minute()))
-                        .font(.caption).foregroundStyle(.secondary)
-                    if let r = entry.reaction, r != .none {
-                        StatusBadge(text: r.title, color: .red)
+    // MARK: - Лента дня
+
+    private var todayCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Text("Сегодня").font(.headline)
+                Spacer()
+                Button { showPlan = true } label: {
+                    Label("Запланировать", systemImage: "calendar.badge.plus")
+                        .font(.caption.weight(.semibold)).foregroundStyle(Theme.accent)
+                }
+            }
+            if todayEntries.isEmpty {
+                Text("Записей сегодня ещё нет").font(.subheadline).foregroundStyle(.secondary)
+            } else {
+                ForEach(todayEntries) { entry in
+                    HStack(spacing: 12) {
+                        if let food = entry.food { FoodIcon(food: food, size: 38) }
+                        else { EmojiAvatar(emoji: "🍽️", asset: "ui_plate", size: 38) }
+                        Text(entry.food?.localizedName ?? entry.foodName).font(.subheadline.weight(.medium))
+                        if let r = entry.reaction, r != .none {
+                            StatusBadge(text: r.title, color: .red)
+                        }
+                        Spacer()
+                        Text(entry.date.formatted(.dateTime.hour().minute()))
+                            .font(.caption).foregroundStyle(.secondary)
+                        if let liking = entry.liking {
+                            OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 24)
+                        }
                     }
+                    .contentShape(Rectangle())
+                    .onTapGesture { editingLog = entry.log }
                 }
             }
-            Spacer()
-            if let liking = entry.liking {
-                OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 28)
-            }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .cartoonCard()
-        .contentShape(Rectangle())
-        .onTapGesture { editingLog = entry.log }
-    }
-
-    private var emptyFeed: some View {
-        VStack(spacing: 12) {
-            Mascot(mood: .curious)
-            Text("Здесь будет дневник кормлений").font(.headline)
-            Text("Запиши первое кормление или начни вводить продукт.")
-                .font(.subheadline).foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 30)
     }
 
     // MARK: - Данные
 
-    private var feedDays: [DaySummary] {
-        let real = logs.filter { !$0.planned }
-        let today = Calendar.current.startOfDay(for: Date())
-        return CalendarService(catalog: catalog, logs: real).days()
-            .filter { $0.date <= today }
+    private var introducedCount: Int {
+        statuses.filter { $0.state == .introduced }.count
     }
 
-    private func dayLabel(_ date: Date) -> String {
-        let cal = Calendar.current
-        if cal.isDateInToday(date) { return String(localized: "Сегодня") }
-        if cal.isDateInYesterday(date) { return String(localized: "Вчера") }
-        return date.formatted(.dateTime.day().month().weekday(.abbreviated)).capitalized
+    /// Для стены: введённые и вводимые продукты (введённые первыми).
+    private var collectionFoods: [Food] {
+        let order: (IntroState) -> Int = { $0 == .introduced ? 0 : 1 }
+        let ids = statuses.filter { $0.state == .introduced || $0.state == .introducing }
+            .sorted { order($0.state) < order($1.state) }
+            .map(\.foodId)
+        return ids.compactMap { catalog.food(id: $0) }
     }
 
-    private var introducing: [(food: Food, status: IntroductionStatus)] {
-        statuses.filter { $0.state == .introducing }
-            .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
+    private var todayEntries: [DayEntry] {
+        CalendarService(catalog: catalog, logs: logs).day(Date()).entries.filter { !$0.planned }
     }
 
-    private var pausedItems: [(food: Food, status: IntroductionStatus)] {
-        statuses.filter { $0.state == .paused }
-            .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
-    }
-
-    private var dueGroups: [AllergenGroupStatus] {
+    private var allergenGroups: [AllergenGroupStatus] {
         AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
-                            statuses: statuses, logs: logs)
-            .dueForDashboard()
+                            statuses: statuses, logs: logs).groups()
     }
-    private var dueCount: Int { dueGroups.count }
-
-    private func dayInfo(_ s: IntroductionStatus) -> String {
-        guard let start = s.introStartedAt else { return "" }
-        let day = FeedingService.observationDay(start: start)
-        let window = catalog.food(id: s.foodId).map { child.feedingProfile.observationDays(for: $0) }
-            ?? child.feedingProfile.observationDaysRegular
-        return String(localized: "День \(min(day, window)) из \(window)")
+    private var introducedAllergenCount: Int { allergenGroups.filter { $0.isIntroduced }.count }
+    private var dueCount: Int {
+        allergenGroups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
     }
 }

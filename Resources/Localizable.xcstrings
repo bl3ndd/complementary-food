@@ -960,6 +960,16 @@
         }
       }
     },
+    "Вся коллекция": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Full collection"
+          }
+        }
+      }
+    },
     "Всё под контролем": {
       "extractionState": "manual",
       "localizations": {
@@ -1401,6 +1411,16 @@
         }
       }
     },
+    "Записать": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log"
+          }
+        }
+      }
+    },
     "Записать кормление": {
       "extractionState": "manual",
       "localizations": {
@@ -1408,6 +1428,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Log a feeding"
+          }
+        }
+      }
+    },
+    "Записать реакцию": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log a reaction"
+          }
+        }
+      }
+    },
+    "Записей сегодня ещё нет": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing logged today yet"
           }
         }
       }
@@ -1931,6 +1971,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Skin (rash)"
+          }
+        }
+      }
+    },
+    "Коллекция продуктов": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food collection"
           }
         }
       }
@@ -3731,6 +3781,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Today"
+          }
+        }
+      }
+    },
+    "Сегодня записей пока нет": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No entries today yet"
+          }
+        }
+      }
+    },
+    "Сегодня записей: %lld 🎉": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today's entries: %lld 🎉"
           }
         }
       }

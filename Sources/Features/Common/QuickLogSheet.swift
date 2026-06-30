@@ -3,6 +3,7 @@ import SwiftUI
 /// Быстрая запись кормления с главной: выбрать продукт → открыть лог кормления.
 struct QuickLogSheet: View {
     let child: Child
+    var mode: LogFeedingSheet.Mode = .feeding
     @Environment(\.dismiss) private var dismiss
     @State private var search = ""
     @State private var picked: Food?
@@ -22,13 +23,13 @@ struct QuickLogSheet: View {
                 }
             }
             .searchable(text: $search, prompt: Text("Поиск продукта"))
-            .navigationTitle("Записать кормление")
+            .navigationTitle(mode == .feeding ? Text("Записать кормление") : Text("Записать реакцию"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Отмена") { dismiss() } }
             }
             .sheet(item: $picked, onDismiss: { dismiss() }) { food in
-                LogFeedingSheet(food: food, child: child, mode: .feeding)
+                LogFeedingSheet(food: food, child: child, mode: mode)
             }
         }
     }
