@@ -53,14 +53,21 @@ struct DashboardView: View {
                     .font(.title2.bold()).foregroundStyle(.white)
                 Text("\(child.ageInMonths) мес")
                     .font(.subheadline.weight(.medium)).foregroundStyle(.white.opacity(0.9))
+                Text(String(localized: "\(introducedCount) продуктов введено"))
+                    .font(.caption.weight(.semibold)).foregroundStyle(.white.opacity(0.95))
             }
             Spacer()
+            ProgressRingOnColor(value: introducedCount, total: catalog.foods.count)
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.accentGradient,
                     in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accentDeep.opacity(0.30), radius: 16, x: 0, y: 9)
+    }
+
+    private var introducedCount: Int {
+        statuses.filter { $0.state == .introduced }.count
     }
 
     private var addButton: some View {
