@@ -43,24 +43,27 @@ enum Theme {
 }
 
 /// Градиентный фон приложения с мягкими «облачками» для глубины.
+/// Пятна — радиальные градиенты, НЕ `.blur` (живой блюр пересчитывается каждый кадр
+/// и рушит FPS на переходах — фон есть на каждом экране, при пуше их сразу два).
 struct AppBackground: View {
     var body: some View {
         ZStack {
             LinearGradient(colors: [Theme.bgTop, Theme.bgBottom],
                            startPoint: .top, endPoint: .bottom)
 
-            // Декоративные размытые пятна — лёгкое ощущение объёма.
-            Circle().fill(Theme.sunny.opacity(0.18))
-                .frame(width: 260).blur(radius: 60)
-                .offset(x: -130, y: -260)
-            Circle().fill(Theme.sky.opacity(0.16))
-                .frame(width: 240).blur(radius: 60)
-                .offset(x: 150, y: -120)
-            Circle().fill(Theme.lilac.opacity(0.14))
-                .frame(width: 220).blur(radius: 60)
-                .offset(x: -150, y: 320)
+            blob(Theme.sunny.opacity(0.22), size: 340, x: -130, y: -260)
+            blob(Theme.sky.opacity(0.20),   size: 320, x: 150,  y: -120)
+            blob(Theme.lilac.opacity(0.17), size: 300, x: -150, y: 320)
         }
         .ignoresSafeArea()
+    }
+
+    private func blob(_ color: Color, size: CGFloat, x: CGFloat, y: CGFloat) -> some View {
+        Circle()
+            .fill(RadialGradient(gradient: Gradient(colors: [color, color.opacity(0)]),
+                                 center: .center, startRadius: 0, endRadius: size / 2))
+            .frame(width: size, height: size)
+            .offset(x: x, y: y)
     }
 }
 
@@ -98,8 +101,8 @@ extension View {
             .overlay(
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .stroke(.white.opacity(0.9), lineWidth: 1))
-            .shadow(color: Theme.accentDeep.opacity(0.10), radius: 16, x: 0, y: 8)
-            .shadow(color: .black.opacity(0.04), radius: 3, x: 0, y: 1)
+            // Одна тень вместо двух — каждый .shadow это offscreen-проход на карточку.
+            .shadow(color: Theme.accentDeep.opacity(0.12), radius: 14, x: 0, y: 7)
     }
 }
 
