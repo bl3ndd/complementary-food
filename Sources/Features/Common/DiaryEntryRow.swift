@@ -16,11 +16,17 @@ struct DiaryEntryRow: View {
             } else {
                 EmojiAvatar(emoji: "🍽️", asset: "ui_plate")
             }
-            VStack(alignment: .leading, spacing: 4) {
-                Text(entry.food?.localizedName ?? entry.foodName).font(.headline)
-                HStack(spacing: 6) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(entry.food?.localizedName ?? entry.foodName)
+                        .font(.headline).lineLimit(1)
+                    Spacer(minLength: 4)
                     Text(entry.date.formatted(.dateTime.hour().minute()))
                         .font(.caption).foregroundStyle(.secondary)
+                }
+                // Бейджи — отдельной строкой, целыми чипами переносятся на новую
+                // строку (FlowLayout), текст внутри не режется.
+                FlowLayout(spacing: 6) {
                     StatusBadge(text: entry.type == .intro
                                 ? String(localized: "Ввод")
                                 : String(localized: "maintenance.type", defaultValue: "Поддержка"),
@@ -37,7 +43,6 @@ struct DiaryEntryRow: View {
                         .lineLimit(2)
                 }
             }
-            Spacer()
             trailing
         }
         .cartoonCard()
