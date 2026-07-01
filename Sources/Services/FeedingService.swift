@@ -27,13 +27,16 @@ struct FeedingService {
         s.state = .introducing
         s.introStartedAt = date
         s.completedAt = nil
+        s.retryAt = nil   // начали новый ввод — старое «попробовать снова» неактуально
         context.insert(FoodLog(foodId: food.id, date: date, type: .intro))
         save()
     }
 
-    /// introducing → introduced (окно наблюдения прошло, реакции нет).
+    /// introducing → introduced (окно наблюдения прошло, реакции нет). Guard в
+    /// сервисе, а не только видимость кнопки: из других состояний не форсим «введён».
     func completeIntroduction(_ food: Food) {
         let s = status(for: food.id)
+        guard s.state == .introducing else { return }
         s.state = .introduced
         s.completedAt = Date()
         save()

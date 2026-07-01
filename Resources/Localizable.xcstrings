@@ -2836,6 +2836,17 @@
         }
       }
     },
+    "Не выбран ни один аллерген — трекер поддержки работать не будет.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No allergen selected — the maintenance tracker won’t work."
+          }
+        }
+      }
+    },
     "Не давать": {
       "extractionState": "manual",
       "localizations": {

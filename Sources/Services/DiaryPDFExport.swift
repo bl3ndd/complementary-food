@@ -226,7 +226,9 @@ struct DiaryPDFExport {
                 let ar = img.size.height / max(img.size.width, 1)
                 let drawH = min(maxImgH, colW * ar)
                 let blockH = drawH + 16
-                if col == 0, rowTop + blockH > maxY { ctx.beginPage(); rowTop = margin; rowMaxH = 0 }
+                // Перенос страницы для любой колонки (не только левой), иначе высокое
+                // правое фото уезжало за нижнее поле.
+                if rowTop + blockH > maxY { ctx.beginPage(); rowTop = margin; rowMaxH = 0; col = 0 }
                 let x = margin + CGFloat(col) * (colW + gap)
                 img.draw(in: CGRect(x: x, y: rowTop, width: colW, height: drawH))
                 (item.caption as NSString).draw(

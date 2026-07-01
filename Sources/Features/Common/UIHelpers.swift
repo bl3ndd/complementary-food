@@ -175,7 +175,9 @@ struct PhotosAttachCard: View {
                                     .frame(width: 74, height: 74)
                                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                                     .overlay(alignment: .topTrailing) {
-                                        Button { photos.remove(at: idx) } label: {
+                                        // Удаляем по значению, а не по захваченному idx —
+                                        // индекс мог устареть при быстрых тапах/анимации.
+                                        Button { photos.removeAll { $0 == data } } label: {
                                             Image(systemName: "xmark.circle.fill")
                                                 .font(.body)
                                                 .foregroundStyle(.white, .black.opacity(0.45))

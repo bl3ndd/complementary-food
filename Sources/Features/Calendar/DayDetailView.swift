@@ -10,6 +10,7 @@ struct DayDetailView: View {
     @Query private var children: [Child]
     @State private var editingLog: FoodLog?
     @State private var showPlan = false
+    @State private var showAddFeeding = false
 
     private let catalog = FoodCatalog.shared
 
@@ -33,6 +34,10 @@ struct DayDetailView: View {
                 if isTodayOrFuture {
                     BigButton(title: "Запланировать ввод") { showPlan = true }
                 }
+                // За сегодня/прошлый день можно дописать кормление (ретро-запись).
+                if !isFutureDay {
+                    GhostButton(title: "Записать кормление") { showAddFeeding = true }
+                }
                 if day.entries.isEmpty {
                     if !isTodayOrFuture { emptyState }
                 } else {
@@ -46,6 +51,11 @@ struct DayDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $editingLog) { EditLogSheet(log: $0) }
         .sheet(isPresented: $showPlan) { PlanIntroSheet(initialDate: date) }
+        .sheet(isPresented: $showAddFeeding) {
+            if let child = children.first {
+                QuickLogSheet(child: child, initialDate: date)
+            }
+        }
     }
 
     private func entryRow(_ entry: DayEntry) -> some View {

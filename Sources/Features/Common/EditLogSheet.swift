@@ -140,7 +140,11 @@ struct EditLogSheet: View {
             log.liking = liking
             log.reaction = reaction == .none ? nil : reaction
             log.severity = reaction == .none ? nil : severity
-            FeedingService(context: context).setPhotos(photos, on: log)
+            // Пересобираем фото только если реально менялись — иначе лишняя перезапись
+            // external-storage/CloudKit при правке одной заметки.
+            if photos != log.photoDatas {
+                FeedingService(context: context).setPhotos(photos, on: log)
+            }
         }
         log.note = note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note
         try? context.save()

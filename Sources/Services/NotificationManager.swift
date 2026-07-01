@@ -188,7 +188,10 @@ final class NotificationManager {
                        now: Date = Date(),
                        calendar: Calendar = .current) -> [UNNotificationRequest] {
         statuses.compactMap { status in
-            guard let retryAt = status.retryAt, retryAt > now else { return nil }
+            // Только для отложенных (paused): если продукт вышел из паузы, но retryAt
+            // не почистился — не шлём напоминание «попробовать снова».
+            guard status.state == .paused,
+                  let retryAt = status.retryAt, retryAt > now else { return nil }
 
             let content = UNMutableNotificationContent()
             content.title = "Pudding"

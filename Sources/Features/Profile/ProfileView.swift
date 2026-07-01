@@ -18,12 +18,24 @@ struct ProfileView: View {
     @State private var showLanguageRestart = false
     @State private var shareFile: ShareableFile?
     @State private var showRecap = false
+    @State private var isResetting = false
 
     private let catalog = FoodCatalog.shared
 
     var body: some View {
         NavigationStack {
-            Form {
+            // Во время сброса снимаем всю форму: она биндит `child` ($name/$birthDate,
+            // план), а resetAll его удаляет — рендер с удалённым @Model крашит.
+            if isResetting {
+                AppBackground()
+            } else {
+                profileForm
+            }
+        }
+    }
+
+    private var profileForm: some View {
+        Form {
                 childSection
                 planSection
                 appSection
@@ -34,7 +46,14 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .background(AppBackground())
             .navigationTitle("Профиль")
-            .task { await loadNotifStatus() }
+            .task {
+                await loadNotifStatus()
+                // Зажать параметры плана в допустимые границы (legacy/CloudKit-значения
+                // вне диапазона иначе не подсветятся в пикере).
+                let before = customSignature
+                child.clampCustom()
+                if customSignature != before { try? context.save() }
+            }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active { Task { await loadNotifStatus() } }
             }
@@ -59,7 +78,6 @@ struct ProfileView: View {
             } message: {
                 Text("Перезапустите приложение, чтобы применить новый язык.")
             }
-        }
     }
 
     // MARK: - Малыш
@@ -192,18 +210,23 @@ struct ProfileView: View {
 
     /// Полный сброс: удаляем все данные → RootView покажет онбординг.
     private func resetAll() {
-        NotificationManager.shared.clearAll()
-        // LogPhoto удаляем явно: bulk-delete FoodLog НЕ применяет cascade (иначе фото
-        // остаются орфанами в сторе/CloudKit навсегда).
-        try? context.delete(model: LogPhoto.self)
-        try? context.delete(model: FoodLog.self)
-        try? context.delete(model: IntroductionStatus.self)
-        try? context.delete(model: CustomFood.self)
-        try? context.delete(model: Child.self)
-        try? context.save()
-        FoodCatalog.setCustom([])
-        // Полный сброс = «как новая установка»: дисклеймер-гейт должен всплыть снова.
-        UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
+        // Сначала снимаем форму (её биндинги к child), потом на следующем тике удаляем
+        // модели — иначе рендер формы поймает уже удалённый child.
+        isResetting = true
+        DispatchQueue.main.async {
+            NotificationManager.shared.clearAll()
+            // LogPhoto удаляем явно: bulk-delete FoodLog НЕ применяет cascade (иначе
+            // фото остаются орфанами в сторе/CloudKit навсегда).
+            try? context.delete(model: LogPhoto.self)
+            try? context.delete(model: FoodLog.self)
+            try? context.delete(model: IntroductionStatus.self)
+            try? context.delete(model: CustomFood.self)
+            try? context.delete(model: Child.self)
+            try? context.save()
+            FoodCatalog.setCustom([])
+            // Полный сброс = «как новая установка»: дисклеймер-гейт должен всплыть снова.
+            UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
+        }
     }
 
     private var notifStatusText: String {

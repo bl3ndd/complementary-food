@@ -4,6 +4,7 @@ import SwiftUI
 struct QuickLogSheet: View {
     let child: Child
     var mode: LogFeedingSheet.Mode = .feeding
+    var initialDate: Date = Date()
     @Environment(\.dismiss) private var dismiss
     @State private var search = ""
     @State private var picked: Food?
@@ -28,8 +29,11 @@ struct QuickLogSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Отмена") { dismiss() } }
             }
-            .sheet(item: $picked, onDismiss: { dismiss() }) { food in
-                LogFeedingSheet(food: food, child: child, mode: mode)
+            .sheet(item: $picked) { food in
+                // Закрываем быстрый лист только после сохранения; по «Отмена»
+                // возвращаемся к списку продуктов (picked сбросится сам).
+                LogFeedingSheet(food: food, child: child, mode: mode,
+                                initialDate: initialDate, onSaved: { dismiss() })
             }
         }
     }

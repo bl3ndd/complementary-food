@@ -75,6 +75,12 @@ struct PlanDetailEditor: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Аллергены для ввода").font(.subheadline.bold())
                 allergenGrid
+                if child.customAllergenGroups.isEmpty {
+                    Label("Не выбран ни один аллерген — трекер поддержки работать не будет.",
+                          systemImage: "exclamationmark.triangle.fill")
+                        .font(.caption).foregroundStyle(.orange)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             .cartoonCard()
         }

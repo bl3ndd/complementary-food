@@ -10,6 +10,11 @@ struct LogFeedingSheet: View {
     let food: Food
     let child: Child
     var mode: Mode = .feeding
+    /// Начальная дата (для записи «за этот день» из деталей дня); клампится к сегодня.
+    var initialDate: Date = Date()
+    /// Вызывается только при сохранении (не при «Отмена») — чтобы внешний быстрый
+    /// лист закрылся лишь после записи, а по отмене вернул к списку продуктов.
+    var onSaved: (() -> Void)? = nil
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
@@ -50,6 +55,7 @@ struct LogFeedingSheet: View {
                     Button("Отмена") { dismiss() }
                 }
             }
+            .onAppear { date = min(initialDate, Date()) }
         }
     }
 
@@ -165,6 +171,7 @@ struct LogFeedingSheet: View {
             severity: severity,
             photos: photos)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        onSaved?()
         dismiss()
     }
 }
