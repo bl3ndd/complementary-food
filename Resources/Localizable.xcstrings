@@ -4115,6 +4115,17 @@
         }
       }
     },
+    "Свои продукты": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My foods"
+          }
+        }
+      }
+    },
     "Свой план": {
       "extractionState": "manual",
       "localizations": {

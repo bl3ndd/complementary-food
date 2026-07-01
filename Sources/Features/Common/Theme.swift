@@ -31,6 +31,7 @@ enum Theme {
         case .dairy:     return Color(red: 0.55, green: 0.72, blue: 0.95)
         case .egg:       return sunny
         case .other:     return lilac
+        case .custom:    return accent
         }
     }
 

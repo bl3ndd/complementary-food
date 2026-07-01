@@ -22,7 +22,7 @@ enum IntroState: String, Codable, CaseIterable {
 /// Категория продукта в каталоге. Группируем по реальному типу продукта;
 /// «аллергенность» — отдельный флаг `Food.isAllergen`, не категория (п.14).
 enum FoodCategory: String, Codable, CaseIterable {
-    case vegetable, porridge, fruit, meat, fish, dairy, egg, other
+    case vegetable, porridge, fruit, meat, fish, dairy, egg, other, custom
 
     var title: String {
         switch self {
@@ -34,6 +34,7 @@ enum FoodCategory: String, Codable, CaseIterable {
         case .dairy:     return String(localized: "Молочные")
         case .egg:       return String(localized: "Яйцо")
         case .other:     return String(localized: "Другое")
+        case .custom:    return String(localized: "Свои продукты")
         }
     }
 }

@@ -22,9 +22,9 @@ final class CustomFood {
         self.isAllergen = isAllergen
     }
 
-    /// Представление в виде каталожного `Food` (категория «Другое»).
+    /// Представление в виде каталожного `Food` (отдельная категория «Свои продукты»).
     var asFood: Food {
-        Food(id: id, name: name, category: .other, emoji: emoji,
+        Food(id: id, name: name, category: .custom, emoji: emoji,
              isAllergen: isAllergen, allergenGroup: isAllergen ? .other : nil,
              minAgeMonths: minAgeMonths)
     }
