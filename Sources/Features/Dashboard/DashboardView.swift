@@ -254,16 +254,18 @@ struct DashboardView: View {
                     HStack(spacing: 12) {
                         if let food = entry.food { FoodIcon(food: food, size: 38) }
                         else { EmojiAvatar(emoji: "🍽️", asset: "ui_plate", size: 38) }
-                        Text(entry.food?.localizedName ?? entry.foodName).font(.subheadline.weight(.medium))
+                        Text(entry.food?.localizedName ?? entry.foodName)
+                            .font(.subheadline.weight(.medium)).lineLimit(1)
                         if let r = entry.reaction, r != .none {
                             StatusBadge(text: r.title, color: .red)
                         }
-                        Spacer()
-                        Text(entry.date.formatted(.dateTime.hour().minute()))
-                            .font(.caption).foregroundStyle(.secondary)
                         if let liking = entry.liking {
                             OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 24)
                         }
+                        Spacer(minLength: 8)
+                        // Время — всегда крайнее справа, ровным столбцом.
+                        Text(entry.date.formatted(.dateTime.hour().minute()))
+                            .font(.caption).foregroundStyle(.secondary)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture { editingLog = entry.log }
