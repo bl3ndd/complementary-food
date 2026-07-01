@@ -1743,6 +1743,17 @@
         }
       }
     },
+    "Изменить": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit"
+          }
+        }
+      }
+    },
     "Иконка": {
       "extractionState": "manual",
       "localizations": {

@@ -23,6 +23,7 @@ struct CalendarView: View {
     @State private var editingLog: FoodLog?
     @State private var showPlan = false
     @State private var shareFile: ShareableFile?
+    @State private var pendingDelete: FoodLog?
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -76,6 +77,16 @@ struct CalendarView: View {
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
             .sheet(isPresented: $showPlan) { PlanIntroSheet() }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
+            .alert(Text("Удалить запись?"),
+                   isPresented: Binding(get: { pendingDelete != nil },
+                                        set: { if !$0 { pendingDelete = nil } })) {
+                Button("Удалить", role: .destructive) {
+                    if let log = pendingDelete { delete(log) }
+                }
+                Button("Отмена", role: .cancel) { pendingDelete = nil }
+            } message: {
+                Text("Действие нельзя отменить.")
+            }
         }
     }
 
@@ -163,6 +174,14 @@ struct CalendarView: View {
                               showDone: entry.planned && day.date <= cal.startOfDay(for: Date()),
                               onDone: { markDone(entry.log) })
                     .onTapGesture { editingLog = entry.log }
+                    .contextMenu {
+                        Button { editingLog = entry.log } label: {
+                            Label("Изменить", systemImage: "pencil")
+                        }
+                        Button(role: .destructive) { pendingDelete = entry.log } label: {
+                            Label("Удалить", systemImage: "trash")
+                        }
+                    }
             }
         }
     }
@@ -270,6 +289,9 @@ struct CalendarView: View {
         let hasReaction = summary?.hasReaction ?? false
         let isToday = cal.isDateInToday(date)
         let plannedOnly = summary?.isPlannedOnly ?? false
+        // Смешанный день: есть и факт, и план — чтобы не терять сиреневый сигнал (P3).
+        let mixed = (summary?.hasPlanned ?? false) && !plannedOnly
+        let entryCount = summary?.entries.count ?? 0
         // «Есть записи» — синий, «реакция» — красный, «план» — сиреневый: разные хюэ (п.6/21).
         let fill = hasReaction ? Color.red : (plannedOnly ? Theme.lilac : Theme.sky)
         // Статус не только цветом — дублируем в VoiceOver (доступность).
@@ -293,8 +315,22 @@ struct CalendarView: View {
                     }
                 }
                 .overlay {
+                    // Смешанный день — тонкое сиреневое кольцо «ещё и план».
+                    if mixed { Circle().stroke(Theme.lilac, lineWidth: 2).padding(1.5) }
+                }
+                .overlay {
                     if isToday {
                         Circle().stroke(active ? .white.opacity(0.9) : Theme.accent, lineWidth: 2)
+                    }
+                }
+                .overlay(alignment: .topTrailing) {
+                    // Счётчик записей на «густых» днях.
+                    if entryCount >= 2 {
+                        Text("\(entryCount)")
+                            .font(.system(size: 9, weight: .heavy))
+                            .foregroundStyle(fill)
+                            .frame(width: 14, height: 14)
+                            .background(Circle().fill(.white).shadow(radius: 1))
                     }
                 }
         }
@@ -337,6 +373,12 @@ struct CalendarView: View {
         if let profile = children.first?.feedingProfile {
             NotificationManager.shared.refresh(context: context, profile: profile)
         }
+    }
+
+    private func delete(_ log: FoodLog) {
+        context.delete(log)
+        try? context.save()
+        pendingDelete = nil
     }
 
     /// Сформировать PDF-дневник и открыть системный share sheet («для педиатра»).
