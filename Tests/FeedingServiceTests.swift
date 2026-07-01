@@ -184,6 +184,14 @@ final class FeedingServiceTests: XCTestCase {
         }
     }
 
+    func testSelectableReactionsExcludeBreathing() {
+        XCTAssertFalse(ReactionType.selectableCases.contains(.breathing),
+                       "«затруднённое дыхание» убрано из выбора")
+        XCTAssertTrue(ReactionType.selectableCases.contains(.skin))
+        // Кейс сохранён — старые логи с breathing всё ещё декодируются.
+        XCTAssertEqual(ReactionType(rawValue: "breathing"), .breathing)
+    }
+
     /// Старые логи с raw «gi»/«breathing» должны декодироваться (совместимость).
     func testLegacyReactionRawValuesStillDecode() {
         XCTAssertEqual(ReactionType(rawValue: "gi"), .gi)

@@ -88,6 +88,8 @@ reactions="
 none 1F44D
 skin 1F534
 gi 1F922
+constipation 1F616
+diarrhea 1F4A9
 breathing 1F624
 other 2753
 "

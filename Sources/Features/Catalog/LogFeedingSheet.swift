@@ -103,7 +103,7 @@ struct LogFeedingSheet: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Реакция").font(.headline)
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(ReactionType.allCases, id: \.self) { r in
+                ForEach(ReactionType.selectableCases, id: \.self) { r in
                     reactionButton(r)
                 }
             }

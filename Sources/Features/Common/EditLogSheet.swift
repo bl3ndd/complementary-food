@@ -50,7 +50,7 @@ struct EditLogSheet: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Реакция").font(.headline)
                             LazyVGrid(columns: columns, spacing: 10) {
-                                ForEach(ReactionType.allCases, id: \.self) { reactionButton($0) }
+                                ForEach(ReactionType.selectableCases, id: \.self) { reactionButton($0) }
                             }
                             if reaction != .none {
                                 Text("Насколько сильно?")

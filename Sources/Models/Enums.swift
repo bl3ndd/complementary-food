@@ -71,6 +71,10 @@ enum LogType: String, Codable {
 enum ReactionType: String, Codable, CaseIterable {
     case none, skin, gi, constipation, diarrhea, breathing, other
 
+    /// Выбираемые в UI реакции. `breathing` убран из выбора (дневник не про
+    /// экстренные состояния), но кейс сохранён — для декодинга старых логов.
+    static var selectableCases: [ReactionType] { allCases.filter { $0 != .breathing } }
+
     var title: String {
         switch self {
         case .none:         return String(localized: "Нет реакции")
