@@ -219,6 +219,8 @@ final class FoodCatalogTests: XCTestCase {
 
         let catalog = FoodCatalog.shared
         XCTAssertEqual(catalog.food(id: cf.id)?.category, .other)
+        XCTAssertTrue(catalog.all.contains { $0.id == cf.id },
+                      "свой продукт входит в all — знаменатель коллекции его учитывает")
         XCTAssertTrue(catalog.byCategory(.other).contains { $0.id == cf.id })
         XCTAssertTrue(catalog.search("компот").contains { $0.id == cf.id })
         XCTAssertEqual(cf.asFood.emoji, "🧃")

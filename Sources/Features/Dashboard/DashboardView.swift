@@ -152,10 +152,10 @@ struct DashboardView: View {
             HStack(alignment: .firstTextBaseline) {
                 Text("Коллекция продуктов").font(.headline)
                 Spacer()
-                Text("\(introducedCount)/\(catalog.foods.count)")
+                Text("\(introducedCount)/\(catalog.all.count)")
                     .font(.subheadline.bold()).foregroundStyle(Theme.accent)
             }
-            ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.foods.count)))
+            ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.all.count)))
                 .tint(Theme.accent)
 
             let shown = Array(collectionFoods.prefix(20))

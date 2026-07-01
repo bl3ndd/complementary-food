@@ -113,11 +113,15 @@ struct AddCustomFoodSheet: View {
     private func save() {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
-        context.insert(CustomFood(name: trimmed, emoji: emoji,
-                                  minAgeMonths: minAge, isAllergen: isAllergen))
+        let food = CustomFood(name: trimmed, emoji: emoji,
+                              minAgeMonths: minAge, isAllergen: isAllergen)
+        context.insert(food)
         try? context.save()
         let all = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []
         FoodCatalog.setCustom(all)
+        // Свой продукт — сразу в коллекцию: помечаем введённым (ты его добавил — он «твой»).
+        // markIntroduced НЕ создаёт запись в дневнике, только статус.
+        FeedingService(context: context).markIntroduced([food.asFood])
         dismiss()
     }
 }
