@@ -107,6 +107,8 @@ warning 26A0
 bell 1F514
 seedling 1F331
 party 1F389
+check 2705
+pause 23F8
 "
 
 # категория -> кодпоинт (фолбэк)

@@ -152,12 +152,14 @@ struct FoodDetailView: View {
         }
     }
 
-    /// OpenMoji-ассет статуса, если есть (иначе — emoji-фолбэк выше).
+    /// OpenMoji-ассет статуса (все состояния — OpenMoji, без системных эмодзи).
     private var stateAsset: String {
         switch state {
-        case .introducing: return "ui_seedling"
-        case .allergy:     return "ui_warning"
-        default:           return ""
+        case .notIntroduced: return ""
+        case .introducing:   return "ui_seedling"
+        case .introduced:    return "ui_check"
+        case .paused:        return "ui_pause"
+        case .allergy:       return "ui_warning"
         }
     }
 
