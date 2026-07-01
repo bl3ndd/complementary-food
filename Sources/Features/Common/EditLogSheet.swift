@@ -13,7 +13,9 @@ struct EditLogSheet: View {
     @State private var date: Date
     @State private var liking: Liking?
     @State private var reaction: ReactionType
+    @State private var severity: ReactionSeverity?
     @State private var note: String
+    @State private var photo: Data?
     @State private var confirmDelete = false
 
     init(log: FoodLog) {
@@ -21,7 +23,9 @@ struct EditLogSheet: View {
         _date = State(initialValue: log.date)
         _liking = State(initialValue: log.liking)
         _reaction = State(initialValue: log.reaction ?? .none)
+        _severity = State(initialValue: log.severity)
         _note = State(initialValue: log.note ?? "")
+        _photo = State(initialValue: log.photo)
     }
 
     private var isPlanned: Bool { log.planned }
@@ -48,8 +52,15 @@ struct EditLogSheet: View {
                             LazyVGrid(columns: columns, spacing: 10) {
                                 ForEach(ReactionType.allCases, id: \.self) { reactionButton($0) }
                             }
+                            if reaction != .none {
+                                Text("Насколько сильно?")
+                                    .font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
+                                SeverityPicker(selection: $severity)
+                            }
                         }
                         .cartoonCard()
+
+                        PhotoAttachCard(photo: $photo)
                     }
 
                     VStack(alignment: .leading, spacing: 10) {
@@ -128,6 +139,8 @@ struct EditLogSheet: View {
         if !isPlanned {
             log.liking = liking
             log.reaction = reaction == .none ? nil : reaction
+            log.severity = reaction == .none ? nil : severity
+            log.photo = photo
         }
         log.note = note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note
         try? context.save()

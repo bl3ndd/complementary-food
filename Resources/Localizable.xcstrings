@@ -1312,6 +1312,17 @@
         }
       }
     },
+    "Добавить фото": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add photo"
+          }
+        }
+      }
+    },
     "Другое": {
       "extractionState": "manual",
       "localizations": {
@@ -1451,6 +1462,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open the catalog and pick the first food."
+          }
+        }
+      }
+    },
+    "Заменить фото": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replace photo"
           }
         }
       }
@@ -2292,6 +2314,17 @@
         }
       }
     },
+    "Лёгкая": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mild"
+          }
+        }
+      }
+    },
     "Лёгкий овощ с высоким содержанием воды. Источник калия и витамина C.": {
       "extractionState": "stale",
       "localizations": {
@@ -2657,6 +2690,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "e.g. ate half"
+          }
+        }
+      }
+    },
+    "Насколько сильно?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How strong?"
           }
         }
       }
@@ -4055,6 +4099,17 @@
         }
       }
     },
+    "Сильная": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Severe"
+          }
+        }
+      }
+    },
     "Системный": {
       "extractionState": "manual",
       "localizations": {
@@ -4216,6 +4271,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wed"
+          }
+        }
+      }
+    },
+    "Средняя": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderate"
           }
         }
       }
@@ -4437,6 +4503,17 @@
         }
       }
     },
+    "Убрать": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove"
+          }
+        }
+      }
+    },
     "Углеводы": {
       "extractionState": "stale",
       "localizations": {
@@ -4565,6 +4642,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Phosphorus"
+          }
+        }
+      }
+    },
+    "Фото": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo"
           }
         }
       }

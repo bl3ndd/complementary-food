@@ -16,8 +16,10 @@ struct LogFeedingSheet: View {
 
     @State private var liking: Liking?
     @State private var reaction: ReactionType = .none
+    @State private var severity: ReactionSeverity?
     @State private var note = ""
     @State private var date = Date()
+    @State private var photo: Data?
 
     private let columns = [GridItem(.flexible(), spacing: 10),
                            GridItem(.flexible(), spacing: 10),
@@ -32,6 +34,7 @@ struct LogFeedingSheet: View {
                     if mode == .feeding { likingCard }
                     if mode == .reaction { reactionCard }
                     noteCard
+                    PhotoAttachCard(photo: $photo)
                     BigButton(title: "Сохранить") { save() }
                         .padding(.top, 4)
                 }
@@ -99,6 +102,9 @@ struct LogFeedingSheet: View {
                 }
             }
             if reaction != .none {
+                Text("Насколько сильно?")
+                    .font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
+                SeverityPicker(selection: $severity)
                 Label("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.",
                       systemImage: "info.circle")
                     .font(.caption).foregroundStyle(.orange)
@@ -155,7 +161,9 @@ struct LogFeedingSheet: View {
             liking: liking,
             reaction: reaction == .none ? nil : reaction,
             date: date,
-            note: note.isEmpty ? nil : note)
+            note: note.isEmpty ? nil : note,
+            severity: severity,
+            photo: photo)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
         dismiss()
     }

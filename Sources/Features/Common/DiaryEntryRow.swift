@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Одна строка журнала прикорма — общий вид для ленты Календаря и деталей дня.
 /// Чисто презентационный: тап/«Выполнено» вешает родитель (строка лишь сообщает,
@@ -36,6 +37,9 @@ struct DiaryEntryRow: View {
                     }
                     if let reaction = entry.reaction, reaction != .none {
                         StatusBadge(text: reaction.title, color: .red)
+                        if let severity = entry.log.severity {
+                            StatusBadge(text: severity.title, color: severity.color)
+                        }
                     }
                 }
                 if let note = entry.log.note, !note.isEmpty {
@@ -54,6 +58,11 @@ struct DiaryEntryRow: View {
             PillButton(title: "Выполнено") { onDone() }
         } else {
             HStack(spacing: 8) {
+                if let data = entry.log.photo, let ui = UIImage(data: data) {
+                    Image(uiImage: ui).resizable().scaledToFill()
+                        .frame(width: 32, height: 32)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                }
                 if !entry.planned, let liking = entry.liking {
                     OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 30)
                 }

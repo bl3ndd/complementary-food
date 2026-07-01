@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import PhotosUI
 
 extension View {
     /// Прячет клавиатуру по тапу по пустому месту (тапы по полям/кнопкам не перехватываются).
@@ -29,6 +30,56 @@ extension IntroState {
         case .introduced:    return .green
         case .paused:        return .orange
         case .allergy:       return .red
+        }
+    }
+}
+
+extension ReactionSeverity {
+    var color: Color {
+        switch self {
+        case .mild:     return Theme.sunny
+        case .moderate: return .orange
+        case .severe:   return .red
+        }
+    }
+}
+
+/// Уменьшает и сжимает фото перед сохранением в SwiftData/CloudKit (внешнее
+/// хранилище, но всё же — не тащим многомегабайтные оригиналы).
+func compressedImageData(_ data: Data, maxDim: CGFloat = 1200, quality: CGFloat = 0.7) -> Data? {
+    guard let img = UIImage(data: data) else { return nil }
+    let longest = max(img.size.width, img.size.height)
+    let scale = min(1, maxDim / longest)
+    if scale >= 1 { return img.jpegData(compressionQuality: quality) }
+    let size = CGSize(width: img.size.width * scale, height: img.size.height * scale)
+    let resized = UIGraphicsImageRenderer(size: size).image { _ in
+        img.draw(in: CGRect(origin: .zero, size: size))
+    }
+    return resized.jpegData(compressionQuality: quality)
+}
+
+/// Выбор тяжести реакции: 3 капсулы, повторный тап снимает выбор (как LikingPicker).
+struct SeverityPicker: View {
+    @Binding var selection: ReactionSeverity?
+
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(ReactionSeverity.allCases, id: \.self) { s in
+                let sel = selection == s
+                Button {
+                    withAnimation(.snappy) { selection = sel ? nil : s }
+                } label: {
+                    Text(s.title)
+                        .font(.subheadline.weight(.semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(sel ? s.color.opacity(0.18) : Color.black.opacity(0.03),
+                                    in: Capsule())
+                        .overlay(Capsule().stroke(sel ? s.color : .clear, lineWidth: 1.5))
+                        .foregroundStyle(sel ? s.color : .secondary)
+                }
+                .buttonStyle(.plain)
+            }
         }
     }
 }
@@ -94,6 +145,46 @@ extension Date {
     /// Короткая дата «день месяц» в локали устройства (склонения/порядок — системные).
     var shortDate: String {
         formatted(.dateTime.day().month())
+    }
+}
+
+/// Карточка «Фото» для записи (тарелка/сыпь-доказательство): выбор из галереи,
+/// превью и удаление. Фото ужимается перед сохранением. Общая для листов записи.
+struct PhotoAttachCard: View {
+    @Binding var photo: Data?
+    @State private var item: PhotosPickerItem?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Фото").font(.headline)
+            if let data = photo, let ui = UIImage(data: data) {
+                HStack(spacing: 12) {
+                    Image(uiImage: ui).resizable().scaledToFill()
+                        .frame(width: 64, height: 64)
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    Spacer()
+                    Button(role: .destructive) { photo = nil; item = nil } label: {
+                        Label("Убрать", systemImage: "trash")
+                    }
+                    .foregroundStyle(.red)
+                }
+            }
+            PhotosPicker(selection: $item, matching: .images, photoLibrary: .shared()) {
+                Label(photo == nil ? "Добавить фото" : "Заменить фото", systemImage: "camera.fill")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.accent)
+            }
+        }
+        .cartoonCard()
+        .onChange(of: item) { _, newItem in
+            guard let newItem else { return }
+            Task {
+                if let raw = try? await newItem.loadTransferable(type: Data.self),
+                   let small = compressedImageData(raw) {
+                    await MainActor.run { photo = small }
+                }
+            }
+        }
     }
 }
 

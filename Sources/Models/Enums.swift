@@ -95,6 +95,29 @@ enum ReactionType: String, Codable, CaseIterable {
     }
 }
 
+/// Насколько выражена реакция — для журнала и PDF «для педиатра». Только факт,
+/// на стейт-машину ввода НЕ влияет (SPEC §4.4).
+enum ReactionSeverity: String, Codable, CaseIterable {
+    case mild, moderate, severe
+
+    var title: String {
+        switch self {
+        case .mild:     return String(localized: "Лёгкая")
+        case .moderate: return String(localized: "Средняя")
+        case .severe:   return String(localized: "Сильная")
+        }
+    }
+
+    /// Число «точек» для компактной визуализации тяжести (●○○ / ●●○ / ●●●).
+    var dots: Int {
+        switch self {
+        case .mild:     return 1
+        case .moderate: return 2
+        case .severe:   return 3
+        }
+    }
+}
+
 /// Насколько ребёнку понравился продукт (вкусовая оценка, НЕ аллергия).
 enum Liking: String, Codable, CaseIterable {
     case disliked  // не понравилось

@@ -43,7 +43,8 @@ struct FeedingService {
     /// (остановку/паузу пользователь выбирает вручную, SPEC §4.4). Заметка пишется
     /// в этот же лог, а не отдельной записью.
     func logFeeding(_ food: Food, liking: Liking?, reaction: ReactionType?,
-                    date: Date = Date(), note: String? = nil) {
+                    date: Date = Date(), note: String? = nil,
+                    severity: ReactionSeverity? = nil, photo: Data? = nil) {
         let s = status(for: food.id)
         let isMaintenance = (s.state == .introduced)
         context.insert(FoodLog(foodId: food.id,
@@ -51,7 +52,9 @@ struct FeedingService {
                                type: isMaintenance ? .maintenance : .intro,
                                reaction: reaction,
                                liking: liking,
-                               note: note))
+                               note: note,
+                               severity: reaction == nil ? nil : severity,
+                               photo: photo))
         // Бэкдейт кормления во время ввода тянет старт окна назад, чтобы запись
         // «за прошлую дату» реально засчитывалась в окно наблюдения (п.22).
         if s.state == .introducing, let start = s.introStartedAt, date < start {

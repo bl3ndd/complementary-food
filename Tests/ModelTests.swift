@@ -61,12 +61,15 @@ final class ModelTests: XCTestCase {
         let context = container.mainContext
 
         let date = Date(timeIntervalSince1970: 1_650_000_000)
+        let photoBytes = Data([0x01, 0x02, 0x03, 0x04])
         let log = FoodLog(foodId: "egg",
                           date: date,
                           type: .maintenance,
                           reaction: .skin,
                           liking: .liked,
-                          note: "немного сыпи")
+                          note: "немного сыпи",
+                          severity: .moderate,
+                          photo: photoBytes)
         context.insert(log)
         try context.save()
 
@@ -75,8 +78,10 @@ final class ModelTests: XCTestCase {
         XCTAssertEqual(loaded.date, date)
         XCTAssertEqual(loaded.type, .maintenance)
         XCTAssertEqual(loaded.reaction, .skin)
+        XCTAssertEqual(loaded.severity, .moderate)
         XCTAssertEqual(loaded.liking, .liked)
         XCTAssertEqual(loaded.note, "немного сыпи")
+        XCTAssertEqual(loaded.photo, photoBytes)
     }
 
     @MainActor
@@ -91,8 +96,10 @@ final class ModelTests: XCTestCase {
         let loaded = try XCTUnwrap(try context.fetch(FetchDescriptor<FoodLog>()).first)
         XCTAssertEqual(loaded.type, .intro)
         XCTAssertNil(loaded.reaction)
+        XCTAssertNil(loaded.severity)
         XCTAssertNil(loaded.liking)
         XCTAssertNil(loaded.note)
+        XCTAssertNil(loaded.photo)
     }
 
     // MARK: - Age math
