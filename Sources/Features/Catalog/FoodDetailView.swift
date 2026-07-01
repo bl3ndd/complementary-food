@@ -105,12 +105,9 @@ struct FoodDetailView: View {
                     // что продукт введён (галочка), вводится, на паузе или аллергия.
                     if state != .notIntroduced {
                         ZStack {
-                            Circle().fill(.white).frame(width: 32, height: 32)
+                            Circle().fill(.white).frame(width: 34, height: 34)
                                 .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
-                            Image(systemName: stateIcon)
-                                .font(.system(size: 28))
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, state.color)
+                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 24)
                         }
                         .offset(x: 8, y: 6)
                     }
@@ -129,10 +126,12 @@ struct FoodDetailView: View {
         .cartoonCard()
     }
 
-    /// Крупный статус-пилл с иконкой — заметнее прежнего мелкого бейджа.
+    /// Крупный статус-пилл с OpenMoji-иконкой — заметнее прежнего мелкого бейджа.
     private var statusPill: some View {
         HStack(spacing: 6) {
-            Image(systemName: stateIcon)
+            if state != .notIntroduced {
+                OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 18)
+            }
             Text(state.title)
         }
         .font(.subheadline.bold())
@@ -142,14 +141,23 @@ struct FoodDetailView: View {
         .overlay(Capsule().stroke(state.color.opacity(0.35), lineWidth: 1))
     }
 
-    /// SF Symbol статуса (двухтоновые `.fill` — для печати на иконке и в пилле).
-    private var stateIcon: String {
+    /// OpenMoji-эмодзи статуса (в стиле приложения, не SF Symbols).
+    private var stateEmoji: String {
         switch state {
-        case .notIntroduced: return "circle"
-        case .introducing:   return "eye.circle.fill"
-        case .introduced:    return "checkmark.seal.fill"
-        case .paused:        return "pause.circle.fill"
-        case .allergy:       return "exclamationmark.octagon.fill"
+        case .notIntroduced: return ""
+        case .introducing:   return "🌱"
+        case .introduced:    return "✅"
+        case .paused:        return "⏸️"
+        case .allergy:       return "⚠️"
+        }
+    }
+
+    /// OpenMoji-ассет статуса, если есть (иначе — emoji-фолбэк выше).
+    private var stateAsset: String {
+        switch state {
+        case .introducing: return "ui_seedling"
+        case .allergy:     return "ui_warning"
+        default:           return ""
         }
     }
 
