@@ -21,7 +21,6 @@ struct LogFeedingSheet: View {
 
     @State private var liking: Liking?
     @State private var reaction: ReactionType = .none
-    @State private var severity: ReactionSeverity?
     @State private var note = ""
     @State private var date = Date()
     @State private var photos: [Data] = []
@@ -108,9 +107,6 @@ struct LogFeedingSheet: View {
                 }
             }
             if reaction != .none {
-                Text("Насколько сильно?")
-                    .font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
-                SeverityPicker(selection: $severity)
                 Label("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.",
                       systemImage: "info.circle")
                     .font(.caption).foregroundStyle(.orange)
@@ -168,7 +164,6 @@ struct LogFeedingSheet: View {
             reaction: reaction == .none ? nil : reaction,
             date: date,
             note: note.isEmpty ? nil : note,
-            severity: severity,
             photos: photos)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
         onSaved?()

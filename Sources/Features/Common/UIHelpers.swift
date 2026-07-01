@@ -34,16 +34,6 @@ extension IntroState {
     }
 }
 
-extension ReactionSeverity {
-    var color: Color {
-        switch self {
-        case .mild:     return Theme.sunny
-        case .moderate: return .orange
-        case .severe:   return .red
-        }
-    }
-}
-
 /// Уменьшает и сжимает фото перед сохранением в SwiftData/CloudKit (внешнее
 /// хранилище, но всё же — не тащим многомегабайтные оригиналы).
 func compressedImageData(_ data: Data, maxDim: CGFloat = 1200, quality: CGFloat = 0.7) -> Data? {
@@ -58,31 +48,6 @@ func compressedImageData(_ data: Data, maxDim: CGFloat = 1200, quality: CGFloat 
     return resized.jpegData(compressionQuality: quality)
 }
 
-/// Выбор тяжести реакции: 3 капсулы, повторный тап снимает выбор (как LikingPicker).
-struct SeverityPicker: View {
-    @Binding var selection: ReactionSeverity?
-
-    var body: some View {
-        HStack(spacing: 8) {
-            ForEach(ReactionSeverity.allCases, id: \.self) { s in
-                let sel = selection == s
-                Button {
-                    withAnimation(.snappy) { selection = sel ? nil : s }
-                } label: {
-                    Text(s.title)
-                        .font(.subheadline.weight(.semibold))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(sel ? s.color.opacity(0.18) : Color.black.opacity(0.03),
-                                    in: Capsule())
-                        .overlay(Capsule().stroke(sel ? s.color : .clear, lineWidth: 1.5))
-                        .foregroundStyle(sel ? s.color : .secondary)
-                }
-                .buttonStyle(.plain)
-            }
-        }
-    }
-}
 
 /// Капсула-бейдж со статусом.
 struct StatusBadge: View {

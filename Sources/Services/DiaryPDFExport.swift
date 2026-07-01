@@ -93,7 +93,6 @@ struct DiaryPDFExport {
             let name = catalog.food(id: log.foodId)?.localizedName ?? log.foodId
             let date = log.date.formatted(.dateTime.day().month().year())
             var line = "\(date) — \(name) — \((log.reaction ?? .other).title)"
-            if let sev = log.severity { line += " · \(sev.title)" }
             if !log.photoDatas.isEmpty { line += " · 📷" }
             if let note = log.note, !note.isEmpty { line += " — «\(note)»" }
             return Row(text: line, indented: true)
@@ -127,9 +126,7 @@ struct DiaryPDFExport {
                      : String(localized: "maintenance.type", defaultValue: "Поддержка")]
         if let liking = log.liking { parts.append(liking.title) }
         if let r = log.reaction, r != .none {
-            var rp = "\(String(localized: "Реакция")): \(r.title)"
-            if let sev = log.severity { rp += " (\(sev.title))" }
-            parts.append(rp)
+            parts.append("\(String(localized: "Реакция")): \(r.title)")
         }
         var line = "\(name) — " + parts.joined(separator: " · ")
         if let note = log.note, !note.isEmpty { line += " · «\(note)»" }

@@ -39,9 +39,6 @@ struct DiaryEntryRow: View {
                         }
                         if let reaction = entry.reaction, reaction != .none {
                             StatusBadge(text: reaction.title, color: .red)
-                            if let severity = entry.log.severity {
-                                StatusBadge(text: severity.title, color: severity.color)
-                            }
                         }
                     }
                 }
