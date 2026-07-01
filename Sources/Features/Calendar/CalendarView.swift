@@ -24,6 +24,7 @@ struct CalendarView: View {
     @State private var showPlan = false
     @State private var shareFile: ShareableFile?
     @State private var pendingDelete: FoodLog?
+    @State private var showRecap = false
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -72,6 +73,14 @@ struct CalendarView: View {
                     .disabled(logs.isEmpty || children.isEmpty)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
+                    Button { showRecap = true } label: {
+                        Image(systemName: "sparkles")
+                    }
+                    .accessibilityLabel("Рекап месяца")
+                    .disabled(children.isEmpty ||
+                              !RecapService(catalog: catalog, logs: logs).hasData(for: monthAnchor))
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     Button { showPlan = true } label: {
                         Image(systemName: "calendar.badge.plus")
                     }
@@ -84,6 +93,13 @@ struct CalendarView: View {
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
             .sheet(isPresented: $showPlan) { PlanIntroSheet() }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
+            .sheet(isPresented: $showRecap) {
+                if let child = children.first {
+                    RecapSheet(recap: RecapService(catalog: catalog, logs: logs)
+                        .recap(for: monthAnchor, childName: child.name,
+                               ageMonths: child.ageInMonths))
+                }
+            }
             .alert(Text("Удалить запись?"),
                    isPresented: Binding(get: { pendingDelete != nil },
                                         set: { if !$0 { pendingDelete = nil } })) {

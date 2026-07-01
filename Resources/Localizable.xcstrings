@@ -2336,6 +2336,17 @@
         }
       }
     },
+    "Любимое": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favorite"
+          }
+        }
+      }
+    },
     "Лёгкая": {
       "extractionState": "manual",
       "localizations": {
@@ -3406,6 +3417,17 @@
         }
       }
     },
+    "Поделиться": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share"
+          }
+        }
+      }
+    },
     "Поиск по дневнику": {
       "extractionState": "manual",
       "localizations": {
@@ -3902,6 +3924,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Child"
+          }
+        }
+      }
+    },
+    "Рекап месяца": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly recap"
           }
         }
       }
@@ -5206,6 +5239,17 @@
         }
       }
     },
+    "новых вкусов": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "new tastes"
+          }
+        }
+      }
+    },
     "план": {
       "extractionState": "stale",
       "localizations": {
@@ -5228,6 +5272,17 @@
         }
       }
     },
+    "продуктов за месяц": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "foods this month"
+          }
+        }
+      }
+    },
     "реакция": {
       "extractionState": "manual",
       "localizations": {
@@ -5246,6 +5301,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "from %lld mo"
+          }
+        }
+      }
+    },
+    "сделано в Pudding": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "made in Pudding"
           }
         }
       }
