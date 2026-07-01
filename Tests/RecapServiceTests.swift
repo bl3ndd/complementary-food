@@ -58,6 +58,15 @@ final class RecapServiceTests: XCTestCase {
         XCTAssertEqual(r.favorite?.id, "broccoli", "чаще всего понравилось")
     }
 
+    func testFavoriteTieBreakIsDeterministicByFirstLiked() {
+        let logs = [
+            log("avocado",  "2026-06-05T09:00:00Z", liking: .liked),
+            log("broccoli", "2026-06-10T09:00:00Z", liking: .liked),
+        ]
+        // По одному «понравилось» у каждого → детерминированно берём того, кто раньше.
+        XCTAssertEqual(june(logs).favorite?.id, "avocado")
+    }
+
     func testEmptyMonthRecapIsEmpty() {
         let r = service([log("broccoli", "2026-05-01T09:00:00Z")]).recap(
             for: date("2026-06-15T12:00:00Z"), childName: "Ника", ageMonths: 8)

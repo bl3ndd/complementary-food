@@ -59,7 +59,16 @@ struct RecapService {
 
     private func mostFrequent(_ ids: [String]) -> String? {
         guard !ids.isEmpty else { return nil }
-        let counts = ids.reduce(into: [String: Int]()) { $0[$1, default: 0] += 1 }
-        return counts.max { $0.value < $1.value }?.key
+        var counts: [String: Int] = [:], firstIndex: [String: Int] = [:]
+        for (i, id) in ids.enumerated() {
+            counts[id, default: 0] += 1
+            if firstIndex[id] == nil { firstIndex[id] = i }
+        }
+        // Больше «понравилось» — победитель; при ничьей детерминированно берём того,
+        // кто встретился раньше (иначе исход зависел от порядка словаря).
+        return counts.max {
+            $0.value != $1.value ? $0.value < $1.value
+                                 : firstIndex[$0.key]! > firstIndex[$1.key]!
+        }?.key
     }
 }

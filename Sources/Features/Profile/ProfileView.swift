@@ -122,7 +122,7 @@ struct ProfileView: View {
             Button { exportPDF(.pediatric) } label: {
                 Label("Дневник для педиатра", systemImage: "doc.richtext")
             }
-            .disabled(logs.isEmpty)
+            .disabled(!hasActualLogs)
 
             Button { exportPDF(.avoid) } label: {
                 Label("Список «не давать»", systemImage: "nosign")
@@ -187,6 +187,9 @@ struct ProfileView: View {
         statuses.contains { $0.state == .paused || $0.state == .allergy }
     }
 
+    /// Есть ли фактические (не запланированные) записи — PDF-дневник по фактам.
+    private var hasActualLogs: Bool { logs.contains { !$0.planned } }
+
     /// Полный сброс: удаляем все данные → RootView покажет онбординг.
     private func resetAll() {
         NotificationManager.shared.clearAll()
@@ -199,6 +202,8 @@ struct ProfileView: View {
         try? context.delete(model: Child.self)
         try? context.save()
         FoodCatalog.setCustom([])
+        // Полный сброс = «как новая установка»: дисклеймер-гейт должен всплыть снова.
+        UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
     }
 
     private var notifStatusText: String {

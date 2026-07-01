@@ -25,56 +25,6 @@ struct Chip: View {
     }
 }
 
-/// Кольцо прогресса с числом по центру.
-struct ProgressRing: View {
-    let value: Int
-    let total: Int
-    var size: CGFloat = 56
-    var tint: Color = Theme.accent
-
-    private var fraction: Double {
-        total == 0 ? 0 : min(1, Double(value) / Double(total))
-    }
-
-    var body: some View {
-        ZStack {
-            Circle().stroke(tint.opacity(0.16), lineWidth: 7)
-            Circle()
-                .trim(from: 0, to: fraction)
-                .stroke(Theme.accentGradient,
-                        style: StrokeStyle(lineWidth: 7, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: fraction)
-            Text("\(value)").font(.headline.bold())
-        }
-        .frame(width: size, height: size)
-    }
-}
-
-/// Кольцо прогресса в белом исполнении — для размещения на цветном фоне.
-struct ProgressRingOnColor: View {
-    let value: Int
-    let total: Int
-    var size: CGFloat = 60
-
-    private var fraction: Double {
-        total == 0 ? 0 : min(1, Double(value) / Double(total))
-    }
-
-    var body: some View {
-        ZStack {
-            Circle().stroke(.white.opacity(0.30), lineWidth: 7)
-            Circle()
-                .trim(from: 0, to: fraction)
-                .stroke(.white, style: StrokeStyle(lineWidth: 7, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: fraction)
-            Text("\(value)").font(.headline.bold()).foregroundStyle(.white)
-        }
-        .frame(width: size, height: size)
-    }
-}
-
 /// Крупная primary-кнопка на всю ширину с градиентом и мягкой тенью.
 struct BigButton: View {
     let title: LocalizedStringKey

@@ -17,7 +17,8 @@ struct FeedingProfile: Identifiable, Codable, Hashable {
 
     /// Интервал поддержки аллергена в днях, исходя из частоты в неделю.
     var maintenanceIntervalDays: Int {
-        max(1, Int((7.0 / Double(allergenFrequencyPerWeek)).rounded()))
+        // max(1, …) в знаменателе: при частоте 0 иначе 7/0 = +Inf → Int(Inf) трап.
+        max(1, Int((7.0 / Double(max(1, allergenFrequencyPerWeek))).rounded()))
     }
 
     /// Окно наблюдения для конкретного продукта: аллергену — длиннее (п.10).

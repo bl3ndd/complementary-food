@@ -70,7 +70,7 @@ struct CalendarView: View {
                         Image(systemName: "square.and.arrow.up")
                     }
                     .accessibilityLabel("Экспорт")
-                    .disabled(logs.isEmpty || children.isEmpty)
+                    .disabled((!hasActualLogs && !hasAvoidItems) || children.isEmpty)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showRecap = true } label: {
@@ -406,6 +406,12 @@ struct CalendarView: View {
     }
 
     private enum ExportKind { case pediatric, avoid }
+
+    /// Есть ли фактические (не запланированные) записи — экспорт по фактам, не планам.
+    private var hasActualLogs: Bool { logs.contains { !$0.planned } }
+    private var hasAvoidItems: Bool {
+        statuses.contains { $0.state == .paused || $0.state == .allergy }
+    }
 
     /// Сформировать PDF и открыть системный share sheet. Дневник «для педиатра»
     /// включает статус поддержки аллергенов; лист «не давать» — паузы/аллергии.

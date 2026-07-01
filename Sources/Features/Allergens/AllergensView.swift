@@ -9,6 +9,7 @@ struct AllergensView: View {
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
+    @State private var selectedFood: Food?
 
     private let catalog = FoodCatalog.shared
 
@@ -19,6 +20,9 @@ struct AllergensView: View {
                 ForEach(sortedGroups) { row(for: $0) }
             }
             .padding()
+        }
+        .navigationDestination(item: $selectedFood) { food in
+            FoodDetailView(food: food, child: child)
         }
     }
 
@@ -70,6 +74,9 @@ struct AllergensView: View {
             }
         }
         .cartoonCard()
+        .contentShape(Rectangle())
+        // Тап по строке → карточка продукта-представителя (кнопка «Дал» ловит свой тап).
+        .onTapGesture { if let rep = group.representativeFood { selectedFood = rep } }
     }
 
     /// «Дал»: если в группе введён один продукт — one-tap; если несколько — меню выбора,

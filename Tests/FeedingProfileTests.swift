@@ -36,6 +36,14 @@ final class FeedingProfileTests: XCTestCase {
         XCTAssertEqual(Child(feedingProfileId: "nope").feedingProfile.id, FeedingProfile.customId)
     }
 
+    /// Частота 0 не должна ронять Int(Inf)-трапом (legacy/CloudKit-значение).
+    func testMaintenanceIntervalGuardsAgainstZeroFrequency() {
+        let p = FeedingProfile(id: "t", name: "T", startAgeMonths: 6,
+                               observationDaysRegular: 3, observationDaysAllergen: 5,
+                               allergenFrequencyPerWeek: 0, allergenGroups: [])
+        XCTAssertEqual(p.maintenanceIntervalDays, 7, "частота 0 → знаменатель зажат в 1")
+    }
+
     // MARK: - Раздельное окно наблюдения (п.10)
 
     func testObservationWindowDiffersForAllergen() {
