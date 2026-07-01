@@ -64,6 +64,19 @@ final class AllergenTests: XCTestCase {
         XCTAssertEqual(tracker.status(lastGiven: daysAgo(2), now: now), .overdue)
     }
 
+    // MARK: - Календарные дни, а не 24-часовые кванты
+
+    func testStatusCountsCalendarDaysNotHourQuanta() {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = TimeZone(identifier: "UTC")!
+        let tracker = AllergenTracker(profile: profile(frequencyPerWeek: 7, groups: []))  // interval=1
+        let f = ISO8601DateFormatter(); f.timeZone = TimeZone(identifier: "UTC")!
+        let last = f.date(from: "2026-06-10T23:30:00Z")!         // поздний вечер
+        let nextMorning = f.date(from: "2026-06-11T08:00:00Z")!  // утро следующего дня
+        // 1 пересечённый календарный день (а не 0 суточных квантов) → уже «пора».
+        XCTAssertEqual(tracker.status(lastGiven: last, now: nextMorning, calendar: utc), .dueSoon)
+    }
+
     // MARK: - Граница для интервала 2 (частота 3/нед)
 
     func testStatusBoundariesForShortInterval() {

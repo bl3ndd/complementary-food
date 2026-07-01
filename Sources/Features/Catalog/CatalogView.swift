@@ -10,11 +10,13 @@ struct CatalogView: View {
     @State private var search = ""
     @State private var showAddCustom = false
     @State private var pendingDeleteCustom: Food?
+    @State private var path: [Food] = []
+    @ObservedObject private var router = AppRouter.shared
 
     private let catalog = FoodCatalog.shared
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             foodList
                 .background(AppBackground())
                 .navigationTitle("Каталог")
@@ -22,6 +24,8 @@ struct CatalogView: View {
                 .navigationDestination(for: Food.self) { food in
                     FoodDetailView(food: food, child: child)
                 }
+                .onAppear { openPending(router.pendingFoodId) }
+                .onChange(of: router.pendingFoodId) { _, fid in openPending(fid) }
                 .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet() }
                 .alert("Удалить свой продукт?",
                        isPresented: Binding(get: { pendingDeleteCustom != nil },
@@ -95,6 +99,13 @@ struct CatalogView: View {
         // Удаляем продукт + связанные статус/логи (чистка орфанов), затем обновляем реестр.
         FeedingService(context: context).deleteCustomFood(id: id)
         FoodCatalog.setCustom(customFoods.filter { $0.id != id })
+    }
+
+    /// Открыть карточку продукта по deep-link из пуша (foodId → push FoodDetailView).
+    private func openPending(_ fid: String?) {
+        guard let fid, let food = catalog.food(id: fid) else { return }
+        path = [food]
+        router.pendingFoodId = nil
     }
 
     /// Свой поиск: системный `.searchable` не рисуется внутри страничного TabView.

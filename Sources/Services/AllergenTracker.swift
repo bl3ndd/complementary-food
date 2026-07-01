@@ -11,7 +11,11 @@ struct AllergenTracker {
                 calendar: Calendar = .current) -> AllergenStatus {
         guard let lastGiven else { return .overdue }
         let interval = profile.maintenanceIntervalDays
-        let days = calendar.dateComponents([.day], from: lastGiven, to: now).day ?? 0
+        // Считаем ПЕРЕСЕЧЁННЫЕ календарные дни (как окно наблюдения), а не 24-часовые
+        // кванты от времени дозы: «дал вчера» → уже не сегодня, независимо от времени.
+        let days = calendar.dateComponents([.day],
+                                           from: calendar.startOfDay(for: lastGiven),
+                                           to: calendar.startOfDay(for: now)).day ?? 0
         if days > interval { return .overdue }
         // max(1, …): при дневной частоте (interval=1) «сегодня» (days=0) — это ok,
         // а не вечный dueSoon (B6). Для обычных интервалов поведение прежнее.

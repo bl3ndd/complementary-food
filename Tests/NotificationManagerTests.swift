@@ -52,7 +52,7 @@ final class NotificationManagerTests: XCTestCase {
             group(.soy,    introduced: false, allergy: false, status: .overdue, nextDue: nil), // пропуск: не введён
         ]
 
-        let requests = manager.requests(for: groups)
+        let requests = manager.requests(for: groups, intervalDays: 4)
 
         XCTAssertEqual(requests.map(\.identifier), ["allergen-egg", "allergen-dairy"])
     }
@@ -65,7 +65,7 @@ final class NotificationManagerTests: XCTestCase {
             group(.egg, introduced: true, allergy: false, status: .overdue, nextDue: now),
         ]
 
-        let content = manager.requests(for: groups)[0].content
+        let content = manager.requests(for: groups, intervalDays: 4)[0].content
         // Не должно называть конкретную группу аллергена.
         for g in AllergenGroup.allCases {
             XCTAssertFalse(content.body.localizedCaseInsensitiveContains(g.title),
@@ -82,7 +82,7 @@ final class NotificationManagerTests: XCTestCase {
         let groups = [group(.egg, introduced: true, allergy: false,
                             status: .overdue, nextDue: due)]
 
-        let request = try XCTUnwrap(manager.requests(for: groups).first)
+        let request = try XCTUnwrap(manager.requests(for: groups, intervalDays: 4).first)
         let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
 
         XCTAssertTrue(trigger.repeats, "напоминание должно повторяться еженедельно")
@@ -95,6 +95,34 @@ final class NotificationManagerTests: XCTestCase {
         XCTAssertNil(trigger.dateComponents.month)
     }
 
+    // MARK: - Триггер: ежедневный повтор для дневного аллергена (interval 1)
+
+    func testTriggerIsDailyForDailyPlan() throws {
+        let manager = NotificationManager(center: MockCenter())
+        let groups = [group(.egg, introduced: true, allergy: false, status: .overdue, nextDue: now)]
+
+        let request = try XCTUnwrap(manager.requests(for: groups, intervalDays: 1).first)
+        let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
+
+        XCTAssertTrue(trigger.repeats)
+        XCTAssertEqual(trigger.dateComponents.hour, 10)
+        XCTAssertEqual(trigger.dateComponents.minute, 0)
+        // Только время (без weekday/дня) → ежедневный цикл.
+        XCTAssertNil(trigger.dateComponents.weekday, "дневной план → без привязки к дню недели")
+        XCTAssertNil(trigger.dateComponents.day)
+    }
+
+    // MARK: - Deep-link: извлечение foodId из id пуша
+
+    func testDeepLinkFoodIdExtraction() {
+        XCTAssertEqual(NotificationRouter.foodId(fromNotificationId: "retry-broccoli"), "broccoli")
+        XCTAssertEqual(NotificationRouter.foodId(fromNotificationId: "intro-broccoli-3"), "broccoli")
+        // foodId своих продуктов содержит дефисы — режем только хвост «-<день>».
+        XCTAssertEqual(NotificationRouter.foodId(fromNotificationId: "intro-custom-3F2A-uuid-2"),
+                       "custom-3F2A-uuid")
+        XCTAssertNil(NotificationRouter.foodId(fromNotificationId: "allergen-egg"))
+    }
+
     // MARK: - apply: снимает старые allergen-, ставит новые, чужие не трогает
 
     func testApplyClearsStaleAllergenRequestsAndSchedulesNew() async {
@@ -104,7 +132,7 @@ final class NotificationManagerTests: XCTestCase {
 
         let groups = [group(.dairy, introduced: true, allergy: false,
                             status: .overdue, nextDue: now)]
-        await manager.apply(manager.requests(for: groups))
+        await manager.apply(manager.requests(for: groups, intervalDays: 4))
 
         // Сняты только наши старые идентификаторы, чужой остался нетронутым.
         XCTAssertEqual(Set(center.removed), ["allergen-egg", "allergen-old"])
@@ -124,7 +152,7 @@ final class NotificationManagerTests: XCTestCase {
 
         await manager.apply(manager.requests(for: [
             group(.fish, introduced: true, allergy: false, status: .ok, nextDue: now)
-        ]))
+        ], intervalDays: 4))
 
         XCTAssertTrue(center.added.isEmpty)
     }

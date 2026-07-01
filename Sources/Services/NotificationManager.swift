@@ -88,7 +88,8 @@ final class NotificationManager {
         let regularIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen != true }
         // Приоритет при лимите iOS (64 локальных уведомления): поддержка аллергенов и
         // retry важнее окна ввода — их ставим всегда, окно ввода добиваем до лимита (B7).
-        let priority = requests(for: groups) + retryRequests(statuses: statuses)
+        let priority = requests(for: groups, intervalDays: profile.maintenanceIntervalDays)
+            + retryRequests(statuses: statuses)
         let intro = introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen)
             + introRequests(statuses: regularIntro, observationDays: profile.observationDaysRegular)
         let cap = 60
@@ -110,10 +111,13 @@ final class NotificationManager {
         }
     }
 
-    /// Чистая функция: еженедельные напоминания поддержки по группам аллергенов.
-    /// Берём введённые группы без аллергии со статусом не `.ok` (пора/скоро) и
-    /// датой следующего приёма. Триггер — еженедельный повтор по дню недели.
+    /// Чистая функция: напоминания поддержки по группам аллергенов. Берём введённые
+    /// группы без аллергии со статусом не `.ok` (пора/скоро) и датой следующего приёма.
+    /// Каданс привязан к плану: `intervalDays <= 1` (ежедневный аллерген) → ежедневный
+    /// повтор в 10:00; иначе — еженедельный по дню недели ближайшего срока. (iOS
+    /// нативно умеет только daily/weekly-повтор; для 2–6 дней недельный — надёжный «пол».)
     func requests(for groups: [AllergenGroupStatus],
+                  intervalDays: Int,
                   now: Date = Date(),
                   calendar: Calendar = .current) -> [UNNotificationRequest] {
         groups.compactMap { group in
@@ -125,13 +129,15 @@ final class NotificationManager {
             content.body = String(localized: "Пора освежить введённый аллерген — загляни в приложение.")
             content.sound = .default
 
-            // Если срок уже прошёл, якорим день недели к ближайшему (а не к прошедшему
-            // nextDue), иначе первый пуш только на следующей неделе (B8).
-            let anchor = max(due, now)
             var comps = DateComponents()
-            comps.weekday = calendar.component(.weekday, from: anchor)
             comps.hour = hour
             comps.minute = minute
+            if intervalDays > 1 {
+                // Еженедельно. Если срок прошёл — якорим день недели к ближайшему
+                // (а не к прошедшему nextDue), иначе первый пуш только через неделю (B8).
+                comps.weekday = calendar.component(.weekday, from: max(due, now))
+            }
+            // intervalDays <= 1: без weekday/дня → ежедневный повтор в 10:00.
             let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
 
             return UNNotificationRequest(identifier: allergenPrefix + group.group.rawValue,

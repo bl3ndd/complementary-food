@@ -101,7 +101,7 @@ final class ScenarioTests: XCTestCase {
 
         // На основе due строится ровно одна заявка уведомления.
         let requests = NotificationManager(center: NoopCenter())
-            .requests(for: due)
+            .requests(for: due, intervalDays: 4)
         XCTAssertTrue(requests.contains { $0.identifier == "allergen-egg" })
     }
 
