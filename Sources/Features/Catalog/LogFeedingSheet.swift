@@ -19,7 +19,7 @@ struct LogFeedingSheet: View {
     @State private var severity: ReactionSeverity?
     @State private var note = ""
     @State private var date = Date()
-    @State private var photo: Data?
+    @State private var photos: [Data] = []
 
     private let columns = [GridItem(.flexible(), spacing: 10),
                            GridItem(.flexible(), spacing: 10),
@@ -34,7 +34,7 @@ struct LogFeedingSheet: View {
                     if mode == .feeding { likingCard }
                     if mode == .reaction { reactionCard }
                     noteCard
-                    PhotoAttachCard(photo: $photo)
+                    PhotosAttachCard(photos: $photos)
                     BigButton(title: "Сохранить") { save() }
                         .padding(.top, 4)
                 }
@@ -163,7 +163,7 @@ struct LogFeedingSheet: View {
             date: date,
             note: note.isEmpty ? nil : note,
             severity: severity,
-            photo: photo)
+            photos: photos)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
         dismiss()
     }

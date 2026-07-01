@@ -9,6 +9,7 @@ struct DiaryEntryRow: View {
     /// Показать кнопку «Выполнено» (запланированный ввод, который уже можно дать).
     var showDone: Bool = false
     var onDone: (() -> Void)? = nil
+    @State private var showPhotos = false
 
     private var hasBadges: Bool {
         entry.planned || (entry.reaction ?? .none) != .none
@@ -53,6 +54,9 @@ struct DiaryEntryRow: View {
         }
         .cartoonCard()
         .contentShape(Rectangle())
+        .fullScreenCover(isPresented: $showPhotos) {
+            PhotoViewer(photos: entry.log.photoDatas)
+        }
     }
 
     @ViewBuilder private var trailing: some View {
@@ -60,11 +64,7 @@ struct DiaryEntryRow: View {
             PillButton(title: "Выполнено") { onDone() }
         } else {
             HStack(spacing: 8) {
-                if let data = entry.log.photo, let ui = UIImage(data: data) {
-                    Image(uiImage: ui).resizable().scaledToFill()
-                        .frame(width: 32, height: 32)
-                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                }
+                photoThumb
                 if !entry.planned, let liking = entry.liking {
                     OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 30)
                 }
@@ -72,6 +72,28 @@ struct DiaryEntryRow: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.tertiary)
             }
+        }
+    }
+
+    /// Миниатюра первого фото + «+N», тап → полноэкранный просмотр.
+    @ViewBuilder private var photoThumb: some View {
+        let datas = entry.log.photoDatas
+        if let first = datas.first, let ui = UIImage(data: first) {
+            Button { showPhotos = true } label: {
+                Image(uiImage: ui).resizable().scaledToFill()
+                    .frame(width: 34, height: 34)
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .overlay(alignment: .bottomTrailing) {
+                        if datas.count > 1 {
+                            Text("+\(datas.count - 1)")
+                                .font(.system(size: 9, weight: .heavy)).foregroundStyle(.white)
+                                .padding(.horizontal, 3).padding(.vertical, 1)
+                                .background(.black.opacity(0.55), in: Capsule())
+                                .padding(1)
+                        }
+                    }
+            }
+            .buttonStyle(.plain)
         }
     }
 }

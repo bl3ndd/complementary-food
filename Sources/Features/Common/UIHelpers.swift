@@ -148,41 +148,67 @@ extension Date {
     }
 }
 
-/// Карточка «Фото» для записи (тарелка/сыпь-доказательство): выбор из галереи,
-/// превью и удаление. Фото ужимается перед сохранением. Общая для листов записи.
-struct PhotoAttachCard: View {
-    @Binding var photo: Data?
-    @State private var item: PhotosPickerItem?
+/// Карточка «Фото» для записи (тарелка/сыпь-доказательство): несколько фото —
+/// лента миниатюр (тап → полноэкранный просмотр, ✕ — убрать) + выбор из галереи
+/// (до 5 за раз). Фото ужимается перед сохранением. Общая для листов записи.
+struct PhotosAttachCard: View {
+    @Binding var photos: [Data]
+    @State private var items: [PhotosPickerItem] = []
+    @State private var viewing: PhotoIndex?
+
+    private struct PhotoIndex: Identifiable { let id: Int }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Фото").font(.headline)
-            if let data = photo, let ui = UIImage(data: data) {
-                HStack(spacing: 12) {
-                    Image(uiImage: ui).resizable().scaledToFill()
-                        .frame(width: 64, height: 64)
-                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    Spacer()
-                    Button(role: .destructive) { photo = nil; item = nil } label: {
-                        Label("Убрать", systemImage: "trash")
-                    }
-                    .foregroundStyle(.red)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Фото").font(.headline)
+                if !photos.isEmpty {
+                    Text("\(photos.count)").font(.caption.weight(.bold)).foregroundStyle(.secondary)
                 }
             }
-            PhotosPicker(selection: $item, matching: .images, photoLibrary: .shared()) {
-                Label(photo == nil ? "Добавить фото" : "Заменить фото", systemImage: "camera.fill")
+            if !photos.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(Array(photos.enumerated()), id: \.offset) { idx, data in
+                            if let ui = UIImage(data: data) {
+                                Image(uiImage: ui).resizable().scaledToFill()
+                                    .frame(width: 74, height: 74)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                                    .overlay(alignment: .topTrailing) {
+                                        Button { photos.remove(at: idx) } label: {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.body)
+                                                .foregroundStyle(.white, .black.opacity(0.45))
+                                        }
+                                        .padding(3)
+                                    }
+                                    .contentShape(Rectangle())
+                                    .onTapGesture { viewing = PhotoIndex(id: idx) }
+                            }
+                        }
+                    }
+                    .padding(.vertical, 1)
+                }
+            }
+            PhotosPicker(selection: $items, maxSelectionCount: 5, matching: .images,
+                         photoLibrary: .shared()) {
+                Label(photos.isEmpty ? "Добавить фото" : "Добавить ещё", systemImage: "camera.fill")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.accent)
             }
         }
         .cartoonCard()
-        .onChange(of: item) { _, newItem in
-            guard let newItem else { return }
+        .fullScreenCover(item: $viewing) { PhotoViewer(photos: photos, start: $0.id) }
+        .onChange(of: items) { _, newItems in
+            guard !newItems.isEmpty else { return }
             Task {
-                if let raw = try? await newItem.loadTransferable(type: Data.self),
-                   let small = compressedImageData(raw) {
-                    await MainActor.run { photo = small }
+                var added: [Data] = []
+                for it in newItems {
+                    if let raw = try? await it.loadTransferable(type: Data.self),
+                       let small = compressedImageData(raw) { added.append(small) }
                 }
+                let toAdd = added
+                await MainActor.run { photos.append(contentsOf: toAdd); items = [] }
             }
         }
     }

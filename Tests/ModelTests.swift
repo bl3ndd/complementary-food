@@ -9,7 +9,7 @@ final class ModelTests: XCTestCase {
     /// Свежий in-memory контейнер на каждый тест — изоляция, без диска.
     @MainActor
     private func makeContainer() throws -> ModelContainer {
-        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self])
+        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         return try ModelContainer(for: schema, configurations: [config])
     }
@@ -100,6 +100,31 @@ final class ModelTests: XCTestCase {
         XCTAssertNil(loaded.liking)
         XCTAssertNil(loaded.note)
         XCTAssertNil(loaded.photo)
+        XCTAssertTrue(loaded.photoDatas.isEmpty)
+    }
+
+    @MainActor
+    func testFoodLogPhotosRelationshipOrderingAndCascade() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+
+        let log = FoodLog(foodId: "egg", photo: Data([9]))   // legacy-одиночное
+        context.insert(log)
+        let p0 = LogPhoto(data: Data([1]), sortIndex: 0)
+        let p1 = LogPhoto(data: Data([2]), sortIndex: 1)
+        context.insert(p0); context.insert(p1)
+        log.photos = [p1, p0]                                 // намеренно не по порядку
+        try context.save()
+
+        let loaded = try XCTUnwrap(try context.fetch(FetchDescriptor<FoodLog>()).first)
+        // legacy сначала, потом relationship по sortIndex
+        XCTAssertEqual(loaded.photoDatas, [Data([9]), Data([1]), Data([2])])
+        XCTAssertEqual((loaded.photos ?? []).count, 2)
+
+        context.delete(loaded)
+        try context.save()
+        XCTAssertTrue(try context.fetch(FetchDescriptor<LogPhoto>()).isEmpty,
+                      "фото удаляются каскадом вместе с записью")
     }
 
     // MARK: - Age math

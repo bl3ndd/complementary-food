@@ -44,23 +44,39 @@ struct FeedingService {
     /// в этот же лог, а не отдельной записью.
     func logFeeding(_ food: Food, liking: Liking?, reaction: ReactionType?,
                     date: Date = Date(), note: String? = nil,
-                    severity: ReactionSeverity? = nil, photo: Data? = nil) {
+                    severity: ReactionSeverity? = nil, photos: [Data] = []) {
         let s = status(for: food.id)
         let isMaintenance = (s.state == .introduced)
-        context.insert(FoodLog(foodId: food.id,
-                               date: date,
-                               type: isMaintenance ? .maintenance : .intro,
-                               reaction: reaction,
-                               liking: liking,
-                               note: note,
-                               severity: reaction == nil ? nil : severity,
-                               photo: photo))
+        let log = FoodLog(foodId: food.id,
+                          date: date,
+                          type: isMaintenance ? .maintenance : .intro,
+                          reaction: reaction,
+                          liking: liking,
+                          note: note,
+                          severity: reaction == nil ? nil : severity)
+        context.insert(log)
+        attachPhotos(photos, to: log)
         // Бэкдейт кормления во время ввода тянет старт окна назад, чтобы запись
         // «за прошлую дату» реально засчитывалась в окно наблюдения (п.22).
         if s.state == .introducing, let start = s.introStartedAt, date < start {
             s.introStartedAt = date
         }
         save()
+    }
+
+    /// Переустановить фото записи (из редактора): очистить legacy + старые дети,
+    /// создать заново по порядку. Простой rebuild — писателей мало.
+    func setPhotos(_ datas: [Data], on log: FoodLog) {
+        log.photo = nil
+        for p in (log.photos ?? []) { context.delete(p) }
+        attachPhotos(datas, to: log)
+        save()
+    }
+
+    private func attachPhotos(_ datas: [Data], to log: FoodLog) {
+        let items = datas.enumerated().map { LogPhoto(data: $0.element, sortIndex: $0.offset) }
+        items.forEach { context.insert($0) }
+        log.photos = items
     }
 
     /// Отмечает продукты как уже введённые (онбординг — что малыш уже ест без проблем).

@@ -14,9 +14,13 @@ final class FoodLog {
     /// Вкусовая оценка: понравилось / нейтрально / не понравилось.
     var likingRaw: String?
     var note: String?
-    /// Фото к записи (тарелка/сыпь-доказательство). Хранится вне строки БД
-    /// (external storage) — CloudKit-совместимо, не раздувает базу (SPEC §8).
+    /// Legacy: одиночное фото старых записей. Новые фото — в связи `photos`;
+    /// поле оставлено, чтобы не потерять уже прикреплённые снимки (мигрируются
+    /// при следующем сохранении записи). Читать через `photoDatas`.
     @Attribute(.externalStorage) var photo: Data?
+    /// Несколько фото к записи (тарелка/сыпь-доказательство), external storage.
+    @Relationship(deleteRule: .cascade, inverse: \LogPhoto.log)
+    var photos: [LogPhoto]? = []
     /// Запланированный на будущее ввод (ещё не дан), п.21.
     var planned: Bool = false
 
@@ -53,6 +57,13 @@ final class FoodLog {
     var severity: ReactionSeverity? {
         get { severityRaw.flatMap(ReactionSeverity.init) }
         set { severityRaw = newValue?.rawValue }
+    }
+
+    /// Все фото записи по порядку: сначала legacy-одиночное, затем relationship.
+    var photoDatas: [Data] {
+        let extra = (photos ?? []).sorted { $0.sortIndex < $1.sortIndex }.map(\.data)
+        if let photo { return [photo] + extra }
+        return extra
     }
 
     var liking: Liking? {

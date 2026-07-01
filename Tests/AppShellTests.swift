@@ -16,7 +16,7 @@ final class AppShellTests: XCTestCase {
 
     @MainActor
     private func makeContainer() throws -> ModelContainer {
-        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self])
+        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         return try ModelContainer(for: schema, configurations: [config])
     }

@@ -45,14 +45,14 @@ struct DiaryPDFExport {
     }
 
     /// Фото из записей (тарелки/сыпь) для приложения-фотоотчёта, старые сверху.
+    /// Каждое фото записи — отдельным элементом.
     func photoItems() -> [PhotoItem] {
-        logs.filter { !$0.planned && $0.photo != nil }
+        logs.filter { !$0.planned && !$0.photoDatas.isEmpty }
             .sorted { $0.date < $1.date }
-            .compactMap { log in
-                guard let data = log.photo else { return nil }
+            .flatMap { log -> [PhotoItem] in
                 let name = catalog.food(id: log.foodId)?.localizedName ?? log.foodId
                 let d = log.date.formatted(.dateTime.day().month().year())
-                return PhotoItem(caption: "\(d) · \(name)", data: data)
+                return log.photoDatas.map { PhotoItem(caption: "\(d) · \(name)", data: $0) }
             }
     }
 
@@ -94,7 +94,7 @@ struct DiaryPDFExport {
             let date = log.date.formatted(.dateTime.day().month().year())
             var line = "\(date) — \(name) — \((log.reaction ?? .other).title)"
             if let sev = log.severity { line += " · \(sev.title)" }
-            if log.photo != nil { line += " · 📷" }
+            if !log.photoDatas.isEmpty { line += " · 📷" }
             if let note = log.note, !note.isEmpty { line += " — «\(note)»" }
             return Row(text: line, indented: true)
         }

@@ -13,7 +13,7 @@ final class FeedingServiceTests: XCTestCase {
 
     @MainActor
     private func makeContext() throws -> ModelContext {
-        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self])
+        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         container = try ModelContainer(for: schema, configurations: [config])
         return container.mainContext

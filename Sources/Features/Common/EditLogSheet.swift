@@ -15,7 +15,7 @@ struct EditLogSheet: View {
     @State private var reaction: ReactionType
     @State private var severity: ReactionSeverity?
     @State private var note: String
-    @State private var photo: Data?
+    @State private var photos: [Data]
     @State private var confirmDelete = false
 
     init(log: FoodLog) {
@@ -25,7 +25,7 @@ struct EditLogSheet: View {
         _reaction = State(initialValue: log.reaction ?? .none)
         _severity = State(initialValue: log.severity)
         _note = State(initialValue: log.note ?? "")
-        _photo = State(initialValue: log.photo)
+        _photos = State(initialValue: log.photoDatas)
     }
 
     private var isPlanned: Bool { log.planned }
@@ -60,7 +60,7 @@ struct EditLogSheet: View {
                         }
                         .cartoonCard()
 
-                        PhotoAttachCard(photo: $photo)
+                        PhotosAttachCard(photos: $photos)
                     }
 
                     VStack(alignment: .leading, spacing: 10) {
@@ -140,7 +140,7 @@ struct EditLogSheet: View {
             log.liking = liking
             log.reaction = reaction == .none ? nil : reaction
             log.severity = reaction == .none ? nil : severity
-            log.photo = photo
+            FeedingService(context: context).setPhotos(photos, on: log)
         }
         log.note = note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note
         try? context.save()
