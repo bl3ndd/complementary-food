@@ -100,8 +100,23 @@ struct FoodDetailView: View {
     private var heroCard: some View {
         VStack(spacing: 12) {
             FoodIcon(food: food, size: 88)
+                .overlay(alignment: .bottomTrailing) {
+                    // Печать статуса прямо на иконке — видно с первого взгляда,
+                    // что продукт введён (галочка), вводится, на паузе или аллергия.
+                    if state != .notIntroduced {
+                        ZStack {
+                            Circle().fill(.white).frame(width: 32, height: 32)
+                                .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
+                            Image(systemName: stateIcon)
+                                .font(.system(size: 28))
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white, state.color)
+                        }
+                        .offset(x: 8, y: 6)
+                    }
+                }
             Text(food.localizedName).font(.title.bold())
-            StatusBadge(text: state.title, color: state.color)
+            statusPill
             HStack(spacing: 8) {
                 Chip(food.category.title, icon: "square.grid.2x2",
                      color: Theme.categoryColor(food.category))
@@ -112,6 +127,30 @@ struct FoodDetailView: View {
         }
         .frame(maxWidth: .infinity)
         .cartoonCard()
+    }
+
+    /// Крупный статус-пилл с иконкой — заметнее прежнего мелкого бейджа.
+    private var statusPill: some View {
+        HStack(spacing: 6) {
+            Image(systemName: stateIcon)
+            Text(state.title)
+        }
+        .font(.subheadline.bold())
+        .foregroundStyle(state.color)
+        .padding(.horizontal, 14).padding(.vertical, 8)
+        .background(state.color.opacity(0.15), in: Capsule())
+        .overlay(Capsule().stroke(state.color.opacity(0.35), lineWidth: 1))
+    }
+
+    /// SF Symbol статуса (двухтоновые `.fill` — для печати на иконке и в пилле).
+    private var stateIcon: String {
+        switch state {
+        case .notIntroduced: return "circle"
+        case .introducing:   return "eye.circle.fill"
+        case .introduced:    return "checkmark.seal.fill"
+        case .paused:        return "pause.circle.fill"
+        case .allergy:       return "exclamationmark.octagon.fill"
+        }
     }
 
     private var actionsCard: some View {
