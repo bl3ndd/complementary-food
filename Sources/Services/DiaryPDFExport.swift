@@ -15,6 +15,8 @@ struct DiaryPDFExport {
     let logs: [FoodLog]
     /// Статусы поддержки аллергенов — собираются вызывающим (AllergenMaintenance).
     let allergens: [AllergenGroupStatus]
+    /// Статусы ввода — для листа «не давать» (пауза/аллергия). Опционально.
+    var statuses: [IntroductionStatus] = []
     var now: Date = Date()
     var calendar: Calendar = .current
 
@@ -134,10 +136,45 @@ struct DiaryPDFExport {
         return line
     }
 
+    // MARK: - Лист «не давать» (няне / в садик)
+
+    struct AvoidItem { let name: String; let reason: String }
+
+    /// Продукты «не давать»: на паузе (реакция при вводе / отложили) или аллергия.
+    func avoidItems() -> [AvoidItem] {
+        statuses
+            .filter { $0.state == .paused || $0.state == .allergy }
+            .compactMap { st -> AvoidItem? in
+                guard let food = catalog.food(id: st.foodId) else { return nil }
+                return AvoidItem(name: food.localizedName,
+                                 reason: st.state == .allergy
+                                    ? IntroState.allergy.title : IntroState.paused.title)
+            }
+            .sorted { $0.name < $1.name }
+    }
+
+    /// Одностраничный отчёт «Что НЕ давать» — для няни/садика.
+    func avoidReport() -> Report {
+        let name = childName.trimmingCharacters(in: .whitespaces).isEmpty
+            ? String(localized: "Малыш") : childName
+        let subtitle = "\(name) · \(String(localized: "Сформировано")) "
+            + now.formatted(.dateTime.day().month().year())
+        let items = avoidItems()
+        let rows = items.isEmpty
+            ? [Row(text: String(localized: "Ограничений нет"), indented: true)]
+            : items.map { Row(text: "\($0.name) — \($0.reason)", indented: true) }
+        return Report(title: String(localized: "Что НЕ давать"),
+                      subtitle: subtitle,
+                      sections: [Section(heading: String(localized: "Список"), rows: rows)],
+                      photos: [])
+    }
+
     // MARK: - Отрисовка PDF (UIKit)
 
-    func makeData() -> Data {
-        let report = report()
+    func makeData() -> Data { render(report()) }
+    func makeAvoidData() -> Data { render(avoidReport()) }
+
+    private func render(_ report: Report) -> Data {
         let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)   // A4
         let margin: CGFloat = 40
         let maxY = pageRect.height - margin
@@ -203,13 +240,20 @@ struct DiaryPDFExport {
         }
     }
 
-    /// Готовый временный файл для шаринга (`ShareLink`/share sheet).
+    /// Готовый временный PDF-дневник «для педиатра».
     func writeTempFile() -> URL? {
-        let safeName = childName.trimmingCharacters(in: .whitespaces).isEmpty
-            ? String(localized: "Дневник") : childName
-        let file = "\(String(localized: "Дневник")) \(safeName).pdf"
-            .replacingOccurrences(of: "/", with: "-")
+        writeTempFile(makeData(), prefix: String(localized: "Дневник"))
+    }
+
+    /// Готовый временный лист «Что НЕ давать».
+    func writeAvoidTempFile() -> URL? {
+        writeTempFile(makeAvoidData(), prefix: String(localized: "Не давать"))
+    }
+
+    private func writeTempFile(_ data: Data, prefix: String) -> URL? {
+        let name = childName.trimmingCharacters(in: .whitespaces).isEmpty ? "" : " \(childName)"
+        let file = "\(prefix)\(name).pdf".replacingOccurrences(of: "/", with: "-")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(file)
-        do { try makeData().write(to: url); return url } catch { return nil }
+        do { try data.write(to: url); return url } catch { return nil }
     }
 }

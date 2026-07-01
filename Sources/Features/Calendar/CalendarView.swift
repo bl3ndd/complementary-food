@@ -58,10 +58,17 @@ struct CalendarView: View {
             .searchable(text: $search, prompt: Text("Поиск по дневнику"))
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button { exportPDF() } label: {
+                    Menu {
+                        Button { exportPDF(.pediatric) } label: {
+                            Label("Дневник для педиатра", systemImage: "doc.text")
+                        }
+                        Button { exportPDF(.avoid) } label: {
+                            Label("Лист «Не давать» (няне/садику)", systemImage: "nosign")
+                        }
+                    } label: {
                         Image(systemName: "square.and.arrow.up")
                     }
-                    .accessibilityLabel("Экспорт для педиатра")
+                    .accessibilityLabel("Экспорт")
                     .disabled(logs.isEmpty || children.isEmpty)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -381,15 +388,19 @@ struct CalendarView: View {
         pendingDelete = nil
     }
 
-    /// Сформировать PDF-дневник и открыть системный share sheet («для педиатра»).
-    /// Включаем статус поддержки аллергенов — наша уникальная ценность в выгрузке.
-    private func exportPDF() {
+    private enum ExportKind { case pediatric, avoid }
+
+    /// Сформировать PDF и открыть системный share sheet. Дневник «для педиатра»
+    /// включает статус поддержки аллергенов; лист «не давать» — паузы/аллергии.
+    private func exportPDF(_ kind: ExportKind) {
         guard let child = children.first else { return }
         let allergens = AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
                                             statuses: statuses, logs: logs).groups()
         let export = DiaryPDFExport(childName: child.name, ageMonths: child.ageInMonths,
-                                    catalog: catalog, logs: logs, allergens: allergens)
-        if let url = export.writeTempFile() { shareFile = ShareableFile(url: url) }
+                                    catalog: catalog, logs: logs, allergens: allergens,
+                                    statuses: statuses)
+        let url = kind == .pediatric ? export.writeTempFile() : export.writeAvoidTempFile()
+        if let url { shareFile = ShareableFile(url: url) }
     }
 
     /// Ячейки месяца: ведущие nil-паддинги до первого дня + дни месяца.

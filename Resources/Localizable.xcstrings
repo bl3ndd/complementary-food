@@ -1237,6 +1237,17 @@
         }
       }
     },
+    "Дневник для педиатра": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diary for pediatrician"
+          }
+        }
+      }
+    },
     "Дневник за сегодня": {
       "localizations": {
         "en": {
@@ -2281,6 +2292,17 @@
         }
       }
     },
+    "Лист «Не давать» (няне/садику)": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Do not give” sheet (nanny/daycare)"
+          }
+        }
+      }
+    },
     "Листовой овощ. Источник железа, фолатов и витамина K.": {
       "extractionState": "stale",
       "localizations": {
@@ -2748,6 +2770,17 @@
         }
       }
     },
+    "Не давать": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do not give"
+          }
+        }
+      }
+    },
     "Не запрошены": {
       "localizations": {
         "en": {
@@ -2974,6 +3007,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oatmeal"
+          }
+        }
+      }
+    },
+    "Ограничений нет": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No restrictions"
           }
         }
       }
@@ -4264,6 +4308,17 @@
         }
       }
     },
+    "Список": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "List"
+          }
+        }
+      }
+    },
     "Ср": {
       "extractionState": "manual",
       "localizations": {
@@ -4855,6 +4910,17 @@
         }
       }
     },
+    "Что НЕ давать": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What NOT to give"
+          }
+        }
+      }
+    },
     "Что уже ввели?": {
       "localizations": {
         "en": {
@@ -4872,6 +4938,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spinach"
+          }
+        }
+      }
+    },
+    "Экспорт": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export"
           }
         }
       }

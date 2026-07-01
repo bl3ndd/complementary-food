@@ -113,6 +113,31 @@ final class DiaryPDFExportTests: XCTestCase {
         XCTAssertEqual(e.report().photos.count, 2)
     }
 
+    // MARK: - Лист «не давать»
+
+    func testAvoidItemsListsPausedAndAllergyOnly() {
+        let statuses = [
+            IntroductionStatus(foodId: "broccoli", state: .paused),
+            IntroductionStatus(foodId: "egg_yolk", state: .allergy),
+            IntroductionStatus(foodId: "broccoli", state: .introduced),  // введён — не «не давать»
+            IntroductionStatus(foodId: "ghost", state: .allergy),        // нет в каталоге
+        ]
+        let e = DiaryPDFExport(childName: "Ника", ageMonths: 8, catalog: catalog, logs: [],
+                               allergens: [], statuses: statuses, now: now, calendar: utc)
+        let items = e.avoidItems()
+        XCTAssertEqual(items.count, 2, "пауза + аллергия из каталога; введённый и неизвестный вне")
+        XCTAssertTrue(items.allSatisfy { !$0.name.isEmpty && !$0.reason.isEmpty })
+        XCTAssertEqual(e.avoidReport().sections[0].rows.count, 2)
+    }
+
+    func testAvoidReportEmptyShowsPlaceholderAndValidPDF() {
+        let e = DiaryPDFExport(childName: "Ника", ageMonths: 8, catalog: catalog, logs: [],
+                               allergens: [], statuses: [], now: now, calendar: utc)
+        XCTAssertTrue(e.avoidItems().isEmpty)
+        XCTAssertEqual(e.avoidReport().sections[0].rows.count, 1, "плейсхолдер «ограничений нет»")
+        XCTAssertEqual(e.makeAvoidData().prefix(4), Data("%PDF".utf8))
+    }
+
     // MARK: - PDF-смоук
 
     func testMakeDataProducesValidPDF() {
