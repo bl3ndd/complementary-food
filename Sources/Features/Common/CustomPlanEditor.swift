@@ -1,51 +1,35 @@
 import SwiftUI
 
-/// Компактная карточка-сводка плана; по тапу открывает детальную настройку листом.
-/// Используется там, где не нужна развёрнутая форма (Профиль).
+/// Строка-пуш плана прикорма для Профиля: иконка + краткая сводка → отдельный
+/// экран с полным редактором (PlanDetailEditor). Обычная строка Form, не карточка.
 struct CustomPlanEditor: View {
     @Bindable var child: Child
-    @State private var showDetail = false
 
     var body: some View {
-        Button { showDetail = true } label: { summaryCard }
-            .buttonStyle(.plain)
-            .sheet(isPresented: $showDetail) {
-                NavigationStack {
-                    ScrollView { PlanDetailEditor(child: child).padding() }
-                        .background(AppBackground())
-                        .navigationTitle("Свой план прикорма")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .confirmationAction) {
-                                Button("Готово") { showDetail = false }
-                            }
-                        }
+        NavigationLink {
+            ScrollView { PlanDetailEditor(child: child).padding() }
+                .background(AppBackground())
+                .navigationTitle("Твой план прикорма")
+                .navigationBarTitleDisplayMode(.inline)
+        } label: {
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Theme.softGradient(Theme.accent))
+                    Image(systemName: "slider.horizontal.3").font(.footnote).foregroundStyle(Theme.accent)
+                }
+                .frame(width: 30, height: 30)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Твой план").font(.subheadline.weight(.medium))
+                    Text(summary).font(.caption).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
-    }
-
-    private var summaryCard: some View {
-        HStack(spacing: 12) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Theme.softGradient(Theme.accent))
-                Image(systemName: "slider.horizontal.3").foregroundStyle(Theme.accent)
-            }
-            .frame(width: 42, height: 42)
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Твой план прикорма").font(.subheadline.bold()).foregroundStyle(.primary)
-                Text(summary).font(.caption).foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            Spacer(minLength: 8)
-            Image(systemName: "chevron.right").font(.subheadline).foregroundStyle(.tertiary)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .cartoonCard()
     }
 
     private var summary: String {
-        String(localized: "Старт \(child.customStartAgeMonths) мес · окна \(child.customObservationDaysRegular)/\(child.customObservationDaysAllergen) дн · аллерген \(child.customAllergenFrequencyPerWeek)×/нед")
+        String(localized: "старт \(child.customStartAgeMonths) мес · обычный \(child.customObservationDaysRegular) дн · аллерген \(child.customObservationDaysAllergen) дн · \(child.customAllergenFrequencyPerWeek)×/нед")
     }
 }
 

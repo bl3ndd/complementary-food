@@ -3,101 +3,37 @@ import SwiftData
 import UIKit
 import UserNotifications
 
-/// Профиль ребёнка и настройки методики (SPEC §7).
+/// Профиль ребёнка и настройки (SPEC §7). Пять чётких областей по частоте:
+/// Малыш → План → Приложение → Данные → О приложении → изолированный сброс.
 struct ProfileView: View {
     @Bindable var child: Child
     @Environment(\.modelContext) private var context
     @Environment(\.scenePhase) private var scenePhase
-    @State private var showResetConfirm = false
+    @Query private var logs: [FoodLog]
+    @Query private var statuses: [IntroductionStatus]
+
     @AppStorage("app.language") private var language: AppLanguage = .system
-    @State private var showLanguageRestart = false
     @State private var notifStatus: UNAuthorizationStatus = .notDetermined
+    @State private var showResetConfirm = false
+    @State private var showLanguageRestart = false
+    @State private var shareFile: ShareableFile?
+    @State private var showRecap = false
+
+    private let catalog = FoodCatalog.shared
 
     var body: some View {
         NavigationStack {
             Form {
-                Section("Ребёнок") {
-                    LabeledContent("Имя") {
-                        TextField("Имя малыша", text: $child.name)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    DatePicker("Дата рождения", selection: $child.birthDate,
-                               in: ...Date(), displayedComponents: .date)
-                    LabeledContent("Возраст", value: String(localized: "\(child.ageInMonths) мес"))
-                }
-
-                Section("Свой план прикорма") {
-                    CustomPlanEditor(child: child)
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
-                }
-
-                Section("Напоминания") {
-                    LabeledContent("Статус") {
-                        Text(notifStatusText)
-                            .foregroundStyle(notifStatus == .authorized ? .green : .orange)
-                    }
-                    if notifStatus != .authorized {
-                        Button {
-                            if let url = URL(string: UIApplication.openSettingsURLString) {
-                                UIApplication.shared.open(url)
-                            }
-                        } label: {
-                            Label("Включить в настройках", systemImage: "bell.badge")
-                        }
-                    }
-                    Text("Напоминания поддерживают введённые аллергены — без них трекер не сработает.")
-                        .font(.footnote).foregroundStyle(.secondary)
-                }
-
-                Section("Язык") {
-                    Picker(selection: $language) {
-                        ForEach(AppLanguage.allCases) { lang in
-                            Text(lang.title).tag(lang)
-                        }
-                    } label: {
-                        Label("Язык", systemImage: "globe")
-                    }
-                }
-
-                Section("О приложении") {
-                    Link(destination: AppLinks.privacyPolicyURL) {
-                        Label("Политика конфиденциальности", systemImage: "lock.shield")
-                    }
-                    Link(destination: AppLinks.termsURL) {
-                        Label("Условия использования", systemImage: "doc.text")
-                    }
-                    Link(destination: AppLinks.supportMailto) {
-                        Label(String(localized: "support.link", defaultValue: "Поддержка"), systemImage: "envelope")
-                    }
-                    LabeledContent("Версия", value: Bundle.main.appVersion)
-                }
-
-                Section {
-                    Button(role: .destructive) { showResetConfirm = true } label: {
-                        Label("Сбросить все данные", systemImage: "trash")
-                    }
-                }
-
-                Section("Важно") {
-                    Label {
-                        Text(Disclaimer.medical)
-                            .font(.footnote).foregroundStyle(.secondary)
-                    } icon: {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.orange)
-                    }
-                }
-
-                Section {
-                    Text("Иконки: OpenMoji (CC BY-SA 4.0)")
-                        .font(.caption2).foregroundStyle(.tertiary)
-                }
+                childSection
+                planSection
+                appSection
+                dataSection
+                aboutSection
+                dangerSection
             }
             .scrollContentBackground(.hidden)
             .background(AppBackground())
             .navigationTitle("Профиль")
-            .navigationBarTitleDisplayMode(.inline)
             .task { await loadNotifStatus() }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active { Task { await loadNotifStatus() } }
@@ -106,6 +42,11 @@ struct ProfileView: View {
             .onChange(of: language) {
                 LanguageManager.apply(language)
                 showLanguageRestart = true
+            }
+            .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
+            .sheet(isPresented: $showRecap) {
+                RecapSheet(recap: RecapService(catalog: catalog, logs: logs)
+                    .recap(for: Date(), childName: child.name, ageMonths: child.ageInMonths))
             }
             .alert("Сбросить все данные?", isPresented: $showResetConfirm) {
                 Button("Сбросить", role: .destructive) { resetAll() }
@@ -121,6 +62,131 @@ struct ProfileView: View {
         }
     }
 
+    // MARK: - Малыш
+
+    private var childSection: some View {
+        Section("Малыш") {
+            LabeledContent("Имя") {
+                TextField("Имя малыша", text: $child.name)
+                    .multilineTextAlignment(.trailing)
+            }
+            DatePicker("Дата рождения", selection: $child.birthDate,
+                       in: ...Date(), displayedComponents: .date)
+            LabeledContent("Возраст", value: String(localized: "\(child.ageInMonths) мес"))
+        }
+    }
+
+    // MARK: - План прикорма (пуш)
+
+    private var planSection: some View {
+        Section("План прикорма") {
+            CustomPlanEditor(child: child)
+        }
+    }
+
+    // MARK: - Приложение (напоминания + язык)
+
+    private var appSection: some View {
+        Section {
+            LabeledContent("Напоминания") {
+                Text(notifStatusText)
+                    .foregroundStyle(notifStatus == .authorized ? .green : .orange)
+            }
+            if notifStatus != .authorized {
+                Button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    Label("Включить в настройках", systemImage: "bell.badge")
+                }
+            }
+            Picker(selection: $language) {
+                ForEach(AppLanguage.allCases) { lang in
+                    Text(lang.title).tag(lang)
+                }
+            } label: {
+                Label("Язык", systemImage: "globe")
+            }
+        } header: {
+            Text("Приложение")
+        } footer: {
+            Text("Напоминания держат введённые аллергены под контролем — без них трекер не сработает. Язык применяется после перезапуска.")
+        }
+    }
+
+    // MARK: - Данные (экспорт / рекап / сброс живёт отдельно)
+
+    private var dataSection: some View {
+        Section("Данные") {
+            Button { exportPDF(.pediatric) } label: {
+                Label("Дневник для педиатра", systemImage: "doc.richtext")
+            }
+            .disabled(logs.isEmpty)
+
+            Button { exportPDF(.avoid) } label: {
+                Label("Список «не давать»", systemImage: "nosign")
+            }
+            .disabled(!hasAvoidItems)
+
+            Button { showRecap = true } label: {
+                Label("Рекап месяца", systemImage: "party.popper")
+            }
+            .disabled(!RecapService(catalog: catalog, logs: logs).hasData(for: Date()))
+        }
+    }
+
+    // MARK: - О приложении (легалка + версия + кредиты в одном месте)
+
+    private var aboutSection: some View {
+        Section {
+            Link(destination: AppLinks.supportMailto) {
+                Label(String(localized: "support.link", defaultValue: "Поддержка"), systemImage: "envelope")
+            }
+            Link(destination: AppLinks.privacyPolicyURL) {
+                Label("Политика конфиденциальности", systemImage: "lock.shield")
+            }
+            Link(destination: AppLinks.termsURL) {
+                Label("Условия использования", systemImage: "doc.text")
+            }
+            Link(destination: AppLinks.methodologyInfoURL) {
+                Label("Источники методики", systemImage: "book")
+            }
+            LabeledContent("Версия", value: Bundle.main.appVersion)
+        } header: {
+            Text("О приложении")
+        } footer: {
+            Text(Disclaimer.medical + "\n\n" + String(localized: "Иконки: OpenMoji (CC BY-SA 4.0)"))
+                .font(.footnote)
+        }
+    }
+
+    // MARK: - Опасная зона (изолирована, в самом низу)
+
+    private var dangerSection: some View {
+        Section {
+            Button(role: .destructive) { showResetConfirm = true } label: {
+                Label("Сбросить все данные", systemImage: "trash")
+            }
+        } footer: {
+            Text("Сначала выгрузите данные (Данные → Дневник для педиатра) — после сброса восстановить нельзя.")
+        }
+    }
+
+    // MARK: - Действия
+
+    private enum ExportKind { case pediatric, avoid }
+
+    private func exportPDF(_ kind: ExportKind) {
+        let export = DiaryPDFExport.make(child: child, logs: logs, statuses: statuses)
+        let url = kind == .pediatric ? export.writeTempFile() : export.writeAvoidTempFile()
+        if let url { shareFile = ShareableFile(url: url) }
+    }
+
+    private var hasAvoidItems: Bool {
+        statuses.contains { $0.state == .paused || $0.state == .allergy }
+    }
+
     /// Полный сброс: удаляем все данные → RootView покажет онбординг.
     private func resetAll() {
         NotificationManager.shared.clearAll()
@@ -132,7 +198,6 @@ struct ProfileView: View {
         FoodCatalog.setCustom([])
     }
 
-    /// Подпись custom-параметров — чтобы реагировать на правки своего плана.
     private var notifStatusText: String {
         switch notifStatus {
         case .authorized, .provisional, .ephemeral: return String(localized: "Включены")
@@ -145,6 +210,7 @@ struct ProfileView: View {
         notifStatus = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
     }
 
+    /// Подпись custom-параметров — чтобы сохранять/перепланировать при правке плана.
     private var customSignature: String {
         "\(child.customStartAgeMonths)/\(child.customObservationDaysRegular)/\(child.customObservationDaysAllergen)/\(child.customAllergenFrequencyPerWeek)/\(child.customAllergenGroupsRaw)"
     }

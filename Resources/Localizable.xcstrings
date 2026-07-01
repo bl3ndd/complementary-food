@@ -1144,6 +1144,17 @@
         }
       }
     },
+    "Данные": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        }
+      }
+    },
     "Дата рождения": {
       "extractionState": "manual",
       "localizations": {
@@ -1849,6 +1860,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "History"
+          }
+        }
+      }
+    },
+    "Источники методики": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Methodology sources"
           }
         }
       }
@@ -2686,6 +2708,17 @@
         }
       }
     },
+    "Напоминания держат введённые аллергены под контролем — без них трекер не сработает. Язык применяется после перезапуска.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders keep introduced allergens on track — without them the tracker won’t fire. Language applies after a restart."
+          }
+        }
+      }
+    },
     "Напоминания по этому аллергену отключатся.": {
       "localizations": {
         "en": {
@@ -3296,6 +3329,17 @@
         }
       }
     },
+    "План прикорма": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feeding plan"
+          }
+        }
+      }
+    },
     "Планы": {
       "extractionState": "manual",
       "localizations": {
@@ -3684,6 +3728,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Before you start"
+          }
+        }
+      }
+    },
+    "Приложение": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App"
           }
         }
       }
@@ -4297,6 +4352,17 @@
         }
       }
     },
+    "Сначала выгрузите данные (Данные → Дневник для педиатра) — после сброса восстановить нельзя.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export first (Data → Diary for pediatrician) — after reset there’s no recovery."
+          }
+        }
+      }
+    },
     "Сорбит": {
       "extractionState": "stale",
       "localizations": {
@@ -4359,6 +4425,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "List"
+          }
+        }
+      }
+    },
+    "Список «не давать»": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Do not give” list"
           }
         }
       }
@@ -4511,6 +4588,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tap a day to plan an introduction or view entries."
+          }
+        }
+      }
+    },
+    "Твой план": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your plan"
           }
         }
       }
@@ -5323,6 +5411,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "made in Pudding"
+          }
+        }
+      }
+    },
+    "старт %lld мес · обычный %lld дн · аллерген %lld дн · %lld×/нед": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "start %lld mo · regular %lld d · allergen %lld d · %lld×/wk"
           }
         }
       }

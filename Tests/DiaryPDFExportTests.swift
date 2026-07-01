@@ -138,6 +138,19 @@ final class DiaryPDFExportTests: XCTestCase {
         XCTAssertEqual(e.makeAvoidData().prefix(4), Data("%PDF".utf8))
     }
 
+    // MARK: - Фабрика make() (общая для Календаря и Профиля)
+
+    func testMakeFactoryWiresAllergenStatuses() {
+        let child = Child(name: "Ника")
+        let statuses = [IntroductionStatus(foodId: "egg_yolk", state: .introduced)]
+        let export = DiaryPDFExport.make(child: child, logs: sampleLogs(), statuses: statuses,
+                                         catalog: catalog, now: now)
+        XCTAssertEqual(export.childName, "Ника")
+        XCTAssertTrue(export.allergens.contains { $0.group == .egg },
+                      "яйцо из каталога → статус аллергена попадает в выгрузку")
+        XCTAssertFalse(export.report().sections.isEmpty)
+    }
+
     // MARK: - PDF-смоук
 
     func testMakeDataProducesValidPDF() {

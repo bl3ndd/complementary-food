@@ -257,3 +257,15 @@ struct DiaryPDFExport {
         do { try data.write(to: url); return url } catch { return nil }
     }
 }
+
+extension DiaryPDFExport {
+    /// Собрать экспорт из состояния приложения — общий вход для Календаря и Профиля.
+    static func make(child: Child, logs: [FoodLog], statuses: [IntroductionStatus],
+                     catalog: FoodCatalog = .shared, now: Date = Date()) -> DiaryPDFExport {
+        let allergens = AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
+                                            statuses: statuses, logs: logs).groups()
+        return DiaryPDFExport(childName: child.name, ageMonths: child.ageInMonths,
+                              catalog: catalog, logs: logs, allergens: allergens,
+                              statuses: statuses, now: now)
+    }
+}

@@ -411,11 +411,7 @@ struct CalendarView: View {
     /// включает статус поддержки аллергенов; лист «не давать» — паузы/аллергии.
     private func exportPDF(_ kind: ExportKind) {
         guard let child = children.first else { return }
-        let allergens = AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
-                                            statuses: statuses, logs: logs).groups()
-        let export = DiaryPDFExport(childName: child.name, ageMonths: child.ageInMonths,
-                                    catalog: catalog, logs: logs, allergens: allergens,
-                                    statuses: statuses)
+        let export = DiaryPDFExport.make(child: child, logs: logs, statuses: statuses)
         let url = kind == .pediatric ? export.writeTempFile() : export.writeAvoidTempFile()
         if let url { shareFile = ShareableFile(url: url) }
     }
