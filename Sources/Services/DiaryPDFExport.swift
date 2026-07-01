@@ -34,7 +34,25 @@ struct DiaryPDFExport {
 
     struct Row { let text: String; var bold: Bool = false; var indented: Bool = false }
     struct Section { let heading: String; let rows: [Row] }
-    struct Report { let title: String; let subtitle: String; let sections: [Section] }
+    struct PhotoItem { let caption: String; let data: Data }
+    struct Report {
+        let title: String
+        let subtitle: String
+        let sections: [Section]
+        let photos: [PhotoItem]
+    }
+
+    /// Фото из записей (тарелки/сыпь) для приложения-фотоотчёта, старые сверху.
+    func photoItems() -> [PhotoItem] {
+        logs.filter { !$0.planned && $0.photo != nil }
+            .sorted { $0.date < $1.date }
+            .compactMap { log in
+                guard let data = log.photo else { return nil }
+                let name = catalog.food(id: log.foodId)?.localizedName ?? log.foodId
+                let d = log.date.formatted(.dateTime.day().month().year())
+                return PhotoItem(caption: "\(d) · \(name)", data: data)
+            }
+    }
 
     func report() -> Report {
         let title = String(localized: "Дневник прикорма")
@@ -49,7 +67,8 @@ struct DiaryPDFExport {
         if !reactions.isEmpty { sections.append(reactionSection(reactions)) }
         if !allergens.isEmpty { sections.append(allergenSection()) }
 
-        return Report(title: title, subtitle: subtitle, sections: sections)
+        return Report(title: title, subtitle: subtitle,
+                      sections: sections, photos: photoItems())
     }
 
     private func journalSection() -> Section {
@@ -72,6 +91,8 @@ struct DiaryPDFExport {
             let name = catalog.food(id: log.foodId)?.localizedName ?? log.foodId
             let date = log.date.formatted(.dateTime.day().month().year())
             var line = "\(date) — \(name) — \((log.reaction ?? .other).title)"
+            if let sev = log.severity { line += " · \(sev.title)" }
+            if log.photo != nil { line += " · 📷" }
             if let note = log.note, !note.isEmpty { line += " — «\(note)»" }
             return Row(text: line, indented: true)
         }
@@ -104,7 +125,9 @@ struct DiaryPDFExport {
                      : String(localized: "maintenance.type", defaultValue: "Поддержка")]
         if let liking = log.liking { parts.append(liking.title) }
         if let r = log.reaction, r != .none {
-            parts.append("\(String(localized: "Реакция")): \(r.title)")
+            var rp = "\(String(localized: "Реакция")): \(r.title)"
+            if let sev = log.severity { rp += " (\(sev.title))" }
+            parts.append(rp)
         }
         var line = "\(name) — " + parts.joined(separator: " · ")
         if let note = log.note, !note.isEmpty { line += " · «\(note)»" }
@@ -151,6 +174,31 @@ struct DiaryPDFExport {
                          spacingAfter: row.bold ? 4 : 3)
                 }
                 y += 10
+            }
+
+            // Приложение с фото (тарелки/сыпь) — сеткой 2 колонки, с подписью.
+            guard !report.photos.isEmpty else { return }
+            draw(String(localized: "Фото"), font: .boldSystemFont(ofSize: 15),
+                 color: accent, spacingAfter: 8)
+            let gap: CGFloat = 12
+            let colW = (pageRect.width - margin * 2 - gap) / 2
+            let maxImgH: CGFloat = 170
+            var rowTop = y, rowMaxH: CGFloat = 0, col = 0
+            for item in report.photos {
+                guard let img = UIImage(data: item.data) else { continue }
+                let ar = img.size.height / max(img.size.width, 1)
+                let drawH = min(maxImgH, colW * ar)
+                let blockH = drawH + 16
+                if col == 0, rowTop + blockH > maxY { ctx.beginPage(); rowTop = margin; rowMaxH = 0 }
+                let x = margin + CGFloat(col) * (colW + gap)
+                img.draw(in: CGRect(x: x, y: rowTop, width: colW, height: drawH))
+                (item.caption as NSString).draw(
+                    in: CGRect(x: x, y: rowTop + drawH + 2, width: colW, height: 12),
+                    withAttributes: [.font: UIFont.systemFont(ofSize: 9),
+                                     .foregroundColor: UIColor.darkGray])
+                rowMaxH = max(rowMaxH, blockH)
+                col += 1
+                if col == 2 { rowTop += rowMaxH + 6; rowMaxH = 0; col = 0 }
             }
         }
     }

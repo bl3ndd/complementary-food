@@ -1,4 +1,5 @@
 import XCTest
+import UIKit
 @testable import Prikorm
 
 /// Тесты PDF-дневника «для педиатра»: чистый контент-билдер (журнал без планов,
@@ -98,6 +99,20 @@ final class DiaryPDFExportTests: XCTestCase {
         XCTAssertTrue(report.subtitle.contains("8"))
     }
 
+    // MARK: - Фото-приложение
+
+    func testPhotoItemsExcludePlannedOldestFirst() {
+        let logs = sampleLogs()
+        logs[0].photo = Data([1, 2, 3])   // broccoli 06-10
+        logs[2].photo = Data([4, 5, 6])   // egg-реакция 06-12
+        logs[3].photo = Data([7, 8, 9])   // план — не считается
+        let e = export(logs)
+        let items = e.photoItems()
+        XCTAssertEqual(items.count, 2, "фото плана исключено")
+        XCTAssertFalse(items[0].caption.isEmpty)
+        XCTAssertEqual(e.report().photos.count, 2)
+    }
+
     // MARK: - PDF-смоук
 
     func testMakeDataProducesValidPDF() {
@@ -105,6 +120,16 @@ final class DiaryPDFExportTests: XCTestCase {
         XCTAssertFalse(data.isEmpty)
         // PDF начинается с сигнатуры «%PDF».
         XCTAssertEqual(data.prefix(4), Data("%PDF".utf8))
+    }
+
+    func testMakeDataWithEmbeddedPhotoStillValid() {
+        let img = UIGraphicsImageRenderer(size: CGSize(width: 12, height: 12)).image { ctx in
+            UIColor.red.setFill(); ctx.fill(CGRect(x: 0, y: 0, width: 12, height: 12))
+        }
+        let logs = sampleLogs()
+        logs[0].photo = img.pngData()
+        let data = export(logs, allergens: [eggStatus()]).makeData()
+        XCTAssertEqual(data.prefix(4), Data("%PDF".utf8), "фото не ломает рендер")
     }
 
     func testWriteTempFileCreatesReadablePDF() throws {
