@@ -2138,6 +2138,17 @@
         }
       }
     },
+    "Кормление": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feeding"
+          }
+        }
+      }
+    },
     "Корнеплод. Источник бета-каротина (витамин A) и клетчатки.": {
       "extractionState": "stale",
       "localizations": {

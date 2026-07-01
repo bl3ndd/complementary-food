@@ -165,7 +165,8 @@ struct CalendarView: View {
     private var filterChips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(DiaryFilter.allCases) { f in
+                // Только дневниковые линзы — «ввод/поддержка» это методика, не дневник.
+                ForEach([DiaryFilter.all, .reaction, .planned]) { f in
                     let active = filter == f
                     Button {
                         withAnimation(.snappy) { filter = f }

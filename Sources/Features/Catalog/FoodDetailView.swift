@@ -220,10 +220,8 @@ struct FoodDetailView: View {
         if log.note != nil && log.liking == nil && (log.reaction == nil || log.reaction == ReactionType.none) {
             return (String(localized: "Заметка"), "note.text", Theme.lilac)
         }
-        if log.type == .maintenance {
-            return (String(localized: "maintenance.type", defaultValue: "Поддержка"), "drop.fill", Theme.sky)
-        }
-        return (String(localized: "Ввод"), "leaf.fill", Theme.mint)
+        // Чистый дневник: любая запись — «Кормление» (без методики ввод/поддержка).
+        return (String(localized: "Кормление"), "fork.knife", Theme.mint)
     }
 
     private func historyRow(_ log: FoodLog) -> some View {

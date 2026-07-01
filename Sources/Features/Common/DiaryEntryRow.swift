@@ -10,6 +10,10 @@ struct DiaryEntryRow: View {
     var showDone: Bool = false
     var onDone: (() -> Void)? = nil
 
+    private var hasBadges: Bool {
+        entry.planned || (entry.reaction ?? .none) != .none
+    }
+
     var body: some View {
         HStack(spacing: 12) {
             if let food = entry.food {
@@ -25,20 +29,18 @@ struct DiaryEntryRow: View {
                     Text(entry.date.formatted(.dateTime.hour().minute()))
                         .font(.caption).foregroundStyle(.secondary)
                 }
-                // Бейджи — отдельной строкой, целыми чипами переносятся на новую
-                // строку (FlowLayout), текст внутри не режется.
-                FlowLayout(spacing: 6) {
-                    StatusBadge(text: entry.type == .intro
-                                ? String(localized: "Ввод")
-                                : String(localized: "maintenance.type", defaultValue: "Поддержка"),
-                                color: entry.type == .intro ? Theme.accent : .blue)
-                    if entry.planned {
-                        StatusBadge(text: String(localized: "план"), color: Theme.lilac)
-                    }
-                    if let reaction = entry.reaction, reaction != .none {
-                        StatusBadge(text: reaction.title, color: .red)
-                        if let severity = entry.log.severity {
-                            StatusBadge(text: severity.title, color: severity.color)
+                // Тип «ввод/поддержка» не показываем — чистый дневник: запись
+                // это просто кормление. Значимы только план и реакция.
+                if hasBadges {
+                    FlowLayout(spacing: 6) {
+                        if entry.planned {
+                            StatusBadge(text: String(localized: "план"), color: Theme.lilac)
+                        }
+                        if let reaction = entry.reaction, reaction != .none {
+                            StatusBadge(text: reaction.title, color: .red)
+                            if let severity = entry.log.severity {
+                                StatusBadge(text: severity.title, color: severity.color)
+                            }
                         }
                     }
                 }
