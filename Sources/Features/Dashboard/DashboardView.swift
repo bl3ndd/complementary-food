@@ -282,13 +282,11 @@ struct DashboardView: View {
         statuses.filter { $0.state == .introduced }.count
     }
 
-    /// Для стены: введённые и вводимые продукты (введённые первыми).
+    /// Стена коллекции — только введённые (совпадает со счётчиком в шапке).
+    /// «Сейчас вводишь» показывается отдельной карточкой выше, не дублируем.
     private var collectionFoods: [Food] {
-        let order: (IntroState) -> Int = { $0 == .introduced ? 0 : 1 }
-        let ids = statuses.filter { $0.state == .introduced || $0.state == .introducing }
-            .sorted { order($0.state) < order($1.state) }
-            .map(\.foodId)
-        return ids.compactMap { catalog.food(id: $0) }
+        statuses.filter { $0.state == .introduced }
+            .compactMap { catalog.food(id: $0.foodId) }
     }
 
     private var todayEntries: [DayEntry] {

@@ -79,6 +79,26 @@ struct FeedingService {
         log.photos = items
     }
 
+    /// Удаляет свой продукт вместе со связанными статусом и логами (иначе они
+    /// осиротеют: «фантом» в счётчиках, сырой `custom-…` вместо имени в истории/PDF).
+    /// Логи удаляем инстансами — прикреплённые фото каскадятся (deleteRule .cascade).
+    func deleteCustomFood(id: String) {
+        let fid = id
+        for log in (try? context.fetch(
+            FetchDescriptor<FoodLog>(predicate: #Predicate { $0.foodId == fid }))) ?? [] {
+            context.delete(log)
+        }
+        for s in (try? context.fetch(
+            FetchDescriptor<IntroductionStatus>(predicate: #Predicate { $0.foodId == fid }))) ?? [] {
+            context.delete(s)
+        }
+        for cf in (try? context.fetch(
+            FetchDescriptor<CustomFood>(predicate: #Predicate { $0.id == fid }))) ?? [] {
+            context.delete(cf)
+        }
+        save()
+    }
+
     /// Отмечает продукты как уже введённые (онбординг — что малыш уже ест без проблем).
     /// Идемпотентно: повторный вызов не плодит статусы и не трогает уже введённые.
     func markIntroduced(_ foods: [Food], now: Date = Date()) {
@@ -175,7 +195,11 @@ extension FeedingService {
 
     /// Начало окна наблюдения = самая ранняя из дат: отметка старта и любой intro-лог.
     /// Гарантирует, что записи задним числом «двигают» окно (п.22).
+    /// Начало окна наблюдения текущей попытки. `introStartedAt` уже отражает бэкдейт
+    /// (logFeeding тянет его назад), поэтому окно = старт; логи ПРОШЛЫХ попыток
+    /// (раньше текущего старта) не должны утягивать окно в прошлое — иначе после
+    /// «Возобновить»/повторного ввода наблюдение мгновенно «завершается».
     static func windowStart(introStartedAt: Date?, introLogDates: [Date]) -> Date? {
-        ([introStartedAt].compactMap { $0 } + introLogDates).min()
+        introStartedAt ?? introLogDates.min()
     }
 }

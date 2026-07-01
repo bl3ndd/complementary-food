@@ -229,6 +229,17 @@
         }
       }
     },
+    "«%@» и все его записи в дневнике удалятся. Действие необратимо.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” and all its diary entries will be deleted. This can’t be undone."
+          }
+        }
+      }
+    },
     "×/нед": {
       "extractionState": "manual",
       "localizations": {
@@ -4774,6 +4785,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete plan?"
+          }
+        }
+      }
+    },
+    "Удалить свой продукт?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete your food?"
           }
         }
       }

@@ -21,7 +21,9 @@ struct FoodDetailView: View {
         self.child = child
         let fid = food.id
         _statuses = Query(filter: #Predicate { $0.foodId == fid })
-        _logs = Query(filter: #Predicate { $0.foodId == fid },
+        // Только фактические записи (без планов) — план на будущее не должен
+        // показываться в истории как данное кормление и тянуть окно наблюдения.
+        _logs = Query(filter: #Predicate { $0.foodId == fid && !$0.planned },
                       sort: \FoodLog.date, order: .reverse)
     }
 

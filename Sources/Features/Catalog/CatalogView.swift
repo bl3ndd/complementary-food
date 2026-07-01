@@ -9,6 +9,7 @@ struct CatalogView: View {
     @Query private var customFoods: [CustomFood]
     @State private var search = ""
     @State private var showAddCustom = false
+    @State private var pendingDeleteCustom: Food?
 
     private let catalog = FoodCatalog.shared
 
@@ -22,6 +23,15 @@ struct CatalogView: View {
                     FoodDetailView(food: food, child: child)
                 }
                 .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet() }
+                .alert("Удалить свой продукт?",
+                       isPresented: Binding(get: { pendingDeleteCustom != nil },
+                                            set: { if !$0 { pendingDeleteCustom = nil } }),
+                       presenting: pendingDeleteCustom) { food in
+                    Button("Удалить", role: .destructive) { deleteCustom(food.id) }
+                    Button("Отмена", role: .cancel) {}
+                } message: { food in
+                    Text("«\(food.localizedName)» и все его записи в дневнике удалятся. Действие необратимо.")
+                }
                 .onAppear { FoodCatalog.setCustom(customFoods) }
                 .onChange(of: customFoods.map(\.id)) { FoodCatalog.setCustom(customFoods) }
         }
@@ -61,7 +71,7 @@ struct CatalogView: View {
             .listRowBackground(Color.white)
             .swipeActions(edge: .trailing) {
                 if food.id.hasPrefix("custom-") {
-                    Button(role: .destructive) { deleteCustom(food.id) } label: {
+                    Button(role: .destructive) { pendingDeleteCustom = food } label: {
                         Label("Удалить", systemImage: "trash")
                     }
                 }
@@ -82,11 +92,9 @@ struct CatalogView: View {
     }
 
     private func deleteCustom(_ id: String) {
-        if let cf = customFoods.first(where: { $0.id == id }) {
-            context.delete(cf)
-            try? context.save()
-            FoodCatalog.setCustom(customFoods.filter { $0.id != id })
-        }
+        // Удаляем продукт + связанные статус/логи (чистка орфанов), затем обновляем реестр.
+        FeedingService(context: context).deleteCustomFood(id: id)
+        FoodCatalog.setCustom(customFoods.filter { $0.id != id })
     }
 
     /// Свой поиск: системный `.searchable` не рисуется внутри страничного TabView.

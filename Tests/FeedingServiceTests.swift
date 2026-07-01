@@ -13,7 +13,7 @@ final class FeedingServiceTests: XCTestCase {
 
     @MainActor
     private func makeContext() throws -> ModelContext {
-        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
+        let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self, CustomFood.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         container = try ModelContainer(for: schema, configurations: [config])
         return container.mainContext
@@ -408,15 +408,43 @@ final class FeedingServiceTests: XCTestCase {
         XCTAssertEqual(log.date, day(5, cal), "будущую дату клампим к now")
     }
 
-    func testWindowStartTakesEarliestOfStartAndLogs() {
+    func testWindowStartUsesStartIgnoringOlderLogsFromPriorAttempts() {
         let cal = utcCalendar()
+        // Старт задан (он уже отражает бэкдейт) → окно от старта; более ранний лог
+        // прошлой попытки (day 3) НЕ тянет окно назад — иначе повторный ввод скипал бы
+        // наблюдение.
         XCTAssertEqual(
             FeedingService.windowStart(introStartedAt: day(5, cal),
                                        introLogDates: [day(3, cal), day(8, cal)]),
-            day(3, cal))
+            day(5, cal))
+        // Нет старта → самый ранний лог (фолбэк).
         XCTAssertEqual(
             FeedingService.windowStart(introStartedAt: nil, introLogDates: [day(4, cal)]),
             day(4, cal))
         XCTAssertNil(FeedingService.windowStart(introStartedAt: nil, introLogDates: []))
+    }
+
+    @MainActor
+    func testDeleteCustomFoodRemovesStatusLogsAndPhotos() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+
+        let cf = CustomFood(name: "Домашний йогурт", emoji: "🥛", minAgeMonths: 6)
+        context.insert(cf)
+        context.insert(IntroductionStatus(foodId: cf.id, state: .introduced))
+        let log = FoodLog(foodId: cf.id, date: .init(timeIntervalSince1970: 1_700_000_000))
+        context.insert(log)
+        service.setPhotos([Data([1, 2, 3])], on: log)   // прикрепляем фото (LogPhoto)
+        try context.save()
+
+        service.deleteCustomFood(id: cf.id)
+
+        XCTAssertTrue(try context.fetch(FetchDescriptor<CustomFood>()).isEmpty)
+        XCTAssertTrue(try context.fetch(FetchDescriptor<IntroductionStatus>()).isEmpty,
+                      "статус своего продукта не осиротел")
+        XCTAssertTrue(try context.fetch(FetchDescriptor<FoodLog>()).isEmpty,
+                      "логи своего продукта удалены")
+        XCTAssertTrue(try context.fetch(FetchDescriptor<LogPhoto>()).isEmpty,
+                      "фото удалены каскадом вместе с логами")
     }
 }

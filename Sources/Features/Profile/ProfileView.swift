@@ -190,6 +190,9 @@ struct ProfileView: View {
     /// Полный сброс: удаляем все данные → RootView покажет онбординг.
     private func resetAll() {
         NotificationManager.shared.clearAll()
+        // LogPhoto удаляем явно: bulk-delete FoodLog НЕ применяет cascade (иначе фото
+        // остаются орфанами в сторе/CloudKit навсегда).
+        try? context.delete(model: LogPhoto.self)
         try? context.delete(model: FoodLog.self)
         try? context.delete(model: IntroductionStatus.self)
         try? context.delete(model: CustomFood.self)
