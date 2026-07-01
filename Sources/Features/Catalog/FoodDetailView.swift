@@ -71,24 +71,28 @@ struct FoodDetailView: View {
         } message: {
             Text("Напоминания по этому аллергену отключатся.")
         }
-        .overlay {
-            if showCheer { cheerOverlay }
-        }
+        .overlay { cheerOverlay }
     }
 
-    /// Кратковременное поздравление при успешном вводе продукта.
+    /// Кратковременное поздравление при успешном вводе продукта. Фон-затемнение
+    /// только проявляется (opacity), а карточка ещё и масштабируется — иначе фон
+    /// «летал» вместе с Puddingом (общий scale-транзишен на всём ZStack).
     private var cheerOverlay: some View {
         ZStack {
-            Color.black.opacity(0.15).ignoresSafeArea()
-            VStack(spacing: 14) {
-                Mascot(mood: .cheer, size: 120)
-                Text("Продукт введён! 🎉").font(.title3.bold())
+            if showCheer {
+                Color.black.opacity(0.15).ignoresSafeArea()
+                    .transition(.opacity)
+                VStack(spacing: 14) {
+                    Mascot(mood: .cheer, size: 120)
+                    Text("Продукт введён! 🎉").font(.title3.bold())
+                }
+                .padding(28)
+                .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
+                .transition(.scale(scale: 0.85).combined(with: .opacity))
             }
-            .padding(28)
-            .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
-            .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
         }
-        .transition(.opacity.combined(with: .scale(scale: 0.85)))
+        .allowsHitTesting(false)
     }
 
     // MARK: - Карточки
