@@ -48,28 +48,45 @@ struct DashboardView: View {
     // MARK: - Маскот-барометр
 
     private var heroCard: some View {
-        HStack(spacing: 14) {
+        HStack(spacing: 16) {
             ZStack {
-                Circle().fill(.white.opacity(0.25)).frame(width: 60, height: 60)
-                Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 50)
+                Circle().fill(.white.opacity(0.22)).frame(width: 76, height: 76)
+                Circle().stroke(.white.opacity(0.35), lineWidth: 2).frame(width: 76, height: 76)
+                Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 62)
             }
-            VStack(alignment: .leading, spacing: 3) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(greeting)
+                    .font(.caption2.weight(.heavy)).textCase(.uppercase)
+                    .foregroundStyle(.white.opacity(0.8)).tracking(0.6)
                 Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
-                    .font(.title2.bold()).foregroundStyle(.white)
+                    .font(.title.bold()).foregroundStyle(.white).lineLimit(1)
                 Text("\(child.ageInMonths) мес")
                     .font(.subheadline.weight(.medium)).foregroundStyle(.white.opacity(0.9))
                 Text(todayEntries.isEmpty
                      ? String(localized: "Сегодня записей пока нет")
                      : String(localized: "Сегодня записей: \(todayEntries.count) 🎉"))
-                    .font(.caption.weight(.semibold)).foregroundStyle(.white.opacity(0.95))
+                    .font(.caption.weight(.bold)).foregroundStyle(.white)
+                    .padding(.horizontal, 10).padding(.vertical, 4)
+                    .background(.white.opacity(0.20), in: Capsule())
+                    .padding(.top, 2)
             }
-            Spacer()
+            Spacer(minLength: 0)
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.accentGradient,
                     in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accentDeep.opacity(0.30), radius: 16, x: 0, y: 9)
+    }
+
+    /// Приветствие по времени суток (тёплый акцент карточки ребёнка).
+    private var greeting: String {
+        switch Calendar.current.component(.hour, from: Date()) {
+        case 5..<12:  return String(localized: "Доброе утро")
+        case 12..<18: return String(localized: "Добрый день")
+        case 18..<23: return String(localized: "Добрый вечер")
+        default:      return String(localized: "Доброй ночи")
+        }
     }
 
     // MARK: - Быстрые действия
