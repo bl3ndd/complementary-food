@@ -1,7 +1,9 @@
 import SwiftUI
 import SwiftData
 
-/// Карточка продукта: герой + чипы-факты + действия + история (SPEC §7).
+/// Карточка продукта (гибрид): адаптивный герой (кольцо окна наблюдения / печать
+/// статуса + сводка) → факты в аккордеоне → история; главное действие — в закреплённом
+/// баре снизу, вторичные/деструктивные — в меню «…» (SPEC §7). Чистый дневник.
 struct FoodDetailView: View {
     let food: Food
     let child: Child
@@ -15,14 +17,13 @@ struct FoodDetailView: View {
     @State private var editingLog: FoodLog?
     @State private var confirmStop = false
     @State private var confirmAllergy = false
+    @State private var benefitsExpanded = false
 
     init(food: Food, child: Child) {
         self.food = food
         self.child = child
         let fid = food.id
         _statuses = Query(filter: #Predicate { $0.foodId == fid })
-        // Только фактические записи (без планов) — план на будущее не должен
-        // показываться в истории как данное кормление и тянуть окно наблюдения.
         _logs = Query(filter: #Predicate { $0.foodId == fid && !$0.planned },
                       sort: \FoodLog.date, order: .reverse)
     }
@@ -32,7 +33,6 @@ struct FoodDetailView: View {
 
     private var introStartedAt: Date? { statuses.first?.introStartedAt }
     private var observationDays: Int { child.feedingProfile.observationDays(for: food) }
-    /// Начало окна = самая ранняя из отметки старта и intro-логов (учитывает бэкдейт).
     private var windowStart: Date? {
         FeedingService.windowStart(introStartedAt: introStartedAt,
                                    introLogDates: logs.filter { $0.type == .intro }.map(\.date))
@@ -44,12 +44,16 @@ struct FoodDetailView: View {
         guard let start = windowStart else { return false }
         return FeedingService.isObservationComplete(start: start, observationDays: observationDays)
     }
+    private var windowFraction: CGFloat {
+        guard observationDays > 0, let day = observationDay else { return 0 }
+        return min(1, max(0, CGFloat(day) / CGFloat(observationDays)))
+    }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 heroCard
-                actionsCard
+                if state == .notIntroduced { startDateCard }
                 if state == .allergy { allergyCard }
                 benefitsCard
                 if !logs.isEmpty { historyCard }
@@ -58,7 +62,8 @@ struct FoodDetailView: View {
         }
         .background(AppBackground())
         .navigationTitle(food.localizedName)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
+        .safeAreaInset(edge: .bottom) { stickyBar }
         .sheet(item: $logMode) { mode in
             LogFeedingSheet(food: food, child: child, mode: mode)
         }
@@ -66,6 +71,8 @@ struct FoodDetailView: View {
         .alert("Приостановить ввод этого продукта?", isPresented: $confirmStop) {
             Button("Приостановить", role: .destructive) { stop() }
             Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Это не аллергия — просто пауза, ввод можно возобновить в любой момент.")
         }
         .alert("Пометить аллергию?", isPresented: $confirmAllergy) {
             Button("Пометить аллергию", role: .destructive) { flagAllergy() }
@@ -76,46 +83,14 @@ struct FoodDetailView: View {
         .overlay { cheerOverlay }
     }
 
-    /// Кратковременное поздравление при успешном вводе продукта. Фон-затемнение
-    /// только проявляется (opacity), а карточка ещё и масштабируется — иначе фон
-    /// «летал» вместе с Puddingом (общий scale-транзишен на всём ZStack).
-    private var cheerOverlay: some View {
-        ZStack {
-            if showCheer {
-                Color.black.opacity(0.15).ignoresSafeArea()
-                    .transition(.opacity)
-                VStack(spacing: 14) {
-                    Mascot(mood: .cheer, size: 120)
-                    Text("Продукт введён! 🎉").font(.title3.bold())
-                }
-                .padding(28)
-                .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
-                .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
-                .transition(.scale(scale: 0.85).combined(with: .opacity))
-            }
-        }
-        .allowsHitTesting(false)
-    }
-
-    // MARK: - Карточки
+    // MARK: - Герой (адаптивный)
 
     private var heroCard: some View {
-        VStack(spacing: 12) {
-            FoodIcon(food: food, size: 88)
-                .overlay(alignment: .bottomTrailing) {
-                    // Печать статуса прямо на иконке — видно с первого взгляда,
-                    // что продукт введён (галочка), вводится, на паузе или аллергия.
-                    if state != .notIntroduced {
-                        ZStack {
-                            Circle().fill(.white).frame(width: 34, height: 34)
-                                .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
-                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 24)
-                        }
-                        .offset(x: 8, y: 6)
-                    }
-                }
-            Text(food.localizedName).font(.title.bold())
-            statusPill
+        VStack(spacing: 10) {
+            iconWithStatus
+            Text(state.title)
+                .font(.subheadline.bold()).foregroundStyle(state.color)
+            subStatus
             HStack(spacing: 8) {
                 Chip(food.category.title, icon: "square.grid.2x2",
                      color: Theme.categoryColor(food.category))
@@ -128,22 +103,76 @@ struct FoodDetailView: View {
         .cartoonCard()
     }
 
-    /// Крупный статус-пилл с OpenMoji-иконкой — заметнее прежнего мелкого бейджа.
-    private var statusPill: some View {
-        HStack(spacing: 6) {
-            if state != .notIntroduced {
-                OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 18)
+    /// Иконка + индикатор статуса: кольцо окна наблюдения (вводится) ИЛИ печать
+    /// статуса на иконке (введён/пауза/аллергия).
+    private var iconWithStatus: some View {
+        ZStack {
+            if state == .introducing {
+                Circle().stroke(Theme.sky.opacity(0.16), lineWidth: 6)
+                    .frame(width: 116, height: 116)
+                Circle().trim(from: 0, to: windowFraction)
+                    .stroke(canComplete ? Theme.mint : Theme.sky,
+                            style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .frame(width: 116, height: 116)
+                    .animation(.spring(response: 0.5, dampingFraction: 0.8), value: windowFraction)
             }
-            Text(state.title)
+            FoodIcon(food: food, size: 88)
+                .overlay(alignment: .bottomTrailing) {
+                    if state != .notIntroduced, state != .introducing {
+                        ZStack {
+                            Circle().fill(.white).frame(width: 34, height: 34)
+                                .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
+                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 24)
+                        }
+                        .offset(x: 8, y: 6)
+                    }
+                }
         }
-        .font(.subheadline.bold())
-        .foregroundStyle(state.color)
-        .padding(.horizontal, 14).padding(.vertical, 8)
-        .background(state.color.opacity(0.15), in: Capsule())
-        .overlay(Capsule().stroke(state.color.opacity(0.35), lineWidth: 1))
+        .frame(height: 120)
     }
 
-    /// OpenMoji-эмодзи статуса (в стиле приложения, не SF Symbols).
+    /// Вторая строка героя: прогресс окна / сводка по введённому / инфо о паузе.
+    @ViewBuilder private var subStatus: some View {
+        switch state {
+        case .introducing:
+            if let day = observationDay {
+                Text("День \(min(day, observationDays)) из \(observationDays)")
+                    .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+            }
+        case .introduced:
+            summaryLine
+        case .paused:
+            if let retry = statuses.first?.retryAt {
+                Text("Напомним попробовать снова \(retry.shortDate)")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+        default:
+            EmptyView()
+        }
+    }
+
+    /// Сводка по введённому продукту: сколько кормлений, последнее, что чаще нравится.
+    private var summaryLine: some View {
+        HStack(spacing: 6) {
+            Text("\(String(localized: "Кормлений")): \(logs.count)")
+            if let last = logs.first?.date {
+                Text("· \(String(localized: "последнее")) \(last.shortDate)")
+            }
+            if let liking = dominantLiking {
+                OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 18)
+            }
+        }
+        .font(.caption).foregroundStyle(.secondary)
+    }
+
+    private var dominantLiking: Liking? {
+        let likings = logs.compactMap(\.liking)
+        guard !likings.isEmpty else { return nil }
+        return Dictionary(grouping: likings, by: { $0 })
+            .mapValues(\.count).max { $0.value < $1.value }?.key
+    }
+
     private var stateEmoji: String {
         switch state {
         case .notIntroduced: return ""
@@ -154,7 +183,6 @@ struct FoodDetailView: View {
         }
     }
 
-    /// OpenMoji-ассет статуса (все состояния — OpenMoji, без системных эмодзи).
     private var stateAsset: String {
         switch state {
         case .notIntroduced: return ""
@@ -165,97 +193,59 @@ struct FoodDetailView: View {
         }
     }
 
-    private var actionsCard: some View {
-        VStack(spacing: 10) { actionButtons }
-            .cartoonCard()
-    }
+    // MARK: - Дата старта (только «не введён»)
 
-    @ViewBuilder private var actionButtons: some View {
-        switch state {
-        case .notIntroduced:
-            DatePicker(selection: $startDate, in: ...Date(), displayedComponents: .date) {
-                Label("Дата старта", systemImage: "calendar")
-            }
-            .font(.subheadline)
-            BigButton(title: "Начать введение") { start(date: startDate) }
-        case .introducing:
-            if let day = observationDay { observationHint(day: day) }
-            BigButton(title: "Записать кормление") { logMode = .feeding }
-            if canComplete {
-                BigButton(title: "Ввёл успешно ✅", tint: .green) { complete() }
-            }
-            GhostButton(title: "Была реакция", tint: .red) { logMode = .reaction }
-            GhostButton(title: "Приостановить ввод", tint: .gray) { confirmStop = true }
-        case .introduced:
-            BigButton(title: "Записать кормление") { logMode = .feeding }
-            GhostButton(title: "Появилась реакция", tint: .red) { logMode = .reaction }
-            GhostButton(title: "Пометить аллергию", tint: .gray) { confirmAllergy = true }
-        case .paused:
-            if let retry = statuses.first?.retryAt {
-                Text("Напомним попробовать снова \(retry.shortDate)")
-                    .font(.caption).foregroundStyle(.secondary)
-            }
-            BigButton(title: "Возобновить ввод") { resume() }
-            GhostButton(title: "Попробовать через 2 месяца", tint: .gray) { retryLater() }
-        case .allergy:
-            BigButton(title: "Вернуть в оборот (врач разрешил)", tint: .red) {
-                service.reintroduce(food); refresh()
-            }
+    private var startDateCard: some View {
+        DatePicker(selection: $startDate, in: ...Date(), displayedComponents: .date) {
+            Label("Дата старта", systemImage: "calendar").font(.subheadline)
         }
+        .tint(Theme.accent)
+        .cartoonCard()
     }
 
-    /// Чем полезен продукт и какие нутриенты содержит (п.12).
+    // MARK: - Чем полезен (аккордеон)
+
     @ViewBuilder private var benefitsCard: some View {
         if food.localizedBenefits != nil || (food.nutrients?.isEmpty == false) {
-            VStack(alignment: .leading, spacing: 10) {
-                Label("Чем полезен", systemImage: "sparkles").font(.headline)
-                if let benefits = food.localizedBenefits {
-                    Text(benefits).font(.subheadline).foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                if let nutrients = food.nutrients, !nutrients.isEmpty {
-                    FlowLayout(spacing: 6) {
-                        ForEach(nutrients, id: \.self) { n in
-                            Chip(String(localized: String.LocalizationValue(n)),
-                                 icon: "leaf.fill", color: Theme.mint)
-                                .fixedSize()
+            DisclosureGroup(isExpanded: $benefitsExpanded) {
+                VStack(alignment: .leading, spacing: 10) {
+                    if let benefits = food.localizedBenefits {
+                        Text(benefits).font(.subheadline).foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    if let nutrients = food.nutrients, !nutrients.isEmpty {
+                        FlowLayout(spacing: 6) {
+                            ForEach(nutrients, id: \.self) { n in
+                                Chip(String(localized: String.LocalizationValue(n)),
+                                     icon: "leaf.fill", color: Theme.mint)
+                                    .fixedSize()
+                            }
                         }
                     }
                 }
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } label: {
+                Label("Чем полезен", systemImage: "sparkles").font(.headline)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .tint(Theme.accent)
             .cartoonCard()
         }
     }
 
-    /// Прогресс окна наблюдения — пока оно идёт, продукт ещё НЕ введён.
-    private func observationHint(day: Int) -> some View {
-        HStack(spacing: 10) {
-            Image(systemName: "eye.fill").font(.title3).foregroundStyle(Theme.sky)
-            VStack(alignment: .leading, spacing: 2) {
-                Text("День \(min(day, observationDays)) из \(observationDays)")
-                    .font(.subheadline.bold())
-                Text(canComplete
-                     ? String(localized: "Окно наблюдения прошло. Если реакции не было — отметь «ввёл успешно».")
-                     : String(localized: "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после \(observationDays) дн."))
-                    .font(.caption).foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            Spacer(minLength: 0)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.bottom, 2)
-    }
+    // MARK: - Аллергия
 
     private var allergyCard: some View {
         HStack(spacing: 12) {
-            Image(systemName: "exclamationmark.octagon.fill")
-                .font(.title2).foregroundStyle(.red)
-            Text("Зафиксирована аллергия. Обратись к педиатру. Возвращать продукт — только по согласованию с врачом.")
+            OpenMojiIcon(asset: "ui_warning", fallback: "⚠️", size: 28)
+            Text("Зафиксирована аллергия. Возвращать продукт — только по согласованию с врачом.")
                 .font(.subheadline)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .cartoonCard()
     }
+
+    // MARK: - История
 
     private var historyCard: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -267,15 +257,14 @@ struct FoodDetailView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .cartoonCard()
     }
 
-    /// Описание записи журнала: тип, иконка, цвет.
     private func entryKind(_ log: FoodLog) -> (label: String, icon: String, color: Color) {
         if log.note != nil && log.liking == nil && (log.reaction == nil || log.reaction == ReactionType.none) {
             return (String(localized: "Заметка"), "note.text", Theme.lilac)
         }
-        // Чистый дневник: любая запись — «Кормление» (без методики ввод/поддержка).
         return (String(localized: "Кормление"), "fork.knife", Theme.mint)
     }
 
@@ -308,17 +297,116 @@ struct FoodDetailView: View {
                         .lineLimit(2)
                 }
             }
+            Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
         }
         .padding(.vertical, 10)
         .contentShape(Rectangle())
         .onTapGesture { editingLog = log }
     }
 
+    // MARK: - Закреплённый бар действий
+
+    private struct BarAction: Identifiable {
+        let id = UUID()
+        let title: LocalizedStringKey
+        var role: ButtonRole? = nil
+        var tint: Color? = nil
+        let run: () -> Void
+    }
+
+    private var primaryAction: BarAction {
+        switch state {
+        case .notIntroduced:
+            return BarAction(title: "Начать введение") { start(date: startDate) }
+        case .introducing:
+            return canComplete
+                ? BarAction(title: "Ввёл успешно ✅", tint: .green) { complete() }
+                : BarAction(title: "Записать кормление") { logMode = .feeding }
+        case .introduced:
+            return BarAction(title: "Записать кормление") { logMode = .feeding }
+        case .paused:
+            return BarAction(title: "Возобновить ввод") { resume() }
+        case .allergy:
+            return BarAction(title: "Вернуть в оборот (врач разрешил)", tint: .red) {
+                service.reintroduce(food); refresh()
+            }
+        }
+    }
+
+    private var overflowActions: [BarAction] {
+        switch state {
+        case .notIntroduced:
+            return []
+        case .introducing:
+            var items: [BarAction] = []
+            if canComplete {
+                items.append(BarAction(title: "Записать кормление") { logMode = .feeding })
+            }
+            items.append(BarAction(title: "Была реакция") { logMode = .reaction })
+            items.append(BarAction(title: "Приостановить ввод", role: .destructive) { confirmStop = true })
+            return items
+        case .introduced:
+            return [
+                BarAction(title: "Была реакция") { logMode = .reaction },
+                BarAction(title: "Пометить аллергию", role: .destructive) { confirmAllergy = true },
+            ]
+        case .paused:
+            return [BarAction(title: "Попробовать через 2 месяца") { retryLater() }]
+        case .allergy:
+            return []
+        }
+    }
+
+    private var stickyBar: some View {
+        HStack(spacing: 12) {
+            BigButton(title: primaryAction.title, tint: primaryAction.tint) { primaryAction.run() }
+            if !overflowActions.isEmpty {
+                Menu {
+                    ForEach(overflowActions) { a in
+                        Button(role: a.role) { a.run() } label: { Text(a.title) }
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.title3.weight(.bold)).foregroundStyle(Theme.accent)
+                        .frame(width: 54, height: 54)
+                        .background(.white, in: Circle())
+                        .shadow(color: .black.opacity(0.10), radius: 6, y: 3)
+                }
+            }
+        }
+        .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
+        .background(
+            LinearGradient(colors: [Color.white.opacity(0), Color.white.opacity(0.9)],
+                           startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea(edges: .bottom)
+        )
+    }
+
+    // MARK: - Поздравление
+
+    private var cheerOverlay: some View {
+        ZStack {
+            if showCheer {
+                Color.black.opacity(0.15).ignoresSafeArea()
+                    .transition(.opacity)
+                VStack(spacing: 14) {
+                    Mascot(mood: .cheer, size: 120)
+                    Text("Продукт введён! 🎉").font(.title3.bold())
+                }
+                .padding(28)
+                .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
+                .transition(.scale(scale: 0.85).combined(with: .opacity))
+            }
+        }
+        .allowsHitTesting(false)
+    }
+
     // MARK: - Действия
 
     private func start(date: Date = Date()) {
         service.startIntroduction(food, date: date)
-        refresh()   // refresh сам запросит разрешение на уведомления при первом планировании.
+        refresh()
     }
 
     private func stop() { service.stopIntroduction(food); refresh() }

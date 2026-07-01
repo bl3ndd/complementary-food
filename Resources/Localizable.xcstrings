@@ -1722,6 +1722,17 @@
         }
       }
     },
+    "Зафиксирована аллергия. Возвращать продукт — только по согласованию с врачом.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allergy recorded. Bring the food back only with your doctor’s approval."
+          }
+        }
+      }
+    },
     "Зафиксирована аллергия. Обратись к педиатру. Возвращать продукт — только по согласованию с врачом.": {
       "extractionState": "manual",
       "localizations": {
@@ -2222,6 +2233,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Feeding"
+          }
+        }
+      }
+    },
+    "Кормлений": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feedings"
           }
         }
       }
@@ -5206,6 +5228,17 @@
         }
       }
     },
+    "Это не аллергия — просто пауза, ввод можно возобновить в любой момент.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not an allergy — just a pause; you can resume anytime."
+          }
+        }
+      }
+    },
     "Это не медицинский совет — решения принимай вместе с педиатром.": {
       "extractionState": "stale",
       "localizations": {
@@ -5444,6 +5477,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "planned"
+          }
+        }
+      }
+    },
+    "последнее": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "last"
           }
         }
       }
