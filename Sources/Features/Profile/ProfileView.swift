@@ -224,8 +224,8 @@ struct ProfileView: View {
             try? context.delete(model: Child.self)
             try? context.save()
             FoodCatalog.setCustom([])
-            // Полный сброс = «как новая установка»: дисклеймер-гейт должен всплыть снова.
-            UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
+            // Дисклеймер-гейт сбрасывается в конце нового онбординга (OnboardingView.finish),
+            // а не здесь — иначе он мигает на ещё живом MainTabView во время сноса.
         }
     }
 
