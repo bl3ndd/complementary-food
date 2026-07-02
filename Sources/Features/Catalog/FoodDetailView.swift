@@ -86,50 +86,56 @@ struct FoodDetailView: View {
     // MARK: - Герой (адаптивный)
 
     private var heroCard: some View {
-        VStack(spacing: 10) {
+        HStack(spacing: 16) {
             iconWithStatus
-            Text(state.title)
-                .font(.subheadline.bold()).foregroundStyle(state.color)
-            subStatus
-            HStack(spacing: 8) {
-                Chip(food.category.title, icon: "square.grid.2x2",
-                     color: Theme.categoryColor(food.category))
-                if let group = food.allergenGroup {
-                    Chip(group.title, icon: "exclamationmark.triangle.fill", color: .orange)
-                }
+            VStack(alignment: .leading, spacing: 6) {
+                Text(state.title)
+                    .font(.headline).foregroundStyle(state.color)
+                subStatus
+                chipsRow
             }
+            Spacer(minLength: 0)
         }
-        .frame(maxWidth: .infinity)
         .cartoonCard()
     }
 
-    /// Иконка + индикатор статуса: кольцо окна наблюдения (вводится) ИЛИ печать
-    /// статуса на иконке (введён/пауза/аллергия).
+    private var chipsRow: some View {
+        FlowLayout(spacing: 8) {
+            Chip(food.category.title, icon: "square.grid.2x2",
+                 color: Theme.categoryColor(food.category)).fixedSize()
+            if let group = food.allergenGroup {
+                Chip(group.title, icon: "exclamationmark.triangle.fill", color: .orange).fixedSize()
+            }
+        }
+    }
+
+    /// Иконка (круглая — под кольцо/печать) + индикатор статуса: кольцо окна
+    /// наблюдения (вводится) ИЛИ печать статуса на иконке (введён/пауза/аллергия).
     private var iconWithStatus: some View {
         ZStack {
             if state == .introducing {
                 Circle().stroke(Theme.sky.opacity(0.16), lineWidth: 6)
-                    .frame(width: 116, height: 116)
+                    .frame(width: 100, height: 100)
                 Circle().trim(from: 0, to: windowFraction)
                     .stroke(canComplete ? Theme.mint : Theme.sky,
                             style: StrokeStyle(lineWidth: 6, lineCap: .round))
                     .rotationEffect(.degrees(-90))
-                    .frame(width: 116, height: 116)
+                    .frame(width: 100, height: 100)
                     .animation(.spring(response: 0.5, dampingFraction: 0.8), value: windowFraction)
             }
-            FoodIcon(food: food, size: 88)
+            FoodIcon(food: food, size: 78, circular: true)
                 .overlay(alignment: .bottomTrailing) {
                     if state != .notIntroduced, state != .introducing {
                         ZStack {
-                            Circle().fill(.white).frame(width: 34, height: 34)
+                            Circle().fill(.white).frame(width: 30, height: 30)
                                 .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
-                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 24)
+                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 22)
                         }
-                        .offset(x: 8, y: 6)
+                        .offset(x: 4, y: 4)
                     }
                 }
         }
-        .frame(height: 120)
+        .frame(width: 104, height: 104)
     }
 
     /// Вторая строка героя: прогресс окна / сводка по введённому / инфо о паузе.

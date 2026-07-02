@@ -58,6 +58,8 @@ struct OpenMojiIcon: View {
 struct FoodIcon: View {
     let food: Food
     var size: CGFloat = 46
+    /// Круглая плитка вместо скруглённого квадрата (для героя карточки продукта).
+    var circular: Bool = false
     @Environment(\.displayScale) private var scale
 
     /// Имена ассетов-кандидатов (просто строки, без загрузки картинок).
@@ -72,12 +74,20 @@ struct FoodIcon: View {
         return names
     }
 
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: size * 0.30, style: .continuous)
-                .fill(Theme.softGradient(Theme.categoryColor(food.category)))
+    @ViewBuilder private var tile: some View {
+        let fill = Theme.softGradient(Theme.categoryColor(food.category))
+        if circular {
+            Circle().fill(fill).overlay(Circle().stroke(.white.opacity(0.6), lineWidth: 1))
+        } else {
+            RoundedRectangle(cornerRadius: size * 0.30, style: .continuous).fill(fill)
                 .overlay(RoundedRectangle(cornerRadius: size * 0.30, style: .continuous)
                     .stroke(.white.opacity(0.6), lineWidth: 1))
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            tile
             if let image = IconCache.shared.thumbnail(candidates, px: size * scale) {
                 Image(uiImage: image)
                     .resizable()
