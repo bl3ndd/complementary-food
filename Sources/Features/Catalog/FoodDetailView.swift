@@ -96,7 +96,7 @@ struct FoodDetailView: View {
             }
             Spacer(minLength: 0)
         }
-        .cartoonCard()
+        .cartoonCard(padding: 14)
     }
 
     private var chipsRow: some View {
@@ -114,28 +114,28 @@ struct FoodDetailView: View {
     private var iconWithStatus: some View {
         ZStack {
             if state == .introducing {
-                Circle().stroke(Theme.sky.opacity(0.16), lineWidth: 6)
-                    .frame(width: 100, height: 100)
+                Circle().stroke(Theme.sky.opacity(0.16), lineWidth: 5)
+                    .frame(width: 78, height: 78)
                 Circle().trim(from: 0, to: windowFraction)
                     .stroke(canComplete ? Theme.mint : Theme.sky,
-                            style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                            style: StrokeStyle(lineWidth: 5, lineCap: .round))
                     .rotationEffect(.degrees(-90))
-                    .frame(width: 100, height: 100)
+                    .frame(width: 78, height: 78)
                     .animation(.spring(response: 0.5, dampingFraction: 0.8), value: windowFraction)
             }
-            FoodIcon(food: food, size: 78, circular: true)
+            FoodIcon(food: food, size: 60, circular: true)
                 .overlay(alignment: .bottomTrailing) {
                     if state != .notIntroduced, state != .introducing {
                         ZStack {
-                            Circle().fill(.white).frame(width: 30, height: 30)
+                            Circle().fill(.white).frame(width: 26, height: 26)
                                 .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
-                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 22)
+                            OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 19)
                         }
-                        .offset(x: 4, y: 4)
+                        .offset(x: 3, y: 3)
                     }
                 }
         }
-        .frame(width: 104, height: 104)
+        .frame(width: 80, height: 80)
     }
 
     /// Вторая строка героя: прогресс окна / сводка по введённому / инфо о паузе.
