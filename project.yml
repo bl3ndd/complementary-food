@@ -39,6 +39,20 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.prikorm.tests
         GENERATE_INFOPLIST_FILE: YES
         CODE_SIGNING_ALLOWED: NO
+  PrikormUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    dependencies:
+      - target: Prikorm
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.prikorm.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Prikorm
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: A89ST3SFXS
 schemes:
   Prikorm:
     build:
@@ -47,3 +61,4 @@ schemes:
     test:
       targets:
         - PrikormTests
+        - PrikormUITests

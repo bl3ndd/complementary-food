@@ -50,6 +50,17 @@
                ReferencedContainer = "container:Prikorm.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7F3934152C34F448786E207A"
+               BuildableName = "PrikormUITests.xctest"
+               BlueprintName = "PrikormUITests"
+               ReferencedContainer = "container:Prikorm.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

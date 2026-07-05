@@ -378,6 +378,8 @@ struct FoodDetailView: View {
                         .background(.white, in: Circle())
                         .shadow(color: .black.opacity(0.10), radius: 6, y: 3)
                 }
+                .accessibilityLabel("Ещё действия")
+                .accessibilityIdentifier("food.more")
             }
         }
         .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
