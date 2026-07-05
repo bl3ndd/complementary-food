@@ -31,15 +31,21 @@ extension XCUIApplication {
     }
 
     /// Открыть карточку продукта через поиск в Каталоге.
+    /// Строка — NavigationLink: её label склеен («Брокколи, Введён»), ищем по CONTAINS.
     func openFoodCard(_ query: String, rowTitle: String) {
         openTab("Каталог")
         let search = textFields["Поиск продукта"]
         XCTAssertTrue(search.waitForExistence(timeout: 5), "нет поиска в каталоге")
         search.tap()
         search.typeText(query)
-        buttons[rowTitle].firstMatch.waitTap()
+        row(containing: rowTitle).waitTap()
         XCTAssertTrue(navigationBars[rowTitle].waitForExistence(timeout: 5),
                       "не открылась карточка «\(rowTitle)»")
+    }
+
+    /// Кнопка/строка, чей label СОДЕРЖИТ подстроку (для склеенных лейблов списков).
+    func row(containing text: String) -> XCUIElement {
+        buttons.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch
     }
 }
 
@@ -61,5 +67,15 @@ extension XCUIElement {
         XCTAssertTrue(waitForExistence(timeout: timeout),
                       message.isEmpty ? "Не найден: \(self)" : message,
                       file: file, line: line)
+    }
+
+    /// Дождаться исчезновения (закрытие шита/алерта) — иначе следующий тап
+    /// глотается анимацией dismiss.
+    func waitGone(timeout: TimeInterval = 6,
+                  file: StaticString = #filePath, line: UInt = #line) {
+        let gone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: self)
+        XCTAssertEqual(XCTWaiter().wait(for: [gone], timeout: timeout), .completed,
+                       "Элемент не исчез: \(self)", file: file, line: line)
     }
 }

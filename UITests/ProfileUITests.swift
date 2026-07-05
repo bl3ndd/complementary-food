@@ -25,24 +25,31 @@ final class ProfileUITests: XCTestCase {
     }
 
     // E-PRF-05: гейты «Данных» — пусто → выключены; rich → включены.
+    // Form ленивая: до секции «Данные» надо доскроллить, иначе строк нет в иерархии.
     func testDataGatesEmptyVsRich() {
         var app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
         app.openTab("Профиль")
+        app.swipeUp()
         let pdfEmpty = app.buttons["Дневник для педиатра"]
         pdfEmpty.assertExists(timeout: 8)
         XCTAssertFalse(pdfEmpty.isEnabled, "PDF должен быть выключен без записей")
-        XCTAssertFalse(app.buttons["Рекап месяца"].isEnabled, "рекап без данных должен быть выключен")
+        let recapEmpty = app.buttons["Рекап месяца"]
+        recapEmpty.assertExists(timeout: 4)
+        XCTAssertFalse(recapEmpty.isEnabled, "рекап без данных должен быть выключен")
 
         app.terminate()
         app = XCUIApplication.pudding(seed: "rich")
         app.acceptDisclaimer()
         app.openTab("Профиль")
+        app.swipeUp()
         let pdfRich = app.buttons["Дневник для педиатра"]
         pdfRich.assertExists(timeout: 8)
         XCTAssertTrue(pdfRich.isEnabled, "PDF должен быть доступен при записях")
-        XCTAssertTrue(app.buttons["Список «не давать»"].isEnabled,
-                      "«не давать» должен быть доступен (треска на паузе)")
+        let avoid = app.buttons.matching(
+            NSPredicate(format: "label CONTAINS 'не давать'")).firstMatch
+        avoid.assertExists(timeout: 4)
+        XCTAssertTrue(avoid.isEnabled, "«не давать» должен быть доступен (треска на паузе)")
     }
 
     // E-PRF-02: план — снятие всех аллергенов показывает предупреждение.

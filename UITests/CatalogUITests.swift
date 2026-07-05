@@ -14,17 +14,22 @@ final class CatalogUITests: XCTestCase {
         let search = app.textFields["Поиск продукта"]
         search.assertExists(timeout: 6)
 
-        // Опечатка (E-CAT-02): «брокол» находит брокколи; бейдж статуса (E-CAT-03).
+        // Опечатка (E-CAT-02): «брокол» находит брокколи; бейдж статуса (E-CAT-03) —
+        // label строки склеен: «Брокколи, Введён».
         search.tap()
         search.typeText("брокол")
-        app.buttons["Брокколи"].firstMatch.assertExists(timeout: 4, "опечатка не находит продукт")
-        app.staticTexts["Введён"].assertExists(timeout: 3, "нет статус-бейджа в строке")
+        app.row(containing: "Брокколи").assertExists(timeout: 4, "опечатка не находит продукт")
+        app.buttons.matching(NSPredicate(
+            format: "label CONTAINS 'Брокколи' AND label CONTAINS 'Введён'"))
+            .firstMatch.assertExists(timeout: 3, "нет статус-бейджа в строке")
 
-        // Поиск по категории: «овощи» → вся категория.
-        search.buttons.firstMatch.tap()   // очистить (крестик)
+        // Поиск по категории: «овощи» → вся категория. Крестик очистки — сосед
+        // TextField (не потомок), чистим бэкспейсами.
+        search.tap()
+        search.typeText(String(repeating: "\u{8}", count: 6))
         search.typeText("овощи")
-        app.buttons["Кабачок"].firstMatch.assertExists(timeout: 4, "категория не находит продукты")
-        app.buttons["Брокколи"].firstMatch.assertExists(timeout: 2)
+        app.row(containing: "Кабачок").assertExists(timeout: 4, "категория не находит продукты")
+        app.row(containing: "Брокколи").assertExists(timeout: 2)
     }
 
     func testCustomFoodCreateAndDelete() {
@@ -44,14 +49,16 @@ final class CatalogUITests: XCTestCase {
         let search = app.textFields["Поиск продукта"]
         search.waitTap()
         search.typeText("компотик")
-        app.buttons["Компотик"].firstMatch.assertExists(timeout: 5, "свой продукт не появился")
-        app.staticTexts["Введён"].assertExists(timeout: 3, "свой продукт должен быть сразу введён")
+        app.row(containing: "Компотик").assertExists(timeout: 5, "свой продукт не появился")
+        app.buttons.matching(NSPredicate(
+            format: "label CONTAINS 'Компотик' AND label CONTAINS 'Введён'"))
+            .firstMatch.assertExists(timeout: 3, "свой продукт должен быть сразу введён")
 
         // E-CAT-05: свайп-удаление с подтверждением.
-        app.buttons["Компотик"].firstMatch.swipeLeft()
+        app.row(containing: "Компотик").swipeLeft()
         app.buttons["Удалить"].waitTap()
         app.alerts.buttons["Удалить"].waitTap()
-        XCTAssertFalse(app.buttons["Компотик"].waitForExistence(timeout: 3),
+        XCTAssertFalse(app.row(containing: "Компотик").waitForExistence(timeout: 3),
                        "свой продукт не удалился")
     }
 }

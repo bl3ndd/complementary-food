@@ -14,11 +14,14 @@ struct DashboardView: View {
     @State private var showFeed = false
     @State private var showReaction = false
     @State private var showPlan = false
+    /// Явный навигационный путь: value-based NavigationLink в ScrollView на этом
+    /// экране инертен (iOS 26) — пушим программно через Button + path.
+    @State private var path: [Food] = []
 
     private let catalog = FoodCatalog.shared
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ScrollView {
                 VStack(spacing: 16) {
                     heroCard
@@ -129,7 +132,7 @@ struct DashboardView: View {
                 }
                 ForEach(Array(introducingItems.enumerated()), id: \.element.status.foodId) { idx, item in
                     if idx > 0 { Divider() }
-                    NavigationLink(value: item.food) {
+                    Button { path.append(item.food) } label: {
                         HStack(spacing: 12) {
                             FoodIcon(food: item.food, size: 40)
                             VStack(alignment: .leading, spacing: 2) {
@@ -140,6 +143,7 @@ struct DashboardView: View {
                             Spacer()
                             Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
                         }
+                        .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                 }
@@ -179,7 +183,7 @@ struct DashboardView: View {
             let ghosts = max(0, 20 - shown.count)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 46), spacing: 10)], spacing: 10) {
                 ForEach(shown) { food in
-                    NavigationLink(value: food) { FoodIcon(food: food, size: 44) }
+                    Button { path.append(food) } label: { FoodIcon(food: food, size: 44) }
                         .buttonStyle(.plain)
                 }
                 ForEach(0..<ghosts, id: \.self) { _ in ghostCell }

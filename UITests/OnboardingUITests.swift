@@ -32,7 +32,7 @@ final class OnboardingUITests: XCTestCase {
         // Шаг 3: «Что уже ввели?» — отмечаем брокколи (E-ONB-04).
         app.buttons["Далее"].tap()
         app.staticTexts["Что уже ввели?"].assertExists(timeout: 4)
-        app.buttons["Брокколи"].firstMatch.waitTap()
+        app.row(containing: "Брокколи").waitTap()
 
         // Финиш → гейт дисклеймера → таббар (E-ONB-01).
         app.buttons["Погнали! 🚀"].waitTap()
@@ -47,6 +47,7 @@ final class OnboardingUITests: XCTestCase {
 
         // …а в каталоге брокколи со статусом «Введён».
         app.openFoodCard("брокк", rowTitle: "Брокколи")
-        app.staticTexts["Введён"].assertExists(timeout: 4, "статус «Введён» не доехал из онбординга")
+        app.staticTexts["Введён"].firstMatch.assertExists(timeout: 4,
+            "статус «Введён» не доехал из онбординга")
     }
 }

@@ -18,20 +18,20 @@ final class DashboardUITests: XCTestCase {
         app.navigationBars["Записать кормление"].assertExists(timeout: 5)
 
         // Выбор продукта через поиск в листе.
-        let search = app.searchFields.firstMatch
+        let search = app.searchFields["Поиск продукта"]
         search.assertExists()
         search.tap()
         search.typeText("банан")
-        app.buttons["Банан"].firstMatch.waitTap()
+        app.row(containing: "Банан").waitTap()
         app.navigationBars["Запись кормления"].assertExists(timeout: 5)
 
         // E-DASH-04: «Отмена» в листе записи → возврат к СПИСКУ продуктов, не на главную.
         app.navigationBars["Запись кормления"].buttons["Отмена"].tap()
-        app.navigationBars["Записать кормление"].assertExists(timeout: 5,
+        app.searchFields["Поиск продукта"].assertExists(timeout: 5,
             "отмена записи должна вернуть к списку продуктов")
 
         // Снова продукт → Сохранить → запись в «Дневник за сегодня».
-        app.buttons["Банан"].firstMatch.waitTap()
+        app.row(containing: "Банан").waitTap()
         app.buttons["Сохранить"].waitTap()
         app.allowNotificationsIfAsked()
         app.staticTexts["Дневник за сегодня"].assertExists(timeout: 8)
@@ -47,10 +47,16 @@ final class DashboardUITests: XCTestCase {
         app.staticTexts["Брокколи"].firstMatch.waitTap()
         app.navigationBars["Запись"].assertExists(timeout: 5, "тап записи не открыл правку")
         app.navigationBars["Запись"].buttons["Отмена"].tap()
+        app.navigationBars["Запись"].waitGone()   // дождаться dismiss, иначе тап глотается
 
         // E-DASH-08: «Сейчас вводишь» (кабачок, день 1) → карточка продукта.
+        // Тап строго по строке карточки (в дневнике тоже есть «Кабачок»); карточка
+        // ниже фолда — доскроллить, иначе тап уходит мимо экрана.
         app.staticTexts["Сейчас вводишь"].assertExists(timeout: 5)
-        app.staticTexts["Кабачок"].firstMatch.waitTap()
+        // Строка у нижнего края: центр может быть под таб-баром (isHittable при этом
+        // true, тап уходит в таб-бар) — всегда доскроллить перед тапом.
+        app.swipeUp()
+        app.row(containing: "День 1").waitTap()
         app.navigationBars["Кабачок"].assertExists(timeout: 5,
             "строка «Сейчас вводишь» не открыла карточку")
         app.navigationBars["Кабачок"].buttons.firstMatch.tap()   // назад

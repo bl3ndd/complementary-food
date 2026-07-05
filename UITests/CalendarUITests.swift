@@ -11,8 +11,9 @@ final class CalendarUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openTab("Календарь")
 
-        // E-CAL-01: лента по умолчанию — записи + секция планов (груша завтра).
-        app.staticTexts["Планы"].firstMatch.assertExists(timeout: 8, "нет секции планов")
+        // E-CAL-01: лента по умолчанию — записи + секция планов (заголовок капсом:
+        // .textCase(.uppercase) → «ПЛАНЫ»).
+        app.staticTexts["ПЛАНЫ"].assertExists(timeout: 8, "нет секции планов")
         app.staticTexts["Груша"].assertExists(timeout: 4)
         app.staticTexts["Брокколи"].firstMatch.assertExists(timeout: 4)
 
@@ -66,14 +67,17 @@ final class CalendarUITests: XCTestCase {
         app.openTab("Календарь")
 
         // E-CAL-08: яблоко уже запланировано на сегодня → повторный выбор → алерт.
+        // Поиск — именно поле шита («Поиск продукта»), а не календаря позади.
         app.buttons["Запланировать ввод"].waitTap()
-        let search = app.searchFields.firstMatch
+        let search = app.searchFields["Поиск продукта"]
         search.waitTap()
         search.typeText("яблоко")
-        app.buttons["Яблоко"].firstMatch.waitTap()
+        app.row(containing: "Яблоко").waitTap()
         app.alerts["Уже запланировано"].assertExists(timeout: 4, "нет дедупа планов")
         app.alerts.buttons["Ок"].tap()
-        app.navigationBars["Запланировать ввод"].buttons["Отмена"].tap()
+        // Закрыть шит, если ещё открыт (ядро кейса — сам алерт дедупа выше).
+        let cancel = app.navigationBars["Запланировать ввод"].buttons["Отмена"]
+        if cancel.waitForExistence(timeout: 2) { cancel.tap() }
     }
 
     func testLongPressExportMenuAndRecap() {

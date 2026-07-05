@@ -38,7 +38,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.prikorm.tests
         GENERATE_INFOPLIST_FILE: YES
-        CODE_SIGNING_ALLOWED: NO
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: A89ST3SFXS
   PrikormUITests:
     type: bundle.ui-testing
     platform: iOS

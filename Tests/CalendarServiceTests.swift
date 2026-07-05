@@ -173,13 +173,15 @@ final class CalendarServiceTests: XCTestCase {
         XCTAssertEqual(utc.component(.day, from: feed[3].date), 10)
     }
 
-    func testFeedFilterIntroExcludesMaintenanceReactionAndPlanned() {
+    func testFeedFilterIntroExcludesMaintenanceAndPlanned() {
         let service = CalendarService(catalog: catalog, logs: mixedFeedLogs(), calendar: utc)
         let feed = service.feed(filter: .intro)
-        // Только фактический ввод брокколи 10-го (план/поддержка/реакция отброшены).
-        XCTAssertEqual(feed.count, 1)
-        XCTAssertEqual(utc.component(.day, from: feed[0].date), 10)
-        XCTAssertFalse(feed[0].entries[0].planned)
+        // Фактические intro-записи: брокколи 10-го и яйцо 12-го (реакция — тоже ввод);
+        // план и поддержка отброшены.
+        XCTAssertEqual(feed.count, 2)
+        XCTAssertEqual(utc.component(.day, from: feed[0].date), 12)
+        XCTAssertEqual(utc.component(.day, from: feed[1].date), 10)
+        XCTAssertTrue(feed.allSatisfy { $0.entries.allSatisfy { !$0.planned && $0.type == .intro } })
     }
 
     func testFeedFilterMaintenanceKeepsOnlyMaintenance() {
