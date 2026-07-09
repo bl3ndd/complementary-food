@@ -35,7 +35,7 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   in emotional spots (empty states, onboarding, summary headers, success), never in
   working screens. App is locked to **light mode** (`RootView.preferredColorScheme(.light)`);
   there's no dark-theme palette. Display name is «Pudding» (`CFBundleDisplayName`);
-  target/bundle id stay `Prikorm`/`com.prikorm`.
+  target stays `Prikorm`; bundle id is `com.pudding.app` (tests: `com.pudding.tests`/`.uitests`).
 - **App-level constants** (`Sources/App/`): `AppLinks` (privacy/terms/support URLs —
   placeholders until the `site/` landing is deployed) and `Disclaimer` (single medical
   disclaimer text, reused in onboarding + profile for App Review 1.4.1). **Методика —
