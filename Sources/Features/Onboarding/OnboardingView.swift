@@ -120,6 +120,7 @@ struct OnboardingView: View {
     private func introducedChip(_ food: Food) -> some View {
         let on = introduced.contains(food.id)
         return Button {
+            Haptics.select()
             withAnimation(.snappy) {
                 if on { introduced.remove(food.id) } else { introduced.insert(food.id) }
             }
@@ -146,6 +147,7 @@ struct OnboardingView: View {
     /// Маскот-гид в мягком цветном круге.
     private func haloMascot(_ mood: MascotMood, color: Color = Theme.accent) -> some View {
         Mascot(mood: mood, size: 96)
+            .gentleBob()
             .frame(width: 132, height: 132)
             .background(Theme.softGradient(color), in: Circle())
             .overlay(Circle().stroke(.white.opacity(0.7), lineWidth: 1.5))

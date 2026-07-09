@@ -109,6 +109,7 @@ struct EditLogSheet: View {
         let selected = reaction == r
         let tint = (r == .none) ? Theme.mint : Color.orange
         return Button {
+            Haptics.select()
             withAnimation(.snappy) { reaction = r }
         } label: {
             VStack(spacing: 6) {
@@ -128,6 +129,7 @@ struct EditLogSheet: View {
     }
 
     private func save() {
+        Haptics.success()
         log.date = date
         if !isPlanned {
             log.liking = liking
@@ -144,6 +146,7 @@ struct EditLogSheet: View {
     }
 
     private func deleteLog() {
+        Haptics.warning()
         context.delete(log)
         try? context.save()
         dismiss()

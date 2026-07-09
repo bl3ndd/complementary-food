@@ -113,6 +113,7 @@ struct AddCustomFoodSheet: View {
     private func save() {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
+        Haptics.success()
         let food = CustomFood(name: trimmed, emoji: emoji,
                               minAgeMonths: minAge, isAllergen: isAllergen)
         context.insert(food)

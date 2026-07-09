@@ -55,7 +55,7 @@ struct DashboardView: View {
             ZStack {
                 Circle().fill(.white.opacity(0.22)).frame(width: 76, height: 76)
                 Circle().stroke(.white.opacity(0.35), lineWidth: 2).frame(width: 76, height: 76)
-                Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 62)
+                Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 62).gentleBob()
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text(greeting)
@@ -69,6 +69,8 @@ struct DashboardView: View {
                      ? String(localized: "Сегодня записей пока нет")
                      : String(localized: "Сегодня записей: \(todayEntries.count) 🎉"))
                     .font(.caption.weight(.bold)).foregroundStyle(.white)
+                    .contentTransition(.numericText())
+                    .animation(.snappy, value: todayEntries.count)
                     .padding(.horizontal, 10).padding(.vertical, 4)
                     .background(.white.opacity(0.20), in: Capsule())
                     .padding(.top, 2)
@@ -96,8 +98,12 @@ struct DashboardView: View {
 
     private var actionTiles: some View {
         HStack(spacing: 12) {
-            actionTile("Записать", asset: "ui_plate", emoji: "🍽️", color: Theme.mint) { showFeed = true }
-            actionTile("Реакция", asset: "react_skin", emoji: "🩹", color: .orange) { showReaction = true }
+            actionTile("Записать", asset: "ui_plate", emoji: "🍽️", color: Theme.mint) {
+                Haptics.tap(); showFeed = true
+            }
+            actionTile("Реакция", asset: "react_skin", emoji: "🩹", color: .orange) {
+                Haptics.tap(); showReaction = true
+            }
         }
     }
 
@@ -175,6 +181,7 @@ struct DashboardView: View {
                 Spacer()
                 Text("\(introducedCount)/\(catalog.all.count)")
                     .font(.subheadline.bold()).foregroundStyle(Theme.accent)
+                    .contentTransition(.numericText())
             }
             ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.all.count)))
                 .tint(Theme.accent)
@@ -185,9 +192,11 @@ struct DashboardView: View {
                 ForEach(shown) { food in
                     Button { path.append(food) } label: { FoodIcon(food: food, size: 44) }
                         .buttonStyle(.plain)
+                        .transition(.scale.combined(with: .opacity))
                 }
                 ForEach(0..<ghosts, id: \.self) { _ in ghostCell }
             }
+            .animation(.spring(response: 0.45, dampingFraction: 0.7), value: introducedCount)
 
             Button { goToCatalog() } label: {
                 Label("Вся коллекция", systemImage: "square.grid.2x2")

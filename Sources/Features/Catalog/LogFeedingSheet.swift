@@ -120,6 +120,7 @@ struct LogFeedingSheet: View {
         let selected = reaction == r
         let tint = (r == .none) ? Theme.mint : Color.orange
         return Button {
+            Haptics.select()
             withAnimation(.snappy) { reaction = r }
         } label: {
             VStack(spacing: 6) {
@@ -157,6 +158,7 @@ struct LogFeedingSheet: View {
     // MARK: - Сохранение
 
     private func save() {
+        Haptics.success()
         // Заметка пишется в этот же лог кормления (п.20) — отдельной записи нет.
         FeedingService(context: context).logFeeding(
             food,

@@ -68,6 +68,7 @@ struct DayDetailView: View {
     /// Отметить запланированный ввод выполненным — запускает стейт-машину (introducing)
     /// и переставляет напоминания (B1).
     private func markDone(_ log: FoodLog) {
+        Haptics.success()
         FeedingService(context: context).confirmPlanned(log)
         if let profile = children.first?.feedingProfile {
             NotificationManager.shared.refresh(context: context, profile: profile)

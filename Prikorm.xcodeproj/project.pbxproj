@@ -18,6 +18,7 @@
 		118327007916B30997ED1171 /* AddCustomFoodSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3F9D6390A41694B9F5043 /* AddCustomFoodSheet.swift */; };
 		11D010D47663E97F43330F26 /* AllergenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57582D03E1DD713519F97F27 /* AllergenTests.swift */; };
 		11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CA74998939067F427B3264 /* AppShellTests.swift */; };
+		13E598733FD86DAC5418D9CF /* Delight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514DB27FE02D9A44C1F0DB63 /* Delight.swift */; };
 		14A679536E76A2808BB20159 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31C5CCF52FEA73D220E561B /* CalendarView.swift */; };
 		15BA06E44E2481714A9C5793 /* RecapServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92C547C212BEF6EC84EEABC /* RecapServiceTests.swift */; };
 		164A13BA5D7639C071CE5F56 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49FCEF879CE812C974A9E25 /* OnboardingView.swift */; };
@@ -126,6 +127,7 @@
 		4CF87C40EB3D72ED2F5C39B7 /* foods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = foods.json; sourceTree = "<group>"; };
 		50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenMaintenance.swift; sourceTree = "<group>"; };
 		50BFA277A9F595AEA4F56908 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		514DB27FE02D9A44C1F0DB63 /* Delight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delight.swift; sourceTree = "<group>"; };
 		54502A32A1FC7C0FD91517B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		57582D03E1DD713519F97F27 /* AllergenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTests.swift; sourceTree = "<group>"; };
 		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 			children = (
 				2516DDFC738C31AB56AA9408 /* Components.swift */,
 				11BE039C641EEE3C9C5F00E2 /* CustomPlanEditor.swift */,
+				514DB27FE02D9A44C1F0DB63 /* Delight.swift */,
 				067B29385AC89B87BF57873E /* DiaryEntryRow.swift */,
 				B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */,
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
@@ -559,6 +562,7 @@
 				051E64497EB9DEA0DB56EF16 /* CustomPlanEditor.swift in Sources */,
 				5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */,
 				0A08FA37922C0D8AD99A83F1 /* DayDetailView.swift in Sources */,
+				13E598733FD86DAC5418D9CF /* Delight.swift in Sources */,
 				AE56D291E94D7068264C7E9A /* DiaryEntryRow.swift in Sources */,
 				5175661213B86BD0231DD81D /* DiaryPDFExport.swift in Sources */,
 				9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */,
@@ -679,7 +683,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pudding.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prikorm.app/Prikorm";
@@ -760,12 +764,13 @@
 				DEVELOPMENT_TEAM = A89ST3SFXS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Pudding;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pudding.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -780,12 +785,13 @@
 				DEVELOPMENT_TEAM = A89ST3SFXS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Pudding;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pudding.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -803,7 +809,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pudding.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prikorm.app/Prikorm";
@@ -822,7 +828,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pudding.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Prikorm;
@@ -841,7 +847,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.prikorm.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pudding.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Prikorm;

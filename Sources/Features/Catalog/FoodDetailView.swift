@@ -398,12 +398,13 @@ struct FoodDetailView: View {
                 Color.black.opacity(0.15).ignoresSafeArea()
                     .transition(.opacity)
                 VStack(spacing: 14) {
-                    Mascot(mood: .cheer, size: 120)
+                    Mascot(mood: .cheer, size: 120).gentleBob()
                     Text("Продукт введён! 🎉").font(.title3.bold())
                 }
                 .padding(28)
                 .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
                 .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
+                .overlay { ConfettiBurst() }
                 .transition(.scale(scale: 0.85).combined(with: .opacity))
             }
         }
@@ -413,16 +414,18 @@ struct FoodDetailView: View {
     // MARK: - Действия
 
     private func start(date: Date = Date()) {
+        Haptics.tap()
         service.startIntroduction(food, date: date)
         refresh()
     }
 
-    private func stop() { service.stopIntroduction(food); refresh() }
-    private func resume() { service.reintroduce(food); refresh() }
-    private func retryLater() { service.scheduleRetry(food); refresh() }
-    private func flagAllergy() { service.markAllergy(food); refresh() }
+    private func stop() { Haptics.warning(); service.stopIntroduction(food); refresh() }
+    private func resume() { Haptics.tap(); service.reintroduce(food); refresh() }
+    private func retryLater() { Haptics.tap(); service.scheduleRetry(food); refresh() }
+    private func flagAllergy() { Haptics.warning(); service.markAllergy(food); refresh() }
 
     private func complete() {
+        Haptics.success()
         service.completeIntroduction(food)
         refresh()
         withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) { showCheer = true }

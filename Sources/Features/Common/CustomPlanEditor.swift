@@ -158,6 +158,7 @@ struct PlanDetailEditor: View {
     private func allergenChip(_ group: AllergenGroup) -> some View {
         let on = child.customAllergenGroups.contains(group)
         return Button {
+            Haptics.select()
             withAnimation(.snappy) { toggle(group) }
         } label: {
             HStack(spacing: 6) {

@@ -25,6 +25,7 @@ struct CalendarView: View {
     @State private var shareFile: ShareableFile?
     @State private var pendingDelete: FoodLog?
     @State private var showRecap = false
+    @Namespace private var segmentNS
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -127,6 +128,7 @@ struct CalendarView: View {
     private func segmentButton(_ title: LocalizedStringKey, _ value: Mode) -> some View {
         let active = mode == value && search.isEmpty
         return Button {
+            Haptics.select()
             withAnimation(.snappy) { mode = value; search = "" }
         } label: {
             Text(title)
@@ -135,7 +137,11 @@ struct CalendarView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 8)
                 .background {
-                    if active { Capsule().fill(Theme.accentGradient) }
+                    // matchedGeometryEffect — капсула «скользит» между сегментами.
+                    if active {
+                        Capsule().fill(Theme.accentGradient)
+                            .matchedGeometryEffect(id: "segment.pill", in: segmentNS)
+                    }
                 }
         }
         .buttonStyle(.plain)
@@ -169,6 +175,7 @@ struct CalendarView: View {
                 ForEach([DiaryFilter.all, .reaction, .planned]) { f in
                     let active = filter == f
                     Button {
+                        Haptics.select()
                         withAnimation(.snappy) { filter = f }
                     } label: {
                         Text(f.title)
@@ -393,6 +400,7 @@ struct CalendarView: View {
     // MARK: - Действия / логика сетки
 
     private func markDone(_ log: FoodLog) {
+        Haptics.success()
         FeedingService(context: context).confirmPlanned(log)
         if let profile = children.first?.feedingProfile {
             NotificationManager.shared.refresh(context: context, profile: profile)
@@ -400,6 +408,7 @@ struct CalendarView: View {
     }
 
     private func delete(_ log: FoodLog) {
+        Haptics.warning()
         context.delete(log)
         try? context.save()
         pendingDelete = nil

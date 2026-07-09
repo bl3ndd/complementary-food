@@ -82,6 +82,7 @@ struct LikingPicker: View {
     private func card(_ liking: Liking) -> some View {
         let selected = selection == liking
         return Button {
+            Haptics.select()
             selection = selected ? nil : liking
         } label: {
             VStack(spacing: 8) {
