@@ -23,8 +23,17 @@ struct MainTabView: View {
                 // Подмешиваем свои продукты в каталог (для истории/календаря).
                 let customs = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []
                 FoodCatalog.setCustom(customs)
+                // Разрешение на уведомления просим сразу (после гейта — в onChange ниже);
+                // ensureAuthorized промптит только в notDetermined, т.е. один раз.
+                if disclaimerAcked {
+                    await NotificationManager.shared.ensureAuthorized()
+                }
                 // Держим расписание напоминаний в актуальном виде при запуске.
                 NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+            }
+            .onChange(of: disclaimerAcked) { _, acked in
+                // Свежая установка: «Понятно» на дисклеймере → сразу системный промпт.
+                if acked { Task { await NotificationManager.shared.ensureAuthorized() } }
             }
             .sheet(isPresented: Binding(get: { !disclaimerAcked },
                                         set: { if !$0 { disclaimerAcked = true } })) {

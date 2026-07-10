@@ -12,9 +12,11 @@ extension XCUIApplication {
     }
 
     /// Гейт «Прежде чем начать» показывается на каждом чистом старте — принять.
+    /// Сразу после него апп просит разрешение на уведомления — гасим и его.
     func acceptDisclaimer(timeout: TimeInterval = 6) {
         let ok = buttons["Понятно"]
         if ok.waitForExistence(timeout: timeout) { ok.tap() }
+        allowNotificationsIfAsked()
     }
 
     /// Системный промпт уведомлений (после первого планирования напоминаний).

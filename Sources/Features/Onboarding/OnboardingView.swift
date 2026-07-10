@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 /// Онбординг (SPEC §12): Welcome → Ребёнок → Методика. Медицинский дисклеймер —
-/// в Профиле (секция «Важно»). Пуши тут НЕ просим — контекстно при первом аллергене.
+/// в Профиле (секция «Важно»). Пуши тут НЕ просим — сразу после дисклеймер-гейта.
 struct OnboardingView: View {
     @Environment(\.modelContext) private var context
 
