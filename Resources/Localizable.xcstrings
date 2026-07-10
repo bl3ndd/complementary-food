@@ -1606,6 +1606,17 @@
         }
       }
     },
+    "Записей": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entries"
+          }
+        }
+      }
+    },
     "Записей пока нет": {
       "extractionState": "manual",
       "localizations": {
@@ -5499,6 +5510,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "last given"
+          }
+        }
+      }
+    },
+    "продуктов": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "foods"
           }
         }
       }
