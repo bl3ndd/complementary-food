@@ -35,7 +35,7 @@ final class OnboardingUITests: XCTestCase {
         app.row(containing: "Брокколи").waitTap()
 
         // Финиш → гейт дисклеймера → таббар (E-ONB-01).
-        app.buttons["Погнали! 🚀"].waitTap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Погнали'")).firstMatch.waitTap()
         app.staticTexts["Прежде чем начать"].assertExists(timeout: 8, "гейт дисклеймера не показался")
         app.buttons["Понятно"].waitTap()
         app.tabBars.buttons["Сегодня"].assertExists(timeout: 8, "таббар не появился после гейта")

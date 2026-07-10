@@ -96,35 +96,52 @@ struct DashboardView: View {
 
     // MARK: - Быстрые действия
 
+    /// Быстрые действия: «Записать» — главная (бренд-градиент), «Реакция» —
+    /// вторичная (белая с оранжевым акцентом). Компактные строки, не «квадраты».
     private var actionTiles: some View {
         HStack(spacing: 12) {
-            actionTile("Записать", asset: "ui_plate", emoji: "🍽️", color: Theme.mint) {
+            Button {
                 Haptics.tap(); showFeed = true
+            } label: {
+                actionLabel("Записать", asset: "ui_plate", emoji: "🍽️",
+                            iconBackground: .white.opacity(0.22))
+                    .foregroundStyle(.white)
+                    // Мятный — контраст с коралловым hero сверху (не сливается).
+                    .background(LinearGradient(colors: [Theme.mint, Theme.mint.opacity(0.8)],
+                                               startPoint: .topLeading, endPoint: .bottomTrailing),
+                                in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .shadow(color: Theme.mint.opacity(0.35), radius: 10, x: 0, y: 5)
             }
-            actionTile("Реакция", asset: "react_skin", emoji: "🩹", color: .orange) {
+            .buttonStyle(BouncyButtonStyle())
+
+            Button {
                 Haptics.tap(); showReaction = true
+            } label: {
+                actionLabel("Реакция", asset: "react_skin", emoji: "🩹",
+                            iconBackground: Color.orange.opacity(0.15))
+                    .foregroundStyle(.primary)
+                    .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .stroke(Color.orange.opacity(0.35), lineWidth: 1.5))
+                    .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
             }
+            .buttonStyle(BouncyButtonStyle())
         }
     }
 
-    private func actionTile(_ title: LocalizedStringKey, asset: String, emoji: String, color: Color,
-                            _ action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 10) {
-                ZStack {
-                    Circle().fill(.white.opacity(0.92)).frame(width: 54, height: 54)
-                        .shadow(color: .black.opacity(0.08), radius: 3, x: 0, y: 2)
-                    OpenMojiIcon(asset: asset, fallback: emoji, size: 34)
-                }
-                Text(title).font(.subheadline.bold()).foregroundStyle(.white)
+    private func actionLabel(_ title: LocalizedStringKey, asset: String, emoji: String,
+                             iconBackground: Color) -> some View {
+        HStack(spacing: 10) {
+            ZStack {
+                Circle().fill(iconBackground).frame(width: 38, height: 38)
+                OpenMojiIcon(asset: asset, fallback: emoji, size: 24)
             }
-            .frame(maxWidth: .infinity).padding(.vertical, 18)
-            .background(LinearGradient(colors: [color, color.opacity(0.78)],
-                                       startPoint: .topLeading, endPoint: .bottomTrailing),
-                        in: RoundedRectangle(cornerRadius: 26, style: .continuous))
-            .shadow(color: color.opacity(0.35), radius: 12, x: 0, y: 7)
+            Text(title).font(.subheadline.bold())
+            Spacer(minLength: 0)
         }
-        .buttonStyle(BouncyButtonStyle())
+        .padding(.horizontal, 14).padding(.vertical, 12)
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
     }
 
     // MARK: - Сейчас вводишь (окно наблюдения)

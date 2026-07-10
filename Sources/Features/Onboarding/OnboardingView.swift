@@ -161,8 +161,13 @@ struct OnboardingView: View {
 
     private var button: some View {
         Button(action: next) {
-            Text(step >= lastStep ? String(localized: "Погнали! 🚀") : String(localized: "Далее"))
-                .font(.headline.bold())
+            HStack(spacing: 8) {
+                Text(step >= lastStep ? String(localized: "Погнали!") : String(localized: "Далее"))
+                    .font(.headline.bold())
+                if step >= lastStep {
+                    OpenMojiIcon(asset: "ui_rocket", fallback: "🚀", size: 22)
+                }
+            }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .foregroundStyle(.white)

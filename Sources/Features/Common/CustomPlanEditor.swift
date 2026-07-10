@@ -60,14 +60,18 @@ struct PlanDetailEditor: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            VStack(spacing: 16) {
-                paramRow("calendar", "Старт прикорма", color: Theme.sunny, info: .start,
+            // Полноширинные ряды: просто текст + пикер, без иконок.
+            VStack(spacing: 6) {
+                paramRow("Старт прикорма", info: .start,
                          value: $child.customStartAgeMonths, range: limits.startAge, unit: "мес")
-                paramRow("eye.fill", "Окно: обычный продукт", color: Theme.sky, info: .windowRegular,
+                Divider()
+                paramRow("Окно: обычный", info: .windowRegular,
                          value: $child.customObservationDaysRegular, range: limits.observation, unit: "дн")
-                paramRow("exclamationmark.triangle.fill", "Окно: аллерген", color: Theme.accentDeep, info: .windowAllergen,
+                Divider()
+                paramRow("Окно: аллерген", info: .windowAllergen,
                          value: $child.customObservationDaysAllergen, range: limits.observation, unit: "дн")
-                paramRow("repeat", "Частота аллергена", color: Theme.mint, info: .frequency,
+                Divider()
+                paramRow("Частота аллергена", info: .frequency,
                          value: $child.customAllergenFrequencyPerWeek, range: limits.frequency, unit: "×/нед")
             }
             .cartoonCard()
@@ -86,16 +90,13 @@ struct PlanDetailEditor: View {
         }
     }
 
-    // MARK: - Параметр: тап по значению → выпадающее меню
+    // MARK: - Параметр: полноширинный ряд, значение тапается целиком
 
-    private func paramRow(_ icon: String, _ title: LocalizedStringKey, color: Color, info: PlanInfo,
+    private func paramRow(_ title: LocalizedStringKey, info: PlanInfo,
                           value: Binding<Int>, range: ClosedRange<Int>, unit: LocalizedStringKey) -> some View {
-        HStack(spacing: 12) {
-            iconChip(icon, color)
-            HStack(spacing: 2) {
-                Text(title).font(.subheadline.weight(.medium))
-                infoButton(info)
-            }
+        HStack(spacing: 6) {
+            Text(title).font(.subheadline.weight(.medium))
+            infoButton(info)
             Spacer(minLength: 8)
             Menu {
                 Picker("", selection: value) {
@@ -105,26 +106,21 @@ struct PlanDetailEditor: View {
                 }
             } label: {
                 HStack(spacing: 5) {
-                    valueText(value.wrappedValue, unit).font(.subheadline.bold()).monospacedDigit()
-                    Image(systemName: "chevron.up.chevron.down").font(.caption2)
+                    valueText(value.wrappedValue, unit)
+                        .font(.headline.bold()).monospacedDigit()
+                    Image(systemName: "chevron.up.chevron.down").font(.caption2.weight(.bold))
                 }
                 .foregroundStyle(Theme.accent)
-                .padding(.horizontal, 12).padding(.vertical, 7)
-                .background(Theme.accent.opacity(0.12), in: Capsule())
+                .padding(.horizontal, 12).padding(.vertical, 8)
+                .background(Theme.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .contentShape(Rectangle())
             }
         }
+        .padding(.vertical, 4)
     }
 
     private func valueText(_ n: Int, _ unit: LocalizedStringKey) -> Text {
         Text("\(n) ") + Text(unit)
-    }
-
-    private func iconChip(_ icon: String, _ color: Color) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Theme.softGradient(color))
-            Image(systemName: icon).font(.footnote).foregroundStyle(color)
-        }
-        .frame(width: 30, height: 30)
     }
 
     private func infoButton(_ info: PlanInfo) -> some View {

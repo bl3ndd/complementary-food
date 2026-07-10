@@ -111,6 +111,9 @@ seedling 1F331
 party 1F389
 check 2705
 pause 23F8
+eyes 1F440
+repeat 1F501
+rocket 1F680
 "
 
 # категория -> кодпоинт (фолбэк)

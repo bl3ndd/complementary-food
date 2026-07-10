@@ -94,7 +94,7 @@ final class ProfileUITests: XCTestCase {
         app.buttons["Далее"].waitTap()
         app.buttons["Далее"].waitTap()
         app.buttons["Далее"].waitTap()
-        app.buttons["Погнали! 🚀"].waitTap()
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Погнали'")).firstMatch.waitTap()
         app.staticTexts["Прежде чем начать"].assertExists(timeout: 8,
             "после сброса гейт дисклеймера должен показаться снова")
         app.buttons["Понятно"].tap()

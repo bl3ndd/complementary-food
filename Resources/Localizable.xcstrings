@@ -3231,6 +3231,17 @@
         }
       }
     },
+    "Окно: обычный": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Window: regular"
+          }
+        }
+      }
+    },
     "Окно: обычный продукт": {
       "extractionState": "stale",
       "localizations": {
@@ -3534,6 +3545,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Repeat by %@"
+          }
+        }
+      }
+    },
+    "Погнали!": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Let's go!"
           }
         }
       }
