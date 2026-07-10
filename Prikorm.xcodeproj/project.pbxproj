@@ -66,6 +66,7 @@
 		BA6883AE8CA59600E865195B /* EditLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */; };
 		BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB6CBE520BAA18B97B67374 /* FoodLog.swift */; };
 		BC6154128575F7506FCE9C36 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */; };
+		BD1E29EEB0810B81E2181241 /* ScreenshotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52476519C9BE5098AA532DB5 /* ScreenshotUITests.swift */; };
 		BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4088924D10FC333495FBF4AE /* AppLinks.swift */; };
 		C0368823FA0F2A357C413340 /* RecapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFDE7EF3527F84544CCED5C /* RecapView.swift */; };
 		C251313E559EA9F221AEEC08 /* DashboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC3E6EA751A30DF6B403FB5 /* DashboardUITests.swift */; };
@@ -128,6 +129,7 @@
 		50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenMaintenance.swift; sourceTree = "<group>"; };
 		50BFA277A9F595AEA4F56908 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		514DB27FE02D9A44C1F0DB63 /* Delight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delight.swift; sourceTree = "<group>"; };
+		52476519C9BE5098AA532DB5 /* ScreenshotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotUITests.swift; sourceTree = "<group>"; };
 		54502A32A1FC7C0FD91517B6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		57582D03E1DD713519F97F27 /* AllergenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTests.swift; sourceTree = "<group>"; };
 		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				0691F69720956DB22E693478 /* FoodStateMachineUITests.swift */,
 				A7E9B74217E24AA130517A1B /* OnboardingUITests.swift */,
 				EEBD033DE74ECFCE6B53A451 /* ProfileUITests.swift */,
+				52476519C9BE5098AA532DB5 /* ScreenshotUITests.swift */,
 				EA2790ACAA8297584357139D /* UITestHelpers.swift */,
 			);
 			path = UITests;
@@ -517,6 +520,7 @@
 				7B547C41F321F1E6F4A91091 /* FoodStateMachineUITests.swift in Sources */,
 				87EDD71DFFFC564A658E2E1E /* OnboardingUITests.swift in Sources */,
 				8194C7D9AD848D6C166D5525 /* ProfileUITests.swift in Sources */,
+				BD1E29EEB0810B81E2181241 /* ScreenshotUITests.swift in Sources */,
 				48893086D2C7A6E8FEC4545F /* UITestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -74,6 +74,40 @@ enum UITestSupport {
             context.insert(FoodLog(foodId: "apple", date: Date(), type: .intro, planned: true))
             context.insert(FoodLog(foodId: "pear", date: days(1), type: .intro, planned: true))
 
+        case "showcase":
+            // Витрина для скриншотов App Store: наполненная коллекция, «день 2 из 3»,
+            // аллерген «пора освежить», планы и живой дневник за сегодня.
+            for id in ["broccoli", "zucchini", "pumpkin", "carrot", "potato", "apple",
+                       "pear", "banana", "peach", "oatmeal", "buckwheat", "turkey",
+                       "strawberry"] {
+                introduce(id, daysAgo: 12)
+            }
+            // Аллергены: желток просрочен (пора), арахис в норме.
+            introduce("egg_yolk", daysAgo: 12)
+            context.insert(FoodLog(foodId: "egg_yolk", date: days(-5), type: .maintenance))
+            introduce("peanut", daysAgo: 10)
+            context.insert(FoodLog(foodId: "peanut", date: days(-1), type: .maintenance))
+            // Вводится сейчас: авокадо, день 2 из 3 (для карточки с кольцом).
+            introducing("avocado", startedDaysAgo: 1)
+            // Дневник за сегодня: три записи.
+            context.insert(FoodLog(
+                foodId: "broccoli",
+                date: cal.date(byAdding: .hour, value: -1, to: Date()) ?? Date(),
+                type: .maintenance, liking: .liked, note: "обед — съел всё"))
+            context.insert(FoodLog(
+                foodId: "oatmeal",
+                date: cal.date(byAdding: .hour, value: -3, to: Date()) ?? Date(),
+                type: .maintenance, liking: .neutral))
+            context.insert(FoodLog(
+                foodId: "avocado",
+                date: cal.date(byAdding: .hour, value: -2, to: Date()) ?? Date(),
+                type: .intro, liking: .liked))
+            // Реакция позавчера (красный бейдж в ленте) + планы на будущее.
+            context.insert(FoodLog(foodId: "strawberry", date: days(-2),
+                                   type: .maintenance, reaction: .skin, note: "лёгкая сыпь на щеках"))
+            context.insert(FoodLog(foodId: "mango", date: days(1), type: .intro, planned: true))
+            context.insert(FoodLog(foodId: "kiwi", date: days(2), type: .intro, planned: true))
+
         default:
             break
         }
