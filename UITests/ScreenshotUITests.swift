@@ -39,9 +39,16 @@ final class ScreenshotUITests: XCTestCase {
             let b = app.buttons[label]
             if b.waitForExistence(timeout: 3) { b.tap(); break }
         }
+        // Системный промпт уведомлений (просится сразу после гейта) — погасить.
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        for label in ["Allow", "Разрешить"] {
+            let b = springboard.buttons[label]
+            if b.waitForExistence(timeout: 3) { b.tap(); break }
+        }
 
-        // 01 — Главная.
+        // 01 — Главная (пауза: cozy-анимации карточек должны доиграть).
         XCTAssertTrue(app.staticTexts["Ника"].waitForExistence(timeout: 8))
+        sleep(2)
         shoot("01_Dashboard", lang)
 
         // 02 — Карточка продукта «вводится» (кольцо «день 2 из 3») из «Сейчас вводишь».
