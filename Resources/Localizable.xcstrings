@@ -3670,6 +3670,17 @@
         }
       }
     },
+    "Пока рано": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not yet"
+          }
+        }
+      }
+    },
     "Полезные жиры": {
       "extractionState": "stale",
       "localizations": {

@@ -24,32 +24,29 @@ final class ProfileUITests: XCTestCase {
         app.staticTexts["Сбросить все данные"].assertExists(timeout: 2)
     }
 
-    // E-PRF-05: гейты «Данных» — пусто → выключены; rich → включены.
+    // E-PRF-05: гейты «Данных» — пусто → тап объясняет алертом; rich → работает.
     // Form ленивая: до секции «Данные» надо доскроллить, иначе строк нет в иерархии.
     func testDataGatesEmptyVsRich() {
         var app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
         app.openTab("Профиль")
         app.swipeUp()
-        let pdfEmpty = app.buttons["Дневник для педиатра"]
-        pdfEmpty.assertExists(timeout: 8)
-        XCTAssertFalse(pdfEmpty.isEnabled, "PDF должен быть выключен без записей")
-        let recapEmpty = app.buttons["Рекап месяца"]
-        recapEmpty.assertExists(timeout: 4)
-        XCTAssertFalse(recapEmpty.isEnabled, "рекап без данных должен быть выключен")
+        // Пусто: тап по PDF → объясняющий алерт «Пока рано».
+        app.buttons["Дневник для педиатра"].waitTap(timeout: 8)
+        app.alerts["Пока рано"].assertExists(timeout: 4,
+            "тап по недоступному экспорту должен объяснить почему")
+        app.alerts.buttons["Понятно"].tap()
 
         app.terminate()
         app = XCUIApplication.pudding(seed: "rich")
         app.acceptDisclaimer()
         app.openTab("Профиль")
         app.swipeUp()
-        let pdfRich = app.buttons["Дневник для педиатра"]
-        pdfRich.assertExists(timeout: 8)
-        XCTAssertTrue(pdfRich.isEnabled, "PDF должен быть доступен при записях")
-        let avoid = app.buttons.matching(
-            NSPredicate(format: "label CONTAINS 'не давать'")).firstMatch
-        avoid.assertExists(timeout: 4)
-        XCTAssertTrue(avoid.isEnabled, "«не давать» должен быть доступен (треска на паузе)")
+        // Rich: рекап реально открывается (не алерт).
+        app.buttons["Рекап месяца"].waitTap(timeout: 8)
+        app.navigationBars["Рекап месяца"].assertExists(timeout: 6,
+            "при наличии данных рекап должен открыться")
+        app.navigationBars["Рекап месяца"].buttons["Готово"].tap()
     }
 
     // E-PRF-02: план — снятие всех аллергенов показывает предупреждение.

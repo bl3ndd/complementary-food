@@ -19,6 +19,8 @@ struct ProfileView: View {
     @State private var shareFile: ShareableFile?
     @State private var showRecap = false
     @State private var isResetting = false
+    /// Объяснение, почему пункт «Данных» пока недоступен (алерт по тапу).
+    @State private var dataHint: String?
 
     private let catalog = FoodCatalog.shared
 
@@ -136,48 +138,43 @@ struct ProfileView: View {
     // MARK: - Данные (экспорт / рекап / сброс живёт отдельно)
 
     private var dataSection: some View {
-        Section {
-            Button { exportPDF(.pediatric) } label: {
+        Section("Данные") {
+            // Кнопки всегда активны: если данных пока нет — тап объясняет, почему
+            // (немой disabled-серый вызывал «а чё нельзя-то?»).
+            Button {
+                if hasActualLogs { exportPDF(.pediatric) }
+                else { dataHint = String(localized: "Дневник для педиатра появится после первой записи кормления.") }
+            } label: {
                 Label("Дневник для педиатра", systemImage: "doc.richtext")
+                    .foregroundStyle(hasActualLogs ? Color.primary : .secondary)
             }
-            .disabled(!hasActualLogs)
 
-            Button { exportPDF(.avoid) } label: {
+            Button {
+                if hasAvoidItems { exportPDF(.avoid) }
+                else { dataHint = String(localized: "Список «не давать» соберётся из продуктов на паузе или с аллергией.") }
+            } label: {
                 Label("Список «не давать»", systemImage: "nosign")
+                    .foregroundStyle(hasAvoidItems ? Color.primary : .secondary)
             }
-            .disabled(!hasAvoidItems)
 
-            Button { showRecap = true } label: {
+            Button {
+                if hasRecapData { showRecap = true }
+                else { dataHint = String(localized: "Рекап откроется, когда в этом месяце появятся записи.") }
+            } label: {
                 Label("Рекап месяца", systemImage: "party.popper")
+                    .foregroundStyle(hasRecapData ? Color.primary : .secondary)
             }
-            .disabled(!hasRecapData)
-        } header: {
-            Text("Данные")
-        } footer: {
-            // Объясняем серые кнопки: подсказки только про то, что сейчас недоступно.
-            if !dataHints.isEmpty {
-                Text(dataHints.joined(separator: " "))
-            }
+        }
+        .alert("Пока рано", isPresented: Binding(get: { dataHint != nil },
+                                                 set: { if !$0 { dataHint = nil } })) {
+            Button("Понятно", role: .cancel) { dataHint = nil }
+        } message: {
+            Text(dataHint ?? "")
         }
     }
 
     private var hasRecapData: Bool {
         RecapService(catalog: catalog, logs: logs).hasData(for: Date())
-    }
-
-    /// Подсказки, почему кнопки «Данных» выключены (для включённых — молчим).
-    private var dataHints: [String] {
-        var hints: [String] = []
-        if !hasActualLogs {
-            hints.append(String(localized: "Дневник для педиатра появится после первой записи кормления."))
-        }
-        if !hasAvoidItems {
-            hints.append(String(localized: "Список «не давать» соберётся из продуктов на паузе или с аллергией."))
-        }
-        if !hasRecapData {
-            hints.append(String(localized: "Рекап откроется, когда в этом месяце появятся записи."))
-        }
-        return hints
     }
 
     // MARK: - О приложении (легалка + версия + кредиты в одном месте)
