@@ -188,16 +188,21 @@ footer.site .disclaimer { max-width: 640px; margin: 14px auto 0; font-size: 13px
 
 /* ---- Галерея скриншотов (скролл-снап на мобиле) ---- */
 .gallery {
-  display: flex; gap: 22px; margin-top: 36px; padding: 8px 4px 18px;
+  display: flex; gap: 22px; margin-top: 36px; padding: 16px 8px 34px;
   overflow-x: auto; scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
 .gallery::-webkit-scrollbar { display: none; }
-.gallery figure { flex: 0 0 auto; width: 218px; scroll-snap-align: center; }
+.gallery figure { flex: 0 0 auto; width: 224px; scroll-snap-align: center; }
 .gallery figure:first-child { margin-left: auto; }
 .gallery figure:last-child { margin-right: auto; }
 .gallery figcaption { text-align: center; font-weight: 800; font-size: 14px; color: var(--muted); margin-top: 12px; }
-.gallery .phone { transition: transform .2s ease; }
+/* Компактная тень: большая мягкая клипается скролл-контейнером и выглядит
+   как «кривой серый фон». */
+.gallery .phone {
+  transition: transform .2s ease;
+  box-shadow: 0 10px 24px rgba(51, 41, 65, .18), 0 3px 8px rgba(51, 41, 65, .10);
+}
 .gallery figure:hover .phone { transform: translateY(-6px); }
 
 /* ---- Узкие экраны: ужимаем отступы, прячем пункты меню (п.26) ---- */
