@@ -77,7 +77,7 @@ struct DayDetailView: View {
 
     private var emptyState: some View {
         VStack(spacing: 12) {
-            Mascot(mood: .sleepy)
+            Mascot(mood: .sleepy).gentleBob()
             Text("В этот день ничего не давали").font(.headline)
         }
         .frame(maxWidth: .infinity)

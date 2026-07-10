@@ -77,3 +77,26 @@ private struct GentleBob: ViewModifier {
 extension View {
     func gentleBob() -> some View { modifier(GentleBob()) }
 }
+
+/// Мягкое появление контента: лёгкий fade + подъём с пружиной. Срабатывает ОДИН раз
+/// на identity вьюхи (возврат на таб не переигрывает). `delay` — для каскада карточек.
+private struct CozyAppear: ViewModifier {
+    let delay: Double
+    @State private var shown = false
+
+    func body(content: Content) -> some View {
+        content
+            .opacity(shown ? 1 : 0)
+            .offset(y: shown ? 0 : 14)
+            .onAppear {
+                guard !shown else { return }
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.85).delay(delay)) {
+                    shown = true
+                }
+            }
+    }
+}
+
+extension View {
+    func cozyAppear(_ delay: Double = 0) -> some View { modifier(CozyAppear(delay: delay)) }
+}

@@ -24,12 +24,12 @@ struct DashboardView: View {
         NavigationStack(path: $path) {
             ScrollView {
                 VStack(spacing: 16) {
-                    heroCard
-                    actionTiles
-                    todayCard
-                    introducingCard
-                    collectionCard
-                    allergenCard
+                    heroCard.cozyAppear()
+                    actionTiles.cozyAppear(0.06)
+                    todayCard.cozyAppear(0.12)
+                    introducingCard.cozyAppear(0.18)
+                    collectionCard.cozyAppear(0.24)
+                    allergenCard.cozyAppear(0.30)
                 }
                 .padding()
             }

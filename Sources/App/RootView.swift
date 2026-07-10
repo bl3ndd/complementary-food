@@ -9,10 +9,14 @@ struct RootView: View {
         Group {
             if let child = children.first {
                 MainTabView(child: child)
+                    .transition(.opacity)
             } else {
                 OnboardingView()
+                    .transition(.opacity)
             }
         }
+        // Мягкий кроссфейд онбординг ↔ приложение (финиш онбординга / сброс данных).
+        .animation(.easeInOut(duration: 0.45), value: children.isEmpty)
         .tint(Theme.accent)
         .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
         .preferredColorScheme(.light)    // палитра светлая и фиксированная — тёмную тему не поддерживаем

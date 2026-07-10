@@ -152,6 +152,14 @@ struct CalendarView: View {
     private var feedSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             filterChips
+            feedContent
+        }
+        // Мягкая перестройка ленты при смене фильтра/поиска.
+        .animation(.spring(response: 0.4, dampingFraction: 0.85), value: filter)
+    }
+
+    private var feedContent: some View {
+        VStack(alignment: .leading, spacing: 14) {
             let feed = service.feed(filter: filter, query: search)
             if feed.isEmpty {
                 feedEmpty
@@ -235,7 +243,7 @@ struct CalendarView: View {
 
     private var feedEmpty: some View {
         VStack(spacing: 10) {
-            Mascot(mood: search.isEmpty ? .curious : .sleepy, size: 64)
+            Mascot(mood: search.isEmpty ? .curious : .sleepy, size: 64).gentleBob()
             Text(search.isEmpty
                  ? "Здесь будет история кормлений. Записывай продукты — и дневник наполнится."
                  : "Ничего не нашлось")
@@ -388,7 +396,7 @@ struct CalendarView: View {
 
     private var emptyHint: some View {
         VStack(spacing: 8) {
-            Mascot(mood: .curious, size: 64)
+            Mascot(mood: .curious, size: 64).gentleBob()
             Text("Тапни день, чтобы запланировать ввод или посмотреть записи.")
                 .font(.subheadline).foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

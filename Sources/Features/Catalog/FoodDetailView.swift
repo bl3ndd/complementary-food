@@ -52,13 +52,16 @@ struct FoodDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                heroCard
-                if state == .notIntroduced { startDateCard }
-                if state == .allergy { allergyCard }
-                benefitsCard
-                if !logs.isEmpty { historyCard }
+                heroCard.cozyAppear()
+                if state == .notIntroduced { startDateCard.cozyAppear(0.06) }
+                if state == .allergy { allergyCard.cozyAppear(0.06) }
+                benefitsCard.cozyAppear(0.12)
+                if !logs.isEmpty { historyCard.cozyAppear(0.18) }
             }
             .padding()
+            // Пружина на смене состояния (старт/пауза/введён): герой и набор карточек
+            // перестраиваются мягко, а не скачком.
+            .animation(.spring(response: 0.45, dampingFraction: 0.8), value: state)
         }
         .background(AppBackground())
         .navigationTitle(food.localizedName)
