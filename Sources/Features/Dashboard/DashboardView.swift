@@ -203,20 +203,35 @@ struct DashboardView: View {
             ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.all.count)))
                 .tint(Theme.accent)
 
-            let shown = Array(collectionFoods.prefix(20))
-            let ghosts = max(0, 20 - shown.count)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 46), spacing: 10)], spacing: 10) {
-                ForEach(shown) { food in
-                    Button { path.append(food) } label: { FoodIcon(food: food, size: 44) }
-                        .buttonStyle(.plain)
-                        .transition(.scale.combined(with: .opacity))
+            if collectionFoods.isEmpty {
+                // Пустая коллекция: тёплый эмпти-стейт вместо сетки пунктирных кругов.
+                HStack(spacing: 14) {
+                    Mascot(mood: .curious, size: 56).gentleBob()
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Коллекция пока пуста").font(.subheadline.bold())
+                        Text("Каждый введённый продукт появится здесь — начни с первого!")
+                            .font(.caption).foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
-                ForEach(0..<ghosts, id: \.self) { _ in ghostCell }
+                .padding(.vertical, 6)
+            } else {
+                let shown = Array(collectionFoods.prefix(20))
+                let ghosts = max(0, 20 - shown.count)
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 46), spacing: 10)], spacing: 10) {
+                    ForEach(shown) { food in
+                        Button { path.append(food) } label: { FoodIcon(food: food, size: 44) }
+                            .buttonStyle(.plain)
+                            .transition(.scale.combined(with: .opacity))
+                    }
+                    ForEach(0..<ghosts, id: \.self) { _ in ghostCell }
+                }
+                .animation(.spring(response: 0.45, dampingFraction: 0.7), value: introducedCount)
             }
-            .animation(.spring(response: 0.45, dampingFraction: 0.7), value: introducedCount)
 
             Button { goToCatalog() } label: {
-                Label("Вся коллекция", systemImage: "square.grid.2x2")
+                Label(collectionFoods.isEmpty ? "Открыть каталог" : "Вся коллекция",
+                      systemImage: "square.grid.2x2")
                     .font(.subheadline.weight(.semibold)).foregroundStyle(Theme.accent)
             }
         }

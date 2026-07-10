@@ -2007,6 +2007,17 @@
         }
       }
     },
+    "Каждый введённый продукт появится здесь — начни с первого!": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every introduced food will appear here — start with the first one!"
+          }
+        }
+      }
+    },
     "Как зашло?": {
       "extractionState": "manual",
       "localizations": {
@@ -2223,6 +2234,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Skin (rash)"
+          }
+        }
+      }
+    },
+    "Коллекция пока пуста": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The collection is empty for now"
           }
         }
       }
@@ -3337,6 +3359,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stop introduction"
+          }
+        }
+      }
+    },
+    "Открыть каталог": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the catalog"
           }
         }
       }
