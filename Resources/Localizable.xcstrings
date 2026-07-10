@@ -1270,6 +1270,17 @@
         }
       }
     },
+    "Дневник для педиатра появится после первой записи кормления.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The pediatrician diary unlocks after your first feeding entry."
+          }
+        }
+      }
+    },
     "Дневник за сегодня": {
       "localizations": {
         "en": {
@@ -4126,6 +4137,17 @@
         }
       }
     },
+    "Рекап откроется, когда в этом месяце появятся записи.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The recap unlocks once this month has entries."
+          }
+        }
+      }
+    },
     "Рисовая каша": {
       "extractionState": "manual",
       "localizations": {
@@ -4568,6 +4590,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Do not give” list"
+          }
+        }
+      }
+    },
+    "Список «не давать» соберётся из продуктов на паузе или с аллергией.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The “do not give” list builds from foods that are paused or marked allergic."
           }
         }
       }

@@ -136,7 +136,7 @@ struct ProfileView: View {
     // MARK: - Данные (экспорт / рекап / сброс живёт отдельно)
 
     private var dataSection: some View {
-        Section("Данные") {
+        Section {
             Button { exportPDF(.pediatric) } label: {
                 Label("Дневник для педиатра", systemImage: "doc.richtext")
             }
@@ -150,8 +150,34 @@ struct ProfileView: View {
             Button { showRecap = true } label: {
                 Label("Рекап месяца", systemImage: "party.popper")
             }
-            .disabled(!RecapService(catalog: catalog, logs: logs).hasData(for: Date()))
+            .disabled(!hasRecapData)
+        } header: {
+            Text("Данные")
+        } footer: {
+            // Объясняем серые кнопки: подсказки только про то, что сейчас недоступно.
+            if !dataHints.isEmpty {
+                Text(dataHints.joined(separator: " "))
+            }
         }
+    }
+
+    private var hasRecapData: Bool {
+        RecapService(catalog: catalog, logs: logs).hasData(for: Date())
+    }
+
+    /// Подсказки, почему кнопки «Данных» выключены (для включённых — молчим).
+    private var dataHints: [String] {
+        var hints: [String] = []
+        if !hasActualLogs {
+            hints.append(String(localized: "Дневник для педиатра появится после первой записи кормления."))
+        }
+        if !hasAvoidItems {
+            hints.append(String(localized: "Список «не давать» соберётся из продуктов на паузе или с аллергией."))
+        }
+        if !hasRecapData {
+            hints.append(String(localized: "Рекап откроется, когда в этом месяце появятся записи."))
+        }
+        return hints
     }
 
     // MARK: - О приложении (легалка + версия + кредиты в одном месте)
