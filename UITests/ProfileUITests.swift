@@ -98,6 +98,10 @@ final class ProfileUITests: XCTestCase {
         app.staticTexts["Прежде чем начать"].assertExists(timeout: 8,
             "после сброса гейт дисклеймера должен показаться снова")
         app.buttons["Понятно"].tap()
-        app.tabBars.buttons["Сегодня"].assertExists(timeout: 6)
+        let todayTab = app.tabBars.buttons["Сегодня"]
+        todayTab.assertExists(timeout: 6)
+        // Регресс: сброс шёл из Профиля — синглтон-роутер не должен утащить на
+        // старый таб, свежий старт всегда с главной.
+        XCTAssertTrue(todayTab.isSelected, "после онбординга должен быть выбран таб «Сегодня»")
     }
 }

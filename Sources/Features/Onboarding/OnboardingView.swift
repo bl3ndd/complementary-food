@@ -194,6 +194,9 @@ struct OnboardingView: View {
         // после сброса). Чистим ДО создания Child — гейт всплывёт на свежем MainTabView,
         // без мигания на старом. На первой установке флаг и так false — no-op.
         UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
+        // AppRouter — синглтон: после сброса из Профиля таб остался бы .profile.
+        // Свежий старт всегда открывается на главной.
+        AppRouter.shared.selectedTab = .today
         let child = Child(name: name.trimmingCharacters(in: .whitespaces),
                           birthDate: birthDate, feedingProfileId: FeedingProfile.customId)
         child.customStartAgeMonths = draftChild.customStartAgeMonths
