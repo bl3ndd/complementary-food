@@ -1324,6 +1324,17 @@
         }
       }
     },
+    "Добавить ещё": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add more"
+          }
+        }
+      }
+    },
     "Добавить запись": {
       "localizations": {
         "en": {
@@ -1440,6 +1451,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Breathing"
+          }
+        }
+      }
+    },
+    "Ещё действия": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More actions"
           }
         }
       }
