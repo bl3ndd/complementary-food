@@ -29,7 +29,16 @@ extension XCUIApplication {
     }
 
     func openTab(_ name: String) {
-        tabBars.buttons[name].tap()
+        // Поднятая клавиатура (поиск каталога) накрывает таббар — тап по вкладке
+        // уходит в её нижнюю полосу. Enter гасит фокус без onSubmit-эффектов.
+        if keyboards.firstMatch.exists { typeText("\n") }
+        let tab = tabBars.buttons[name]
+        tab.tap()
+        // Страховка: если тап съела уезжающая клавиатура — повторить.
+        if !tab.isSelected {
+            _ = keyboards.firstMatch.waitForNonExistence(timeout: 2)
+            if !tab.isSelected { tab.tap() }
+        }
     }
 
     /// Открыть карточку продукта через поиск в Каталоге.
@@ -39,6 +48,8 @@ extension XCUIApplication {
         let search = textFields["Поиск продукта"]
         XCTAssertTrue(search.waitForExistence(timeout: 5), "нет поиска в каталоге")
         search.tap()
+        // Флейк: тап не всегда успевает дать фокус — без клавиатуры typeText падает.
+        if !keyboards.firstMatch.waitForExistence(timeout: 2) { search.tap() }
         search.typeText(query)
         row(containing: rowTitle).waitTap()
         XCTAssertTrue(navigationBars[rowTitle].waitForExistence(timeout: 5),
