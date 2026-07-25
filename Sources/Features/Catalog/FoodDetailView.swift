@@ -17,7 +17,6 @@ struct FoodDetailView: View {
     @State private var editingLog: FoodLog?
     @State private var confirmStop = false
     @State private var confirmAllergy = false
-    @State private var benefitsExpanded = false
 
     init(food: Food, child: Child) {
         self.food = food
@@ -52,7 +51,7 @@ struct FoodDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                heroCard.cozyAppear()
+                heroCard.stretchyHero().cozyAppear()
                 if state == .notIntroduced { startDateCard.cozyAppear(0.06) }
                 if state == .allergy { allergyCard.cozyAppear(0.06) }
                 benefitsCard.cozyAppear(0.12)
@@ -135,6 +134,9 @@ struct FoodDetailView: View {
                             OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 19)
                         }
                         .offset(x: 3, y: 3)
+                        // Печать статуса «выпрыгивает» при смене состояния
+                        // (общая пружина на `state` уже висит на контенте).
+                        .transition(.scale(scale: 0.2).combined(with: .opacity))
                     }
                 }
         }
@@ -212,32 +214,27 @@ struct FoodDetailView: View {
         .cartoonCard()
     }
 
-    // MARK: - Чем полезен (аккордеон)
+    // MARK: - Чем полезен (всегда открыт — иначе страница выглядит пустой)
 
     @ViewBuilder private var benefitsCard: some View {
         if food.localizedBenefits != nil || (food.nutrients?.isEmpty == false) {
-            DisclosureGroup(isExpanded: $benefitsExpanded) {
-                VStack(alignment: .leading, spacing: 10) {
-                    if let benefits = food.localizedBenefits {
-                        Text(benefits).font(.subheadline).foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    if let nutrients = food.nutrients, !nutrients.isEmpty {
-                        FlowLayout(spacing: 6) {
-                            ForEach(nutrients, id: \.self) { n in
-                                Chip(String(localized: String.LocalizationValue(n)),
-                                     icon: "leaf.fill", color: Theme.mint)
-                                    .fixedSize()
-                            }
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Чем полезен", systemImage: "sparkles").font(.headline)
+                if let benefits = food.localizedBenefits {
+                    Text(benefits).font(.subheadline).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                if let nutrients = food.nutrients, !nutrients.isEmpty {
+                    FlowLayout(spacing: 6) {
+                        ForEach(nutrients, id: \.self) { n in
+                            Chip(String(localized: String.LocalizationValue(n)),
+                                 icon: "leaf.fill", color: Theme.mint)
+                                .fixedSize()
                         }
                     }
                 }
-                .padding(.top, 10)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            } label: {
-                Label("Чем полезен", systemImage: "sparkles").font(.headline)
             }
-            .tint(Theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .cartoonCard()
         }
     }
@@ -336,7 +333,7 @@ struct FoodDetailView: View {
         case .paused:
             return BarAction(title: "Возобновить ввод") { resume() }
         case .allergy:
-            return BarAction(title: "Вернуть в оборот (врач разрешил)", tint: .red) {
+            return BarAction(title: "Вернуть в прикорм", tint: .red) {
                 service.reintroduce(food); refresh()
             }
         }

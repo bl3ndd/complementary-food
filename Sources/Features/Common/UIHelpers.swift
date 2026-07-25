@@ -66,44 +66,69 @@ struct StatusBadge: View {
     }
 }
 
-/// Шкала вкуса крупными карточками (SPEC §5). Тап по выбранной снимает выбор.
+/// Компактный чип выбора: OpenMoji-иконка + подпись в капсуле.
+/// Заменил огромные плитки на экранах записи/правки (label = title, пинится E2E).
+struct SelectChip: View {
+    let title: String
+    let asset: String
+    let fallback: String
+    var tint: Color = Theme.accent
+    let selected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                OpenMojiIcon(asset: asset, fallback: fallback, size: 22)
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(selected ? tint : .primary)
+            }
+            .padding(.horizontal, 12).padding(.vertical, 8)
+            .background(selected ? tint.opacity(0.15) : Color.black.opacity(0.03),
+                        in: Capsule())
+            .overlay(Capsule().stroke(selected ? tint : .black.opacity(0.06),
+                                      lineWidth: selected ? 2 : 1))
+        }
+        .buttonStyle(BouncyButtonStyle())
+    }
+}
+
+/// Шкала вкуса чипами (SPEC §5). Тап по выбранной снимает выбор.
 struct LikingPicker: View {
     @Binding var selection: Liking?
 
     var body: some View {
-        HStack(spacing: 12) {
+        FlowLayout(spacing: 8) {
             ForEach(Liking.allCases, id: \.self) { liking in
-                card(liking)
+                SelectChip(title: liking.shortTitle,
+                           asset: "like_\(liking.rawValue)", fallback: liking.emoji,
+                           selected: selection == liking) {
+                    Haptics.select()
+                    selection = selection == liking ? nil : liking
+                }
             }
         }
         .animation(.snappy, value: selection)
     }
+}
 
-    private func card(_ liking: Liking) -> some View {
-        let selected = selection == liking
-        return Button {
-            Haptics.select()
-            selection = selected ? nil : liking
-        } label: {
-            VStack(spacing: 8) {
-                OpenMojiIcon(asset: "like_\(liking.rawValue)",
-                             fallback: liking.emoji, size: 56)
-                    .scaleEffect(selected ? 1.08 : 1)
-                Text(liking.shortTitle)
-                    .font(.subheadline.weight(.bold))
-                    .foregroundStyle(selected ? Theme.accent : .secondary)
+/// Чипы реакции — общие для записи кормления и правки записи.
+struct ReactionChips: View {
+    @Binding var reaction: ReactionType
+
+    var body: some View {
+        FlowLayout(spacing: 8) {
+            ForEach(ReactionType.selectableCases, id: \.self) { r in
+                SelectChip(title: r.title,
+                           asset: "react_\(r.rawValue)", fallback: r.emoji,
+                           tint: r == .none ? Theme.mint : .orange,
+                           selected: reaction == r) {
+                    Haptics.select()
+                    withAnimation(.snappy) { reaction = r }
+                }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .background(selected ? Theme.accent.opacity(0.12) : Color.black.opacity(0.03),
-                        in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .stroke(selected ? Theme.accent : .clear, lineWidth: 2.5)
-            )
-            .opacity(selection == nil || selected ? 1 : 0.55)
         }
-        .buttonStyle(BouncyButtonStyle())
     }
 }
 

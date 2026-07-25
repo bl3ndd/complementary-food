@@ -84,8 +84,8 @@ final class FoodStateMachineUITests: XCTestCase {
         app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Зафиксирована аллергия'"))
             .firstMatch.assertExists(timeout: 4, "нет предупреждения об аллергии")
 
-        app.buttons["Вернуть в оборот (врач разрешил)"].waitTap()
-        app.staticTexts["Вводится"].assertExists(timeout: 5, "возврат в оборот не сработал")
+        app.buttons["Вернуть в прикорм"].waitTap()
+        app.staticTexts["Вводится"].assertExists(timeout: 5, "возврат в прикорм не сработал")
     }
 
     // E-LOG-02 + E-FOOD-09: реакция (без «дыхания») → бейдж в истории → правка/удаление.
@@ -122,14 +122,14 @@ final class FoodStateMachineUITests: XCTestCase {
                        "правка должна закрыться после удаления")
     }
 
-    // E-FOOD-08: аккордеон «Чем полезен» раскрывается.
-    func testBenefitsAccordion() {
+    // E-FOOD-08: «Чем полезен» всегда открыт (без аккордеона).
+    func testBenefitsAlwaysVisible() {
         let app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
         app.openFoodCard("брокк", rowTitle: "Брокколи")
 
-        XCTAssertFalse(app.staticTexts["Витамин C"].exists, "аккордеон должен быть свёрнут")
-        app.buttons["Чем полезен"].firstMatch.waitTap()
-        app.staticTexts["Витамин C"].assertExists(timeout: 4, "нутриенты не раскрылись")
+        app.staticTexts["Чем полезен"].assertExists(timeout: 4)
+        app.staticTexts["Витамин C"].assertExists(timeout: 4,
+            "нутриенты должны быть видны сразу, без раскрытия")
     }
 }

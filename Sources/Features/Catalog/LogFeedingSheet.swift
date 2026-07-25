@@ -25,22 +25,15 @@ struct LogFeedingSheet: View {
     @State private var date = Date()
     @State private var photos: [Data] = []
 
-    private let columns = [GridItem(.flexible(), spacing: 10),
-                           GridItem(.flexible(), spacing: 10),
-                           GridItem(.flexible(), spacing: 10)]
-
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
                     header
-                    dateCard
                     if mode == .feeding { likingCard }
                     if mode == .reaction { reactionCard }
-                    noteCard
+                    detailsCard
                     PhotosAttachCard(photos: $photos)
-                    BigButton(title: "Сохранить") { save() }
-                        .padding(.top, 4)
                 }
                 .padding()
             }
@@ -54,34 +47,49 @@ struct LogFeedingSheet: View {
                     Button("Отмена") { dismiss() }
                 }
             }
+            // Кнопка всегда на виду — не нужно скроллить до низа.
+            .safeAreaInset(edge: .bottom) {
+                BigButton(title: "Сохранить") { save() }
+                    .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
+                    .background(
+                        LinearGradient(colors: [Color.white.opacity(0), Color.white.opacity(0.9)],
+                                       startPoint: .top, endPoint: .bottom)
+                            .ignoresSafeArea(edges: .bottom)
+                    )
+            }
             .onAppear { date = min(initialDate, Date()) }
         }
+        .cozySheet()
     }
 
-    // MARK: - Дата кормления
-
-    private var dateCard: some View {
-        DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) {
-            Label("Когда давали", systemImage: "calendar")
-                .font(.subheadline.weight(.medium))
-        }
-        .tint(Theme.accent)
-        .cartoonCard()
-    }
-
-    // MARK: - Шапка с продуктом
+    // MARK: - Шапка с продуктом (без карточной обвязки — воздух)
 
     private var header: some View {
-        HStack(spacing: 12) {
-            FoodIcon(food: food, size: 52)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(food.localizedName).font(.title3.bold())
-                Text(mode == .feeding
-                     ? String(localized: "Как прошло кормление?")
-                     : String(localized: "Отметь реакцию на продукт"))
-                    .font(.subheadline).foregroundStyle(.secondary)
+        VStack(spacing: 8) {
+            FoodIcon(food: food, size: 64)
+            Text(food.localizedName).font(.title3.bold())
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 2)
+    }
+
+    // MARK: - Детали: дата + заметка одной карточкой
+
+    private var detailsCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) {
+                Label("Когда давали", systemImage: "calendar")
+                    .font(.subheadline.weight(.medium))
             }
-            Spacer()
+            .tint(Theme.accent)
+            Divider()
+            HStack(alignment: .top, spacing: 8) {
+                Image(systemName: "note.text")
+                    .font(.subheadline).foregroundStyle(.secondary)
+                    .padding(.top, 2)
+                TextField("Например: съел половину", text: $note, axis: .vertical)
+                    .lineLimit(2...4)
+            }
         }
         .cartoonCard()
     }
@@ -96,61 +104,18 @@ struct LogFeedingSheet: View {
         .cartoonCard()
     }
 
-    // MARK: - Реакция (эмодзи-кнопки вместо системного пикера)
+    // MARK: - Реакция (компактные чипы)
 
     private var reactionCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Реакция").font(.headline)
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(ReactionType.selectableCases, id: \.self) { r in
-                    reactionButton(r)
-                }
-            }
+            ReactionChips(reaction: $reaction)
             if reaction != .none {
                 Label("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.",
                       systemImage: "info.circle")
                     .font(.caption).foregroundStyle(.orange)
                     .fixedSize(horizontal: false, vertical: true)
             }
-        }
-        .cartoonCard()
-    }
-
-    private func reactionButton(_ r: ReactionType) -> some View {
-        let selected = reaction == r
-        let tint = (r == .none) ? Theme.mint : Color.orange
-        return Button {
-            Haptics.select()
-            withAnimation(.snappy) { reaction = r }
-        } label: {
-            VStack(spacing: 6) {
-                OpenMojiIcon(asset: "react_\(r.rawValue)", fallback: r.emoji, size: 32)
-                Text(r.title).font(.caption2.weight(.semibold))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(selected ? tint : .secondary)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 84)
-            .background(selected ? tint.opacity(0.16) : Color.black.opacity(0.03),
-                        in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(selected ? tint : .clear, lineWidth: 2)
-            )
-        }
-        .buttonStyle(BouncyButtonStyle())
-    }
-
-    // MARK: - Заметка
-
-    private var noteCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Заметка").font(.headline)
-            TextField("Например: съел половину", text: $note, axis: .vertical)
-                .lineLimit(2...4)
-                .padding(12)
-                .background(Color.black.opacity(0.03),
-                            in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         }
         .cartoonCard()
     }

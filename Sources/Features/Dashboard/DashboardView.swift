@@ -32,6 +32,9 @@ struct DashboardView: View {
                     allergenCard.cozyAppear(0.30)
                 }
                 .padding()
+                // Карточка «Сейчас вводишь» появляется/уходит пружиной, а не скачком.
+                .animation(.spring(response: 0.5, dampingFraction: 0.85),
+                           value: introducingItems.map(\.food.id))
             }
             .background(AppBackground())
             .navigationTitle("Сегодня")
@@ -48,40 +51,33 @@ struct DashboardView: View {
         }
     }
 
-    // MARK: - Маскот-барометр
+    // MARK: - Шапка (компактная строка, без карточной обвязки)
 
     private var heroCard: some View {
-        HStack(spacing: 16) {
-            ZStack {
-                Circle().fill(.white.opacity(0.22)).frame(width: 76, height: 76)
-                Circle().stroke(.white.opacity(0.35), lineWidth: 2).frame(width: 76, height: 76)
-                Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 62).gentleBob()
-            }
-            VStack(alignment: .leading, spacing: 4) {
+        HStack(spacing: 12) {
+            Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 44).gentleBob()
+            VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
-                    .font(.caption2.weight(.heavy)).textCase(.uppercase)
-                    .foregroundStyle(.white.opacity(0.8)).tracking(0.6)
-                Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
-                    .font(.title.bold()).foregroundStyle(.white).lineLimit(1)
-                Text("\(child.ageInMonths) мес")
-                    .font(.subheadline.weight(.medium)).foregroundStyle(.white.opacity(0.9))
-                Text(todayEntries.isEmpty
-                     ? String(localized: "Сегодня записей пока нет")
-                     : String(localized: "Сегодня записей: \(todayEntries.count) 🎉"))
-                    .font(.caption.weight(.bold)).foregroundStyle(.white)
+                    .font(.caption2.weight(.semibold)).foregroundStyle(.secondary)
+                HStack(spacing: 6) {
+                    Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
+                        .font(.headline).lineLimit(1)
+                    Text("\(child.ageInMonths) мес")
+                        .font(.subheadline).foregroundStyle(.secondary)
+                }
+            }
+            Spacer(minLength: 8)
+            if !todayEntries.isEmpty {
+                // «записей: N» — формат пинится E2E (R9, CONTAINS).
+                Text("записей: \(todayEntries.count)")
+                    .font(.caption.weight(.bold)).foregroundStyle(Theme.accent)
                     .contentTransition(.numericText())
                     .animation(.snappy, value: todayEntries.count)
-                    .padding(.horizontal, 10).padding(.vertical, 4)
-                    .background(.white.opacity(0.20), in: Capsule())
-                    .padding(.top, 2)
+                    .padding(.horizontal, 10).padding(.vertical, 5)
+                    .background(Theme.accent.opacity(0.12), in: Capsule())
             }
-            Spacer(minLength: 0)
         }
-        .padding(18)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.accentGradient,
-                    in: RoundedRectangle(cornerRadius: 26, style: .continuous))
-        .shadow(color: Theme.accentDeep.opacity(0.30), radius: 16, x: 0, y: 9)
+        .padding(.horizontal, 4)
     }
 
     /// Приветствие по времени суток (тёплый акцент карточки ребёнка).
@@ -106,11 +102,10 @@ struct DashboardView: View {
                 actionLabel("Записать", asset: "ui_plate", emoji: "🍽️",
                             iconBackground: .white.opacity(0.22))
                     .foregroundStyle(.white)
-                    // Мятный — контраст с коралловым hero сверху (не сливается).
-                    .background(LinearGradient(colors: [Theme.mint, Theme.mint.opacity(0.8)],
-                                               startPoint: .topLeading, endPoint: .bottomTrailing),
+                    // Бренд-градиент — как BigButton: primary-действие экрана.
+                    .background(Theme.accentGradient,
                                 in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-                    .shadow(color: Theme.mint.opacity(0.35), radius: 10, x: 0, y: 5)
+                    .shadow(color: Theme.accentDeep.opacity(0.30), radius: 10, x: 0, y: 5)
             }
             .buttonStyle(BouncyButtonStyle())
 
@@ -173,6 +168,7 @@ struct DashboardView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .cartoonCard()
+            .transition(.scale(scale: 0.96).combined(with: .opacity))
         }
     }
 
@@ -199,6 +195,7 @@ struct DashboardView: View {
                 Text("\(introducedCount)/\(catalog.all.count)")
                     .font(.subheadline.bold()).foregroundStyle(Theme.accent)
                     .contentTransition(.numericText())
+                    .animation(.snappy, value: introducedCount)
             }
             ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.all.count)))
                 .tint(Theme.accent)
@@ -258,6 +255,7 @@ struct DashboardView: View {
                         Text("\(dueCount)").font(.caption.bold()).foregroundStyle(.white)
                             .padding(.horizontal, 7).padding(.vertical, 2)
                             .background(Color.orange, in: Capsule())
+                            .gentlePulse()
                     }
                     Text("\(introducedAllergenCount)/\(allergenGroups.count)")
                         .font(.subheadline.bold()).foregroundStyle(Theme.accent)
@@ -331,11 +329,15 @@ struct DashboardView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture { editingLog = entry.log }
+                    .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .cartoonCard()
+        // Новая запись мягко «вплывает» в дневник (сохранение из быстрого листа).
+        .animation(.spring(response: 0.45, dampingFraction: 0.8),
+                   value: todayEntries.map(\.id))
     }
 
     // MARK: - Данные

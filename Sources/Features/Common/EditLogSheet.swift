@@ -28,7 +28,6 @@ struct EditLogSheet: View {
 
     private var isPlanned: Bool { log.planned }
     private var minPlanDate: Date { Calendar.current.startOfDay(for: Date()) }
-    private let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 3)
 
     var body: some View {
         NavigationStack {
@@ -47,9 +46,7 @@ struct EditLogSheet: View {
 
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Реакция").font(.headline)
-                            LazyVGrid(columns: columns, spacing: 10) {
-                                ForEach(ReactionType.selectableCases, id: \.self) { reactionButton($0) }
-                            }
+                            ReactionChips(reaction: $reaction)
                         }
                         .cartoonCard()
 
@@ -90,6 +87,7 @@ struct EditLogSheet: View {
                 Text("Действие нельзя отменить.")
             }
         }
+        .cozySheet()
     }
 
     /// Для плана дата может быть в будущем; для факта — не позже сегодня (п.22).
@@ -103,29 +101,6 @@ struct EditLogSheet: View {
 
     private var dateLabel: some View {
         Label("Когда", systemImage: "calendar").font(.subheadline.weight(.medium))
-    }
-
-    private func reactionButton(_ r: ReactionType) -> some View {
-        let selected = reaction == r
-        let tint = (r == .none) ? Theme.mint : Color.orange
-        return Button {
-            Haptics.select()
-            withAnimation(.snappy) { reaction = r }
-        } label: {
-            VStack(spacing: 6) {
-                OpenMojiIcon(asset: "react_\(r.rawValue)", fallback: r.emoji, size: 30)
-                Text(r.title).font(.caption2.weight(.semibold))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(selected ? tint : .secondary)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 80)
-            .background(selected ? tint.opacity(0.16) : Color.black.opacity(0.03),
-                        in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(selected ? tint : .clear, lineWidth: 2))
-        }
-        .buttonStyle(BouncyButtonStyle())
     }
 
     private func save() {
