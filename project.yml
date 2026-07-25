@@ -1,7 +1,24 @@
 name: Prikorm
 options:
   bundleIdPrefix: com.pudding
-  developmentLanguage: ru          # язык-исходник; English добавлен через Localizable.xcstrings
+  developmentLanguage: ru          # язык-исходник; переводы — в Localizable.xcstrings
+  # 14 языков UI (ru-источник + 13 переводов). Должны быть в knownRegions, иначе
+  # компилятор строкового каталога не положит их .lproj в бандл.
+  knownRegions:
+    - ru
+    - en
+    - de
+    - fr
+    - es
+    - it
+    - pt-BR
+    - pl
+    - tr
+    - uk
+    - nl
+    - ja
+    - ko
+    - zh-Hans
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true

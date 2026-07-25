@@ -21,6 +21,10 @@ final class AppLanguageTests: XCTestCase {
         XCTAssertNil(AppLanguage.system.appleCode, "системный — без override")
         XCTAssertEqual(AppLanguage.ru.appleCode, "ru")
         XCTAssertEqual(AppLanguage.en.appleCode, "en")
+        // Локали с дефисом кодируются через rawValue.
+        XCTAssertEqual(AppLanguage.ptBR.appleCode, "pt-BR")
+        XCTAssertEqual(AppLanguage.zhHans.appleCode, "zh-Hans")
+        XCTAssertEqual(AppLanguage.allCases.count, 15, "системный + 14 языков")
     }
 
     func testApplyWritesAndClearsAppleLanguages() {
