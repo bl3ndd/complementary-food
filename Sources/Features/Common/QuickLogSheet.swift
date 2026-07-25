@@ -36,5 +36,6 @@ struct QuickLogSheet: View {
                                 initialDate: initialDate, onSaved: { dismiss() })
             }
         }
+        .cozySheet()
     }
 }

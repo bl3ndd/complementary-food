@@ -100,3 +100,48 @@ private struct CozyAppear: ViewModifier {
 extension View {
     func cozyAppear(_ delay: Double = 0) -> some View { modifier(CozyAppear(delay: delay)) }
 }
+
+// MARK: - Стретч героя
+
+/// Лёгкое растяжение hero-карточки при оттягивании скролла вниз — экран
+/// «дышит» под пальцем. Чистый transform, без offscreen-проходов.
+private struct StretchyHero: ViewModifier {
+    func body(content: Content) -> some View {
+        content.visualEffect { view, proxy in
+            let pull = max(0, proxy.frame(in: .scrollView).minY)
+            return view.scaleEffect(1 + pull / 1100, anchor: .top)
+        }
+    }
+}
+
+extension View {
+    func stretchyHero() -> some View { modifier(StretchyHero()) }
+}
+
+// MARK: - Мягкая пульсация
+
+/// Медленное «дыхание» масштабом — привлекает взгляд без тревоги.
+/// Только для маленьких бейджей-подсказок (например «пора освежить»).
+private struct GentlePulse: ViewModifier {
+    @State private var big = false
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(big ? 1.07 : 1)
+            .animation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: big)
+            .onAppear { big = true }
+    }
+}
+
+extension View {
+    func gentlePulse() -> some View { modifier(GentlePulse()) }
+}
+
+// MARK: - Полировка шторок
+
+extension View {
+    /// Единый вид шторок: большое скругление + индикатор перетаскивания.
+    func cozySheet() -> some View {
+        presentationCornerRadius(28).presentationDragIndicator(.visible)
+    }
+}

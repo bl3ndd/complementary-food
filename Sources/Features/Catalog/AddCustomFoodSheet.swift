@@ -38,6 +38,7 @@ struct AddCustomFoodSheet: View {
                 }
             }
         }
+        .cozySheet()
     }
 
     private var preview: some View {

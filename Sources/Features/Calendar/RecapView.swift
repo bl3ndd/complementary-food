@@ -181,6 +181,7 @@ struct RecapSheet: View {
             }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
         }
+        .cozySheet()
     }
 
     @MainActor private func share() {
