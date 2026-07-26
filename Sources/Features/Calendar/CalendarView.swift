@@ -78,6 +78,7 @@ struct CalendarView: View {
                         Image(systemName: "sparkles")
                     }
                     .accessibilityLabel("Рекап месяца")
+                    .accessibilityIdentifier("screenshot.recap")
                     .disabled(children.isEmpty ||
                               !RecapService(catalog: catalog, logs: logs).hasData(for: monthAnchor))
                 }

@@ -164,6 +164,7 @@ struct DashboardView: View {
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier(idx == 0 ? "screenshot.introducing" : "")
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

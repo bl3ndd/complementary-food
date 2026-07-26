@@ -1,0 +1,310 @@
+{
+ "de": [
+  {
+   "head": "Beikost\nohne Panik",
+   "sub": "Tagebuch, Sammlung und Allergene"
+  },
+  {
+   "head": "Jede Einführung\nauf einen Blick",
+   "sub": "Beobachtungsfenster: Tag 2 von 3"
+  },
+  {
+   "head": "Die ganze Geschichte,\nein Verlauf",
+   "sub": "Filter, Pläne und Suche"
+  },
+  {
+   "head": "Allergene\nnach Plan",
+   "sub": "Sanfte Erinnerung zum Wiederholen"
+  },
+  {
+   "head": "Teile die\nkleinen Erfolge",
+   "sub": "Monatsrückblick auf einer Karte"
+  }
+ ],
+ "fr": [
+  {
+   "head": "La diversification\nsans stress",
+   "sub": "Journal, collection et allergènes"
+  },
+  {
+   "head": "Chaque aliment\nen un coup d'œil",
+   "sub": "Fenêtre d'observation : jour 2 sur 3"
+  },
+  {
+   "head": "Toute l'histoire,\nun seul fil",
+   "sub": "Filtres, plans et recherche"
+  },
+  {
+   "head": "Les allergènes,\ndans les temps",
+   "sub": "Petits rappels pour répéter à temps"
+  },
+  {
+   "head": "Partage les\npetites victoires",
+   "sub": "Le récap du mois sur une carte"
+  }
+ ],
+ "es": [
+  {
+   "head": "Alimentación,\nsin agobios",
+   "sub": "Diario, colección y alérgenos"
+  },
+  {
+   "head": "Cada alimento\nde un vistazo",
+   "sub": "Ventana de observación: día 2 de 3"
+  },
+  {
+   "head": "Toda la historia,\nen un hilo",
+   "sub": "Filtros, planes y búsqueda"
+  },
+  {
+   "head": "Alérgenos,\na su tiempo",
+   "sub": "Recordatorios suaves para repetir"
+  },
+  {
+   "head": "Comparte los\npequeños logros",
+   "sub": "El resumen del mes en una tarjeta"
+  }
+ ],
+ "it": [
+  {
+   "head": "Svezzamento\nsenza panico",
+   "sub": "Diario, raccolta e allergeni"
+  },
+  {
+   "head": "Ogni alimento\na colpo d'occhio",
+   "sub": "Finestra di osservazione: giorno 2 di 3"
+  },
+  {
+   "head": "Tutta la storia,\nun solo flusso",
+   "sub": "Filtri, piani e ricerca"
+  },
+  {
+   "head": "Allergeni,\nnei tempi giusti",
+   "sub": "Promemoria gentili per ripetere"
+  },
+  {
+   "head": "Condividi i\npiccoli traguardi",
+   "sub": "Il riepilogo del mese in una card"
+  }
+ ],
+ "pt-BR": [
+  {
+   "head": "Introdução alimentar\nsem pânico",
+   "sub": "Diário, coleção e alérgenos"
+  },
+  {
+   "head": "Cada alimento\nnum relance",
+   "sub": "Janela de observação: dia 2 de 3"
+  },
+  {
+   "head": "Toda a história,\num só feed",
+   "sub": "Filtros, planos e busca"
+  },
+  {
+   "head": "Alérgenos,\nno tempo certo",
+   "sub": "Lembretes suaves para repetir"
+  },
+  {
+   "head": "Compartilhe as\npequenas vitórias",
+   "sub": "O resumo do mês em um cartão"
+  }
+ ],
+ "pl": [
+  {
+   "head": "Rozszerzanie diety\nbez paniki",
+   "sub": "Dziennik, kolekcja i alergeny"
+  },
+  {
+   "head": "Każdy produkt\nna pierwszy rzut oka",
+   "sub": "Okno obserwacji: dzień 2 z 3"
+  },
+  {
+   "head": "Cała historia\nw jednym miejscu",
+   "sub": "Filtry, plany i wyszukiwanie"
+  },
+  {
+   "head": "Alergeny\nna czas",
+   "sub": "Delikatne przypomnienia o powtórce"
+  },
+  {
+   "head": "Dziel się\nmałymi sukcesami",
+   "sub": "Podsumowanie miesiąca na jednej karcie"
+  }
+ ],
+ "tr": [
+  {
+   "head": "Ek gıda,\npanik yok",
+   "sub": "Günlük, koleksiyon ve alerjenler"
+  },
+  {
+   "head": "Her besin\ntek bakışta",
+   "sub": "Gözlem penceresi: 3 günün 2. günü"
+  },
+  {
+   "head": "Tüm hikaye,\ntek akışta",
+   "sub": "Filtreler, planlar ve arama"
+  },
+  {
+   "head": "Alerjenler,\nzamanında",
+   "sub": "Tekrar için nazik hatırlatmalar"
+  },
+  {
+   "head": "Küçük zaferleri\npaylaş",
+   "sub": "Ayın özeti tek bir kartta"
+  }
+ ],
+ "uk": [
+  {
+   "head": "Прикорм\nбез паніки",
+   "sub": "Щоденник, колекція та алергени"
+  },
+  {
+   "head": "Кожен продукт —\nодним поглядом",
+   "sub": "Вікно спостереження: день 2 з 3"
+  },
+  {
+   "head": "Уся історія —\nоднією стрічкою",
+   "sub": "Фільтри, плани та пошук"
+  },
+  {
+   "head": "Алергени\nвчасно",
+   "sub": "Ніжні нагадування повторити"
+  },
+  {
+   "head": "Ділися\nуспіхами малюка",
+   "sub": "Підсумок місяця — однією карткою"
+  }
+ ],
+ "nl": [
+  {
+   "head": "Eerste hapjes,\nzonder stress",
+   "sub": "Dagboek, collectie en allergenen"
+  },
+  {
+   "head": "Elk voedingsmiddel\nin één oogopslag",
+   "sub": "Observatievenster: dag 2 van 3"
+  },
+  {
+   "head": "Het hele verhaal,\néén overzicht",
+   "sub": "Filters, plannen en zoeken"
+  },
+  {
+   "head": "Allergenen,\nop tijd",
+   "sub": "Zachte herinneringen om te herhalen"
+  },
+  {
+   "head": "Deel de\nkleine successen",
+   "sub": "Maandoverzicht op één kaart"
+  }
+ ],
+ "ja": [
+  {
+   "head": "離乳食、\nあわてず安心",
+   "sub": "記録・コレクション・アレルゲン"
+  },
+  {
+   "head": "食材ごとの進み\nがひと目で",
+   "sub": "観察期間：3日目のうち2日目"
+  },
+  {
+   "head": "すべての記録が\nひとつの流れに",
+   "sub": "フィルター・プラン・検索"
+  },
+  {
+   "head": "アレルゲンを\n忘れず予定通り",
+   "sub": "やさしく再開をお知らせ"
+  },
+  {
+   "head": "小さな成長を\nシェア",
+   "sub": "今月のまとめを1枚のカードに"
+  }
+ ],
+ "ko": [
+  {
+   "head": "이유식,\n서두르지 않아요",
+   "sub": "기록, 컬렉션, 알레르겐"
+  },
+  {
+   "head": "식재료별 진행을\n한눈에",
+   "sub": "관찰 기간: 3일 중 2일째"
+  },
+  {
+   "head": "모든 기록을\n한 흐름으로",
+   "sub": "필터, 계획, 검색"
+  },
+  {
+   "head": "알레르겐,\n제때 챙겨요",
+   "sub": "다시 시도할 때 부드럽게 알림"
+  },
+  {
+   "head": "작은 성장을\n함께 나눠요",
+   "sub": "이달의 요약을 한 장의 카드로"
+  }
+ ],
+ "zh-Hans": [
+  {
+   "head": "添加辅食,\n从容不慌",
+   "sub": "记录、图鉴与过敏原"
+  },
+  {
+   "head": "每样食材\n一目了然",
+   "sub": "观察期：第 2 天，共 3 天"
+  },
+  {
+   "head": "所有记录,\n汇成一条时间线",
+   "sub": "筛选、计划与搜索"
+  },
+  {
+   "head": "过敏原,\n按时安排",
+   "sub": "温柔提醒你按时重试"
+  },
+  {
+   "head": "分享宝宝的\n小小成长",
+   "sub": "本月回顾，浓缩成一张卡片"
+  }
+ ],
+ "ru": [
+  {
+   "head": "Дневник прикорма\nбез паники",
+   "sub": "Записи, коллекция и аллергены"
+  },
+  {
+   "head": "Видно, когда\nпродукт введён",
+   "sub": "Окно наблюдения: день 2 из 3"
+  },
+  {
+   "head": "Вся история —\nодной лентой",
+   "sub": "Фильтры, планы и поиск"
+  },
+  {
+   "head": "Аллергены\nпод контролем",
+   "sub": "Pudding напомнит повторить вовремя"
+  },
+  {
+   "head": "Делись успехами\nмалыша",
+   "sub": "Рекап месяца — одной карточкой"
+  }
+ ],
+ "en": [
+  {
+   "head": "First foods,\nzero panic",
+   "sub": "Diary, collection and allergens"
+  },
+  {
+   "head": "Every introduction\nat a glance",
+   "sub": "Observation window: day 2 of 3"
+  },
+  {
+   "head": "Your whole story,\none feed",
+   "sub": "Filters, plans and search"
+  },
+  {
+   "head": "Allergens,\non schedule",
+   "sub": "Gentle reminders to repeat in time"
+  },
+  {
+   "head": "Share the\nlittle wins",
+   "sub": "A monthly recap in one card"
+  }
+ ]
+}
