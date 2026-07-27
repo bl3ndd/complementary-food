@@ -9,11 +9,11 @@
   "currency": "EUR",
   "legal": "en",
   "title": "Pudding — het rustige bijvoedingsdagboek voor ouders",
-  "meta_desc": "Pudding is een warm bijvoedingsdagboek: leg voedingen en reacties vast, houd het observatievenster bij en herhaal geïntroduceerde allergenen op tijd. Zonder account — alles blijft op je telefoon.",
+  "meta_desc": "Pudding is een warm bijvoedingsdagboek: leg voedingen en reacties vast, houd het observatievenster bij en herhaal geïntroduceerde allergenen op tijd. Zonder account — je gegevens blijven op je telefoon en in je eigen iCloud.",
   "keywords": "bijvoeding, bijvoeding dagboek, starten met vaste voeding, eerste hapjes, allergenen baby, voedingsdagboek baby, reactie op voeding",
   "og_title": "Pudding — een rustig bijvoedingsdagboek",
-  "og_desc": "Leg voedingen en reacties vast, houd het observatievenster bij, vergeet de allergenen niet. Alle gegevens blijven op je telefoon.",
-  "tw_desc": "Een warm bijvoedingsdagboek. Alles blijft op je telefoon.",
+  "og_desc": "Leg voedingen en reacties vast, houd het observatievenster bij, vergeet de allergenen niet. Je gegevens blijven op je telefoon en in je eigen iCloud.",
+  "tw_desc": "Een warm bijvoedingsdagboek. Je gegevens blijven op je telefoon en in je eigen iCloud.",
   "nav": {
     "features": "Functies",
     "screens": "Schermen",
@@ -94,13 +94,13 @@
       "alt": "Recapkaart van de maand voor stories"
     }
   ],
-  "privacy_h2": "Jouw gegevens blijven op jouw telefoon",
-  "privacy_lead": "Geen account, geen advertenties, geen tracking. De naam van je kind, notities, foto's en reacties blijven lokaal en gaan nergens heen.",
+  "privacy_h2": "Jouw gegevens blijven op je telefoon en in je eigen iCloud",
+  "privacy_lead": "Geen account, geen advertenties, geen tracking. Notities staan op het toestel en synchroniseren via je eigen iCloud — wij hebben geen servers en geen toegang.",
   "pills": [
     "Zonder account",
     "Zonder advertenties",
     "Zonder trackers",
-    "Alleen op het toestel"
+    "Je eigen iCloud"
   ],
   "method_h2": "Het plan is van jou. Pudding is het dagboek.",
   "method_lead": "Startleeftijd, observatievensters, frequentie en allergenenlijst — alles stel je in volgens het advies van je kinderarts. Pudding schrijft niets voor en adviseert niets: het legt zorgvuldig vast en herinnert op tijd.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "Heb ik internet of een account nodig?",
-      "a": "Nee. De app werkt offline en registreren hoeft niet — alle gegevens blijven op je toestel."
+      "a": "Nee. De app werkt offline en registreren hoeft niet — je gegevens blijven op je toestel en synchroniseren via je eigen iCloud."
     },
     {
       "q": "Vervangt Pudding de kinderarts?",
@@ -133,5 +133,5 @@
     "support": "Support",
     "disclaimer": "Pudding is een voedingsdagboek, geen medisch advies. Beslissingen over producten en allergenen neem je samen met je kinderarts."
   },
-  "jsonld_desc": "Bijvoedingsdagboek: voedingen en reacties vastleggen, observatievenster, allergenenherinneringen en een PDF voor de kinderarts. Alle gegevens blijven op het toestel."
+  "jsonld_desc": "Bijvoedingsdagboek: voedingen en reacties vastleggen, observatievenster, allergenenherinneringen en een PDF voor de kinderarts. Gegevens staan op het toestel en synchroniseren via de eigen iCloud van de gebruiker."
 }

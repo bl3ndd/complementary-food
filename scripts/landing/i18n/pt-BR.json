@@ -9,11 +9,11 @@
   "currency": "BRL",
   "legal": "en",
   "title": "Pudding — o diário de introdução alimentar, sem pânico",
-  "meta_desc": "Pudding é um diário de introdução alimentar acolhedor: registre as refeições e as reações, acompanhe a janela de observação e repita os alérgenos já introduzidos na hora certa. Sem conta — tudo fica no seu celular.",
+  "meta_desc": "Pudding é um diário de introdução alimentar acolhedor: registre as refeições e as reações, acompanhe a janela de observação e repita os alérgenos já introduzidos na hora certa. Sem conta — seus dados ficam no seu celular e no seu iCloud.",
   "keywords": "introdução alimentar, diário do bebê, BLW, primeiros alimentos, alérgenos bebê, registro alimentar bebê, reação alimentar bebê",
   "og_title": "Pudding — diário de introdução alimentar",
-  "og_desc": "Registre refeições e reações, acompanhe a janela de observação, não esqueça os alérgenos. Todos os dados ficam no celular.",
-  "tw_desc": "Um diário de introdução alimentar acolhedor. Tudo fica no seu celular.",
+  "og_desc": "Registre refeições e reações, acompanhe a janela de observação, não esqueça os alérgenos. Seus dados ficam no seu celular e no seu iCloud.",
+  "tw_desc": "Um diário de introdução alimentar acolhedor. Seus dados ficam no seu celular e no seu iCloud.",
   "nav": {
     "features": "Recursos",
     "screens": "Telas",
@@ -94,13 +94,13 @@
       "alt": "Cartão da retrospectiva mensal para stories"
     }
   ],
-  "privacy_h2": "Seus dados ficam no seu celular",
-  "privacy_lead": "Sem conta, sem anúncios e sem rastreio. O nome do bebê, os registros, as fotos e as reações ficam no aparelho e não vão a lugar nenhum.",
+  "privacy_h2": "Seus dados ficam no seu celular e no seu iCloud",
+  "privacy_lead": "Sem conta, sem anúncios e sem rastreio. Os registros ficam no aparelho e sincronizam pelo seu próprio iCloud: não temos servidores nem acesso a eles.",
   "pills": [
     "Sem conta",
     "Sem anúncios",
     "Sem rastreadores",
-    "Só no aparelho"
+    "Seu próprio iCloud"
   ],
   "method_h2": "O plano é seu. O Pudding é o diário.",
   "method_lead": "Idade de início, janelas de observação, frequência e lista de alérgenos — tudo é configurado conforme a orientação do seu pediatra. O Pudding não prescreve nem aconselha: ele registra com cuidado e lembra na hora certa.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "Precisa de internet ou conta?",
-      "a": "Não. O app funciona offline e não pede cadastro — todos os dados ficam no seu aparelho."
+      "a": "Não. O app funciona offline e não pede cadastro — seus dados ficam no aparelho e sincronizam pelo seu próprio iCloud."
     },
     {
       "q": "O Pudding substitui o pediatra?",
@@ -133,5 +133,5 @@
     "support": "Suporte",
     "disclaimer": "O Pudding é um diário alimentar, não um conselho médico. Decisões sobre alimentos e alérgenos devem ser tomadas junto ao seu pediatra."
   },
-  "jsonld_desc": "Diário de introdução alimentar: registro de refeições e reações, janela de observação, lembretes de alérgenos e PDF para o pediatra. Todos os dados ficam no aparelho."
+  "jsonld_desc": "Diário de introdução alimentar: registro de refeições e reações, janela de observação, lembretes de alérgenos e PDF para o pediatra. Os dados ficam no aparelho e sincronizam pelo iCloud pessoal do usuário."
 }

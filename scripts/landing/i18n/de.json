@@ -9,11 +9,11 @@
   "currency": "EUR",
   "legal": "en",
   "title": "Pudding — das entspannte Beikost-Tagebuch für Eltern",
-  "meta_desc": "Pudding ist ein warmherziges Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, das Beobachtungsfenster im Blick behalten und eingeführte Allergene rechtzeitig wiederholen. Ohne Konto — alles bleibt auf deinem Handy.",
+  "meta_desc": "Pudding ist ein warmherziges Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, das Beobachtungsfenster im Blick behalten und eingeführte Allergene rechtzeitig wiederholen. Ohne Konto — deine Daten bleiben auf dem Handy und in deiner eigenen iCloud.",
   "keywords": "Beikost, Beikost Tagebuch, Beikoststart, erste Beikost, Breifrei Tracker, Allergene Baby, Baby Ernährungstagebuch, Reaktion auf Beikost",
   "og_title": "Pudding — das entspannte Beikost-Tagebuch",
-  "og_desc": "Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster im Blick, Allergene nicht vergessen. Alle Daten bleiben auf dem Handy.",
-  "tw_desc": "Ein warmherziges Beikost-Tagebuch. Alle Daten bleiben auf deinem Handy.",
+  "og_desc": "Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster im Blick, Allergene nicht vergessen. Deine Daten bleiben auf dem Handy und in deiner eigenen iCloud.",
+  "tw_desc": "Ein warmherziges Beikost-Tagebuch. Deine Daten bleiben auf dem Handy und in deiner iCloud.",
   "nav": {
     "features": "Funktionen",
     "screens": "Screenshots",
@@ -94,13 +94,13 @@
       "alt": "Monatsrückblick als Karte für Stories"
     }
   ],
-  "privacy_h2": "Deine Daten bleiben auf deinem Handy",
-  "privacy_lead": "Kein Konto, keine Werbung, kein Tracking. Name des Kindes, Einträge, Fotos und Reaktionen bleiben lokal und verlassen das Gerät nie.",
+  "privacy_h2": "Deine Daten bleiben auf deinem Handy und in deiner iCloud",
+  "privacy_lead": "Kein Konto, keine Werbung, kein Tracking. Einträge liegen auf dem Gerät und werden über deine eigene iCloud synchronisiert — wir betreiben keine Server und haben keinen Zugriff.",
   "pills": [
     "Ohne Konto",
     "Ohne Werbung",
     "Ohne Tracker",
-    "Nur auf dem Gerät"
+    "Deine eigene iCloud"
   ],
   "method_h2": "Der Plan ist deiner. Pudding ist das Tagebuch.",
   "method_lead": "Startalter, Beobachtungsfenster, Häufigkeit und Allergen-Liste — alles richtest du nach den Empfehlungen deiner Kinderärztin ein. Pudding verordnet nichts und rät nichts: Es hält sorgfältig fest und erinnert rechtzeitig.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "Brauche ich Internet oder ein Konto?",
-      "a": "Nein. Die App funktioniert offline, eine Anmeldung ist nicht nötig — alle Daten bleiben auf deinem Gerät."
+      "a": "Nein. Die App funktioniert offline, eine Anmeldung ist nicht nötig — deine Daten bleiben auf dem Gerät und werden über deine eigene iCloud synchronisiert."
     },
     {
       "q": "Ersetzt Pudding die Kinderärztin?",
@@ -133,5 +133,5 @@
     "support": "Support",
     "disclaimer": "Pudding ist ein Beikost-Tagebuch, keine medizinische Beratung. Entscheidungen über Lebensmittel und Allergene triffst du gemeinsam mit deiner Kinderärztin."
   },
-  "jsonld_desc": "Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster, Allergen-Erinnerungen und ein PDF für die Kinderärztin. Alle Daten bleiben auf dem Gerät."
+  "jsonld_desc": "Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster, Allergen-Erinnerungen und ein PDF für die Kinderärztin. Die Daten liegen auf dem Gerät und werden über die eigene iCloud des Nutzers synchronisiert."
 }

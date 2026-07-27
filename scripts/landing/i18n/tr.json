@@ -9,11 +9,11 @@
   "currency": "TRY",
   "legal": "en",
   "title": "Pudding — telaşsız ek gıda günlüğü",
-  "meta_desc": "Pudding sıcacık bir ek gıda günlüğü: öğünleri ve tepkileri kaydet, gözlem penceresini takip et, verdiğin alerjenleri zamanında tekrarla. Hesap yok — her şey telefonunda kalır.",
+  "meta_desc": "Pudding sıcacık bir ek gıda günlüğü: öğünleri ve tepkileri kaydet, gözlem penceresini takip et, verdiğin alerjenleri zamanında tekrarla. Hesap yok — verilerin telefonunda ve kendi iCloud'unda kalır.",
   "keywords": "ek gıda, ek gıda günlüğü, bebek beslenme günlüğü, ilk gıdalar, bebekte alerjen, gıda tepkisi, BLW",
   "og_title": "Pudding — telaşsız ek gıda günlüğü",
-  "og_desc": "Öğünleri ve tepkileri kaydet, gözlem penceresini takip et, alerjenleri unutma. Tüm veriler telefonunda kalır.",
-  "tw_desc": "Sıcacık bir ek gıda günlüğü. Her şey telefonunda kalır.",
+  "og_desc": "Öğünleri ve tepkileri kaydet, gözlem penceresini takip et, alerjenleri unutma. Verilerin telefonunda ve kendi iCloud'unda kalır.",
+  "tw_desc": "Sıcacık bir ek gıda günlüğü. Verilerin telefonunda ve kendi iCloud'unda kalır.",
   "nav": {
     "features": "Özellikler",
     "screens": "Ekranlar",
@@ -94,13 +94,13 @@
       "alt": "Hikâyeler için aylık özet kartı"
     }
   ],
-  "privacy_h2": "Verilerin telefonunda kalır",
-  "privacy_lead": "Hesap yok, reklam yok, takip yok. Bebeğinin adı, kayıtlar, fotoğraflar ve tepkiler cihazda kalır, hiçbir yere gitmez.",
+  "privacy_h2": "Verilerin telefonunda ve kendi iCloud'unda kalır",
+  "privacy_lead": "Hesap yok, reklam yok, takip yok. Kayıtlar cihazda durur ve kendi iCloud'un üzerinden eşitlenir — sunucumuz da yok, bu verilere erişimimiz de.",
   "pills": [
     "Hesapsız",
     "Reklamsız",
     "Takipçisiz",
-    "Yalnızca cihazda"
+    "Kendi iCloud'un"
   ],
   "method_h2": "Plan senin. Pudding günlük.",
   "method_lead": "Başlangıç yaşı, gözlem pencereleri, sıklık ve alerjen listesi — hepsi doktorunun önerisine göre ayarlanır. Pudding hiçbir şey önermez, tavsiye vermez: özenle kaydeder ve zamanında hatırlatır.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "İnternet ya da hesap gerekiyor mu?",
-      "a": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — tüm veriler cihazında kalır."
+      "a": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — verilerin cihazında kalır ve kendi iCloud'un üzerinden eşitlenir."
     },
     {
       "q": "Pudding doktorun yerini tutar mı?",
@@ -133,5 +133,5 @@
     "support": "Destek",
     "disclaimer": "Pudding bir beslenme günlüğüdür, tıbbi tavsiye değildir. Gıdalar ve alerjenlerle ilgili kararları doktorunla birlikte ver."
   },
-  "jsonld_desc": "Ek gıda günlüğü: öğün ve tepki kayıtları, gözlem penceresi, alerjen hatırlatmaları ve doktor için PDF. Tüm veriler cihazda kalır."
+  "jsonld_desc": "Ek gıda günlüğü: öğün ve tepki kayıtları, gözlem penceresi, alerjen hatırlatmaları ve doktor için PDF. Veriler cihazda tutulur ve kullanıcının kendi iCloud'u üzerinden eşitlenir."
 }

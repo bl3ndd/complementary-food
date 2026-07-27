@@ -17,7 +17,7 @@ ja, ko, zh-Hans (name/subtitle + промо/описание/кейворды, �
 | Platform | iOS |
 | Name | `Pudding — дневник прикорма` (26/30) |
 | Primary language | Russian |
-| Bundle ID | `com.pudding.app` (сначала зарегистрировать Identifier в developer.apple.com → Identifiers, capabilities: пока ничего, Push/CloudKit добавим позже) |
+| Bundle ID | `com.pudding.app` (Identifier зарегистрирован; capabilities: iCloud + CloudKit-контейнер `iCloud.com.pudding.app`, Push Notifications) |
 | SKU | `pudding-ios-001` |
 | User Access | Full |
 
@@ -39,9 +39,12 @@ Free, все страны (монетизация придержана — пе�
 ## 4. App Privacy
 
 - Privacy Policy URL: `https://pudding-for-children.vercel.app/privacy`
-- **Data Collection: «Data Not Collected»** — бэкенда нет, аналитики нет,
-  трекинга нет; все данные (дневник, фото) хранятся только на устройстве.
-  На каждый вопрос о сборе данных — «No».
+- **Data Collection: «Data Not Collected»** — своего бэкенда нет, аналитики нет,
+  трекинга нет. Данные лежат на устройстве и в **приватной базе CloudKit самого
+  пользователя**, доступа к ним у нас нет.
+  ⚠️ Позиция «Data Not Collected» при CloudKit — трактовка: Apple определяет
+  «collect» как передачу данных, к которым **имеет доступ разработчик**; к приватной
+  базе доступа нет. Перед сабмитом перечитать актуальную формулировку Apple.
 
 ## 5. Версия 1.0 — RU (primary)
 
@@ -67,9 +70,9 @@ Pudding — простой и тёплый дневник первого при�
 • Рекап месяца — красивая карточка «что нового попробовали», которой хочется поделиться
 • Свой план — настрой возраст старта, окна наблюдения, частоту и список аллергенов под рекомендации своего педиатра
 • Свои продукты — добавляй то, чего нет в каталоге
-• Русский и английский, светлая мультяшная тема и маскот Пудинг
+• 14 языков, светлая и тёмная тема, маскот Пудинг
 
-БЕЗ УЧЁТКИ И БЕЗ ОБЛАКА: все данные хранятся только на твоём телефоне.
+БЕЗ УЧЁТКИ И БЕЗ НАШИХ СЕРВЕРОВ: записи хранятся на твоём телефоне и синхронизируются через твой личный iCloud.
 
 Pudding — дневник, а не доктор: приложение ничего не назначает и не советует. Все решения о питании малыша принимайте вместе с педиатром.
 ```
@@ -110,9 +113,9 @@ WHAT IT DOES:
 • “Do not give” sheet — a one-page memo for the nanny or daycare
 • Monthly recap — a shareable card of everything new your baby tried
 • Your own plan — set the starting age, observation windows, allergen frequency and list to match your pediatrician’s guidance
-• Custom foods, Russian & English, a light cartoon theme and Pudding the mascot
+• Custom foods, 14 languages, light and dark themes, and Pudding the mascot
 
-NO ACCOUNT, NO CLOUD: everything stays on your phone.
+NO ACCOUNT, NO SERVERS OF OURS: your records stay on your phone and sync through your own iCloud.
 
 Pudding is a diary, not a doctor: it prescribes nothing and advises nothing. Make all feeding decisions together with your pediatrician.
 ```

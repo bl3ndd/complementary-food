@@ -41,10 +41,17 @@ struct PrikormApp: App {
     /// в самом крайнем случае in-memory, чтобы приложение всё-таки запустилось.
     /// Раньше здесь был `fatalError`: одно несовместимое изменение схемы — и у всех,
     /// кто обновился, приложение не открывается вовсе.
+    /// Приватная база CloudKit пользователя. Наших серверов нет: данные едут в
+    /// личный iCloud владельца устройства, мы к ним доступа не имеем.
+    static let cloudKitContainer = "iCloud.com.pudding.app"
+
     private static func makeContainer(inMemory: Bool) -> ModelContainer {
         let schema = Schema(AppSchemaV1.models)
-        // Пока локально. CloudKit включим, когда будет entitlement (SPEC §8).
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemory)
+        // UI-тесты — всегда чистая память, без облака.
+        let config = inMemory
+            ? ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            : ModelConfiguration(schema: schema, isStoredInMemoryOnly: false,
+                                 cloudKitDatabase: .private(cloudKitContainer))
 
         if let container = try? ModelContainer(for: schema,
                                                migrationPlan: AppMigrationPlan.self,
@@ -52,10 +59,18 @@ struct PrikormApp: App {
             return container
         }
         if !inMemory {
+            // Облако не поднялось (нет entitlement в профиле, отозван контейнер) —
+            // это не повод не открыться: работаем локально, дневник важнее синка.
+            let local = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+            if let localOnly = try? ModelContainer(for: schema,
+                                                   migrationPlan: AppMigrationPlan.self,
+                                                   configurations: [local]) {
+                return localOnly
+            }
             StoreRecovery.moveAside()
             if let fresh = try? ModelContainer(for: schema,
                                                migrationPlan: AppMigrationPlan.self,
-                                               configurations: [config]) {
+                                               configurations: [local]) {
                 return fresh
             }
         }

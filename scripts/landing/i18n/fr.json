@@ -9,11 +9,11 @@
   "currency": "EUR",
   "legal": "en",
   "title": "Pudding — le carnet de diversification alimentaire, sans stress",
-  "meta_desc": "Pudding est un carnet de diversification tout doux : note les repas et les réactions, suis la fenêtre d'observation et repropose les allergènes introduits à temps. Sans compte — tout reste sur ton téléphone.",
+  "meta_desc": "Pudding est un carnet de diversification tout doux : note les repas et les réactions, suis la fenêtre d'observation et repropose les allergènes introduits à temps. Sans compte — tes données restent sur ton téléphone et dans ton iCloud.",
   "keywords": "diversification alimentaire, carnet diversification, DME, premiers aliments bébé, allergènes bébé, journal alimentaire bébé, réaction alimentaire bébé",
   "og_title": "Pudding — le carnet de diversification, sans stress",
-  "og_desc": "Note les repas et les réactions, suis la fenêtre d'observation, n'oublie pas les allergènes. Toutes les données restent sur le téléphone.",
-  "tw_desc": "Un carnet de diversification tout doux. Tout reste sur ton téléphone.",
+  "og_desc": "Note les repas et les réactions, suis la fenêtre d'observation, n'oublie pas les allergènes. Tes données restent sur ton téléphone et dans ton iCloud.",
+  "tw_desc": "Un carnet de diversification tout doux. Tes données restent sur ton téléphone et dans ton iCloud.",
   "nav": {
     "features": "Fonctions",
     "screens": "Captures",
@@ -94,13 +94,13 @@
       "alt": "Carte récap du mois à partager en story"
     }
   ],
-  "privacy_h2": "Tes données restent sur ton téléphone",
-  "privacy_lead": "Aucun compte, aucune pub, aucun pistage. Le prénom de l'enfant, les entrées, les photos et les réactions restent en local et ne partent nulle part.",
+  "privacy_h2": "Tes données restent sur ton téléphone et dans ton iCloud",
+  "privacy_lead": "Aucun compte, aucune pub, aucun pistage. Les entrées restent sur l'appareil et se synchronisent via ton propre iCloud — nous n'avons ni serveurs ni accès à ces données.",
   "pills": [
     "Sans compte",
     "Sans pub",
     "Sans traqueurs",
-    "Sur l'appareil uniquement"
+    "Ton propre iCloud"
   ],
   "method_h2": "Le plan est le tien. Pudding est le carnet.",
   "method_lead": "Âge de démarrage, fenêtres d'observation, fréquence et liste des allergènes — tout se règle selon les conseils de ton pédiatre. Pudding ne prescrit rien et ne conseille rien : il note avec soin et rappelle à temps.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "Faut-il Internet ou un compte ?",
-      "a": "Non. L'app fonctionne hors ligne, aucune inscription — toutes les données restent sur ton appareil."
+      "a": "Non. L'app fonctionne hors ligne, aucune inscription — tes données restent sur ton appareil et se synchronisent via ton propre iCloud."
     },
     {
       "q": "Pudding remplace-t-il le pédiatre ?",
@@ -133,5 +133,5 @@
     "support": "Support",
     "disclaimer": "Pudding est un carnet de diversification, pas un avis médical. Les décisions sur les aliments et les allergènes se prennent avec ton pédiatre."
   },
-  "jsonld_desc": "Carnet de diversification : repas et réactions notés, fenêtre d'observation, rappels d'allergènes et PDF pour le pédiatre. Toutes les données restent sur l'appareil."
+  "jsonld_desc": "Carnet de diversification : repas et réactions notés, fenêtre d'observation, rappels d'allergènes et PDF pour le pédiatre. Les données restent sur l'appareil et se synchronisent via l'iCloud personnel de l'utilisateur."
 }

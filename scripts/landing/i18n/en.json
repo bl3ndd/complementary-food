@@ -8,11 +8,11 @@
   "og_locale": "en_US",
   "currency": "USD",
   "title": "Pudding — a calm baby food diary for starting solids",
-  "meta_desc": "Pudding is a warm first-foods diary: log feedings and reactions, watch the observation window, and keep introduced allergens on schedule. No account — everything stays on your phone.",
+  "meta_desc": "Pudding is a warm first-foods diary: log feedings and reactions, watch the observation window, and keep introduced allergens on schedule. No account — your data stays on your phone and in your own iCloud.",
   "keywords": "baby food diary, starting solids, first foods, weaning tracker, baby allergen tracker, food reaction log, blw tracker",
   "og_title": "Pudding — a calm baby food diary",
-  "og_desc": "Log feedings and reactions, watch the observation window, keep allergens on schedule. Everything stays on your phone.",
-  "tw_desc": "A warm first-foods diary. Everything stays on your phone.",
+  "og_desc": "Log feedings and reactions, watch the observation window, keep allergens on schedule. Your data stays on your phone and in your own iCloud.",
+  "tw_desc": "A warm first-foods diary. Your data stays on your phone and in your own iCloud.",
   "nav": {
     "features": "Features",
     "screens": "Screenshots",
@@ -93,13 +93,13 @@
       "alt": "Monthly recap card for stories"
     }
   ],
-  "privacy_h2": "Your data stays on your phone",
-  "privacy_lead": "No account, no ads, no tracking. Your baby's name, entries, photos and reactions are stored locally and never leave the device.",
+  "privacy_h2": "Your data lives on your phone and in your own iCloud",
+  "privacy_lead": "No account, no ads, no tracking. Entries are stored on your device and synced through your own iCloud — we run no servers and have no access to them.",
   "pills": [
     "No account",
     "No ads",
     "No trackers",
-    "On-device only"
+    "Your own iCloud"
   ],
   "method_h2": "The plan is yours. Pudding is the diary.",
   "method_lead": "Starting age, observation windows, allergen frequency and list — everything is configured to match your pediatrician's guidance. Pudding prescribes nothing and advises nothing: it carefully records and reminds on time.",
@@ -111,7 +111,7 @@
     },
     {
       "q": "Do I need internet or an account?",
-      "a": "No. The app works offline, no sign-up — all data stays on your device."
+      "a": "No. The app works offline and needs no sign-up — your data stays on your device and syncs through your own iCloud."
     },
     {
       "q": "Does Pudding replace a pediatrician?",
@@ -132,5 +132,5 @@
     "support": "Support",
     "disclaimer": "Pudding is a feeding diary, not medical advice. Make decisions about introducing foods and allergens together with your pediatrician."
   },
-  "jsonld_desc": "A first-foods diary: feeding and reaction logs, observation windows, allergen reminders, and a PDF for your pediatrician. All data stays on the device."
+  "jsonld_desc": "A first-foods diary: feeding and reaction logs, observation windows, allergen reminders, and a PDF for your pediatrician. Data is stored on device and synced through the user's own iCloud."
 }

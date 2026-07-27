@@ -9,11 +9,11 @@
   "currency": "PLN",
   "legal": "en",
   "title": "Pudding — spokojny dziennik rozszerzania diety",
-  "meta_desc": "Pudding to ciepły dziennik rozszerzania diety: zapisuj posiłki i reakcje, pilnuj okna obserwacji i w porę powtarzaj wprowadzone alergeny. Bez konta — wszystko zostaje w twoim telefonie.",
+  "meta_desc": "Pudding to ciepły dziennik rozszerzania diety: zapisuj posiłki i reakcje, pilnuj okna obserwacji i w porę powtarzaj wprowadzone alergeny. Bez konta — dane zostają w twoim telefonie i w twoim iCloud.",
   "keywords": "rozszerzanie diety, dziennik żywienia niemowlaka, BLW, pierwsze posiłki, alergeny u niemowlaka, dziennik posiłków dziecka, reakcja na jedzenie",
   "og_title": "Pudding — spokojny dziennik rozszerzania diety",
-  "og_desc": "Zapisuj posiłki i reakcje, pilnuj okna obserwacji, nie zapominaj o alergenach. Wszystkie dane zostają w telefonie.",
-  "tw_desc": "Ciepły dziennik rozszerzania diety. Wszystko zostaje w twoim telefonie.",
+  "og_desc": "Zapisuj posiłki i reakcje, pilnuj okna obserwacji, nie zapominaj o alergenach. Dane zostają w twoim telefonie i w twoim iCloud.",
+  "tw_desc": "Ciepły dziennik rozszerzania diety. Dane zostają w twoim telefonie i w twoim iCloud.",
   "nav": {
     "features": "Funkcje",
     "screens": "Zrzuty ekranu",
@@ -94,13 +94,13 @@
       "alt": "Karta podsumowania miesiąca do relacji"
     }
   ],
-  "privacy_h2": "Twoje dane zostają w twoim telefonie",
-  "privacy_lead": "Żadnego konta, reklam ani śledzenia. Imię dziecka, wpisy, zdjęcia i reakcje są zapisane lokalnie i nigdzie nie wychodzą.",
+  "privacy_h2": "Twoje dane zostają w telefonie i w twoim iCloud",
+  "privacy_lead": "Żadnego konta, reklam ani śledzenia. Wpisy są na urządzeniu i synchronizują się przez twój własny iCloud — nie mamy serwerów ani dostępu do tych danych.",
   "pills": [
     "Bez konta",
     "Bez reklam",
     "Bez trackerów",
-    "Tylko na urządzeniu"
+    "Twój iCloud"
   ],
   "method_h2": "Plan jest twój. Pudding jest dziennikiem.",
   "method_lead": "Wiek startu, okna obserwacji, częstotliwość i lista alergenów — wszystko ustawiasz zgodnie z zaleceniami swojego pediatry. Pudding niczego nie zaleca i nie doradza: starannie zapisuje i przypomina w porę.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "Czy potrzebny jest internet albo konto?",
-      "a": "Nie. Aplikacja działa offline, rejestracja nie jest potrzebna — wszystkie dane zostają na twoim urządzeniu."
+      "a": "Nie. Aplikacja działa offline, rejestracja nie jest potrzebna — dane zostają na twoim urządzeniu i synchronizują się przez twój iCloud."
     },
     {
       "q": "Czy Pudding zastępuje pediatrę?",
@@ -133,5 +133,5 @@
     "support": "Wsparcie",
     "disclaimer": "Pudding to dziennik żywienia, a nie porada medyczna. Decyzje o produktach i alergenach podejmuj razem ze swoim pediatrą."
   },
-  "jsonld_desc": "Dziennik rozszerzania diety: zapis posiłków i reakcji, okno obserwacji, przypomnienia o alergenach i PDF dla pediatry. Wszystkie dane zostają na urządzeniu."
+  "jsonld_desc": "Dziennik rozszerzania diety: zapis posiłków i reakcji, okno obserwacji, przypomnienia o alergenach i PDF dla pediatry. Dane są na urządzeniu i synchronizują się przez prywatny iCloud użytkownika."
 }

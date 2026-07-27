@@ -9,11 +9,11 @@
   "currency": "EUR",
   "legal": "en",
   "title": "Pudding — il diario dello svezzamento, senza ansia",
-  "meta_desc": "Pudding è un diario dello svezzamento accogliente: annota pappe e reazioni, segui la finestra di osservazione e riproponi in tempo gli allergeni già introdotti. Senza account: tutto resta sul tuo telefono.",
+  "meta_desc": "Pudding è un diario dello svezzamento accogliente: annota pappe e reazioni, segui la finestra di osservazione e riproponi in tempo gli allergeni già introdotti. Senza account: i tuoi dati restano sul telefono e nel tuo iCloud.",
   "keywords": "svezzamento, diario svezzamento, autosvezzamento, primi cibi bambino, allergeni bambino, diario alimentare neonato, reazione al cibo",
   "og_title": "Pudding — il diario dello svezzamento",
-  "og_desc": "Annota pappe e reazioni, segui la finestra di osservazione, non dimenticare gli allergeni. Tutti i dati restano sul telefono.",
-  "tw_desc": "Un diario dello svezzamento accogliente. Tutto resta sul tuo telefono.",
+  "og_desc": "Annota pappe e reazioni, segui la finestra di osservazione, non dimenticare gli allergeni. I tuoi dati restano sul telefono e nel tuo iCloud.",
+  "tw_desc": "Un diario dello svezzamento accogliente. I tuoi dati restano sul telefono e nel tuo iCloud.",
   "nav": {
     "features": "Funzioni",
     "screens": "Schermate",
@@ -94,13 +94,13 @@
       "alt": "Card del riepilogo mensile da condividere nelle storie"
     }
   ],
-  "privacy_h2": "I tuoi dati restano sul tuo telefono",
-  "privacy_lead": "Nessun account, nessuna pubblicità, nessun tracciamento. Nome del bambino, registrazioni, foto e reazioni restano in locale e non vanno da nessuna parte.",
+  "privacy_h2": "I tuoi dati restano sul telefono e nel tuo iCloud",
+  "privacy_lead": "Nessun account, nessuna pubblicità, nessun tracciamento. Le voci restano sul dispositivo e si sincronizzano tramite il tuo iCloud: non abbiamo server né accesso ai dati.",
   "pills": [
     "Senza account",
     "Senza pubblicità",
     "Senza tracker",
-    "Solo sul dispositivo"
+    "Il tuo iCloud"
   ],
   "method_h2": "Il piano è tuo. Pudding è il diario.",
   "method_lead": "Età di inizio, finestre di osservazione, frequenza ed elenco degli allergeni: tutto si imposta secondo le indicazioni del tuo pediatra. Pudding non prescrive e non consiglia nulla: annota con cura e ricorda al momento giusto.",
@@ -112,7 +112,7 @@
     },
     {
       "q": "Servono internet o un account?",
-      "a": "No. L'app funziona offline e non serve registrarsi: tutti i dati restano sul tuo dispositivo."
+      "a": "No. L'app funziona offline e non serve registrarsi: i tuoi dati restano sul dispositivo e si sincronizzano tramite il tuo iCloud."
     },
     {
       "q": "Pudding sostituisce il pediatra?",
@@ -133,5 +133,5 @@
     "support": "Supporto",
     "disclaimer": "Pudding è un diario dello svezzamento, non un consiglio medico. Le decisioni su alimenti e allergeni prendile insieme al tuo pediatra."
   },
-  "jsonld_desc": "Diario dello svezzamento: registro di pappe e reazioni, finestra di osservazione, promemoria per gli allergeni e PDF per il pediatra. Tutti i dati restano sul dispositivo."
+  "jsonld_desc": "Diario dello svezzamento: registro di pappe e reazioni, finestra di osservazione, promemoria per gli allergeni e PDF per il pediatra. I dati restano sul dispositivo e si sincronizzano tramite l'iCloud personale dell'utente."
 }
