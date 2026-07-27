@@ -140,13 +140,14 @@ struct ProfileView: View {
     private var dataSection: some View {
         Section("Данные") {
             // Кнопки всегда активны: если данных пока нет — тап объясняет, почему
-            // (немой disabled-серый вызывал «а чё нельзя-то?»).
+            // (немой disabled-серый вызывал «а чё нельзя-то?»). Доступная кнопка —
+            // акцентная, как ссылки в «О приложении»; серая = данных ещё нет.
             Button {
                 if hasActualLogs { exportPDF(.pediatric) }
                 else { dataHint = String(localized: "Дневник для педиатра появится после первой записи кормления.") }
             } label: {
                 Label("Дневник для педиатра", systemImage: "doc.richtext")
-                    .foregroundStyle(hasActualLogs ? Color.primary : .secondary)
+                    .foregroundStyle(hasActualLogs ? Theme.accent : .secondary)
             }
 
             Button {
@@ -154,7 +155,7 @@ struct ProfileView: View {
                 else { dataHint = String(localized: "Список «не давать» соберётся из продуктов на паузе или с аллергией.") }
             } label: {
                 Label("Список «не давать»", systemImage: "nosign")
-                    .foregroundStyle(hasAvoidItems ? Color.primary : .secondary)
+                    .foregroundStyle(hasAvoidItems ? Theme.accent : .secondary)
             }
 
             Button {
@@ -162,7 +163,7 @@ struct ProfileView: View {
                 else { dataHint = String(localized: "Рекап откроется, когда в этом месяце появятся записи.") }
             } label: {
                 Label("Рекап месяца", systemImage: "party.popper")
-                    .foregroundStyle(hasRecapData ? Color.primary : .secondary)
+                    .foregroundStyle(hasRecapData ? Theme.accent : .secondary)
             }
         }
         .alert("Пока рано", isPresented: Binding(get: { dataHint != nil },
