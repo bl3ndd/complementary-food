@@ -1,5 +1,7 @@
 # План — локализация (RU + EN)
 
+> **Статус: закрыт** (2026-07-27). Ушли дальше плана: не RU+EN, а **14 языков** (`Localizable.xcstrings`, 523 ключа) + внутриапповый выбор языка (`AppLanguage`/`LanguageManager`) и витрина ASC на 15 локалей.
+
 ## Overview
 
 Добавить английскую локализацию к приложению (сейчас весь UI — хардкод русских
@@ -55,61 +57,61 @@ EN-версия отдельно); App Store метаданные.
 
 Files: `project.yml`, `Resources/Localizable.xcstrings`, `RootView.swift`, даты
 
-[ ] `project.yml`: добавить `options.developmentLanguage: ru`; `xcodegen generate`
-[ ] Создать `Resources/Localizable.xcstrings` (sourceLanguage `ru`, version 1.0) — пока пустой/скелет
-[ ] Убрать `.environment(\.locale, .ru)` из RootView и `.locale(.ru)` из 5 мест с датами
-[ ] Собрать; убедиться, что Xcode компилирует каталог (в бандле появится `en.lproj`)
-[ ] run project test suite — must pass before Task 2
+[x] `project.yml`: добавить `options.developmentLanguage: ru`; `xcodegen generate`
+[x] Создать `Resources/Localizable.xcstrings` (sourceLanguage `ru`, version 1.0) — пока пустой/скелет
+[x] Убрать `.environment(\.locale, .ru)` из RootView и `.locale(.ru)` из 5 мест с датами
+[x] Собрать; убедиться, что Xcode компилирует каталог (в бандле появится `en.lproj`)
+[x] run project test suite — must pass before Task 2
 
 ### Task 2: Локализуемые компоненты (String → LocalizedStringKey)
 
 Files: `Components.swift`, `MethodologyCard.swift`
 
-[ ] `BigButton.title`, `PillButton.title`, `GhostButton.title`, `Chip.text`, `StatusBadge.text`
+[x] `BigButton.title`, `PillButton.title`, `GhostButton.title`, `Chip.text`, `StatusBadge.text`
     → тип `LocalizedStringKey`; внутри `Text(title)` уже локализует литералы
-[ ] Проверить все вызовы — литералы локализуются; где передаётся переменная (enum.title,
+[x] Проверить все вызовы — литералы локализуются; где передаётся переменная (enum.title,
     food.name) — см. Task 3/4
-[ ] Тесты зелёные (UI-логика не изменилась)
-[ ] run project test suite — must pass before Task 3
+[x] Тесты зелёные (UI-логика не изменилась)
+[x] run project test suite — must pass before Task 3
 
 ### Task 3: Динамические строки моделей (String(localized:))
 
 Files: `Enums.swift`, `FeedingProfile.swift`, `Food.swift`
 
-[ ] `Enums.swift`: все `.title`/`.shortTitle` (FoodCategory, AllergenGroup, IntroState,
+[x] `Enums.swift`: все `.title`/`.shortTitle` (FoodCategory, AllergenGroup, IntroState,
     ReactionType, Liking, AllergenStatus) → `String(localized:)`
-[ ] `FeedingProfile`: `name`/`source`/`caveat` пресетов → `String(localized:)` (длинные caveat — тоже)
-[ ] `Food.localizedName` = `String(localized: String.LocalizationValue(name))`; заменить
+[x] `FeedingProfile`: `name`/`source`/`caveat` пресетов → `String(localized:)` (длинные caveat — тоже)
+[x] `Food.localizedName` = `String(localized: String.LocalizationValue(name))`; заменить
     `Text(food.name)`/`entry.foodName` на localizedName в CatalogView/FoodDetailView/LogFeedingSheet/DayDetailView
-[ ] `CalendarView` дни недели: `weekdays.map { String(localized: ...) }` или `Text(LocalizedStringKey(d))`
-[ ] run project test suite — must pass before Task 4
+[x] `CalendarView` дни недели: `weekdays.map { String(localized: ...) }` или `Text(LocalizedStringKey(d))`
+[x] run project test suite — must pass before Task 4
 
 ### Task 4: Наполнить каталог + интерполяция + склонения
 
 Files: `Localizable.xcstrings`, `DashboardView.swift`, `AllergensView.swift`
 
-[ ] Сгенерировать `Localizable.xcstrings` из `strings-ru-en.json` (ui + foods + weekdays):
+[x] Сгенерировать `Localizable.xcstrings` из `strings-ru-en.json` (ui + foods + weekdays):
     ключ = RU-строка, `localizations.en.stringUnit.value` = EN
-[ ] Интерполяция: ключи с `%lld`/`%@` (как SwiftUI генерит из `Text("День \(x) из \(y)")`),
+[x] Интерполяция: ключи с `%lld`/`%@` (как SwiftUI генерит из `Text("День \(x) из \(y)")`),
     EN с тем же порядком плейсхолдеров (см. `_interpolated` в JSON)
-[ ] Склонения: для `Int.plural` сделать локаль-зависимый вариант ИЛИ перевести строки
+[x] Склонения: для `Int.plural` сделать локаль-зависимый вариант ИЛИ перевести строки
     «N продуктов введено», allergenWord на англ. формы (one/other). Самый чистый путь —
     plural-вариации в каталоге (`variations.plural`) + `String(localized:)`
-[ ] Развести коллизию «Поддержка» (Maintenance vs Support) явными ключами
-[ ] run project test suite — must pass before Task 5
+[x] Развести коллизию «Поддержка» (Maintenance vs Support) явными ключами
+[x] run project test suite — must pass before Task 5
 
 ### Task 5: Verify acceptance criteria
 
-[ ] Прогон тестов зелёный
-[ ] RU-симулятор: всё по-русски как раньше (регрессий нет), РФ-пресет виден
-[ ] EN-симулятор (`-AppleLanguages "(en)"`): весь UI на английском — вкладки, кнопки,
+[x] Прогон тестов зелёный
+[x] RU-симулятор: всё по-русски как раньше (регрессий нет), РФ-пресет виден
+[x] EN-симулятор (`-AppleLanguages "(en)"`): весь UI на английском — вкладки, кнопки,
     каталог + названия продуктов, методики, реакции, даты, дни недели, алерты
-[ ] EN: «Союз педиатров РФ» скрыт; уже выбранный РФ (если был) резолвится без краша
-[ ] Нет «смешанных» экранов (русские хвосты на англ. языке)
-[ ] Склонения корректны на обоих языках
+[x] EN: «Союз педиатров РФ» скрыт; уже выбранный РФ (если был) резолвится без краша
+[x] Нет «смешанных» экранов (русские хвосты на англ. языке)
+[x] Склонения корректны на обоих языках
 
 ### Task 6: Update documentation
 
-[ ] `CLAUDE.md` — локализация через String Catalog, RU sourceLanguage, как тестировать EN
-[ ] `SPEC.md` §9/§10 — двуязычность RU/EN
-[ ] напомнить про `xcodegen generate` (изменён project.yml)
+[x] `CLAUDE.md` — локализация через String Catalog, RU sourceLanguage, как тестировать EN
+[x] `SPEC.md` §9/§10 — двуязычность RU/EN
+[x] напомнить про `xcodegen generate` (изменён project.yml)

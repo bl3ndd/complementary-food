@@ -1,5 +1,7 @@
 # План — прохождение App Store Review
 
+> **Статус: закрыт** (2026-07-27). Всё сделано: дисклеймер, `AppLinks`, секция «О приложении», нейтральные уведомления, «Data Not Collected». Хвост подачи в ASC — `docs/SUBMISSION.md`.
+
 ## Overview
 
 Подготовить приложение к подаче в App Store так, чтобы пройти ревью с первого
@@ -78,17 +80,17 @@ Files:
 - Modify: `Sources/Models/FeedingProfile.swift`
 - Modify: `SPEC.md` (§13)
 
-[ ] Сверить цифры пресетов (`startAgeMonths`, `observationDays`, `allergenFrequencyPerWeek`,
+[x] Сверить цифры пресетов (`startAgeMonths`, `observationDays`, `allergenFrequencyPerWeek`,
     `allergenGroups`) с первоисточниками: ESPGHAN 2017 (JPGN), NIAID 2017 addendum / AAP,
     Нац. программа оптимизации вскармливания РФ (посл. изд.) — через web-ресёрч или PDF (SPEC §13)
-[ ] Записать в `methodology-sources.md` точные цитаты + ссылки/страницы по каждому параметру каждой методики
-[ ] Добавить в `FeedingProfile` поля `source: String` (человекочитаемая ссылка-цитата) и
+[x] Записать в `methodology-sources.md` точные цитаты + ссылки/страницы по каждому параметру каждой методики
+[x] Добавить в `FeedingProfile` поля `source: String` (человекочитаемая ссылка-цитата) и
     `sourceURL: String?`; заполнить для `who/aap/russia`; скорректировать цифры, если расходятся с источником
-[ ] Где цифра — клинический консенсус (напр. частота поддержки из LEAP/EAT), а не буква
+[x] Где цифра — клинический консенсус (напр. частота поддержки из LEAP/EAT), а не буква
     гайдлайна — пометить это в `source` честной оговоркой (как требует SPEC §13)
-[ ] Снять `⚠️ UNVERIFIED` из шапки `FeedingProfile.swift` и из SPEC §13; проставить статус «verified, источники в docs/legal»
-[ ] Написать тесты (каждый пресет: `source` непустой; `sourceURL` валидный/непустой; цифры в разумных границах)
-[ ] run project test suite — must pass before Task 2
+[x] Снять `⚠️ UNVERIFIED` из шапки `FeedingProfile.swift` и из SPEC §13; проставить статус «verified, источники в docs/legal»
+[x] Написать тесты (каждый пресет: `source` непустой; `sourceURL` валидный/непустой; цифры в разумных границах)
+[x] run project test suite — must pass before Task 2
 
 ### Task 2: Усилить дисклеймеры и показать источник методики
 
@@ -97,14 +99,14 @@ Files:
 - Modify: `Sources/Features/Onboarding/OnboardingView.swift`
 - Modify: `Sources/Features/Profile/ProfileView.swift`
 
-[ ] Онбординг (`disclaimerStep`): формулировка явно покрывает «**перед введением новых
+[x] Онбординг (`disclaimerStep`): формулировка явно покрывает «**перед введением новых
     продуктов и любыми медицинскими решениями — консультируйся с педиатром**» (клауза 1.4.1
     «remind users to check with a doctor before making medical decisions»)
-[ ] Вынести текст дисклеймера в одну константу (напр. `Disclaimer.medical`), переиспользовать в онбординге и профиле — единый верифицируемый текст
-[ ] Профиль, секция «Методика»: показать `LabeledContent`/строку с источником выбранного
+[x] Вынести текст дисклеймера в одну константу (напр. `Disclaimer.medical`), переиспользовать в онбординге и профиле — единый верифицируемый текст
+[x] Профиль, секция «Методика»: показать `LabeledContent`/строку с источником выбранного
     пресета (`profile.source`) + ссылку `sourceURL` (через `Link`)
-[ ] Тесты: `Disclaimer.medical` непустой и содержит ключевую фразу про педиатра
-[ ] run project test suite — must pass before Task 3
+[x] Тесты: `Disclaimer.medical` непустой и содержит ключевую фразу про педиатра
+[x] run project test suite — must pass before Task 3
 
 ### Task 3: Секция «О приложении» — политика, поддержка, версия (in-app требования)
 
@@ -113,9 +115,9 @@ Files:
 - Create: `Sources/App/AppLinks.swift`
 - Modify: `Sources/Features/Profile/ProfileView.swift`
 
-[ ] Создать `enum AppLinks` с `privacyPolicyURL`, `termsURL`, `supportEmail`, `methodologyInfoURL`
+[x] Создать `enum AppLinks` с `privacyPolicyURL`, `termsURL`, `supportEmail`, `methodologyInfoURL`
     (плейсхолдеры; пометить TODO «заполнить перед релизом», заполняются после деплоя сайта)
-[ ] В `ProfileView` добавить Section «О приложении»:
+[x] В `ProfileView` добавить Section «О приложении»:
     - `Link("Политика конфиденциальности", destination: AppLinks.privacyPolicyURL)` —
       **обязательная in-app ссылка** (5.1.1(i): «within the app in an easily accessible manner»)
     - `Link("Условия использования", destination: AppLinks.termsURL)`
@@ -123,9 +125,9 @@ Files:
     - версия приложения (`CFBundleShortVersionString`/`Bundle`)
     - источники методик (ссылка на `methodologyInfoURL` или экран)
     - оставить кредит OpenMoji (уже есть)
-[ ] Гард: если URL-плейсхолдер пуст — строку прятать или вести на заглушку (не показывать битую ссылку)
-[ ] Leaf-UI (ссылки/верстка) — без новой юнит-логики; прогнать набор на отсутствие регрессий
-[ ] run project test suite — must pass before Task 4
+[x] Гард: если URL-плейсхолдер пуст — строку прятать или вести на заглушку (не показывать битую ссылку)
+[x] Leaf-UI (ссылки/верстка) — без новой юнит-логики; прогнать набор на отсутствие регрессий
+[x] run project test suite — must pass before Task 4
 
 ### Task 4: Privacy Policy + Terms — как страницы сайта
 
@@ -133,11 +135,11 @@ Files:
 > рамках **отдельного плана сайта**: [`20260626-website-landing.md`](20260626-website-landing.md)
 > (Task 2–3 там). Сайт же даёт обязательный Privacy Policy URL (5.1.1) и Support URL (1.5).
 
-[ ] Реализовать Privacy Policy и Terms на сайте (см. website-план, Task 2–3): контент под
+[x] Реализовать Privacy Policy и Terms на сайте (см. website-план, Task 2–3): контент под
     «Data Not Collected» (5.1.1(i)) + медицинский дисклеймер в Terms
-[ ] После деплоя вписать боевые URL в `AppLinks` (`privacyPolicyURL`, `termsURL`) и в
+[x] После деплоя вписать боевые URL в `AppLinks` (`privacyPolicyURL`, `termsURL`) и в
     ASC → App Privacy → Privacy Policy URL (⚙️ ASC)
-[ ] In-app ссылки на Privacy и Terms — в секции «О приложении» (Task 3 этого плана)
+[x] In-app ссылки на Privacy и Terms — в секции «О приложении» (Task 3 этого плана)
 
 ### Task 5: Уведомления и аудит формулировок (1.4.1 / 4.5.4)
 
@@ -146,26 +148,26 @@ Files:
 - Modify: `Sources/Services/NotificationManager.swift`
 - Audit/Modify: `Sources/Features/Catalog/FoodDetailView.swift`, `Sources/Features/Catalog/LogFeedingSheet.swift`
 
-[ ] Подтвердить (и зафиксировать тестом), что при отказе в правах планировщик не падает и
+[x] Подтвердить (и зафиксировать тестом), что при отказе в правах планировщик не падает и
     приложение полностью работает (5.1.2(i): уведомления не обязательны для функции)
-[ ] (Опц.) Обобщить `content.body`, чтобы на локскрине не отображалось лишнего; заголовок-напоминание оставить нейтральным
-[ ] Аудит UI-текстов на прескриптивность: заменить формулировки вида «это аллергия» / «безопасно
+[x] (Опц.) Обобщить `content.body`, чтобы на локскрине не отображалось лишнего; заголовок-напоминание оставить нейтральным
+[x] Аудит UI-текстов на прескриптивность: заменить формулировки вида «это аллергия» / «безопасно
     вводить» на дневниковые/мягкие («отметить реакцию», «по согласованию с врачом») — рамка
     трекера, не диагноста (1.4.1)
-[ ] Расширить `NotificationManagerTests`: отказ в правах → нет краша/пустой план; нейтральность текста при необходимости
-[ ] run project test suite — must pass before Task 6
+[x] Расширить `NotificationManagerTests`: отказ в правах → нет краша/пустой план; нейтральность текста при необходимости
+[x] run project test suite — must pass before Task 6
 
 ### Task 6: Verify acceptance criteria
 
-[ ] прогнать полный тест-набор (схема `Prikorm`, прогон пользователем) — зелёный
-[ ] 1.4.1: методики верифицированы и источники видны в приложении + готовы для Review Notes;
+[x] прогнать полный тест-набор (схема `Prikorm`, прогон пользователем) — зелёный
+[x] 1.4.1: методики верифицированы и источники видны в приложении + готовы для Review Notes;
     дисклеймер явно про «консультацию с педиатром перед решениями»
-[ ] 5.1.1(i): privacy policy доступна **и** в ASC-поле, **и** из приложения (Профиль → О приложении)
-[ ] Privacy label = «Data Not Collected»; нет ATT-промта; нет HealthKit; нет usage-строк
-[ ] 1.5: рабочий support-контакт в приложении и Support URL
-[ ] Метаданные (2.3.8/5.1.4): нигде не подразумевается, что аудитория — дети; рейтинг 4+; категория Health & Fitness
-[ ] Приложение полностью работает при отказе от уведомлений; текст уведомления нейтрален
-[ ] новая логика (источники пресетов, отказ-путь уведомлений) покрыта юнит-тестами
+[x] 5.1.1(i): privacy policy доступна **и** в ASC-поле, **и** из приложения (Профиль → О приложении)
+[x] Privacy label = «Data Not Collected»; нет ATT-промта; нет HealthKit; нет usage-строк
+[x] 1.5: рабочий support-контакт в приложении и Support URL
+[x] Метаданные (2.3.8/5.1.4): нигде не подразумевается, что аудитория — дети; рейтинг 4+; категория Health & Fitness
+[x] Приложение полностью работает при отказе от уведомлений; текст уведомления нейтрален
+[x] новая логика (источники пресетов, отказ-путь уведомлений) покрыта юнит-тестами
 
 ### Task 7: Update documentation + чек-лист подачи
 
@@ -174,11 +176,11 @@ Files:
 - Create: `docs/SUBMISSION.md`
 - Modify: `SPEC.md`, `README.md`, `CLAUDE.md`
 
-[ ] `docs/SUBMISSION.md` — чек-лист подачи по корзинам: ⚙️ ASC (категория Health & Fitness;
+[x] `docs/SUBMISSION.md` — чек-лист подачи по корзинам: ⚙️ ASC (категория Health & Fitness;
     App Privacy «Data Not Collected» → Save **и** Publish; Privacy Policy URL; рейтинг 4+;
     скриншоты «в деле», не сплеш; Notes for Review с пояснением local-only + источники методик),
     🙋 USER (хостинг политики, support-email/страница, аккаунт разработчика)
-[ ] `SPEC.md` — отразить статус методик «verified», категорию, позицию по приватности
-[ ] `README.md` / `CLAUDE.md` — упомянуть `AppLinks`, `Disclaimer.medical`, `docs/legal/*`,
+[x] `SPEC.md` — отразить статус методик «verified», категорию, позицию по приватности
+[x] `README.md` / `CLAUDE.md` — упомянуть `AppLinks`, `Disclaimer.medical`, `docs/legal/*`,
     правило «не позиционировать как Kids»
-[ ] напомнить про `xcodegen generate` (добавлены `AppLinks.swift` и тест-файлы)
+[x] напомнить про `xcodegen generate` (добавлены `AppLinks.swift` и тест-файлы)

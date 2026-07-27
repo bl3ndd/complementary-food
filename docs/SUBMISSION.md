@@ -3,6 +3,10 @@
 Сверено по живым гайдам Apple (June 2026). Корзины: ⚙️ App Store Connect ·
 🛠️ в коде (сделано) · 🙋 нужно от тебя.
 
+**Состояние на 2026-07-27** (сверено через ASC API, app id `6789296295`): версия **1.0
+в `PREPARE_FOR_SUBMISSION`**, билды 1 и 2 залиты и `VALID`, метаданные + по 5 скриншотов
+на всех 15 витринах, категории и рейтинг выставлены. Осталось — список в конце файла.
+
 ## 🛠️ В коде — сделано
 - [x] Методики верифицированы, источники + оговорки в `FeedingProfile` и UI (1.4.1)
 - [x] Единый медицинский дисклеймер `Disclaimer.medical` (онбординг + профиль), зовёт к педиатру (1.4.1)
@@ -13,21 +17,35 @@
 - [x] Метаданные «для родителей», нигде не подразумевается аудитория-дети (2.3.8 / 5.1.4)
 
 ## 🙋 От тебя — перед подачей
-- [ ] Задеплоить сайт (Vercel/Netlify), привязать домен; заменить плейсхолдер в `AppLinks.swift` на боевой URL
-- [ ] Подтвердить support-email (сейчас `hello@getpudding.com`)
-- [ ] Скриншоты реального UI «в деле» (не сплеш) + `og.png` для сайта
-- [ ] Аккаунт разработчика Apple
+- [x] Задеплоить сайт: живёт на `pudding-for-children.vercel.app` (Vercel), `/`, `/privacy`,
+      `/terms` отвечают 200; `AppLinks.swift` уже смотрит на боевые URL (свой домен — по желанию, позже)
+- [ ] Подтвердить support-email `woodoo201818@gmail.com` (TODO висит в `AppLinks.swift`
+      и в App Review Information)
+- [x] Скриншоты реального UI «в деле» — по 5 штук на 15 витринах (`appstore_screenshots/`)
+- [x] Аккаунт разработчика Apple (билды залиты)
 
 ## ⚙️ App Store Connect — при подаче
-- [ ] **Категория: Health & Fitness** (НЕ Medical)
-- [ ] **App Privacy → «Data Not Collected»**, типы данных не объявлять → **Save И Publish** до отправки билда
-- [ ] **Privacy Policy URL** = `https://<домен>/privacy.html`
-- [ ] **Support URL** = сайт / страница поддержки (1.5)
-- [ ] **Возрастной рейтинг 4+** (контент; в Kids Category НЕ вступаем)
-- [ ] Скриншоты показывают UI в использовании (2.3.3)
-- [ ] **Notes for Review**: local-only, без аккаунта/аналитики/бэкенда; методики опираются
+- [x] **Категория: Health & Fitness** (НЕ Medical) + вторичная Lifestyle
+- [ ] **App Privacy → «Data Not Collected»**, типы данных не объявлять → **Save И Publish** до
+      отправки билда (статус через API не читается — проверить глазами в вебе)
+- [x] **Privacy Policy URL** = `https://pudding-for-children.vercel.app/privacy` — но только в
+      `ru` и `en-US`; в остальных 13 локалях App Info поле пустое, дозаполнить
+- [x] **Support URL** = `https://pudding-for-children.vercel.app` (проставлен во всех 15 локалях)
+- [x] **Возрастной рейтинг 4+** (контент; в Kids Category НЕ вступаем)
+- [x] Скриншоты показывают UI в использовании (2.3.3)
+- [ ] **Notes for Review** — в ASC поле **пустое**; текст готов в `docs/appstore/ASC-METADATA.md` §8,
+      залить перед отправкой: local-only, без аккаунта/аналитики/бэкенда; методики опираются
       на ВОЗ/AAP/РФ (источники — `docs/legal/methodology-sources.md`); часть значений —
       клинический консенсус, помечена в приложении; дисклеймеры на месте
+
+## 🚦 Что осталось до кнопки Submit
+1. `MARKETING_VERSION` в `project.yml` — `0.1.0` → `1.0.0`, пересобрать архив и залить
+   (к версии сейчас прикреплён build 1 от 23.07, после него были правки UI и локализации).
+2. Залить Review Notes + контактный e-mail (см. выше).
+3. App Privacy → Save **и** Publish.
+4. Дозаполнить Privacy Policy URL в 13 локалях.
+5. Проверить Pricing & Availability (free + территории).
+6. Submit for Review.
 
 ## Будущее (вне текущей подачи)
 - CloudKit-синк → App Privacy станет «collected», обновить политику + пере-чек 5.1.3(ii)

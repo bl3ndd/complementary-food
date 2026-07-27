@@ -1,5 +1,7 @@
 # План — наглядный выбор методики, смягчённый дисклеймер, свой план прикорма
 
+> **Статус: закрыт** (2026-07-27). Пресеты снесены, осталась только «своя методика» (`FeedingProfile.custom(from:)` + `CustomPlanEditor`), дисклеймер смягчён.
+
 ## Overview
 
 Три связанные правки вокруг методики прикорма:
@@ -69,44 +71,44 @@ Files:
 - Modify: `Sources/Models/FeedingProfile.swift`
 - Modify: `Sources/Models/Child.swift`
 
-[ ] `FeedingProfile`: добавить `static let customId = "custom"` и
+[x] `FeedingProfile`: добавить `static let customId = "custom"` и
     `static func custom(from child: Child) -> FeedingProfile` — собирает профиль из
     custom-полей Child (source = «Свой план», caveat = мягкая оговорка)
-[ ] `Child`: добавить CloudKit-safe поля с дефолтами от ВОЗ —
+[x] `Child`: добавить CloudKit-safe поля с дефолтами от ВОЗ —
     `customStartAgeMonths: Int = 6`, `customObservationDays: Int = 3`,
     `customAllergenFrequencyPerWeek: Int = 2`,
     `customAllergenGroupsRaw: String = "egg,peanut,dairy,gluten,fish,soy,treenut,sesame"`
-[ ] Хелперы сериализации: `customAllergenGroups: [AllergenGroup]` (парс/запись raw-строки)
-[ ] `Child.feedingProfile`: если `feedingProfileId == FeedingProfile.customId` →
+[x] Хелперы сериализации: `customAllergenGroups: [AllergenGroup]` (парс/запись raw-строки)
+[x] `Child.feedingProfile`: если `feedingProfileId == FeedingProfile.customId` →
     `FeedingProfile.custom(from: self)`, иначе `preset(id:)`
-[ ] Написать тесты (custom билдер, fallback на who при неизвестном id, round-trip
+[x] Написать тесты (custom билдер, fallback на who при неизвестном id, round-trip
     списка аллергенов, `maintenanceIntervalDays`, разумные границы)
-[ ] run project test suite — must pass before Task 2
+[x] run project test suite — must pass before Task 2
 
 ### Task 2: Переиспользуемая карточка методики
 
 Files:
 - Create: `Sources/Features/Common/MethodologyCard.swift`
 
-[ ] `MethodologyCard(profile:selected:onTap:)` — показывает: название, старт (мес),
+[x] `MethodologyCard(profile:selected:onTap:)` — показывает: название, старт (мес),
     окно наблюдения (дн), частота аллергена (×/нед), число/список групп аллергенов,
     ссылку-источник; рамка-выделение при `selected`
-[ ] Компактный режим для онбординга и развёрнутый для профиля (параметр `expanded`)
-[ ] Leaf-UI — без юнит-логики; превью со всеми пресетами
-[ ] run project test suite — must pass before Task 3
+[x] Компактный режим для онбординга и развёрнутый для профиля (параметр `expanded`)
+[x] Leaf-UI — без юнит-логики; превью со всеми пресетами
+[x] run project test suite — must pass before Task 3
 
 ### Task 3: Редактор своего плана
 
 Files:
 - Create: `Sources/Features/Common/CustomPlanEditor.swift`
 
-[ ] `CustomPlanEditor(child:)` (`@Bindable`) — степперы: старт (4–8 мес), окно
+[x] `CustomPlanEditor(child:)` (`@Bindable`) — степперы: старт (4–8 мес), окно
     наблюдения (1–14 дн), частота аллергена (1–7 ×/нед); мультивыбор `AllergenGroup`
     тогглами; живой предпросмотр `maintenanceIntervalDays`
-[ ] Значения пишутся в custom-поля Child; clamp в границах (чистая функция, тестируемая)
-[ ] Мягкая строка-оговорка снизу (`Disclaimer.short`)
-[ ] Тесты на clamp-функцию границ
-[ ] run project test suite — must pass before Task 4
+[x] Значения пишутся в custom-поля Child; clamp в границах (чистая функция, тестируемая)
+[x] Мягкая строка-оговорка снизу (`Disclaimer.short`)
+[x] Тесты на clamp-функцию границ
+[x] run project test suite — must pass before Task 4
 
 ### Task 4: Онбординг — наглядная методика + свой план, мягкий дисклеймер
 
@@ -114,43 +116,43 @@ Files:
 - Modify: `Sources/Features/Onboarding/OnboardingView.swift`
 - Modify: `Sources/App/Disclaimer.swift`
 
-[ ] Убрать `disclaimerStep` и состояние/гейт `acceptedDisclaimer`; шагов станет 3
+[x] Убрать `disclaimerStep` и состояние/гейт `acceptedDisclaimer`; шагов станет 3
     (welcome → ребёнок → методика). Поправить `next()/canProceed/step`-индексы
-[ ] На welcome-экран добавить мягкую сноску `Disclaimer.welcome` («не медсовет — решения
+[x] На welcome-экран добавить мягкую сноску `Disclaimer.welcome` («не медсовет — решения
     с педиатром») мелким текстом, без галки
-[ ] Методика-шаг: список `MethodologyCard` по пресетам + карточка **«Свой план»**;
+[x] Методика-шаг: список `MethodologyCard` по пресетам + карточка **«Свой план»**;
     при выборе custom — кнопка/переход в `CustomPlanEditor`
-[ ] `finish()`: сохранить выбранный `feedingProfileId` (включая `customId`) и custom-поля
-[ ] Leaf-UI; прогнать набор на отсутствие регрессий
-[ ] run project test suite — must pass before Task 5
+[x] `finish()`: сохранить выбранный `feedingProfileId` (включая `customId`) и custom-поля
+[x] Leaf-UI; прогнать набор на отсутствие регрессий
+[x] run project test suite — must pass before Task 5
 
 ### Task 5: Профиль — наглядная методика + редактор custom
 
 Files:
 - Modify: `Sources/Features/Profile/ProfileView.swift`
 
-[ ] Секцию «Методика» переделать: показать текущую `MethodologyCard(expanded:)` со всеми
+[x] Секцию «Методика» переделать: показать текущую `MethodologyCard(expanded:)` со всеми
     параметрами и источником (вместо голого пикера + строк)
-[ ] Пикер методики: пресеты + «Свой план»; при выборе custom — раскрыть `CustomPlanEditor`
-[ ] Сохранять изменения custom-полей и `feedingProfileId`, дёргать
+[x] Пикер методики: пресеты + «Свой план»; при выборе custom — раскрыть `CustomPlanEditor`
+[x] Сохранять изменения custom-полей и `feedingProfileId`, дёргать
     `NotificationManager.refresh` (расписание зависит от окна/частоты)
-[ ] Leaf-UI; прогнать набор
-[ ] run project test suite — must pass before Task 6
+[x] Leaf-UI; прогнать набор
+[x] run project test suite — must pass before Task 6
 
 ### Task 6: Verify acceptance criteria
 
-[ ] прогнать полный набор тестов — зелёный
-[ ] онбординг: 3 шага, дисклеймер-шага с галкой нет; на welcome мягкая сноска
-[ ] выбор методики показывает ВСЕ параметры (старт/окно/частота/аллергены/источник),
+[x] прогнать полный набор тестов — зелёный
+[x] онбординг: 3 шага, дисклеймер-шага с галкой нет; на welcome мягкая сноска
+[x] выбор методики показывает ВСЕ параметры (старт/окно/частота/аллергены/источник),
     и в онбординге, и в профиле
-[ ] «Свой план»: можно задать старт/окно/частоту/список аллергенов; сохраняется и
+[x] «Свой план»: можно задать старт/окно/частоту/список аллергенов; сохраняется и
     реально влияет на логику (окно ввода, due аллергенов, уведомления)
-[ ] неизвестный `feedingProfileId` → fallback на ВОЗ (без краша)
-[ ] новая логика (custom билдер, сериализация, clamp) покрыта юнит-тестами
+[x] неизвестный `feedingProfileId` → fallback на ВОЗ (без краша)
+[x] новая логика (custom билдер, сериализация, clamp) покрыта юнит-тестами
 
 ### Task 7: Update documentation
 
-[ ] `SPEC.md` §6/§12 — custom-профиль бесплатен в MVP; онбординг без отдельного
+[x] `SPEC.md` §6/§12 — custom-профиль бесплатен в MVP; онбординг без отдельного
     дисклеймер-шага (дисклеймер смягчён, остаётся в «О приложении»)
-[ ] `CLAUDE.md` — `MethodologyCard`/`CustomPlanEditor` в общих компонентах; custom-поля Child
-[ ] напомнить про `xcodegen generate` (добавлены `MethodologyCard.swift`, `CustomPlanEditor.swift`)
+[x] `CLAUDE.md` — `MethodologyCard`/`CustomPlanEditor` в общих компонентах; custom-поля Child
+[x] напомнить про `xcodegen generate` (добавлены `MethodologyCard.swift`, `CustomPlanEditor.swift`)
