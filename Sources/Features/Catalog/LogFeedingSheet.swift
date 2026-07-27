@@ -21,6 +21,7 @@ struct LogFeedingSheet: View {
 
     @State private var liking: Liking?
     @State private var reaction: ReactionType = .none
+    @State private var severity: ReactionSeverity?
     @State private var note = ""
     @State private var date = Date()
     @State private var photos: [Data] = []
@@ -52,7 +53,7 @@ struct LogFeedingSheet: View {
                 BigButton(title: "Сохранить") { save() }
                     .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
                     .background(
-                        LinearGradient(colors: [Color.white.opacity(0), Color.white.opacity(0.9)],
+                        LinearGradient(colors: [Theme.card.opacity(0), Theme.card.opacity(0.9)],
                                        startPoint: .top, endPoint: .bottom)
                             .ignoresSafeArea(edges: .bottom)
                     )
@@ -77,7 +78,11 @@ struct LogFeedingSheet: View {
 
     private var detailsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) {
+            // Время, а не только дата: дневник несут педиатру, и «во сколько дали»
+            // — такой же факт, как «что дали». Иначе запись за вчера получала
+            // время момента ввода записи.
+            DatePicker(selection: $date, in: ...Date(),
+                       displayedComponents: [.date, .hourAndMinute]) {
                 Label("Когда давали", systemImage: "calendar")
                     .font(.subheadline.weight(.medium))
             }
@@ -111,6 +116,8 @@ struct LogFeedingSheet: View {
             Text("Реакция").font(.headline)
             ReactionChips(reaction: $reaction)
             if reaction != .none {
+                // Тяжесть — факт для журнала и PDF врачу; появляется только по делу.
+                SeverityChips(severity: $severity)
                 Label("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.",
                       systemImage: "info.circle")
                     .font(.caption).foregroundStyle(.orange)
@@ -131,6 +138,7 @@ struct LogFeedingSheet: View {
             reaction: reaction == .none ? nil : reaction,
             date: date,
             note: note.isEmpty ? nil : note,
+            severity: reaction == .none ? nil : severity,
             photos: photos)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
         onSaved?()

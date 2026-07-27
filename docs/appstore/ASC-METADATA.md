@@ -156,11 +156,11 @@ Pudding is a local-only baby feeding diary (no account, no backend, no data coll
 - [x] Зарегистрировать bundle id `com.pudding.app` в Developer Portal
 - [x] Archive → Distribute (Xcode Organizer) — билды 1 (23.07) и 2 (25.07) залиты, оба `VALID`
 - [x] Деплой privacy/terms на лендинге — `pudding-for-children.vercel.app/privacy` и `/terms` (200)
-- [ ] Поднять `MARKETING_VERSION` до `1.0.0` перед релизным билдом (сейчас `0.1.0`)
+- [x] `MARKETING_VERSION` = `1.0.0` в `project.yml`
 - [ ] Пересобрать и прикрепить свежий билд: к версии 1.0 привязан build 1, после него были
       коммиты по UI и локализации
-- [ ] Залить **Review Notes** (§8) — в ASC поле пустое
+- [x] **Review Notes** (§8) залиты через API
 - [ ] ⚠️ Подтвердить support-email (`AppLinks.supportEmail` = `woodoo201818@gmail.com`)
-- [ ] Privacy Policy URL проставлен только в `ru`/`en-US` — дозаполнить остальные 13 локалей
+- [x] Privacy Policy URL проставлен во всех 15 локалях
 
 Полный чек-лист сабмита: `docs/SUBMISSION.md`.

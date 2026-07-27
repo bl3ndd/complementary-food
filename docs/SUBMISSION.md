@@ -28,24 +28,24 @@
 - [x] **Категория: Health & Fitness** (НЕ Medical) + вторичная Lifestyle
 - [ ] **App Privacy → «Data Not Collected»**, типы данных не объявлять → **Save И Publish** до
       отправки билда (статус через API не читается — проверить глазами в вебе)
-- [x] **Privacy Policy URL** = `https://pudding-for-children.vercel.app/privacy` — но только в
-      `ru` и `en-US`; в остальных 13 локалях App Info поле пустое, дозаполнить
+- [x] **Privacy Policy URL** = `https://pudding-for-children.vercel.app/privacy` — проставлен
+      во всех 15 локалях App Info
 - [x] **Support URL** = `https://pudding-for-children.vercel.app` (проставлен во всех 15 локалях)
 - [x] **Возрастной рейтинг 4+** (контент; в Kids Category НЕ вступаем)
 - [x] Скриншоты показывают UI в использовании (2.3.3)
-- [ ] **Notes for Review** — в ASC поле **пустое**; текст готов в `docs/appstore/ASC-METADATA.md` §8,
-      залить перед отправкой: local-only, без аккаунта/аналитики/бэкенда; методики опираются
-      на ВОЗ/AAP/РФ (источники — `docs/legal/methodology-sources.md`); часть значений —
-      клинический консенсус, помечена в приложении; дисклеймеры на месте
+- [x] **Notes for Review** — залиты в ASC (текст — `docs/appstore/ASC-METADATA.md` §8):
+      local-only, без аккаунта/аналитики/бэкенда, дисклеймер-гейт на месте
 
 ## 🚦 Что осталось до кнопки Submit
-1. `MARKETING_VERSION` в `project.yml` — `0.1.0` → `1.0.0`, пересобрать архив и залить
-   (к версии сейчас прикреплён build 1 от 23.07, после него были правки UI и локализации).
-2. Залить Review Notes + контактный e-mail (см. выше).
-3. App Privacy → Save **и** Publish.
-4. Дозаполнить Privacy Policy URL в 13 локалях.
+1. ~~`MARKETING_VERSION` → `1.0.0`~~ — сделано в `project.yml`. Осталось **собрать архив
+   и залить свежий билд** (к версии прикреплён build 1 от 23.07, после него — правки ядра,
+   тёмная тема, миграции).
+2. ~~Review Notes~~ — залиты.
+3. App Privacy → Save **и** Publish (только через веб-UI).
+4. ~~Privacy Policy URL по локалям~~ — проставлен везде.
 5. Проверить Pricing & Availability (free + территории).
-6. Submit for Review.
+6. Подтвердить support-email.
+7. Submit for Review.
 
 ## Будущее (вне текущей подачи)
 - CloudKit-синк → App Privacy станет «collected», обновить политику + пере-чек 5.1.3(ii)

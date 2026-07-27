@@ -115,7 +115,7 @@ struct DashboardView: View {
                 actionLabel("Реакция", asset: "react_skin", emoji: "🩹",
                             iconBackground: Color.orange.opacity(0.15))
                     .foregroundStyle(.primary)
-                    .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .background(Theme.card, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
                     .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous)
                         .stroke(Color.orange.opacity(0.35), lineWidth: 1.5))
                     .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
@@ -193,13 +193,16 @@ struct DashboardView: View {
             HStack(alignment: .firstTextBaseline) {
                 Text("Коллекция продуктов").font(.headline)
                 Spacer()
-                Text("\(introducedCount)/\(catalog.all.count)")
+                // Цель — ближайшая веха, а не весь каталог: до 71 продукта не доходит
+                // никто, и шкала «почти пустая» вместо мотивации давала обратное.
+                Text("\(introducedCount)/\(collectionGoal)")
                     .font(.subheadline.bold()).foregroundStyle(Theme.accent)
                     .contentTransition(.numericText())
                     .animation(.snappy, value: introducedCount)
             }
-            ProgressView(value: Double(introducedCount), total: Double(max(1, catalog.all.count)))
+            ProgressView(value: Double(introducedCount), total: Double(collectionGoal))
                 .tint(Theme.accent)
+                .animation(.spring(response: 0.5, dampingFraction: 0.85), value: introducedCount)
 
             if collectionFoods.isEmpty {
                 // Пустая коллекция: тёплый эмпти-стейт вместо сетки пунктирных кругов.
@@ -238,9 +241,9 @@ struct DashboardView: View {
     }
 
     private var ghostCell: some View {
-        Circle().fill(Color.black.opacity(0.035))
+        Circle().fill(Theme.fill)
             .frame(width: 44, height: 44)
-            .overlay(Circle().stroke(Color.black.opacity(0.08),
+            .overlay(Circle().stroke(Theme.hairline,
                                      style: StrokeStyle(lineWidth: 1, dash: [3])))
     }
 
@@ -345,6 +348,13 @@ struct DashboardView: View {
 
     private var introducedCount: Int {
         statuses.filter { $0.state == .introduced }.count
+    }
+
+    /// Ближайшая веха коллекции: 5 → 10 → 25 → 50 → весь каталог. Шкала реально
+    /// заполняется и сбрасывается на следующую цель, а не висит почти пустой.
+    private var collectionGoal: Int {
+        let steps = [5, 10, 25, 50, catalog.all.count]
+        return steps.first { $0 > introducedCount } ?? max(1, catalog.all.count)
     }
 
     /// Стена коллекции — только введённые (совпадает со счётчиком в шапке).

@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import StoreKit
 
 /// Карточка продукта (гибрид): адаптивный герой (кольцо окна наблюдения / печать
 /// статуса + сводка) → факты в аккордеоне → история; главное действие — в закреплённом
@@ -9,6 +10,7 @@ struct FoodDetailView: View {
     let child: Child
 
     @Environment(\.modelContext) private var context
+    @Environment(\.requestReview) private var requestReview
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
     @State private var logMode: LogFeedingSheet.Mode?
@@ -129,7 +131,7 @@ struct FoodDetailView: View {
                 .overlay(alignment: .bottomTrailing) {
                     if state != .notIntroduced, state != .introducing {
                         ZStack {
-                            Circle().fill(.white).frame(width: 26, height: 26)
+                            Circle().fill(Theme.card).frame(width: 26, height: 26)
                                 .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
                             OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 19)
                         }
@@ -375,7 +377,7 @@ struct FoodDetailView: View {
                     Image(systemName: "ellipsis")
                         .font(.title3.weight(.bold)).foregroundStyle(Theme.accent)
                         .frame(width: 54, height: 54)
-                        .background(.white, in: Circle())
+                        .background(Theme.card, in: Circle())
                         .shadow(color: .black.opacity(0.10), radius: 6, y: 3)
                 }
                 .accessibilityLabel("Ещё действия")
@@ -384,7 +386,7 @@ struct FoodDetailView: View {
         }
         .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
         .background(
-            LinearGradient(colors: [Color.white.opacity(0), Color.white.opacity(0.9)],
+            LinearGradient(colors: [Theme.card.opacity(0), Theme.card.opacity(0.9)],
                            startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea(edges: .bottom)
         )
@@ -402,7 +404,7 @@ struct FoodDetailView: View {
                     Text("Продукт введён! 🎉").font(.title3.bold())
                 }
                 .padding(28)
-                .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .background(Theme.card, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
                 .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
                 .overlay { ConfettiBurst() }
                 .transition(.scale(scale: 0.85).combined(with: .opacity))
@@ -431,7 +433,22 @@ struct FoodDetailView: View {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) { showCheer = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
             withAnimation { showCheer = false }
+            askForReviewIfEarned()
         }
+    }
+
+    /// Просим оценку после успеха, а не «просто так»: юзер только что довёл продукт
+    /// до конца окна наблюдения — это лучший момент из возможных.
+    private func askForReviewIfEarned() {
+        let introducedCount = (try? context.fetchCount(
+            FetchDescriptor<IntroductionStatus>(
+                predicate: #Predicate { $0.stateRaw == "introduced" }))) ?? 0
+        let version = Bundle.main.appVersion
+        guard AppReview.shouldAsk(introducedCount: introducedCount,
+                                  lastAskedVersion: AppReview.lastAskedVersion(),
+                                  currentVersion: version) else { return }
+        AppReview.remember(version: version)
+        requestReview()
     }
 
     private func refresh() {

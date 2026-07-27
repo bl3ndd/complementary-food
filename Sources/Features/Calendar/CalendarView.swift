@@ -123,7 +123,7 @@ struct CalendarView: View {
             segmentButton("Месяц", .month)
         }
         .padding(4)
-        .background(Color.black.opacity(0.05), in: Capsule())
+        .background(Theme.fill, in: Capsule())
     }
 
     private func segmentButton(_ title: LocalizedStringKey, _ value: Mode) -> some View {
@@ -190,7 +190,7 @@ struct CalendarView: View {
                         Text(f.title)
                             .font(.caption.weight(.semibold))
                             .padding(.horizontal, 13).padding(.vertical, 7)
-                            .background(active ? Theme.accent.opacity(0.16) : Color.black.opacity(0.05),
+                            .background(active ? Theme.accent.opacity(0.16) : Theme.fill,
                                         in: Capsule())
                             .overlay(Capsule().stroke(active ? Theme.accent.opacity(0.45) : .clear,
                                                       lineWidth: 1.5))
@@ -351,7 +351,7 @@ struct CalendarView: View {
                                                      startPoint: .top, endPoint: .bottom))
                             .shadow(color: fill.opacity(0.35), radius: 5, y: 2)
                     } else if isToday {
-                        Circle().fill(Color.black.opacity(0.04))
+                        Circle().fill(Theme.fill)
                     }
                 }
                 .overlay {

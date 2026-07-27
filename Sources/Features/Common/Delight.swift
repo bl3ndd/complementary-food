@@ -16,6 +16,7 @@ enum Haptics {
 struct ConfettiBurst: View {
     var pieceCount: Int = 26
     @State private var flying = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let colors: [Color] =
         [Theme.accent, Theme.sunny, Theme.mint, Theme.sky, Theme.lilac]
@@ -44,6 +45,12 @@ struct ConfettiBurst: View {
     private var pieces: [Piece] { (0..<pieceCount).map { Piece($0, of: pieceCount) } }
 
     var body: some View {
+        // «Уменьшить движение»: разлёт кусочков — ровно тот эффект, ради которого
+        // системный тумблер и существует. Просто не показываем.
+        if reduceMotion { EmptyView() } else { burst }
+    }
+
+    private var burst: some View {
         ZStack {
             ForEach(pieces) { p in
                 RoundedRectangle(cornerRadius: 2)
@@ -65,12 +72,14 @@ struct ConfettiBurst: View {
 /// эмоциональных точек (hero главной, онбординг, поздравление), не для рабочих строк.
 private struct GentleBob: ViewModifier {
     @State private var up = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
-            .offset(y: up ? -3 : 2)
-            .animation(.easeInOut(duration: 1.9).repeatForever(autoreverses: true), value: up)
-            .onAppear { up = true }
+            .offset(y: reduceMotion ? 0 : (up ? -3 : 2))
+            .animation(reduceMotion ? nil
+                       : .easeInOut(duration: 1.9).repeatForever(autoreverses: true), value: up)
+            .onAppear { if !reduceMotion { up = true } }
     }
 }
 
@@ -83,16 +92,19 @@ extension View {
 private struct CozyAppear: ViewModifier {
     let delay: Double
     @State private var shown = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
             .opacity(shown ? 1 : 0)
-            .offset(y: shown ? 0 : 14)
+            .offset(y: (shown || reduceMotion) ? 0 : 14)
             .onAppear {
                 guard !shown else { return }
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.85).delay(delay)) {
-                    shown = true
-                }
+                // При «уменьшить движение» — простой fade без подъёма и пружины.
+                let animation: Animation = reduceMotion
+                    ? .easeOut(duration: 0.2)
+                    : .spring(response: 0.5, dampingFraction: 0.85).delay(delay)
+                withAnimation(animation) { shown = true }
             }
     }
 }
@@ -106,8 +118,11 @@ extension View {
 /// Лёгкое растяжение hero-карточки при оттягивании скролла вниз — экран
 /// «дышит» под пальцем. Чистый transform, без offscreen-проходов.
 private struct StretchyHero: ViewModifier {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     func body(content: Content) -> some View {
-        content.visualEffect { view, proxy in
+        content.visualEffect { [reduceMotion] view, proxy in
+            guard !reduceMotion else { return view.scaleEffect(1, anchor: .top) }
             let pull = max(0, proxy.frame(in: .scrollView).minY)
             return view.scaleEffect(1 + pull / 1100, anchor: .top)
         }
@@ -124,12 +139,14 @@ extension View {
 /// Только для маленьких бейджей-подсказок (например «пора освежить»).
 private struct GentlePulse: ViewModifier {
     @State private var big = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
         content
-            .scaleEffect(big ? 1.07 : 1)
-            .animation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: big)
-            .onAppear { big = true }
+            .scaleEffect(big && !reduceMotion ? 1.07 : 1)
+            .animation(reduceMotion ? nil
+                       : .easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: big)
+            .onAppear { if !reduceMotion { big = true } }
     }
 }
 

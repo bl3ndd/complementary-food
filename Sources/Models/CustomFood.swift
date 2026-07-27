@@ -11,10 +11,12 @@ final class CustomFood {
     var name: String = ""
     /// Эмодзи-символ выбранной иконки (рендерится OpenMoji-картинкой по нему).
     var emoji: String = "🍎"
+    /// Осталось ради совместимости стора: в UI не спрашивается и ни на что не влияет
+    /// (возрастных гейтов в приложении нет — мы дневник, а не советчик).
     var minAgeMonths: Int = 6
     var isAllergen: Bool = false
 
-    init(name: String, emoji: String, minAgeMonths: Int, isAllergen: Bool = false) {
+    init(name: String, emoji: String, minAgeMonths: Int = 6, isAllergen: Bool = false) {
         self.id = "custom-\(UUID().uuidString)"
         self.name = name
         self.emoji = emoji

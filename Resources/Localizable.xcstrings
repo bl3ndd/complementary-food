@@ -1,6 +1,89 @@
 {
   "sourceLanguage" : "ru",
   "strings" : {
+    "Попадёт в трекер поддержки и получит длинное окно наблюдения." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kommt in den Auffrischungs-Tracker und bekommt das längere Beobachtungsfenster."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goes into the maintenance tracker and gets the longer observation window."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entra en el seguimiento de alérgenos y usa la ventana de observación larga."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entre dans le suivi des allergènes et reçoit la fenêtre d'observation longue."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entra nel monitoraggio degli allergeni e usa la finestra di osservazione lunga."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アレルゲンの管理に入り、観察期間は長いほうが適用されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알레르겐 관리에 포함되고 더 긴 관찰 기간이 적용됩니다."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Komt in de allergenentracker en krijgt het langere observatievenster."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trafi do trackera alergenów i dostanie dłuższe okno obserwacji."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entra no acompanhamento de alérgenos e usa a janela de observação longa."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerjen takibine girer ve daha uzun gözlem penceresini alır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потрапить у трекер підтримки й отримає довше вікно спостереження."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会进入过敏原追踪，并使用较长的观察期。"
+          }
+        }
+      }
+    },
     "· %@ %@" : {
       "localizations" : {
         "ru" : {

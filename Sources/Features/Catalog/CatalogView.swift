@@ -8,6 +8,7 @@ struct CatalogView: View {
     @Query private var statuses: [IntroductionStatus]
     @Query private var customFoods: [CustomFood]
     @State private var search = ""
+    @State private var filter: CatalogFilter = .all
     @State private var showAddCustom = false
     @State private var pendingDeleteCustom: Food?
     @State private var path: [Food] = []
@@ -44,12 +45,13 @@ struct CatalogView: View {
     private var foodList: some View {
         // Поиск считаем один раз за рендер (fuzzy с Левенштейном) — затем фильтруем
         // по категориям, а не вызываем search() на каждую секцию.
-        let results = catalog.search(search)
+        let results = catalog.search(search).filter { filter.matches(state(for: $0)) }
         return VStack(spacing: 10) {
             // Поиск и «свой продукт» — над списком, чтобы не было большого инсета List
             // и кнопка не обрезалась рядом.
             VStack(spacing: 8) {
                 searchBar
+                filterChips
                 addCustomButton
             }
             .padding(.horizontal, 16)
@@ -82,6 +84,61 @@ struct CatalogView: View {
             }
     }
 
+    /// Линзы по СВОЕМУ статусу — это фильтр по собственным данным, а не совет
+    /// «что вводить». Подписи переиспользуют локализованные `IntroState.title`.
+    private enum CatalogFilter: String, CaseIterable, Identifiable {
+        case all, notIntroduced, introducing, introduced, paused
+
+        var id: String { rawValue }
+
+        var title: String {
+            switch self {
+            case .all:           return String(localized: "Всё")
+            case .notIntroduced: return IntroState.notIntroduced.title
+            case .introducing:   return IntroState.introducing.title
+            case .introduced:    return IntroState.introduced.title
+            case .paused:        return IntroState.paused.title
+            }
+        }
+
+        func matches(_ state: IntroState) -> Bool {
+            switch self {
+            case .all:           return true
+            case .notIntroduced: return state == .notIntroduced
+            case .introducing:   return state == .introducing
+            case .introduced:    return state == .introduced
+            // «Пауза» — всё отложенное: и пауза, и помеченная аллергия.
+            case .paused:        return state == .paused || state == .allergy
+            }
+        }
+    }
+
+    private var filterChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(CatalogFilter.allCases) { f in
+                    let active = filter == f
+                    Button {
+                        Haptics.select()
+                        withAnimation(.snappy) { filter = f }
+                    } label: {
+                        Text(f.title)
+                            .font(.caption.weight(.semibold))
+                            .padding(.horizontal, 13).padding(.vertical, 7)
+                            .background(active ? Theme.accent.opacity(0.16) : Theme.fill, in: Capsule())
+                            .overlay(Capsule().stroke(active ? Theme.accent.opacity(0.45) : .clear,
+                                                      lineWidth: 1.5))
+                            .foregroundStyle(active ? Theme.accent : .secondary)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(Text(f.title))
+                    .accessibilityAddTraits(active ? [.isButton, .isSelected] : .isButton)
+                }
+            }
+            .padding(.horizontal, 2)
+        }
+    }
+
     private var addCustomButton: some View {
         Button { showAddCustom = true } label: {
             Label("Добавить свой продукт", systemImage: "plus.circle.fill")
@@ -89,8 +146,8 @@ struct CatalogView: View {
                 .foregroundStyle(Theme.accent)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 14).padding(.vertical, 11)
-                .background(.white, in: Capsule())
-                .overlay(Capsule().stroke(.black.opacity(0.06), lineWidth: 1))
+                .background(Theme.card, in: Capsule())
+                .overlay(Capsule().stroke(Theme.hairline, lineWidth: 1))
         }
         .buttonStyle(.plain)
     }
@@ -121,8 +178,8 @@ struct CatalogView: View {
             }
         }
         .padding(.horizontal, 14).padding(.vertical, 10)
-        .background(.white, in: Capsule())
-        .overlay(Capsule().stroke(.black.opacity(0.06), lineWidth: 1))
+        .background(Theme.card, in: Capsule())
+        .overlay(Capsule().stroke(Theme.hairline, lineWidth: 1))
     }
 
     private func row(for food: Food) -> some View {

@@ -455,4 +455,31 @@ final class FeedingServiceTests: XCTestCase {
         XCTAssertTrue(try context.fetch(FetchDescriptor<LogPhoto>()).isEmpty,
                       "фото удалены каскадом вместе с логами")
     }
+
+    // MARK: - Тяжесть реакции (A6: поле было мёртвым — теперь пишется из UI)
+
+    @MainActor
+    func testLogFeedingStoresSeverityWithReaction() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+
+        service.logFeeding(food, liking: nil, reaction: .skin, severity: .severe)
+
+        let log = try XCTUnwrap(try logs(context, foodId: food.id).first)
+        XCTAssertEqual(log.reaction, .skin)
+        XCTAssertEqual(log.severity, .severe)
+    }
+
+    @MainActor
+    func testLogFeedingDropsSeverityWithoutReaction() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+
+        service.logFeeding(food, liking: .liked, reaction: nil, severity: .moderate)
+
+        let log = try XCTUnwrap(try logs(context, foodId: food.id).first)
+        XCTAssertNil(log.severity, "тяжесть без реакции смысла не имеет")
+    }
 }

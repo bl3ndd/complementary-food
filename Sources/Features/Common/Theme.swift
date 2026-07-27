@@ -1,19 +1,58 @@
 import SwiftUI
+import UIKit
 
 /// Детская мультяшная тема: тёплая палитра, скруглённые формы, мягкие тени (SPEC §10).
+///
+/// **Светлая и тёмная.** Дневник ведут в том числе ночью, с ребёнком на руках —
+/// поэтому палитра адаптивная, а не прибитая к светлой. Правило: бренд-акценты
+/// (коралл/мята/небо/сирень) в тёмной чуть светлее для контраста на тёмном фоне;
+/// поверхности (`card`/`fill`/`hairline`) — семантические, их и надо использовать
+/// вместо литералов `.white` / `Color.black.opacity(…)`.
 enum Theme {
-    // MARK: - Палитра
-    static let accent     = Color(red: 0.99, green: 0.49, blue: 0.31)   // тёплый коралл
-    static let accentDeep = Color(red: 0.97, green: 0.33, blue: 0.44)   // коралл → малина
-    static let sunny      = Color(red: 1.00, green: 0.78, blue: 0.28)   // солнечный жёлтый
-    static let mint       = Color(red: 0.36, green: 0.80, blue: 0.60)   // мятный
-    static let sky        = Color(red: 0.40, green: 0.68, blue: 0.95)   // небесный
-    static let lilac      = Color(red: 0.66, green: 0.55, blue: 0.93)   // сиреневый
+    /// Пара «цвет для светлой / цвет для тёмной» одним динамическим Color.
+    static func dynamic(_ light: Color, _ dark: Color) -> Color {
+        Color(uiColor: UIColor { traits in
+            UIColor(traits.userInterfaceStyle == .dark ? dark : light)
+        })
+    }
 
-    static let ink        = Color(red: 0.20, green: 0.16, blue: 0.24)   // мягкий «чернильный» текст
+    // MARK: - Палитра (бренд)
+    static let accent     = dynamic(Color(red: 0.99, green: 0.49, blue: 0.31),
+                                    Color(red: 1.00, green: 0.58, blue: 0.42))   // тёплый коралл
+    static let accentDeep = dynamic(Color(red: 0.97, green: 0.33, blue: 0.44),
+                                    Color(red: 0.98, green: 0.44, blue: 0.54))   // коралл → малина
+    static let sunny      = dynamic(Color(red: 1.00, green: 0.78, blue: 0.28),
+                                    Color(red: 1.00, green: 0.82, blue: 0.40))   // солнечный жёлтый
+    static let mint       = dynamic(Color(red: 0.36, green: 0.80, blue: 0.60),
+                                    Color(red: 0.44, green: 0.86, blue: 0.67))   // мятный
+    static let sky        = dynamic(Color(red: 0.40, green: 0.68, blue: 0.95),
+                                    Color(red: 0.52, green: 0.75, blue: 1.00))   // небесный
+    static let lilac      = dynamic(Color(red: 0.66, green: 0.55, blue: 0.93),
+                                    Color(red: 0.74, green: 0.65, blue: 0.97))   // сиреневый
 
-    static let bgTop    = Color(red: 1.00, green: 0.98, blue: 0.93)
-    static let bgBottom = Color(red: 1.00, green: 0.92, blue: 0.94)
+    /// Мягкий «чернильный» текст (в тёмной — тёплый почти-белый).
+    static let ink        = dynamic(Color(red: 0.20, green: 0.16, blue: 0.24),
+                                    Color(red: 0.95, green: 0.93, blue: 0.97))
+
+    // MARK: - Поверхности (семантические)
+
+    /// Фон приложения: тёплый кремовый ↔ глубокий сливовый.
+    static let bgTop    = dynamic(Color(red: 1.00, green: 0.98, blue: 0.93),
+                                  Color(red: 0.09, green: 0.07, blue: 0.11))
+    static let bgBottom = dynamic(Color(red: 1.00, green: 0.92, blue: 0.94),
+                                  Color(red: 0.13, green: 0.09, blue: 0.13))
+
+    /// Карточка/лист поверх фона (была прибита к `.white`).
+    static let card     = dynamic(.white, Color(red: 0.16, green: 0.14, blue: 0.19))
+
+    /// Лёгкая заливка под чипы/поля ввода (была `Color.black.opacity(0.03…0.05)`).
+    static let fill     = dynamic(Color.black.opacity(0.04), Color.white.opacity(0.07))
+
+    /// Волосяная граница карточек и капсул (была `.black.opacity(0.06)`).
+    static let hairline = dynamic(Color.black.opacity(0.07), Color.white.opacity(0.12))
+
+    /// Обводка карточки: в светлой — белый блик, в тёмной — мягкий контур.
+    static let cardStroke = dynamic(Color.white.opacity(0.9), Color.white.opacity(0.06))
 
     /// Главный градиент-акцент (кнопки, кольца, герой).
     static let accentGradient = LinearGradient(
@@ -46,14 +85,20 @@ enum Theme {
 /// Пятна — радиальные градиенты, НЕ `.blur` (живой блюр пересчитывается каждый кадр
 /// и рушит FPS на переходах — фон есть на каждом экране, при пуше их сразу два).
 struct AppBackground: View {
+    @Environment(\.colorScheme) private var scheme
+
     var body: some View {
-        ZStack {
+        // В тёмной пятна приглушаем: на светлом фоне они дают воздух, на тёмном
+        // в полную силу превращаются в грязь.
+        let k: Double = scheme == .dark ? 0.55 : 1
+
+        return ZStack {
             LinearGradient(colors: [Theme.bgTop, Theme.bgBottom],
                            startPoint: .top, endPoint: .bottom)
 
-            blob(Theme.sunny.opacity(0.22), size: 340, x: -130, y: -260)
-            blob(Theme.sky.opacity(0.20),   size: 320, x: 150,  y: -120)
-            blob(Theme.lilac.opacity(0.17), size: 300, x: -150, y: 320)
+            blob(Theme.sunny.opacity(0.22 * k), size: 340, x: -130, y: -260)
+            blob(Theme.sky.opacity(0.20 * k),   size: 320, x: 150,  y: -120)
+            blob(Theme.lilac.opacity(0.17 * k), size: 300, x: -150, y: 320)
         }
         .ignoresSafeArea()
     }
@@ -88,7 +133,7 @@ struct EmojiAvatar: View {
                     in: RoundedRectangle(cornerRadius: size * 0.32, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: size * 0.32, style: .continuous)
-                .stroke(.white.opacity(0.6), lineWidth: 1))
+                .stroke(Theme.cardStroke, lineWidth: 1))
     }
 }
 
@@ -97,10 +142,10 @@ extension View {
     func cartoonCard(padding: CGFloat = 16) -> some View {
         self.padding(padding)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.white, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .stroke(.white.opacity(0.9), lineWidth: 1))
+                    .stroke(Theme.cardStroke, lineWidth: 1))
             // Одна тень вместо двух — каждый .shadow это offscreen-проход на карточку.
             .shadow(color: Theme.accentDeep.opacity(0.12), radius: 14, x: 0, y: 7)
     }

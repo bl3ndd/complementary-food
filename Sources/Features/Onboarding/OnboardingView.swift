@@ -13,6 +13,8 @@ struct OnboardingView: View {
     @State private var draftChild = Child()
     /// id продуктов, уже введённых до начала работы с приложением (п.23).
     @State private var introduced: Set<String> = []
+    /// Поиск на шаге «что уже ввели».
+    @State private var search = ""
 
     private let catalog = FoodCatalog.shared
     private let lastStep = 3
@@ -98,6 +100,8 @@ struct OnboardingView: View {
         .scrollIndicators(.hidden)
     }
 
+    /// Шаг «что уже ввели». Раньше был плоской простынёй из 71 продукта — теперь
+    /// поиск + группировка по категориям, чтобы не скроллить полэкрана на первом запуске.
     private var alreadyStep: some View {
         ScrollView {
             VStack(spacing: 12) {
@@ -106,15 +110,49 @@ struct OnboardingView: View {
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 8),
-                                    GridItem(.flexible(), spacing: 8)], spacing: 8) {
-                    ForEach(catalog.foods) { food in introducedChip(food) }
+                searchField
+
+                let results = catalog.search(search)
+                ForEach(FoodCategory.allCases, id: \.self) { category in
+                    let foods = results.filter { $0.category == category }
+                    if !foods.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(category.title)
+                                .font(.caption.weight(.heavy))
+                                .foregroundStyle(.secondary)
+                                .textCase(.uppercase)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 8),
+                                                GridItem(.flexible(), spacing: 8)], spacing: 8) {
+                                ForEach(foods) { food in introducedChip(food) }
+                            }
+                        }
+                        .padding(.top, 4)
+                    }
                 }
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 3)
         }
         .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.interactively)
+    }
+
+    private var searchField: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+            TextField("Поиск продукта", text: $search)
+                .autocorrectionDisabled()
+            if !search.isEmpty {
+                Button { search = "" } label: {
+                    Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
+                }
+                .accessibilityLabel(Text("Поиск продукта"))
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .background(Theme.card, in: Capsule())
+        .overlay(Capsule().stroke(Theme.hairline, lineWidth: 1))
     }
 
     private func introducedChip(_ food: Food) -> some View {
@@ -136,7 +174,7 @@ struct OnboardingView: View {
                 }
             }
             .padding(.horizontal, 10).padding(.vertical, 8)
-            .background(on ? Theme.accent.opacity(0.14) : Color.black.opacity(0.03),
+            .background(on ? Theme.accent.opacity(0.14) : Theme.fill,
                         in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .stroke(on ? Theme.accent.opacity(0.5) : .clear, lineWidth: 1.5))
@@ -150,7 +188,7 @@ struct OnboardingView: View {
             .gentleBob()
             .frame(width: 132, height: 132)
             .background(Theme.softGradient(color), in: Circle())
-            .overlay(Circle().stroke(.white.opacity(0.7), lineWidth: 1.5))
+            .overlay(Circle().stroke(Theme.cardStroke, lineWidth: 1.5))
             .shadow(color: color.opacity(0.25), radius: 16, y: 8)
     }
 

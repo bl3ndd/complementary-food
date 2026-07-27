@@ -144,8 +144,11 @@ struct PlanDetailEditor: View {
 
     private var allergenGrid: some View {
         let columns = [GridItem(.adaptive(minimum: 108), spacing: 8)]
+        // `.other` тоже показываем: в каталоге под ней живут цитрусовые, клубника и
+        // киви, плюс туда попадают свои продукты с галкой «аллерген». Без неё они
+        // помечены аллергенами, но в трекер поддержки не попадали никогда.
         return LazyVGrid(columns: columns, spacing: 8) {
-            ForEach(AllergenGroup.allCases.filter { $0 != .other }, id: \.self) { group in
+            ForEach(AllergenGroup.allCases, id: \.self) { group in
                 allergenChip(group)
             }
         }
@@ -165,7 +168,7 @@ struct PlanDetailEditor: View {
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 11).padding(.vertical, 10)
-            .background(on ? Theme.accent.opacity(0.14) : Color.black.opacity(0.03),
+            .background(on ? Theme.accent.opacity(0.14) : Theme.fill,
                         in: RoundedRectangle(cornerRadius: 13, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 13, style: .continuous)

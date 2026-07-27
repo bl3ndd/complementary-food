@@ -200,4 +200,45 @@ final class AllergenTests: XCTestCase {
         XCTAssertEqual(g.lastGiven, daysAgo(1), "база — дата завершения ввода")
         XCTAssertNotEqual(g.status, .overdue, "введённый без логов не должен быть сразу просрочен")
     }
+
+    // MARK: - Мёртвая зона: свои продукты и группа `other` (A1/A2)
+
+    /// Свой продукт с галкой «аллерген» ложится в группу `.other` и раньше выпадал
+    /// из трекера: `AllergenMaintenance` читал только каталог бандла.
+    func testCustomAllergenFoodParticipatesInTracker() throws {
+        let custom = CustomFood(name: "Тахини", emoji: "🥣", isAllergen: true)
+        defer { FoodCatalog.setCustom([]) }
+        FoodCatalog.setCustom([custom])
+
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg, .other])
+        let s = IntroductionStatus(foodId: custom.id, state: .introduced)
+        s.completedAt = daysAgo(1)
+
+        let groups = AllergenMaintenance(catalog: catalog, profile: prof,
+                                         statuses: [s], logs: [], now: now).groups()
+        let other = try XCTUnwrap(groups.first { $0.group == .other },
+                                  "группа `other` должна появиться из своего продукта")
+        XCTAssertTrue(other.isIntroduced)
+        XCTAssertEqual(other.representativeFood?.id, custom.id)
+    }
+
+    /// Каталожные аллергены группы `other` (цитрусовые/клубника/киви) должны
+    /// попадать в трекер, если группа выбрана в плане.
+    func testOtherGroupFromBundledCatalogIsTracked() throws {
+        let catalog = FoodCatalog(foods: [food("strawberry", group: .other)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.other])
+        let s = IntroductionStatus(foodId: "strawberry", state: .introduced)
+        s.completedAt = daysAgo(10)
+
+        let g = try XCTUnwrap(AllergenMaintenance(catalog: catalog, profile: prof,
+                                                  statuses: [s], logs: [], now: now).groups().first)
+        XCTAssertEqual(g.group, .other)
+        XCTAssertEqual(g.status, .overdue, "10 дней при частоте 1×/нед — пора освежить")
+    }
+
+    /// Дефолтный план ребёнка включает `other` — иначе эти продукты молча вне трекера.
+    func testDefaultPlanIncludesOtherGroup() {
+        XCTAssertTrue(Child().customAllergenGroups.contains(.other))
+    }
 }

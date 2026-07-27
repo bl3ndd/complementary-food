@@ -77,11 +77,11 @@ struct FoodIcon: View {
     @ViewBuilder private var tile: some View {
         let fill = Theme.softGradient(Theme.categoryColor(food.category))
         if circular {
-            Circle().fill(fill).overlay(Circle().stroke(.white.opacity(0.6), lineWidth: 1))
+            Circle().fill(fill).overlay(Circle().stroke(Theme.cardStroke, lineWidth: 1))
         } else {
             RoundedRectangle(cornerRadius: size * 0.30, style: .continuous).fill(fill)
                 .overlay(RoundedRectangle(cornerRadius: size * 0.30, style: .continuous)
-                    .stroke(.white.opacity(0.6), lineWidth: 1))
+                    .stroke(Theme.cardStroke, lineWidth: 1))
         }
     }
 

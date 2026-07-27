@@ -8,6 +8,13 @@ struct RecapCard: View {
     let recap: MonthRecap
 
     var body: some View {
+        // Карточка уезжает в сторис как картинка — она всегда светлая, на своём
+        // бренд-градиенте. Фиксируем схему, иначе `.secondary` внутри белой плашки
+        // в тёмной теме становится светло-серым на белом.
+        card.environment(\.colorScheme, .light)
+    }
+
+    private var card: some View {
         ZStack {
             // Фон: бренд-градиент + мягкие блики + рассыпанное конфетти.
             LinearGradient(colors: [Theme.accent, Theme.accentDeep, Theme.lilac],

@@ -13,6 +13,7 @@ struct EditLogSheet: View {
     @State private var date: Date
     @State private var liking: Liking?
     @State private var reaction: ReactionType
+    @State private var severity: ReactionSeverity?
     @State private var note: String
     @State private var photos: [Data]
     @State private var confirmDelete = false
@@ -22,6 +23,7 @@ struct EditLogSheet: View {
         _date = State(initialValue: log.date)
         _liking = State(initialValue: log.liking)
         _reaction = State(initialValue: log.reaction ?? .none)
+        _severity = State(initialValue: log.severity)
         _note = State(initialValue: log.note ?? "")
         _photos = State(initialValue: log.photoDatas)
     }
@@ -47,6 +49,9 @@ struct EditLogSheet: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Реакция").font(.headline)
                             ReactionChips(reaction: $reaction)
+                            if reaction != .none {
+                                SeverityChips(severity: $severity)
+                            }
                         }
                         .cartoonCard()
 
@@ -59,7 +64,7 @@ struct EditLogSheet: View {
                             .lineLimit(2...4)
                             .focused($noteFocused)
                             .padding(12)
-                            .background(Color.black.opacity(0.03),
+                            .background(Theme.fill,
                                         in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     }
                     .cartoonCard()
@@ -93,9 +98,11 @@ struct EditLogSheet: View {
     /// Для плана дата может быть в будущем; для факта — не позже сегодня (п.22).
     @ViewBuilder private var datePicker: some View {
         if isPlanned {
+            // План — это про день, время бессмысленно.
             DatePicker(selection: $date, in: minPlanDate..., displayedComponents: .date) { dateLabel }
         } else {
-            DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) { dateLabel }
+            DatePicker(selection: $date, in: ...Date(),
+                       displayedComponents: [.date, .hourAndMinute]) { dateLabel }
         }
     }
 
@@ -109,6 +116,8 @@ struct EditLogSheet: View {
         if !isPlanned {
             log.liking = liking
             log.reaction = reaction == .none ? nil : reaction
+            // Убрали реакцию — тяжесть без неё смысла не имеет.
+            log.severity = reaction == .none ? nil : severity
             // Пересобираем фото только если реально менялись — иначе лишняя перезапись
             // external-storage/CloudKit при правке одной заметки.
             if photos != log.photoDatas {

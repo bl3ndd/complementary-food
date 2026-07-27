@@ -26,6 +26,7 @@
 		1EC5CAB94A202012B0675F88 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BFA277A9F595AEA4F56908 /* SampleData.swift */; };
 		202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5CB23367B4B53F2901425F /* NotificationManager.swift */; };
 		2441C6E86B2B91A59650E1A3 /* AllergensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9552BEB8A9718015F8F199F9 /* AllergensUITests.swift */; };
+		259083FD61421122F65C060E /* AppSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */; };
 		28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */; };
 		2AE136259F2ED1160F362A34 /* RecapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0577843717A8B0375436D4 /* RecapService.swift */; };
 		2B01BE2AA03EBE41CBE41464 /* FoodCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */; };
@@ -43,6 +44,7 @@
 		5175661213B86BD0231DD81D /* DiaryPDFExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270020787FFBB9A220680C29 /* DiaryPDFExport.swift */; };
 		51E1607B81EE325063A2D1E4 /* foods.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CF87C40EB3D72ED2F5C39B7 /* foods.json */; };
 		5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752BF5E941CC9648AC650547 /* ModelTests.swift */; };
+		5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */; };
 		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
 		659F6D037F6A73319D6E9230 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18465713D438512E16B883 /* Food.swift */; };
 		6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7861AD8F79C95B259F207535 /* FoodIcon.swift */; };
@@ -82,6 +84,7 @@
 		F957DD6E4373E648D08274F9 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21161D9379ED59AF6BECDBFB /* Child.swift */; };
 		FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */; };
 		FBFC9DEB15AD0A4A3E087F30 /* FeedingProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1097FE0A50F9EEDF57EB7CBA /* FeedingProfileTests.swift */; };
+		FCC36B053705C5497D2B8214 /* AppReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831323745180D62F8316E6B1 /* AppReview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +123,7 @@
 		24B3F9D6390A41694B9F5043 /* AddCustomFoodSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomFoodSheet.swift; sourceTree = "<group>"; };
 		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		270020787FFBB9A220680C29 /* DiaryPDFExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPDFExport.swift; sourceTree = "<group>"; };
+		2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewTests.swift; sourceTree = "<group>"; };
 		2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageTests.swift; sourceTree = "<group>"; };
 		3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
 		33137266140F2522867A45A1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
 		806C412A4935A271135884DD /* FoodDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailView.swift; sourceTree = "<group>"; };
+		831323745180D62F8316E6B1 /* AppReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReview.swift; sourceTree = "<group>"; };
 		85E899E48B738A329E5CB660 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		8EECDDA54F71DD47942214DD /* UITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSupport.swift; sourceTree = "<group>"; };
 		8FDA3AB3968043DF47355713 /* PrikormUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PrikormUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +159,7 @@
 		A4E7FEF7218059F4616EC495 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFeedingSheet.swift; sourceTree = "<group>"; };
 		A7E9B74217E24AA130517A1B /* OnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
+		B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSchema.swift; sourceTree = "<group>"; };
 		B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogSheet.swift; sourceTree = "<group>"; };
 		B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 		BA18465713D438512E16B883 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 			children = (
 				57582D03E1DD713519F97F27 /* AllergenTests.swift */,
 				2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */,
+				2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */,
 				E1CA74998939067F427B3264 /* AppShellTests.swift */,
 				CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */,
 				0D6DB0C860BD7973F5D6918A /* DiaryPDFExportTests.swift */,
@@ -377,7 +384,9 @@
 			children = (
 				3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */,
 				4088924D10FC333495FBF4AE /* AppLinks.swift */,
+				831323745180D62F8316E6B1 /* AppReview.swift */,
 				33137266140F2522867A45A1 /* AppRouter.swift */,
+				B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */,
 				DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */,
 				95348E771F9D85BF57C252EA /* PrikormApp.swift */,
 				218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */,
@@ -547,6 +556,7 @@
 			files = (
 				11D010D47663E97F43330F26 /* AllergenTests.swift in Sources */,
 				99C0A75ED7B0D7512C975255 /* AppLanguageTests.swift in Sources */,
+				5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */,
 				11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */,
 				FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */,
 				305050F4BAFFB26A323BB125 /* DiaryPDFExportTests.swift in Sources */,
@@ -572,7 +582,9 @@
 				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
 				F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */,
 				BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */,
+				FCC36B053705C5497D2B8214 /* AppReview.swift in Sources */,
 				ADE88BC5FE14C1B0EBD7FCF5 /* AppRouter.swift in Sources */,
+				259083FD61421122F65C060E /* AppSchema.swift in Sources */,
 				E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */,
 				14A679536E76A2808BB20159 /* CalendarView.swift in Sources */,
 				2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */,

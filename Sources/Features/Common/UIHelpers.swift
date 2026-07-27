@@ -85,12 +85,14 @@ struct SelectChip: View {
                     .foregroundStyle(selected ? tint : .primary)
             }
             .padding(.horizontal, 12).padding(.vertical, 8)
-            .background(selected ? tint.opacity(0.15) : Color.black.opacity(0.03),
+            .background(selected ? tint.opacity(0.15) : Theme.fill,
                         in: Capsule())
-            .overlay(Capsule().stroke(selected ? tint : .black.opacity(0.06),
+            .overlay(Capsule().stroke(selected ? tint : Theme.hairline,
                                       lineWidth: selected ? 2 : 1))
         }
         .buttonStyle(BouncyButtonStyle())
+        .accessibilityLabel(Text(title))
+        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
     }
 }
 
@@ -129,6 +131,49 @@ struct ReactionChips: View {
                 }
             }
         }
+    }
+}
+
+/// Выбор тяжести реакции — показывается только когда реакция выбрана. Это факт для
+/// журнала и PDF, на стейт-машину ввода не влияет (SPEC §4.4).
+struct SeverityChips: View {
+    @Binding var severity: ReactionSeverity?
+
+    var body: some View {
+        FlowLayout(spacing: 8) {
+            ForEach(ReactionSeverity.allCases, id: \.self) { s in
+                chip(s)
+            }
+        }
+    }
+
+    private func chip(_ s: ReactionSeverity) -> some View {
+        let selected = severity == s
+        return Button {
+            Haptics.select()
+            withAnimation(.snappy) { severity = selected ? nil : s }
+        } label: {
+            HStack(spacing: 6) {
+                // Тяжесть точками: ●○○ / ●●○ / ●●● — читается без чтения подписи.
+                HStack(spacing: 2) {
+                    ForEach(0..<3, id: \.self) { i in
+                        Circle()
+                            .fill(i < s.dots ? Color.orange : Color.orange.opacity(0.25))
+                            .frame(width: 6, height: 6)
+                    }
+                }
+                Text(s.title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(selected ? Color.orange : .primary)
+            }
+            .padding(.horizontal, 12).padding(.vertical, 8)
+            .background(selected ? Color.orange.opacity(0.15) : Theme.fill, in: Capsule())
+            .overlay(Capsule().stroke(selected ? Color.orange : Theme.hairline,
+                                      lineWidth: selected ? 2 : 1))
+        }
+        .buttonStyle(BouncyButtonStyle())
+        .accessibilityLabel(Text(s.title))
+        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
     }
 }
 

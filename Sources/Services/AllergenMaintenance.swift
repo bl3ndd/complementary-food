@@ -29,7 +29,9 @@ struct AllergenMaintenance {
         let tracker = AllergenTracker(profile: profile)
 
         return profile.allergenGroups.compactMap { group in
-            let foods = catalog.foods.filter { $0.allergenGroup == group }
+            // `all`, а не `foods`: свои продукты пользователя тоже могут быть
+            // помечены аллергеном — раньше они молча выпадали из трекера.
+            let foods = catalog.all.filter { $0.allergenGroup == group }
             guard !foods.isEmpty else { return nil }
 
             let foodIds = Set(foods.map { $0.id })

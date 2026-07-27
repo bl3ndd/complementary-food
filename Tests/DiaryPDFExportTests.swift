@@ -177,4 +177,18 @@ final class DiaryPDFExportTests: XCTestCase {
         let data = try Data(contentsOf: url)
         XCTAssertEqual(data.prefix(4), Data("%PDF".utf8))
     }
+
+    // MARK: - Тяжесть реакции в отчёте (A6)
+
+    func testSeverityAppearsInReactionSection() throws {
+        let logs = [
+            FoodLog(foodId: "egg_yolk", date: date("2026-06-12T09:00:00Z"), type: .intro,
+                    reaction: .skin, severity: .severe)
+        ]
+        let report = export(logs).report()
+        let reactions = try XCTUnwrap(report.sections.first { $0.heading.contains("(1)") })
+        let line = try XCTUnwrap(reactions.rows.first?.text)
+        XCTAssertTrue(line.contains(ReactionSeverity.severe.title),
+                      "врач должен видеть выраженность: \(line)")
+    }
 }

@@ -19,7 +19,8 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.45), value: children.isEmpty)
         .tint(Theme.accent)
         .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
-        .preferredColorScheme(.light)    // палитра светлая и фиксированная — тёмную тему не поддерживаем
+        // Тему больше не прибиваем: палитра адаптивная (Theme.dynamic), а дневник
+        // ведут в том числе ночью — светлый экран в темноте бьёт по глазам.
     }
 }
 

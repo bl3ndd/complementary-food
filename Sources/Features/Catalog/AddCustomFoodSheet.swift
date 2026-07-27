@@ -2,14 +2,13 @@ import SwiftUI
 import SwiftData
 
 /// Добавление своего продукта (категория «Другое»): название, иконка-эмодзи из
-/// сетки, возраст. Сохраняет `CustomFood` и обновляет реестр каталога.
+/// сетки, отметка «аллерген». Сохраняет `CustomFood` и обновляет реестр каталога.
 struct AddCustomFoodSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
     @State private var name = ""
     @State private var emoji = CustomFoodIcons.options.first?.emoji ?? "🍎"
-    @State private var minAge = 6
     @State private var isAllergen = false
 
     private let columns = [GridItem(.adaptive(minimum: 50), spacing: 8)]
@@ -21,7 +20,6 @@ struct AddCustomFoodSheet: View {
                     preview
                     nameCard
                     emojiCard
-                    ageCard
                     allergenCard
                     BigButton(title: "Добавить") { save() }
                         .padding(.top, 4)
@@ -48,7 +46,7 @@ struct AddCustomFoodSheet: View {
                 .background(Theme.softGradient(Theme.lilac),
                             in: RoundedRectangle(cornerRadius: 24, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .stroke(.white.opacity(0.6), lineWidth: 1))
+                    .stroke(Theme.cardStroke, lineWidth: 1))
             Text(name.isEmpty ? String(localized: "Название") : name)
                 .font(.headline)
                 .foregroundStyle(name.isEmpty ? .secondary : .primary)
@@ -62,7 +60,7 @@ struct AddCustomFoodSheet: View {
             Text("Название").font(.subheadline.bold())
             TextField("Например: компот", text: $name)
                 .padding(12)
-                .background(Color.black.opacity(0.03),
+                .background(Theme.fill,
                             in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         }
         .cartoonCard()
@@ -76,7 +74,7 @@ struct AddCustomFoodSheet: View {
                     Button { emoji = opt.emoji } label: {
                         OpenMojiIcon(asset: "pick_\(opt.code)", fallback: opt.emoji, size: 30)
                             .frame(width: 50, height: 50)
-                            .background(emoji == opt.emoji ? Theme.accent.opacity(0.16) : Color.black.opacity(0.03),
+                            .background(emoji == opt.emoji ? Theme.accent.opacity(0.16) : Theme.fill,
                                         in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .stroke(emoji == opt.emoji ? Theme.accent : .clear, lineWidth: 2))
@@ -92,7 +90,7 @@ struct AddCustomFoodSheet: View {
         Toggle(isOn: $isAllergen) {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Это аллерген").font(.subheadline.weight(.medium))
-                Text("Пометим как аллерген и будем осторожнее при вводе.")
+                Text("Попадёт в трекер поддержки и получит длинное окно наблюдения.")
                     .font(.caption2).foregroundStyle(.secondary)
             }
         }
@@ -100,23 +98,12 @@ struct AddCustomFoodSheet: View {
         .cartoonCard()
     }
 
-    private var ageCard: some View {
-        Stepper(value: $minAge, in: 4...18) {
-            HStack {
-                Text("С какого возраста").font(.subheadline.weight(.medium))
-                Spacer()
-                Text("\(minAge) мес").font(.subheadline.bold()).foregroundStyle(Theme.accent)
-            }
-        }
-        .cartoonCard()
-    }
 
     private func save() {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
         Haptics.success()
-        let food = CustomFood(name: trimmed, emoji: emoji,
-                              minAgeMonths: minAge, isAllergen: isAllergen)
+        let food = CustomFood(name: trimmed, emoji: emoji, isAllergen: isAllergen)
         context.insert(food)
         try? context.save()
         let all = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []

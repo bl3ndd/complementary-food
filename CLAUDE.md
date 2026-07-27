@@ -26,15 +26,24 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   enums in `Enums.swift`.
 - **Services** (`Sources/Services/`): stateless business logic. `FoodCatalog`,
   `FeedingService`, `AllergenTracker`, `AllergenMaintenance`, `CalendarService`,
-  `NotificationManager`.
+  `NotificationManager`, `RecapService`, `DiaryPDFExport`.
+- **Схема хранилища версионирована** (`Sources/App/AppSchema.swift`): `AppSchemaV1` +
+  `AppMigrationPlan` + `StoreRecovery`. Меняешь модели — заводи `AppSchemaV2` и стадию
+  миграции, **не правь V1**. Контейнер не падает в `fatalError`: стор не открылся →
+  файлы уходят в `corrupt-*` → чистый старт → в крайнем случае in-memory.
 - **Features** (`Sources/Features/`): SwiftUI views grouped by screen. Shared UI
   lives in `Features/Common/` — cartoon theme (`Theme`, `AppBackground`,
   `cartoonCard`), components (`BigButton`, `PillButton`, `ProgressRing`, `Chip`,
   `FoodIcon`), and the brand mascot **`Mascot`** (SwiftUI-drawn «Pudding»
   placeholder; `MascotMood` mood logic is unit-tested in `MascotTests`). Used only
   in emotional spots (empty states, onboarding, summary headers, success), never in
-  working screens. App is locked to **light mode** (`RootView.preferredColorScheme(.light)`);
-  there's no dark-theme palette. Display name is «Pudding» (`CFBundleDisplayName`);
+  working screens. **Тема адаптивная — светлая и тёмная.** Палитра собирается через
+  `Theme.dynamic(light, dark)`; в вьюхах используем семантические `Theme.card` /
+  `Theme.fill` / `Theme.hairline` / `Theme.cardStroke`, **а не литералы** `.white` и
+  `Color.black.opacity(…)` — иначе экран ломается в тёмной. Исключение — `RecapCard`:
+  это шэр-картинка, она принудительно светлая (`.environment(\.colorScheme, .light)`).
+  Анимации уважают `accessibilityReduceMotion` (`Delight.swift`).
+  Display name is «Pudding» (`CFBundleDisplayName`);
   target stays `Prikorm`; bundle id is `com.pudding.app` (tests: `com.pudding.tests`/`.uitests`).
 - **App-level constants** (`Sources/App/`): `AppLinks` (privacy/terms/support URLs —
   placeholders until the `site/` landing is deployed) and `Disclaimer` (single medical
