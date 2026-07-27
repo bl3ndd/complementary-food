@@ -1,0 +1,69 @@
+{
+  "lang": "it",
+  "path": "/it/",
+  "shots_dir": "it",
+  "native": "Italiano",
+  "native_short": "IT",
+  "lang_label": "Lingua",
+  "og_locale": "it_IT",
+  "currency": "EUR",
+  "legal": "en",
+  "title": "Pudding — il diario dello svezzamento, senza ansia",
+  "meta_desc": "Pudding è un diario dello svezzamento accogliente: annota pappe e reazioni, segui la finestra di osservazione e riproponi in tempo gli allergeni già introdotti. Senza account: tutto resta sul tuo telefono.",
+  "keywords": "svezzamento, diario svezzamento, autosvezzamento, primi cibi bambino, allergeni bambino, diario alimentare neonato, reazione al cibo",
+  "og_title": "Pudding — il diario dello svezzamento",
+  "og_desc": "Annota pappe e reazioni, segui la finestra di osservazione, non dimenticare gli allergeni. Tutti i dati restano sul telefono.",
+  "tw_desc": "Un diario dello svezzamento accogliente. Tutto resta sul tuo telefono.",
+  "nav": { "features": "Funzioni", "screens": "Schermate", "privacy": "Privacy" },
+  "h1": "Svezzamento senza ansia",
+  "hero_sub": "Pudding annota con cura pappe e reazioni, mostra la finestra di osservazione e ti ricorda di riproporre in tempo gli allergeni già introdotti. Cosa e quando dare al tuo bambino lo decidi tu.",
+  "cta_store": "Presto su App Store",
+  "cta_how": "Come funziona",
+  "badges": ["Offline, senza account", "Senza pubblicità né tracciamento", "PDF per il pediatra"],
+  "alt_mascot": "Mascotte Pudding",
+  "problem_h2": "Lo svezzamento mette ansia. Ci siamo noi.",
+  "problem_lead": "Cosa abbiamo già provato? C'è stata una reazione? L'uovo quando è stato? Pudding tiene tutto in un unico diario accogliente, al posto delle tabelle nelle note e dell'ansia alle tre di notte.",
+  "how_h2": "Come funziona",
+  "how_lead": "Tre abitudini semplici e tutta la storia dello svezzamento è a portata di mano.",
+  "steps": [
+    { "h": "Annota", "p": "La pappa, un voto «com'è andata», la reazione, una nota e le foto: in un paio di tocchi." },
+    { "h": "Osserva", "p": "Ogni nuovo alimento passa dalla finestra di osservazione del tuo piano: «giorno 2 di 3» sulla scheda." },
+    { "h": "Non dimenticare", "p": "Pudding ti ricorda di riproporre gli allergeni introdotti, così l'abitudine non si perde." }
+  ],
+  "features_h2": "Quattro pilastri",
+  "cards": [
+    { "alt": "Catalogo alimenti", "h": "Catalogo + alimenti tuoi", "p": "Oltre 70 alimenti con illustrazioni accoglienti — e i tuoi, se manca qualcosa." },
+    { "alt": "Introdurre un alimento", "h": "Uno alla volta", "p": "La finestra di osservazione si imposta nel tuo piano: separata per alimenti comuni e allergeni." },
+    { "alt": "Allergeni", "h": "Allergeni sotto controllo", "p": "Promemoria delicati per riproporre gli allergeni introdotti, con la frequenza del tuo piano." },
+    { "alt": "Calendario", "h": "Calendario, PDF e riepilogo", "p": "Cronologia con filtri, PDF per il pediatra, lista «da non dare» per chi bada al bimbo e il riepilogo del mese." }
+  ],
+  "screens_h2": "Dai un'occhiata dentro",
+  "screens_lead": "Tema chiaro in stile cartoon, la mascotte Pudding e niente di superfluo.",
+  "shots": [
+    { "cap": "Home", "alt": "Schermata principale di Pudding: diario di oggi e collezione di alimenti" },
+    { "cap": "Finestra di osservazione", "alt": "Scheda alimento con finestra di osservazione, giorno 2 di 3" },
+    { "cap": "Calendario", "alt": "Cronologia a calendario con filtri e pappe pianificate" },
+    { "cap": "Allergeni", "alt": "Monitoraggio allergeni: è ora di riproporre" },
+    { "cap": "Riepilogo del mese", "alt": "Card del riepilogo mensile da condividere nelle storie" }
+  ],
+  "privacy_h2": "I tuoi dati restano sul tuo telefono",
+  "privacy_lead": "Nessun account, nessuna pubblicità, nessun tracciamento. Nome del bambino, registrazioni, foto e reazioni restano in locale e non vanno da nessuna parte.",
+  "pills": ["Senza account", "Senza pubblicità", "Senza tracker", "Solo sul dispositivo"],
+  "method_h2": "Il piano è tuo. Pudding è il diario.",
+  "method_lead": "Età di inizio, finestre di osservazione, frequenza ed elenco degli allergeni: tutto si imposta secondo le indicazioni del tuo pediatra. Pudding non prescrive e non consiglia nulla: annota con cura e ricorda al momento giusto.",
+  "faq_h2": "Domande frequenti",
+  "faq": [
+    { "q": "È gratis?", "a": "Sì, al lancio Pudding è gratuito." },
+    { "q": "Servono internet o un account?", "a": "No. L'app funziona offline e non serve registrarsi: tutti i dati restano sul tuo dispositivo." },
+    { "q": "Pudding sostituisce il pediatra?", "a": "No. È un diario che accompagna: annota e ricorda. Tempi e decisioni li concordi con il tuo medico." },
+    { "q": "Da dove vengono i tempi?", "a": "Non sono imposti: età di inizio, finestre di osservazione e frequenza degli allergeni li imposti tu nel «tuo piano», seguendo le indicazioni del pediatra." },
+    { "q": "C'è un export per il medico?", "a": "Sì. Un PDF con la cronologia delle pappe, le reazioni e lo stato degli allergeni si crea in un paio di tocchi. In più una breve lista «da non dare» per la tata o l'asilo." }
+  ],
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "support": "Supporto",
+    "disclaimer": "Pudding è un diario dello svezzamento, non un consiglio medico. Le decisioni su alimenti e allergeni prendile insieme al tuo pediatra."
+  },
+  "jsonld_desc": "Diario dello svezzamento: registro di pappe e reazioni, finestra di osservazione, promemoria per gli allergeni e PDF per il pediatra. Tutti i dati restano sul dispositivo."
+}

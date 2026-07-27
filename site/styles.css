@@ -15,7 +15,11 @@
   --radius: 24px;
   --shadow: 0 16px 40px rgba(247, 84, 112, 0.10), 0 2px 6px rgba(0, 0, 0, 0.04);
   --accent-grad: linear-gradient(135deg, var(--accent), var(--accent-deep));
-  --font: "Nunito", -apple-system, "SF Pro Rounded", system-ui, sans-serif;
+  /* Nunito не покрывает CJK — после него системные японский/корейский/китайский,
+     иначе браузер подставляет случайный засечный фолбэк. */
+  --font: "Nunito", -apple-system, "SF Pro Rounded", system-ui,
+          "Hiragino Sans", "Yu Gothic", "Apple SD Gothic Neo", "Malgun Gothic",
+          "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,9 +52,35 @@ header.site {
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; }
 .brand img { width: 38px; height: 38px; }
 .nav-right { display: flex; align-items: center; gap: 18px; font-weight: 700; }
+/* Юридические страницы (privacy/terms) живут только на RU+EN — там простой RU · EN. */
 .lang { font-size: 14px; color: var(--muted); }
 .lang a { color: var(--muted); }
 .lang a.active { color: var(--ink); }
+
+/* Лендинг — 14 языков: дропдаун на <details>, без JS (CSP: script-src 'self'). */
+.langpick { position: relative; font-size: 14px; }
+.langpick > summary {
+  list-style: none; cursor: pointer; user-select: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--muted); padding: 6px 12px; border-radius: 999px;
+  border: 1px solid rgba(51, 41, 65, .12); background: rgba(255, 255, 255, .6);
+}
+.langpick > summary::-webkit-details-marker { display: none; }
+.langpick > summary:hover { color: var(--ink); }
+.langpick[open] > summary { color: var(--ink); background: #fff; }
+.langpick .globe { font-size: 13px; }
+.langmenu {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 20;
+  display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 2px;
+  padding: 8px; border-radius: 18px; background: #fff;
+  box-shadow: var(--shadow); border: 1px solid rgba(51, 41, 65, .08);
+}
+.langmenu a {
+  display: block; padding: 8px 12px; border-radius: 12px;
+  color: var(--muted); font-weight: 700; white-space: nowrap;
+}
+.langmenu a:hover { background: var(--cream); color: var(--ink); text-decoration: none; }
+.langmenu a.active { color: var(--ink); background: var(--pink); }
 
 /* ---- Кнопки ---- */
 .btn {
@@ -208,6 +238,7 @@ footer.site .disclaimer { max-width: 640px; margin: 14px auto 0; font-size: 13px
 /* ---- Узкие экраны: ужимаем отступы, прячем пункты меню (п.26) ---- */
 @media (max-width: 720px) {
   .nav-right > a { display: none; }   /* остаётся только переключатель языка */
+  .langmenu { max-height: 60vh; overflow-y: auto; }
 }
 @media (max-width: 480px) {
   .wrap { padding: 0 16px; }

@@ -119,3 +119,17 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   intentionally goes straight to `UNUserNotificationCenter.current()` (the permission prompt
   is outside the seam); only the scheduling path (`apply` / `requests(for:)`) is mockable.
 - Target ≥80% logic-layer coverage (services + models); UI is intentionally thin.
+
+## Лендинг (`site/`)
+
+- Лендинг живёт на Vercel (`pudding-for-children.vercel.app`, `cleanUrls: true` →
+  ссылки без `.html`) и **генерируется**: `python3 scripts/landing/build.py` собирает
+  `site/index.html` (ru) + `site/<lang>/index.html` на **14 языках** и `site/sitemap.xml`.
+- **`site/*/index.html` руками не править** — только тексты в
+  `scripts/landing/i18n/<lang>.json` и разметку в `scripts/landing/build.py`,
+  иначе следующая генерация затрёт правки.
+- `privacy.html` / `terms.html` — ручные, только RU + EN; локализованные лендинги
+  ссылаются на английские (`legal: "en"` в JSON).
+- Скриншоты лендинга — ресайз из `appstore_screenshots/raw/<locale>/` в
+  `site/assets/screens/<locale>/` (1080px, JPEG q92, `sips`). Пересняли витрину —
+  пересобери и их.

@@ -1,0 +1,69 @@
+{
+  "lang": "de",
+  "path": "/de/",
+  "shots_dir": "de",
+  "native": "Deutsch",
+  "native_short": "DE",
+  "lang_label": "Sprache",
+  "og_locale": "de_DE",
+  "currency": "EUR",
+  "legal": "en",
+  "title": "Pudding — das entspannte Beikost-Tagebuch für Eltern",
+  "meta_desc": "Pudding ist ein warmherziges Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, das Beobachtungsfenster im Blick behalten und eingeführte Allergene rechtzeitig wiederholen. Ohne Konto — alles bleibt auf deinem Handy.",
+  "keywords": "Beikost, Beikost Tagebuch, Beikoststart, erste Beikost, Breifrei Tracker, Allergene Baby, Baby Ernährungstagebuch, Reaktion auf Beikost",
+  "og_title": "Pudding — das entspannte Beikost-Tagebuch",
+  "og_desc": "Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster im Blick, Allergene nicht vergessen. Alle Daten bleiben auf dem Handy.",
+  "tw_desc": "Ein warmherziges Beikost-Tagebuch. Alle Daten bleiben auf deinem Handy.",
+  "nav": { "features": "Funktionen", "screens": "Screenshots", "privacy": "Datenschutz" },
+  "h1": "Beikost ohne Panik",
+  "hero_sub": "Pudding hält Mahlzeiten und Reaktionen sorgfältig fest, zeigt das Beobachtungsfenster und erinnert dich rechtzeitig daran, eingeführte Allergene zu wiederholen. Was und wann dein Baby isst — das entscheidest du.",
+  "cta_store": "Bald im App Store",
+  "cta_how": "So funktioniert's",
+  "badges": ["Offline, ohne Konto", "Ohne Werbung und Tracking", "PDF für die Kinderärztin"],
+  "alt_mascot": "Pudding-Maskottchen",
+  "problem_h2": "Beikost macht nervös. Wir sind dabei.",
+  "problem_lead": "Was gab es schon? Gab es eine Reaktion? Wann zuletzt Ei? Pudding hält alles in einem warmherzigen Tagebuch fest — statt Tabellen in den Notizen und Panik um drei Uhr nachts.",
+  "how_h2": "So funktioniert's",
+  "how_lead": "Drei einfache Gewohnheiten — und die ganze Beikost-Geschichte ist griffbereit.",
+  "steps": [
+    { "h": "Festhalten", "p": "Mahlzeit, „Wie lief es?“-Bewertung, Reaktion, Notiz und Fotos — mit wenigen Tipps." },
+    { "h": "Beobachten", "p": "Jedes neue Lebensmittel läuft durch das Beobachtungsfenster deines Plans — „Tag 2 von 3“ direkt auf der Karte." },
+    { "h": "Dranbleiben", "p": "An eingeführte Allergene erinnert Pudding rechtzeitig, damit die Gewöhnung nicht verloren geht." }
+  ],
+  "features_h2": "Vier Säulen",
+  "cards": [
+    { "alt": "Lebensmittel-Katalog", "h": "Katalog + eigene Lebensmittel", "p": "70+ Lebensmittel mit warmen Illustrationen — und eigene, wenn etwas fehlt." },
+    { "alt": "Lebensmittel einführen", "h": "Eins nach dem anderen", "p": "Das Beobachtungsfenster stellst du in deinem Plan ein: getrennt für normale Lebensmittel und Allergene." },
+    { "alt": "Allergene", "h": "Allergene im Griff", "p": "Sanfte Erinnerungen, eingeführte Allergene zu wiederholen — im Rhythmus deines Plans." },
+    { "alt": "Kalender", "h": "Kalender, PDF und Rückblick", "p": "Verlauf mit Filtern, PDF für die Kinderärztin, „Bitte nicht geben“-Liste für die Betreuung und der Monatsrückblick." }
+  ],
+  "screens_h2": "Wirf einen Blick hinein",
+  "screens_lead": "Helles Cartoon-Design, das Maskottchen Pudding und nichts Überflüssiges.",
+  "shots": [
+    { "cap": "Start", "alt": "Startbildschirm von Pudding: Tagebuch von heute und Lebensmittel-Sammlung" },
+    { "cap": "Beobachtungsfenster", "alt": "Lebensmittel-Karte mit Beobachtungsfenster, Tag 2 von 3" },
+    { "cap": "Kalender", "alt": "Kalender-Verlauf mit Filtern und Plänen" },
+    { "cap": "Allergene", "alt": "Allergen-Tracker: Zeit zum Auffrischen" },
+    { "cap": "Monatsrückblick", "alt": "Monatsrückblick als Karte für Stories" }
+  ],
+  "privacy_h2": "Deine Daten bleiben auf deinem Handy",
+  "privacy_lead": "Kein Konto, keine Werbung, kein Tracking. Name des Kindes, Einträge, Fotos und Reaktionen bleiben lokal und verlassen das Gerät nie.",
+  "pills": ["Ohne Konto", "Ohne Werbung", "Ohne Tracker", "Nur auf dem Gerät"],
+  "method_h2": "Der Plan ist deiner. Pudding ist das Tagebuch.",
+  "method_lead": "Startalter, Beobachtungsfenster, Häufigkeit und Allergen-Liste — alles richtest du nach den Empfehlungen deiner Kinderärztin ein. Pudding verordnet nichts und rät nichts: Es hält sorgfältig fest und erinnert rechtzeitig.",
+  "faq_h2": "Häufige Fragen",
+  "faq": [
+    { "q": "Ist die App kostenlos?", "a": "Ja, zum Start ist Pudding kostenlos." },
+    { "q": "Brauche ich Internet oder ein Konto?", "a": "Nein. Die App funktioniert offline, eine Anmeldung ist nicht nötig — alle Daten bleiben auf deinem Gerät." },
+    { "q": "Ersetzt Pudding die Kinderärztin?", "a": "Nein. Es ist ein Tagebuch-Begleiter: Es hält fest und erinnert. Zeitpunkte und Entscheidungen besprichst du mit deiner Ärztin." },
+    { "q": "Woher kommen die Zeitangaben?", "a": "Sie werden nicht vorgegeben: Startalter, Beobachtungsfenster und Allergen-Häufigkeit legst du selbst in „deinem Plan“ fest — nach den Empfehlungen deiner Kinderärztin." },
+    { "q": "Gibt es einen Export für die Ärztin?", "a": "Ja. Ein PDF mit Mahlzeiten-Historie, Reaktionen und Allergen-Status entsteht mit wenigen Tipps. Dazu eine kurze „Bitte nicht geben“-Liste für Tagesmutter oder Kita." }
+  ],
+  "footer": {
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "support": "Support",
+    "disclaimer": "Pudding ist ein Beikost-Tagebuch, keine medizinische Beratung. Entscheidungen über Lebensmittel und Allergene triffst du gemeinsam mit deiner Kinderärztin."
+  },
+  "jsonld_desc": "Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster, Allergen-Erinnerungen und ein PDF für die Kinderärztin. Alle Daten bleiben auf dem Gerät."
+}
