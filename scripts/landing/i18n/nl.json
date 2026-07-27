@@ -1,6 +1,6 @@
 {
   "lang": "nl",
-  "path": "/nl/",
+  "path": "/nl",
   "shots_dir": "nl",
   "native": "Nederlands",
   "native_short": "NL",
@@ -14,50 +14,118 @@
   "og_title": "Pudding — een rustig bijvoedingsdagboek",
   "og_desc": "Leg voedingen en reacties vast, houd het observatievenster bij, vergeet de allergenen niet. Alle gegevens blijven op je telefoon.",
   "tw_desc": "Een warm bijvoedingsdagboek. Alles blijft op je telefoon.",
-  "nav": { "features": "Functies", "screens": "Schermen", "privacy": "Privacy" },
+  "nav": {
+    "features": "Functies",
+    "screens": "Schermen",
+    "privacy": "Privacy"
+  },
   "h1": "Bijvoeding zonder paniek",
   "hero_sub": "Pudding legt voedingen en reacties zorgvuldig vast, laat het observatievenster zien en herinnert je er op tijd aan om geïntroduceerde allergenen te herhalen. Wat en wanneer je kindje eet, bepaal jij.",
   "cta_store": "Binnenkort in de App Store",
   "cta_how": "Hoe het werkt",
-  "badges": ["Offline, zonder account", "Zonder advertenties en tracking", "PDF voor de kinderarts"],
+  "badges": [
+    "Offline, zonder account",
+    "Zonder advertenties en tracking",
+    "PDF voor de kinderarts"
+  ],
   "alt_mascot": "Pudding-mascotte",
   "problem_h2": "Bijvoeding geeft spanning. Wij denken mee.",
   "problem_lead": "Wat hebben we al gegeven? Was er een reactie? Wanneer was het ei? Pudding bewaart alles in één warm dagboek — in plaats van tabellen in je notities en paniek om drie uur 's nachts.",
   "how_h2": "Hoe het werkt",
   "how_lead": "Drie simpele gewoontes — en het hele verhaal van de bijvoeding is bij de hand.",
   "steps": [
-    { "h": "Vastleggen", "p": "Een voeding, een «hoe ging het»-beoordeling, een reactie, een notitie en foto's — in een paar tikken." },
-    { "h": "Observeren", "p": "Elk nieuw product doorloopt het observatievenster uit jouw plan — «dag 2 van 3» direct op de kaart." },
-    { "h": "Niet vergeten", "p": "Pudding herinnert je eraan geïntroduceerde allergenen te herhalen, zodat de gewenning niet verloren gaat." }
+    {
+      "h": "Vastleggen",
+      "p": "Een voeding, een «hoe ging het»-beoordeling, een reactie, een notitie en foto's — in een paar tikken."
+    },
+    {
+      "h": "Observeren",
+      "p": "Elk nieuw product doorloopt het observatievenster uit jouw plan — «dag 2 van 3» direct op de kaart."
+    },
+    {
+      "h": "Niet vergeten",
+      "p": "Pudding herinnert je eraan geïntroduceerde allergenen te herhalen, zodat de gewenning niet verloren gaat."
+    }
   ],
   "features_h2": "Vier pijlers",
   "cards": [
-    { "alt": "Productencatalogus", "h": "Catalogus + eigen producten", "p": "70+ producten met warme illustraties — en je eigen producten als er iets ontbreekt." },
-    { "alt": "Product introduceren", "h": "Eén product tegelijk", "p": "Het observatievenster stel je in je plan in: apart voor gewone producten en allergenen." },
-    { "alt": "Allergenen", "h": "Allergenen onder controle", "p": "Zachte herinneringen om geïntroduceerde allergenen te herhalen — met de frequentie uit jouw plan." },
-    { "alt": "Kalender", "h": "Kalender, PDF en maandrecap", "p": "Geschiedenis met filters, een PDF voor de kinderarts, een «niet geven»-lijst voor de oppas en de recap van de maand." }
+    {
+      "alt": "Productencatalogus",
+      "h": "Catalogus + eigen producten",
+      "p": "70+ producten met warme illustraties — en je eigen producten als er iets ontbreekt."
+    },
+    {
+      "alt": "Product introduceren",
+      "h": "Eén product tegelijk",
+      "p": "Het observatievenster stel je in je plan in: apart voor gewone producten en allergenen."
+    },
+    {
+      "alt": "Allergenen",
+      "h": "Allergenen onder controle",
+      "p": "Zachte herinneringen om geïntroduceerde allergenen te herhalen — met de frequentie uit jouw plan."
+    },
+    {
+      "alt": "Kalender",
+      "h": "Kalender, PDF en maandrecap",
+      "p": "Geschiedenis met filters, een PDF voor de kinderarts, een «niet geven»-lijst voor de oppas en de recap van de maand."
+    }
   ],
   "screens_h2": "Kijk even binnen",
   "screens_lead": "Een licht cartoonthema, mascotte Pudding en verder niets overbodigs.",
   "shots": [
-    { "cap": "Start", "alt": "Startscherm van Pudding: dagboek van vandaag en productenverzameling" },
-    { "cap": "Observatievenster", "alt": "Productkaart met observatievenster, dag 2 van 3" },
-    { "cap": "Kalender", "alt": "Kalenderoverzicht met filters en geplande voedingen" },
-    { "cap": "Allergenen", "alt": "Allergenentracker: tijd om te herhalen" },
-    { "cap": "Maandrecap", "alt": "Recapkaart van de maand voor stories" }
+    {
+      "cap": "Start",
+      "alt": "Startscherm van Pudding: dagboek van vandaag en productenverzameling"
+    },
+    {
+      "cap": "Observatievenster",
+      "alt": "Productkaart met observatievenster, dag 2 van 3"
+    },
+    {
+      "cap": "Kalender",
+      "alt": "Kalenderoverzicht met filters en geplande voedingen"
+    },
+    {
+      "cap": "Allergenen",
+      "alt": "Allergenentracker: tijd om te herhalen"
+    },
+    {
+      "cap": "Maandrecap",
+      "alt": "Recapkaart van de maand voor stories"
+    }
   ],
   "privacy_h2": "Jouw gegevens blijven op jouw telefoon",
   "privacy_lead": "Geen account, geen advertenties, geen tracking. De naam van je kind, notities, foto's en reacties blijven lokaal en gaan nergens heen.",
-  "pills": ["Zonder account", "Zonder advertenties", "Zonder trackers", "Alleen op het toestel"],
+  "pills": [
+    "Zonder account",
+    "Zonder advertenties",
+    "Zonder trackers",
+    "Alleen op het toestel"
+  ],
   "method_h2": "Het plan is van jou. Pudding is het dagboek.",
   "method_lead": "Startleeftijd, observatievensters, frequentie en allergenenlijst — alles stel je in volgens het advies van je kinderarts. Pudding schrijft niets voor en adviseert niets: het legt zorgvuldig vast en herinnert op tijd.",
   "faq_h2": "Veelgestelde vragen",
   "faq": [
-    { "q": "Is het gratis?", "a": "Ja, bij de lancering is Pudding gratis." },
-    { "q": "Heb ik internet of een account nodig?", "a": "Nee. De app werkt offline en registreren hoeft niet — alle gegevens blijven op je toestel." },
-    { "q": "Vervangt Pudding de kinderarts?", "a": "Nee. Het is een dagboek dat meeloopt: het legt vast en herinnert. Timing en beslissingen stem je af met je arts." },
-    { "q": "Waar komen de termijnen vandaan?", "a": "Ze worden nergens opgelegd: startleeftijd, observatievensters en de frequentie van allergenen stel je zelf in in «jouw plan» — volgens het advies van je kinderarts." },
-    { "q": "Is er een export voor de arts?", "a": "Ja. Een PDF met de voedingsgeschiedenis, reacties en allergenenstatus staat er in een paar tikken. Plus een korte «niet geven»-lijst voor de oppas of het kinderdagverblijf." }
+    {
+      "q": "Is het gratis?",
+      "a": "Ja, bij de lancering is Pudding gratis."
+    },
+    {
+      "q": "Heb ik internet of een account nodig?",
+      "a": "Nee. De app werkt offline en registreren hoeft niet — alle gegevens blijven op je toestel."
+    },
+    {
+      "q": "Vervangt Pudding de kinderarts?",
+      "a": "Nee. Het is een dagboek dat meeloopt: het legt vast en herinnert. Timing en beslissingen stem je af met je arts."
+    },
+    {
+      "q": "Waar komen de termijnen vandaan?",
+      "a": "Ze worden nergens opgelegd: startleeftijd, observatievensters en de frequentie van allergenen stel je zelf in in «jouw plan» — volgens het advies van je kinderarts."
+    },
+    {
+      "q": "Is er een export voor de arts?",
+      "a": "Ja. Een PDF met de voedingsgeschiedenis, reacties en allergenenstatus staat er in een paar tikken. Plus een korte «niet geven»-lijst voor de oppas of het kinderdagverblijf."
+    }
   ],
   "footer": {
     "privacy": "Privacy",

@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "path": "/en/",
+  "path": "/en",
   "shots_dir": "en",
   "native": "English",
   "native_short": "EN",
@@ -13,50 +13,118 @@
   "og_title": "Pudding — a calm baby food diary",
   "og_desc": "Log feedings and reactions, watch the observation window, keep allergens on schedule. Everything stays on your phone.",
   "tw_desc": "A warm first-foods diary. Everything stays on your phone.",
-  "nav": { "features": "Features", "screens": "Screenshots", "privacy": "Privacy" },
+  "nav": {
+    "features": "Features",
+    "screens": "Screenshots",
+    "privacy": "Privacy"
+  },
   "h1": "Starting solids, zero panic",
   "hero_sub": "Pudding quietly keeps track of feedings and reactions, shows the observation window, and reminds you to repeat introduced allergens on time. What and when to feed your baby — that's your call.",
   "cta_store": "Coming to the App Store",
   "cta_how": "How it works",
-  "badges": ["Offline, no account", "No ads, no tracking", "PDF for your pediatrician"],
+  "badges": [
+    "Offline, no account",
+    "No ads, no tracking",
+    "PDF for your pediatrician"
+  ],
   "alt_mascot": "Pudding mascot",
   "problem_h2": "Starting solids is stressful. We get it.",
   "problem_lead": "What did we already try? Was there a reaction? When did we last give egg? Pudding keeps it all in one warm diary — instead of notes-app tables and 3 a.m. panic.",
   "how_h2": "How it works",
   "how_lead": "Three simple habits — and the whole feeding story is at hand.",
   "steps": [
-    { "h": "Log it", "p": "A feeding, a \"how it went\" rating, a reaction, a note and photos — in a couple of taps." },
-    { "h": "Watch it", "p": "Every new food goes through your plan's observation window — \"day 2 of 3\" right on the food card." },
-    { "h": "Keep it up", "p": "Pudding gently reminds you to repeat introduced allergens so tolerance isn't lost." }
+    {
+      "h": "Log it",
+      "p": "A feeding, a \"how it went\" rating, a reaction, a note and photos — in a couple of taps."
+    },
+    {
+      "h": "Watch it",
+      "p": "Every new food goes through your plan's observation window — \"day 2 of 3\" right on the food card."
+    },
+    {
+      "h": "Keep it up",
+      "p": "Pudding gently reminds you to repeat introduced allergens so tolerance isn't lost."
+    }
   ],
   "features_h2": "Four pillars",
   "cards": [
-    { "alt": "Food catalog", "h": "Catalog + custom foods", "p": "70+ foods with warm illustrations — plus your own custom foods when something's missing." },
-    { "alt": "Introducing foods", "h": "One food at a time", "p": "The observation window is set in your plan: separate for regular foods and allergens." },
-    { "alt": "Allergens", "h": "Allergens on schedule", "p": "Gentle reminders to repeat introduced allergens — at the frequency from your plan." },
-    { "alt": "Calendar", "h": "Calendar, PDF & recap", "p": "A history feed with filters, a PDF for your pediatrician, a \"do not give\" sheet and a monthly recap." }
+    {
+      "alt": "Food catalog",
+      "h": "Catalog + custom foods",
+      "p": "70+ foods with warm illustrations — plus your own custom foods when something's missing."
+    },
+    {
+      "alt": "Introducing foods",
+      "h": "One food at a time",
+      "p": "The observation window is set in your plan: separate for regular foods and allergens."
+    },
+    {
+      "alt": "Allergens",
+      "h": "Allergens on schedule",
+      "p": "Gentle reminders to repeat introduced allergens — at the frequency from your plan."
+    },
+    {
+      "alt": "Calendar",
+      "h": "Calendar, PDF & recap",
+      "p": "A history feed with filters, a PDF for your pediatrician, a \"do not give\" sheet and a monthly recap."
+    }
   ],
   "screens_h2": "Take a peek inside",
   "screens_lead": "A light cartoon theme, Pudding the mascot, and nothing extra.",
   "shots": [
-    { "cap": "Home", "alt": "Pudding home screen: today's diary and food collection" },
-    { "cap": "Observation window", "alt": "Food card with observation window, day 2 of 3" },
-    { "cap": "Calendar", "alt": "Calendar feed with filters and plans" },
-    { "cap": "Allergens", "alt": "Allergen tracker: time to refresh" },
-    { "cap": "Monthly recap", "alt": "Monthly recap card for stories" }
+    {
+      "cap": "Home",
+      "alt": "Pudding home screen: today's diary and food collection"
+    },
+    {
+      "cap": "Observation window",
+      "alt": "Food card with observation window, day 2 of 3"
+    },
+    {
+      "cap": "Calendar",
+      "alt": "Calendar feed with filters and plans"
+    },
+    {
+      "cap": "Allergens",
+      "alt": "Allergen tracker: time to refresh"
+    },
+    {
+      "cap": "Monthly recap",
+      "alt": "Monthly recap card for stories"
+    }
   ],
   "privacy_h2": "Your data stays on your phone",
   "privacy_lead": "No account, no ads, no tracking. Your baby's name, entries, photos and reactions are stored locally and never leave the device.",
-  "pills": ["No account", "No ads", "No trackers", "On-device only"],
+  "pills": [
+    "No account",
+    "No ads",
+    "No trackers",
+    "On-device only"
+  ],
   "method_h2": "The plan is yours. Pudding is the diary.",
   "method_lead": "Starting age, observation windows, allergen frequency and list — everything is configured to match your pediatrician's guidance. Pudding prescribes nothing and advises nothing: it carefully records and reminds on time.",
   "faq_h2": "FAQ",
   "faq": [
-    { "q": "Is it free?", "a": "Yes, Pudding is free at launch." },
-    { "q": "Do I need internet or an account?", "a": "No. The app works offline, no sign-up — all data stays on your device." },
-    { "q": "Does Pudding replace a pediatrician?", "a": "No. It's a diary companion: it records and reminds. Agree on timing and decisions with your doctor." },
-    { "q": "Where do the timings come from?", "a": "They're not imposed: you set the starting age, observation windows and allergen frequency yourself in \"your plan\" — following your pediatrician's guidance." },
-    { "q": "Is there an export for the doctor?", "a": "Yes. A PDF with the feeding history, reactions and allergen status in a couple of taps — plus a short \"do not give\" sheet for the nanny or daycare." }
+    {
+      "q": "Is it free?",
+      "a": "Yes, Pudding is free at launch."
+    },
+    {
+      "q": "Do I need internet or an account?",
+      "a": "No. The app works offline, no sign-up — all data stays on your device."
+    },
+    {
+      "q": "Does Pudding replace a pediatrician?",
+      "a": "No. It's a diary companion: it records and reminds. Agree on timing and decisions with your doctor."
+    },
+    {
+      "q": "Where do the timings come from?",
+      "a": "They're not imposed: you set the starting age, observation windows and allergen frequency yourself in \"your plan\" — following your pediatrician's guidance."
+    },
+    {
+      "q": "Is there an export for the doctor?",
+      "a": "Yes. A PDF with the feeding history, reactions and allergen status in a couple of taps — plus a short \"do not give\" sheet for the nanny or daycare."
+    }
   ],
   "footer": {
     "privacy": "Privacy",

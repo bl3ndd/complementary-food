@@ -1,6 +1,6 @@
 {
   "lang": "pt-BR",
-  "path": "/pt-br/",
+  "path": "/pt-br",
   "shots_dir": "pt-BR",
   "native": "Português (BR)",
   "native_short": "PT",
@@ -14,50 +14,118 @@
   "og_title": "Pudding — diário de introdução alimentar",
   "og_desc": "Registre refeições e reações, acompanhe a janela de observação, não esqueça os alérgenos. Todos os dados ficam no celular.",
   "tw_desc": "Um diário de introdução alimentar acolhedor. Tudo fica no seu celular.",
-  "nav": { "features": "Recursos", "screens": "Telas", "privacy": "Privacidade" },
+  "nav": {
+    "features": "Recursos",
+    "screens": "Telas",
+    "privacy": "Privacidade"
+  },
   "h1": "Introdução alimentar sem pânico",
   "hero_sub": "O Pudding registra com carinho as refeições e as reações, mostra a janela de observação e lembra você de repetir na hora certa os alérgenos já introduzidos. O que e quando oferecer ao bebê é você quem decide.",
   "cta_store": "Em breve na App Store",
   "cta_how": "Como funciona",
-  "badges": ["Offline, sem conta", "Sem anúncios nem rastreio", "PDF para o pediatra"],
+  "badges": [
+    "Offline, sem conta",
+    "Sem anúncios nem rastreio",
+    "PDF para o pediatra"
+  ],
   "alt_mascot": "Mascote Pudding",
   "problem_h2": "A introdução alimentar dá aflição. A gente está junto.",
   "problem_lead": "O que já ofereceram? Teve reação? Quando foi o ovo? O Pudding guarda tudo em um diário acolhedor — no lugar de tabelas nas notas e do pânico às três da manhã.",
   "how_h2": "Como funciona",
   "how_lead": "Três hábitos simples e toda a história da introdução alimentar fica à mão.",
   "steps": [
-    { "h": "Registre", "p": "A refeição, uma nota de «como foi», a reação, um comentário e fotos — em dois toques." },
-    { "h": "Observe", "p": "Cada alimento novo passa pela janela de observação do seu plano — «dia 2 de 3» direto no cartão." },
-    { "h": "Não esqueça", "p": "O Pudding lembra de repetir os alérgenos introduzidos para a tolerância não se perder." }
+    {
+      "h": "Registre",
+      "p": "A refeição, uma nota de «como foi», a reação, um comentário e fotos — em dois toques."
+    },
+    {
+      "h": "Observe",
+      "p": "Cada alimento novo passa pela janela de observação do seu plano — «dia 2 de 3» direto no cartão."
+    },
+    {
+      "h": "Não esqueça",
+      "p": "O Pudding lembra de repetir os alérgenos introduzidos para a tolerância não se perder."
+    }
   ],
   "features_h2": "Quatro pilares",
   "cards": [
-    { "alt": "Catálogo de alimentos", "h": "Catálogo + alimentos seus", "p": "Mais de 70 alimentos com ilustrações acolhedoras — e os seus, se faltar algum." },
-    { "alt": "Introduzir alimento", "h": "Um alimento por vez", "p": "A janela de observação é definida no seu plano: separada para alimentos comuns e alérgenos." },
-    { "alt": "Alérgenos", "h": "Alérgenos sob controle", "p": "Lembretes gentis para repetir os alérgenos introduzidos — na frequência do seu plano." },
-    { "alt": "Calendário", "h": "Calendário, PDF e retrospectiva", "p": "Histórico com filtros, PDF para o pediatra, lista de «não oferecer» para quem cuida e a retrospectiva do mês." }
+    {
+      "alt": "Catálogo de alimentos",
+      "h": "Catálogo + alimentos seus",
+      "p": "Mais de 70 alimentos com ilustrações acolhedoras — e os seus, se faltar algum."
+    },
+    {
+      "alt": "Introduzir alimento",
+      "h": "Um alimento por vez",
+      "p": "A janela de observação é definida no seu plano: separada para alimentos comuns e alérgenos."
+    },
+    {
+      "alt": "Alérgenos",
+      "h": "Alérgenos sob controle",
+      "p": "Lembretes gentis para repetir os alérgenos introduzidos — na frequência do seu plano."
+    },
+    {
+      "alt": "Calendário",
+      "h": "Calendário, PDF e retrospectiva",
+      "p": "Histórico com filtros, PDF para o pediatra, lista de «não oferecer» para quem cuida e a retrospectiva do mês."
+    }
   ],
   "screens_h2": "Dê uma espiada por dentro",
   "screens_lead": "Tema claro em estilo cartoon, o mascote Pudding e nada de excessos.",
   "shots": [
-    { "cap": "Início", "alt": "Tela inicial do Pudding: diário de hoje e coleção de alimentos" },
-    { "cap": "Janela de observação", "alt": "Cartão do alimento com a janela de observação, dia 2 de 3" },
-    { "cap": "Calendário", "alt": "Histórico em calendário com filtros e refeições planejadas" },
-    { "cap": "Alérgenos", "alt": "Acompanhamento de alérgenos: hora de repetir" },
-    { "cap": "Retrospectiva do mês", "alt": "Cartão da retrospectiva mensal para stories" }
+    {
+      "cap": "Início",
+      "alt": "Tela inicial do Pudding: diário de hoje e coleção de alimentos"
+    },
+    {
+      "cap": "Janela de observação",
+      "alt": "Cartão do alimento com a janela de observação, dia 2 de 3"
+    },
+    {
+      "cap": "Calendário",
+      "alt": "Histórico em calendário com filtros e refeições planejadas"
+    },
+    {
+      "cap": "Alérgenos",
+      "alt": "Acompanhamento de alérgenos: hora de repetir"
+    },
+    {
+      "cap": "Retrospectiva do mês",
+      "alt": "Cartão da retrospectiva mensal para stories"
+    }
   ],
   "privacy_h2": "Seus dados ficam no seu celular",
   "privacy_lead": "Sem conta, sem anúncios e sem rastreio. O nome do bebê, os registros, as fotos e as reações ficam no aparelho e não vão a lugar nenhum.",
-  "pills": ["Sem conta", "Sem anúncios", "Sem rastreadores", "Só no aparelho"],
+  "pills": [
+    "Sem conta",
+    "Sem anúncios",
+    "Sem rastreadores",
+    "Só no aparelho"
+  ],
   "method_h2": "O plano é seu. O Pudding é o diário.",
   "method_lead": "Idade de início, janelas de observação, frequência e lista de alérgenos — tudo é configurado conforme a orientação do seu pediatra. O Pudding não prescreve nem aconselha: ele registra com cuidado e lembra na hora certa.",
   "faq_h2": "Perguntas frequentes",
   "faq": [
-    { "q": "É grátis?", "a": "Sim, no lançamento o Pudding é gratuito." },
-    { "q": "Precisa de internet ou conta?", "a": "Não. O app funciona offline e não pede cadastro — todos os dados ficam no seu aparelho." },
-    { "q": "O Pudding substitui o pediatra?", "a": "Não. Ele é um diário que acompanha: registra e lembra. Prazos e decisões você combina com o seu médico." },
-    { "q": "De onde vêm os prazos?", "a": "Não são impostos: idade de início, janelas de observação e frequência dos alérgenos são definidas por você no «seu plano», seguindo a orientação do pediatra." },
-    { "q": "Tem exportação para o médico?", "a": "Tem. Um PDF com o histórico das refeições, as reações e o status dos alérgenos sai em dois toques. Além de uma lista curta de «não oferecer» para a babá ou a creche." }
+    {
+      "q": "É grátis?",
+      "a": "Sim, no lançamento o Pudding é gratuito."
+    },
+    {
+      "q": "Precisa de internet ou conta?",
+      "a": "Não. O app funciona offline e não pede cadastro — todos os dados ficam no seu aparelho."
+    },
+    {
+      "q": "O Pudding substitui o pediatra?",
+      "a": "Não. Ele é um diário que acompanha: registra e lembra. Prazos e decisões você combina com o seu médico."
+    },
+    {
+      "q": "De onde vêm os prazos?",
+      "a": "Não são impostos: idade de início, janelas de observação e frequência dos alérgenos são definidas por você no «seu plano», seguindo a orientação do pediatra."
+    },
+    {
+      "q": "Tem exportação para o médico?",
+      "a": "Tem. Um PDF com o histórico das refeições, as reações e o status dos alérgenos sai em dois toques. Além de uma lista curta de «não oferecer» para a babá ou a creche."
+    }
   ],
   "footer": {
     "privacy": "Privacidade",

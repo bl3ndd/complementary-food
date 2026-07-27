@@ -1,6 +1,6 @@
 {
   "lang": "tr",
-  "path": "/tr/",
+  "path": "/tr",
   "shots_dir": "tr",
   "native": "Türkçe",
   "native_short": "TR",
@@ -14,50 +14,118 @@
   "og_title": "Pudding — telaşsız ek gıda günlüğü",
   "og_desc": "Öğünleri ve tepkileri kaydet, gözlem penceresini takip et, alerjenleri unutma. Tüm veriler telefonunda kalır.",
   "tw_desc": "Sıcacık bir ek gıda günlüğü. Her şey telefonunda kalır.",
-  "nav": { "features": "Özellikler", "screens": "Ekranlar", "privacy": "Gizlilik" },
+  "nav": {
+    "features": "Özellikler",
+    "screens": "Ekranlar",
+    "privacy": "Gizlilik"
+  },
   "h1": "Ek gıda, telaş yok",
   "hero_sub": "Pudding öğünleri ve tepkileri özenle kaydeder, gözlem penceresini gösterir ve verdiğin alerjenleri zamanında tekrarlamanı hatırlatır. Bebeğine neyi ne zaman vereceğine sen karar verirsin.",
   "cta_store": "Yakında App Store'da",
   "cta_how": "Nasıl çalışır",
-  "badges": ["Çevrimdışı, hesapsız", "Reklamsız ve takipsiz", "Doktor için PDF"],
+  "badges": [
+    "Çevrimdışı, hesapsız",
+    "Reklamsız ve takipsiz",
+    "Doktor için PDF"
+  ],
   "alt_mascot": "Pudding maskotu",
   "problem_h2": "Ek gıda kaygı verir. Yanındayız.",
   "problem_lead": "Neyi verdik? Tepki oldu mu? Yumurta en son ne zamandı? Pudding hepsini tek bir sıcacık günlükte tutar — notlardaki tablolar ve gecenin üçündeki telaş yerine.",
   "how_h2": "Nasıl çalışır",
   "how_lead": "Üç basit alışkanlık — ve tüm ek gıda geçmişi elinin altında.",
   "steps": [
-    { "h": "Kaydet", "p": "Öğün, «nasıl gitti» puanı, tepki, not ve fotoğraflar — birkaç dokunuşta." },
-    { "h": "Gözle", "p": "Her yeni gıda planındaki gözlem penceresinden geçer — «3 günün 2. günü» doğrudan kartın üstünde." },
-    { "h": "Unutma", "p": "Verdiğin alerjenleri zamanında tekrarlamanı Pudding hatırlatır, alışkanlık kaybolmasın." }
+    {
+      "h": "Kaydet",
+      "p": "Öğün, «nasıl gitti» puanı, tepki, not ve fotoğraflar — birkaç dokunuşta."
+    },
+    {
+      "h": "Gözle",
+      "p": "Her yeni gıda planındaki gözlem penceresinden geçer — «3 günün 2. günü» doğrudan kartın üstünde."
+    },
+    {
+      "h": "Unutma",
+      "p": "Verdiğin alerjenleri zamanında tekrarlamanı Pudding hatırlatır, alışkanlık kaybolmasın."
+    }
   ],
   "features_h2": "Dört dayanak",
   "cards": [
-    { "alt": "Gıda kataloğu", "h": "Katalog + kendi gıdaların", "p": "Sıcak çizimlerle 70'ten fazla gıda — eksik bir şey varsa kendi gıdalarını da ekle." },
-    { "alt": "Gıda tanıtımı", "h": "Teker teker", "p": "Gözlem penceresini planında ayarlarsın: sıradan gıdalar ve alerjenler için ayrı ayrı." },
-    { "alt": "Alerjenler", "h": "Alerjenler kontrol altında", "p": "Verdiğin alerjenleri tekrarlaman için nazik hatırlatmalar — planındaki sıklıkta." },
-    { "alt": "Takvim", "h": "Takvim, PDF ve ay özeti", "p": "Filtreli geçmiş akışı, doktor için PDF, bakıcı için «verilmeyecekler» listesi ve ayın özeti." }
+    {
+      "alt": "Gıda kataloğu",
+      "h": "Katalog + kendi gıdaların",
+      "p": "Sıcak çizimlerle 70'ten fazla gıda — eksik bir şey varsa kendi gıdalarını da ekle."
+    },
+    {
+      "alt": "Gıda tanıtımı",
+      "h": "Teker teker",
+      "p": "Gözlem penceresini planında ayarlarsın: sıradan gıdalar ve alerjenler için ayrı ayrı."
+    },
+    {
+      "alt": "Alerjenler",
+      "h": "Alerjenler kontrol altında",
+      "p": "Verdiğin alerjenleri tekrarlaman için nazik hatırlatmalar — planındaki sıklıkta."
+    },
+    {
+      "alt": "Takvim",
+      "h": "Takvim, PDF ve ay özeti",
+      "p": "Filtreli geçmiş akışı, doktor için PDF, bakıcı için «verilmeyecekler» listesi ve ayın özeti."
+    }
   ],
   "screens_h2": "İçine göz at",
   "screens_lead": "Açık, çizgi film tadında bir tema, maskot Pudding ve fazlalık yok.",
   "shots": [
-    { "cap": "Ana ekran", "alt": "Pudding ana ekranı: bugünün günlüğü ve gıda koleksiyonu" },
-    { "cap": "Gözlem penceresi", "alt": "Gıda kartı ve gözlem penceresi, 3 günün 2. günü" },
-    { "cap": "Takvim", "alt": "Filtreli ve planlı takvim akışı" },
-    { "cap": "Alerjenler", "alt": "Alerjen takibi: tazeleme zamanı" },
-    { "cap": "Ay özeti", "alt": "Hikâyeler için aylık özet kartı" }
+    {
+      "cap": "Ana ekran",
+      "alt": "Pudding ana ekranı: bugünün günlüğü ve gıda koleksiyonu"
+    },
+    {
+      "cap": "Gözlem penceresi",
+      "alt": "Gıda kartı ve gözlem penceresi, 3 günün 2. günü"
+    },
+    {
+      "cap": "Takvim",
+      "alt": "Filtreli ve planlı takvim akışı"
+    },
+    {
+      "cap": "Alerjenler",
+      "alt": "Alerjen takibi: tazeleme zamanı"
+    },
+    {
+      "cap": "Ay özeti",
+      "alt": "Hikâyeler için aylık özet kartı"
+    }
   ],
   "privacy_h2": "Verilerin telefonunda kalır",
   "privacy_lead": "Hesap yok, reklam yok, takip yok. Bebeğinin adı, kayıtlar, fotoğraflar ve tepkiler cihazda kalır, hiçbir yere gitmez.",
-  "pills": ["Hesapsız", "Reklamsız", "Takipçisiz", "Yalnızca cihazda"],
+  "pills": [
+    "Hesapsız",
+    "Reklamsız",
+    "Takipçisiz",
+    "Yalnızca cihazda"
+  ],
   "method_h2": "Plan senin. Pudding günlük.",
   "method_lead": "Başlangıç yaşı, gözlem pencereleri, sıklık ve alerjen listesi — hepsi doktorunun önerisine göre ayarlanır. Pudding hiçbir şey önermez, tavsiye vermez: özenle kaydeder ve zamanında hatırlatır.",
   "faq_h2": "Sık sorulanlar",
   "faq": [
-    { "q": "Ücretsiz mi?", "a": "Evet, başlangıçta Pudding ücretsiz." },
-    { "q": "İnternet ya da hesap gerekiyor mu?", "a": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — tüm veriler cihazında kalır." },
-    { "q": "Pudding doktorun yerini tutar mı?", "a": "Hayır. Yanında duran bir günlüktür: kaydeder ve hatırlatır. Zamanlamayı ve kararları doktorunla konuş." },
-    { "q": "Süreler nereden geliyor?", "a": "Hiçbir yerden dayatılmıyor: başlangıç yaşını, gözlem pencerelerini ve alerjen sıklığını «kendi planında» sen belirliyorsun — doktorunun önerisine göre." },
-    { "q": "Doktor için dışa aktarma var mı?", "a": "Var. Öğün geçmişi, tepkiler ve alerjen durumunu içeren PDF birkaç dokunuşta hazır. Ayrıca bakıcı veya kreş için kısa bir «verilmeyecekler» listesi." }
+    {
+      "q": "Ücretsiz mi?",
+      "a": "Evet, başlangıçta Pudding ücretsiz."
+    },
+    {
+      "q": "İnternet ya da hesap gerekiyor mu?",
+      "a": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — tüm veriler cihazında kalır."
+    },
+    {
+      "q": "Pudding doktorun yerini tutar mı?",
+      "a": "Hayır. Yanında duran bir günlüktür: kaydeder ve hatırlatır. Zamanlamayı ve kararları doktorunla konuş."
+    },
+    {
+      "q": "Süreler nereden geliyor?",
+      "a": "Hiçbir yerden dayatılmıyor: başlangıç yaşını, gözlem pencerelerini ve alerjen sıklığını «kendi planında» sen belirliyorsun — doktorunun önerisine göre."
+    },
+    {
+      "q": "Doktor için dışa aktarma var mı?",
+      "a": "Var. Öğün geçmişi, tepkiler ve alerjen durumunu içeren PDF birkaç dokunuşta hazır. Ayrıca bakıcı veya kreş için kısa bir «verilmeyecekler» listesi."
+    }
   ],
   "footer": {
     "privacy": "Gizlilik",

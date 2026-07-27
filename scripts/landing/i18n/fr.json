@@ -1,6 +1,6 @@
 {
   "lang": "fr",
-  "path": "/fr/",
+  "path": "/fr",
   "shots_dir": "fr",
   "native": "Français",
   "native_short": "FR",
@@ -14,50 +14,118 @@
   "og_title": "Pudding — le carnet de diversification, sans stress",
   "og_desc": "Note les repas et les réactions, suis la fenêtre d'observation, n'oublie pas les allergènes. Toutes les données restent sur le téléphone.",
   "tw_desc": "Un carnet de diversification tout doux. Tout reste sur ton téléphone.",
-  "nav": { "features": "Fonctions", "screens": "Captures", "privacy": "Confidentialité" },
+  "nav": {
+    "features": "Fonctions",
+    "screens": "Captures",
+    "privacy": "Confidentialité"
+  },
   "h1": "La diversification, sans panique",
   "hero_sub": "Pudding note soigneusement les repas et les réactions, affiche la fenêtre d'observation et te rappelle de reproposer à temps les allergènes déjà introduits. Quoi et quand donner à ton bébé — c'est toi qui décides.",
   "cta_store": "Bientôt sur l'App Store",
   "cta_how": "Comment ça marche",
-  "badges": ["Hors ligne, sans compte", "Sans pub ni pistage", "PDF pour le pédiatre"],
+  "badges": [
+    "Hors ligne, sans compte",
+    "Sans pub ni pistage",
+    "PDF pour le pédiatre"
+  ],
   "alt_mascot": "Mascotte Pudding",
   "problem_h2": "La diversification, ça angoisse. On est là.",
   "problem_lead": "Qu'est-ce qu'on a déjà donné ? Y a-t-il eu une réaction ? L'œuf, c'était quand ? Pudding garde tout dans un seul carnet tout doux — au lieu des tableaux dans les notes et de la panique à trois heures du matin.",
   "how_h2": "Comment ça marche",
   "how_lead": "Trois habitudes simples — et toute l'histoire de la diversification est à portée de main.",
   "steps": [
-    { "h": "Note", "p": "Un repas, une appréciation « ça a plu ? », une réaction, une note et des photos — en deux gestes." },
-    { "h": "Observe", "p": "Chaque nouvel aliment passe par la fenêtre d'observation de ton plan — « jour 2 sur 3 » directement sur la fiche." },
-    { "h": "N'oublie pas", "p": "Pudding te rappelle de reproposer les allergènes introduits pour que l'habituation ne se perde pas." }
+    {
+      "h": "Note",
+      "p": "Un repas, une appréciation « ça a plu ? », une réaction, une note et des photos — en deux gestes."
+    },
+    {
+      "h": "Observe",
+      "p": "Chaque nouvel aliment passe par la fenêtre d'observation de ton plan — « jour 2 sur 3 » directement sur la fiche."
+    },
+    {
+      "h": "N'oublie pas",
+      "p": "Pudding te rappelle de reproposer les allergènes introduits pour que l'habituation ne se perde pas."
+    }
   ],
   "features_h2": "Quatre piliers",
   "cards": [
-    { "alt": "Catalogue d'aliments", "h": "Catalogue + aliments perso", "p": "Plus de 70 aliments joliment illustrés — et les tiens, si quelque chose manque." },
-    { "alt": "Introduction d'un aliment", "h": "Un aliment à la fois", "p": "La fenêtre d'observation se règle dans ton plan : séparément pour les aliments courants et les allergènes." },
-    { "alt": "Allergènes", "h": "Allergènes sous contrôle", "p": "Des rappels tout en douceur pour reproposer les allergènes introduits — à la fréquence de ton plan." },
-    { "alt": "Calendrier", "h": "Calendrier, PDF et récap", "p": "Un fil d'historique avec filtres, un PDF pour le pédiatre, une liste « à ne pas donner » pour la nounou et le récap du mois." }
+    {
+      "alt": "Catalogue d'aliments",
+      "h": "Catalogue + aliments perso",
+      "p": "Plus de 70 aliments joliment illustrés — et les tiens, si quelque chose manque."
+    },
+    {
+      "alt": "Introduction d'un aliment",
+      "h": "Un aliment à la fois",
+      "p": "La fenêtre d'observation se règle dans ton plan : séparément pour les aliments courants et les allergènes."
+    },
+    {
+      "alt": "Allergènes",
+      "h": "Allergènes sous contrôle",
+      "p": "Des rappels tout en douceur pour reproposer les allergènes introduits — à la fréquence de ton plan."
+    },
+    {
+      "alt": "Calendrier",
+      "h": "Calendrier, PDF et récap",
+      "p": "Un fil d'historique avec filtres, un PDF pour le pédiatre, une liste « à ne pas donner » pour la nounou et le récap du mois."
+    }
   ],
   "screens_h2": "Jette un œil à l'intérieur",
   "screens_lead": "Un thème clair et cartoon, la mascotte Pudding, et rien de superflu.",
   "shots": [
-    { "cap": "Accueil", "alt": "Écran d'accueil de Pudding : le carnet du jour et la collection d'aliments" },
-    { "cap": "Fenêtre d'observation", "alt": "Fiche aliment avec la fenêtre d'observation, jour 2 sur 3" },
-    { "cap": "Calendrier", "alt": "Fil calendrier avec filtres et repas prévus" },
-    { "cap": "Allergènes", "alt": "Suivi des allergènes : c'est le moment de reproposer" },
-    { "cap": "Récap du mois", "alt": "Carte récap du mois à partager en story" }
+    {
+      "cap": "Accueil",
+      "alt": "Écran d'accueil de Pudding : le carnet du jour et la collection d'aliments"
+    },
+    {
+      "cap": "Fenêtre d'observation",
+      "alt": "Fiche aliment avec la fenêtre d'observation, jour 2 sur 3"
+    },
+    {
+      "cap": "Calendrier",
+      "alt": "Fil calendrier avec filtres et repas prévus"
+    },
+    {
+      "cap": "Allergènes",
+      "alt": "Suivi des allergènes : c'est le moment de reproposer"
+    },
+    {
+      "cap": "Récap du mois",
+      "alt": "Carte récap du mois à partager en story"
+    }
   ],
   "privacy_h2": "Tes données restent sur ton téléphone",
   "privacy_lead": "Aucun compte, aucune pub, aucun pistage. Le prénom de l'enfant, les entrées, les photos et les réactions restent en local et ne partent nulle part.",
-  "pills": ["Sans compte", "Sans pub", "Sans traqueurs", "Sur l'appareil uniquement"],
+  "pills": [
+    "Sans compte",
+    "Sans pub",
+    "Sans traqueurs",
+    "Sur l'appareil uniquement"
+  ],
   "method_h2": "Le plan est le tien. Pudding est le carnet.",
   "method_lead": "Âge de démarrage, fenêtres d'observation, fréquence et liste des allergènes — tout se règle selon les conseils de ton pédiatre. Pudding ne prescrit rien et ne conseille rien : il note avec soin et rappelle à temps.",
   "faq_h2": "Questions fréquentes",
   "faq": [
-    { "q": "C'est gratuit ?", "a": "Oui, au lancement Pudding est gratuit." },
-    { "q": "Faut-il Internet ou un compte ?", "a": "Non. L'app fonctionne hors ligne, aucune inscription — toutes les données restent sur ton appareil." },
-    { "q": "Pudding remplace-t-il le pédiatre ?", "a": "Non. C'est un carnet compagnon : il note et rappelle. Les délais et les décisions se discutent avec ton médecin." },
-    { "q": "D'où viennent les délais ?", "a": "Ils ne sont imposés par personne : l'âge de démarrage, les fenêtres d'observation et la fréquence des allergènes, c'est toi qui les fixes dans « ton plan » — selon les conseils de ton pédiatre." },
-    { "q": "Y a-t-il un export pour le médecin ?", "a": "Oui. Un PDF avec l'historique des repas, les réactions et le statut des allergènes se prépare en deux gestes. Plus une courte liste « à ne pas donner » pour la nounou ou la crèche." }
+    {
+      "q": "C'est gratuit ?",
+      "a": "Oui, au lancement Pudding est gratuit."
+    },
+    {
+      "q": "Faut-il Internet ou un compte ?",
+      "a": "Non. L'app fonctionne hors ligne, aucune inscription — toutes les données restent sur ton appareil."
+    },
+    {
+      "q": "Pudding remplace-t-il le pédiatre ?",
+      "a": "Non. C'est un carnet compagnon : il note et rappelle. Les délais et les décisions se discutent avec ton médecin."
+    },
+    {
+      "q": "D'où viennent les délais ?",
+      "a": "Ils ne sont imposés par personne : l'âge de démarrage, les fenêtres d'observation et la fréquence des allergènes, c'est toi qui les fixes dans « ton plan » — selon les conseils de ton pédiatre."
+    },
+    {
+      "q": "Y a-t-il un export pour le médecin ?",
+      "a": "Oui. Un PDF avec l'historique des repas, les réactions et le statut des allergènes se prépare en deux gestes. Plus une courte liste « à ne pas donner » pour la nounou ou la crèche."
+    }
   ],
   "footer": {
     "privacy": "Confidentialité",
