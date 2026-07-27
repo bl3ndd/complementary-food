@@ -16,31 +16,31 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pudding-for-children.vercel.app/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/privacy.html"/>
+    <loc>https://pudding-for-children.vercel.app/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/privacy"/>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pudding-for-children.vercel.app/en/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/privacy.html"/>
+    <loc>https://pudding-for-children.vercel.app/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/privacy"/>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pudding-for-children.vercel.app/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/terms.html"/>
+    <loc>https://pudding-for-children.vercel.app/terms</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/terms"/>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pudding-for-children.vercel.app/en/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/terms.html"/>
+    <loc>https://pudding-for-children.vercel.app/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/terms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/terms"/>
     <priority>0.5</priority>
   </url>
 </urlset>
