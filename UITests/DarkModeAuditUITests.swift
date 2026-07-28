@@ -18,8 +18,9 @@ final class DarkModeAuditUITests: XCTestCase {
 
     func testWalkAllScreensInDark() {
         let app = XCUIApplication()
-        app.launchArguments = ["-uitest", "-uitest-seed=showcase",
-                               "-app.theme", "dark",
+        // `-demo` — дневник за 4 месяца в in-memory сторе: смотрим тему на реальном
+        // объёме данных (длинные списки, лента за месяцы, забитый каталог).
+        app.launchArguments = ["-demo", "-app.theme", "dark",
                                "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
         app.launch()
 
@@ -43,10 +44,15 @@ final class DarkModeAuditUITests: XCTestCase {
             app.buttons["Всё"].tap(); sleep(1)
         }
 
-        // Карточка продукта.
-        let firstFood = app.cells.element(boundBy: 0)
+        // Карточка продукта. Тапаем по названию (язык зафиксирован ru), а не по
+        // `cells` — в списке iOS 26 строка матчится иначе, и прошлый прогон
+        // молча остался в каталоге.
+        let firstFood = app.staticTexts["Кабачок"]
         if firstFood.waitForExistence(timeout: 3) {
-            firstFood.tap(); sleep(1); shoot("04_Карточка_продукта")
+            firstFood.tap()
+            XCTAssertTrue(app.staticTexts["История"].waitForExistence(timeout: 5),
+                          "карточка продукта не открылась")
+            sleep(1); shoot("04_Карточка_продукта")
 
             // Лист записи кормления — чипы оценки и даты.
             let log = app.buttons["Записать кормление"]

@@ -158,7 +158,7 @@ struct RecapCard: View {
                            : String(localized: "продуктов за месяц")
     }
     private var monthTitle: String {
-        recap.month.formatted(.dateTime.month(.wide).year()).capitalized
+        recap.month.formatted(.dateTime.month(.wide).year()).firstCapitalized
     }
 }
 

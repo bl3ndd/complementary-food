@@ -10,14 +10,21 @@ struct PrikormApp: App {
         // Тап по пушу должен вести на нужный таб (а не открывать «в никуда»).
         UNUserNotificationCenter.current().delegate = NotificationRouter.shared
 
-        // UI-тесты (-uitest) работают в in-memory сторе — реальные данные не трогаем.
+        // UI-тесты (-uitest) и демо (-demo) работают в in-memory сторе — реальные
+        // данные (и их копия в iCloud) не трогаются.
         var inMemory = false
         #if DEBUG
-        inMemory = UITestSupport.isActive
+        let demo = CommandLine.arguments.contains("-demo")
+        inMemory = UITestSupport.isActive || demo
         #endif
         container = Self.makeContainer(inMemory: inMemory)
 
         #if DEBUG
+        if demo {
+            // Дневник за ~4 месяца: смотреть, как приложение живёт на реальном объёме.
+            UserDefaults.standard.set(true, forKey: "disclaimer.acknowledged")
+            SampleData.seedDiary(container.mainContext)
+        }
         if CommandLine.arguments.contains("-seedSample") {
             SampleData.seed(container.mainContext)
         }

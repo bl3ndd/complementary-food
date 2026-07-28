@@ -247,7 +247,7 @@ struct CalendarView: View {
         let short = date.formatted(.dateTime.day().month())
         if cal.isDateInToday(date) { return "\(String(localized: "Сегодня")), \(short)" }
         if cal.isDateInYesterday(date) { return "\(String(localized: "Вчера")), \(short)" }
-        return date.formatted(.dateTime.weekday(.abbreviated).day().month()).capitalized
+        return date.formatted(.dateTime.weekday(.abbreviated).day().month()).firstCapitalized
     }
 
     private var feedEmpty: some View {
@@ -303,7 +303,7 @@ struct CalendarView: View {
             .accessibilityLabel("Предыдущий месяц")
             Spacer()
             VStack(spacing: 2) {
-                Text(monthAnchor.formatted(.dateTime.month(.wide).year()).capitalized)
+                Text(monthAnchor.formatted(.dateTime.month(.wide).year()).firstCapitalized)
                     .font(.headline)
                 if !cal.isDate(monthAnchor, equalTo: Date(), toGranularity: .month) {
                     Button("К сегодня") {

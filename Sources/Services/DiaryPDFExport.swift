@@ -80,7 +80,7 @@ struct DiaryPDFExport {
         let byDay = Dictionary(grouping: actual) { calendar.startOfDay(for: $0.date) }
         var rows: [Row] = []
         for day in byDay.keys.sorted() {
-            rows.append(Row(text: day.formatted(.dateTime.weekday(.wide).day().month().year()).capitalized,
+            rows.append(Row(text: day.formatted(.dateTime.weekday(.wide).day().month().year()).firstCapitalized,
                             bold: true))
             for log in (byDay[day] ?? []).sorted(by: { $0.date < $1.date }) {
                 rows.append(Row(text: entryLine(log), indented: true))
