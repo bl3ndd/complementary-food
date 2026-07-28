@@ -34,10 +34,12 @@ struct DiaryPDFExport {
             .sorted { $0.date < $1.date }
     }
 
-    struct Row { let text: String; var bold: Bool = false; var indented: Bool = false }
-    struct Section { let heading: String; let rows: [Row] }
-    struct PhotoItem { let caption: String; let data: Data }
-    struct Report {
+    // Sendable: контент готовится на главном потоке (там живут модели SwiftData),
+    // а рисуется в фоне — иначе тяжёлый PDF с фото морозит UI на секунды.
+    struct Row: Sendable { let text: String; var bold: Bool = false; var indented: Bool = false }
+    struct Section: Sendable { let heading: String; let rows: [Row] }
+    struct PhotoItem: Sendable { let caption: String; let data: Data }
+    struct Report: Sendable {
         let title: String
         let subtitle: String
         let sections: [Section]
@@ -171,10 +173,12 @@ struct DiaryPDFExport {
 
     // MARK: - Отрисовка PDF (UIKit)
 
-    func makeData() -> Data { render(report()) }
-    func makeAvoidData() -> Data { render(avoidReport()) }
+    func makeData() -> Data { Self.render(report()) }
+    func makeAvoidData() -> Data { Self.render(avoidReport()) }
 
-    private func render(_ report: Report) -> Data {
+    /// Отрисовка готового контента. `static` и без доступа к моделям — можно звать
+    /// из фонового таска, передав только value-типы.
+    static func render(_ report: Report) -> Data {
         let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)   // A4
         let margin: CGFloat = 40
         let maxY = pageRect.height - margin
@@ -244,19 +248,31 @@ struct DiaryPDFExport {
 
     /// Готовый временный PDF-дневник «для педиатра».
     func writeTempFile() -> URL? {
-        writeTempFile(makeData(), prefix: String(localized: "Дневник"))
+        Self.write(makeData(), fileName: fileName(prefix: String(localized: "Дневник")))
     }
 
     /// Готовый временный лист «Что НЕ давать».
     func writeAvoidTempFile() -> URL? {
-        writeTempFile(makeAvoidData(), prefix: String(localized: "Не давать"))
+        Self.write(makeAvoidData(), fileName: fileName(prefix: String(localized: "Не давать")))
     }
 
-    private func writeTempFile(_ data: Data, prefix: String) -> URL? {
+    /// Имя файла считается там же, где живут модели (главный поток).
+    func fileName(prefix: String) -> String {
         let name = childName.trimmingCharacters(in: .whitespaces).isEmpty ? "" : " \(childName)"
-        let file = "\(prefix)\(name).pdf".replacingOccurrences(of: "/", with: "-")
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent(file)
+        return "\(prefix)\(name).pdf".replacingOccurrences(of: "/", with: "-")
+    }
+
+    static func write(_ data: Data, fileName: String) -> URL? {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
         do { try data.write(to: url); return url } catch { return nil }
+    }
+
+    /// Отрендерить и сохранить в фоне. Вход — только value-типы, поэтому безопасно
+    /// уходить с главного потока: SwiftData-модели остаются на нём.
+    static func renderInBackground(_ report: Report, fileName: String) async -> URL? {
+        await Task.detached(priority: .userInitiated) {
+            write(render(report), fileName: fileName)
+        }.value
     }
 }
 

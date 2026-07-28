@@ -13,6 +13,7 @@ struct ProfileView: View {
     @Query private var statuses: [IntroductionStatus]
 
     @AppStorage("app.language") private var language: AppLanguage = .system
+    @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
     @State private var notifStatus: UNAuthorizationStatus = .notDetermined
     @State private var showResetConfirm = false
     @State private var showLanguageRestart = false
@@ -21,6 +22,8 @@ struct ProfileView: View {
     @State private var isResetting = false
     /// Объяснение, почему пункт «Данных» пока недоступен (алерт по тапу).
     @State private var dataHint: String?
+    /// Какой экспорт сейчас рендерится (для крутилки на строке).
+    @State private var exporting: ExportKind?
 
     private let catalog = FoodCatalog.shared
 
@@ -121,6 +124,13 @@ struct ProfileView: View {
                     Label("Включить в настройках", systemImage: "bell.badge")
                 }
             }
+            Picker(selection: $theme) {
+                ForEach(AppTheme.allCases) { t in
+                    Text(t.title).tag(t)
+                }
+            } label: {
+                Label("Оформление", systemImage: "circle.lefthalf.filled")
+            }
             Picker(selection: $language) {
                 ForEach(AppLanguage.allCases) { lang in
                     Text(lang.title).tag(lang)
@@ -146,17 +156,19 @@ struct ProfileView: View {
                 if hasActualLogs { exportPDF(.pediatric) }
                 else { dataHint = String(localized: "Дневник для педиатра появится после первой записи кормления.") }
             } label: {
-                Label("Дневник для педиатра", systemImage: "doc.richtext")
-                    .foregroundStyle(hasActualLogs ? Theme.accent : .secondary)
+                exportRow("Дневник для педиатра", icon: "doc.richtext",
+                          enabled: hasActualLogs, busy: exporting == .pediatric)
             }
+            .disabled(exporting != nil)
 
             Button {
                 if hasAvoidItems { exportPDF(.avoid) }
                 else { dataHint = String(localized: "Список «не давать» соберётся из продуктов на паузе или с аллергией.") }
             } label: {
-                Label("Список «не давать»", systemImage: "nosign")
-                    .foregroundStyle(hasAvoidItems ? Theme.accent : .secondary)
+                exportRow("Список «не давать»", icon: "nosign",
+                          enabled: hasAvoidItems, busy: exporting == .avoid)
             }
+            .disabled(exporting != nil)
 
             Button {
                 if hasRecapData { showRecap = true }
@@ -171,6 +183,19 @@ struct ProfileView: View {
             Button("Понятно", role: .cancel) { dataHint = nil }
         } message: {
             Text(dataHint ?? "")
+        }
+    }
+
+    /// Строка экспорта: пока PDF собирается — крутилка справа и ряд не принимает тап.
+    private func exportRow(_ title: LocalizedStringKey, icon: String,
+                           enabled: Bool, busy: Bool) -> some View {
+        HStack {
+            Label(title, systemImage: icon)
+                .foregroundStyle(enabled ? Theme.accent : .secondary)
+            if busy {
+                Spacer()
+                ProgressView().controlSize(.small)
+            }
         }
     }
 
@@ -219,10 +244,23 @@ struct ProfileView: View {
 
     private enum ExportKind { case pediatric, avoid }
 
+    /// Контент собираем на главном потоке (там SwiftData), рендер PDF — в фоне:
+    /// с фото это заметные секунды, и раньше приложение молча замирало.
     private func exportPDF(_ kind: ExportKind) {
+        guard exporting == nil else { return }
         let export = DiaryPDFExport.make(child: child, logs: logs, statuses: statuses)
-        let url = kind == .pediatric ? export.writeTempFile() : export.writeAvoidTempFile()
-        if let url { shareFile = ShareableFile(url: url) }
+        let report = kind == .pediatric ? export.report() : export.avoidReport()
+        let name = export.fileName(prefix: kind == .pediatric
+                                   ? String(localized: "Дневник") : String(localized: "Не давать"))
+        exporting = kind
+        Task {
+            let url = await DiaryPDFExport.renderInBackground(report, fileName: name)
+            exporting = nil
+            if let url {
+                Haptics.success()
+                shareFile = ShareableFile(url: url)
+            }
+        }
     }
 
     private var hasAvoidItems: Bool {

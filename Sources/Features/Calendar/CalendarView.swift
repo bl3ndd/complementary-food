@@ -25,6 +25,8 @@ struct CalendarView: View {
     @State private var shareFile: ShareableFile?
     @State private var pendingDelete: FoodLog?
     @State private var showRecap = false
+    /// Идёт рендер PDF — кнопка экспорта показывает прогресс и не принимает тапы.
+    @State private var isExporting = false
     @Namespace private var segmentNS
 
     private var cal: Calendar {
@@ -68,10 +70,16 @@ struct CalendarView: View {
                             Label("Лист «Не давать» (няне/садику)", systemImage: "nosign")
                         }
                     } label: {
-                        Image(systemName: "square.and.arrow.up")
+                        // Пока PDF собирается — крутилка вместо иконки, иначе кажется,
+                        // что тап не сработал.
+                        if isExporting {
+                            ProgressView().controlSize(.small)
+                        } else {
+                            Image(systemName: "square.and.arrow.up")
+                        }
                     }
                     .accessibilityLabel("Экспорт")
-                    .disabled((!hasActualLogs && !hasAvoidItems) || children.isEmpty)
+                    .disabled(isExporting || (!hasActualLogs && !hasAvoidItems) || children.isEmpty)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showRecap = true } label: {
@@ -433,11 +441,25 @@ struct CalendarView: View {
 
     /// Сформировать PDF и открыть системный share sheet. Дневник «для педиатра»
     /// включает статус поддержки аллергенов; лист «не давать» — паузы/аллергии.
+    ///
+    /// Контент собираем здесь (модели SwiftData живут на главном потоке), рисуем —
+    /// в фоне: с фотографиями рендер занимает заметное время, и раньше приложение
+    /// на это время просто замирало без единого признака работы.
     private func exportPDF(_ kind: ExportKind) {
-        guard let child = children.first else { return }
+        guard !isExporting, let child = children.first else { return }
         let export = DiaryPDFExport.make(child: child, logs: logs, statuses: statuses)
-        let url = kind == .pediatric ? export.writeTempFile() : export.writeAvoidTempFile()
-        if let url { shareFile = ShareableFile(url: url) }
+        let report = kind == .pediatric ? export.report() : export.avoidReport()
+        let name = export.fileName(prefix: kind == .pediatric
+                                   ? String(localized: "Дневник") : String(localized: "Не давать"))
+        isExporting = true
+        Task {
+            let url = await DiaryPDFExport.renderInBackground(report, fileName: name)
+            isExporting = false
+            if let url {
+                Haptics.success()
+                shareFile = ShareableFile(url: url)
+            }
+        }
     }
 
     /// Ячейки месяца: ведущие nil-паддинги до первого дня + дни месяца.

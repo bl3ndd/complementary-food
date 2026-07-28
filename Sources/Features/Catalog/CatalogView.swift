@@ -74,7 +74,7 @@ struct CatalogView: View {
     @ViewBuilder
     private func foodRow(_ food: Food) -> some View {
         NavigationLink(value: food) { row(for: food) }
-            .listRowBackground(Color.white)
+            .listRowBackground(Theme.card)
             .swipeActions(edge: .trailing) {
                 if food.id.hasPrefix("custom-") {
                     Button(role: .destructive) { pendingDeleteCustom = food } label: {

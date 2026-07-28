@@ -4,6 +4,8 @@ import SwiftData
 /// Гейт: нет ребёнка → онбординг; есть → основное приложение (SPEC §12).
 struct RootView: View {
     @Query private var children: [Child]
+    /// Оформление: система / светлая / тёмная (Профиль → Приложение). Применяется сразу.
+    @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
 
     var body: some View {
         Group {
@@ -19,8 +21,9 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.45), value: children.isEmpty)
         .tint(Theme.accent)
         .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
-        // Тему больше не прибиваем: палитра адаптивная (Theme.dynamic), а дневник
-        // ведут в том числе ночью — светлый экран в темноте бьёт по глазам.
+        // Палитра адаптивная (Theme.dynamic). По умолчанию идём за системой, но даём
+        // зафиксировать: дневник ведут ночью, и «всегда тёмная» — законное желание.
+        .preferredColorScheme(theme.colorScheme)
     }
 }
 
