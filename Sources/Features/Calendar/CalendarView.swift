@@ -27,7 +27,6 @@ struct CalendarView: View {
     @State private var showRecap = false
     /// Идёт рендер PDF — кнопка экспорта показывает прогресс и не принимает тапы.
     @State private var isExporting = false
-    @Namespace private var segmentNS
 
     private var cal: Calendar {
         var c = Calendar.current
@@ -150,12 +149,12 @@ struct CalendarView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 8)
                 .background {
-                    // matchedGeometryEffect — капсула «скользит» между сегментами.
-                    if active {
-                        Capsule().fill(Theme.accentGradient)
-                            .matchedGeometryEffect(id: "segment.pill", in: segmentNS)
-                            .animation(.snappy, value: mode)   // едет только капсула
-                    }
+                    // Капсула переключается МГНОВЕННО, без «перетекания».
+                    // Скольжение matchedGeometryEffect шло ровно в тот кадр, когда
+                    // главный поток строит сетку месяца (или разбирает ленту), —
+                    // анимация физически не успевала и выглядела как рывок.
+                    // Лучше честный мгновенный отклик, чем дёрганая анимация.
+                    if active { Capsule().fill(Theme.accentGradient) }
                 }
         }
         .buttonStyle(.plain)
