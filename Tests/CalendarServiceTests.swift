@@ -247,4 +247,32 @@ final class CalendarServiceTests: XCTestCase {
         XCTAssertEqual(reactions[0].reaction, .gi, "новые сверху")
         XCTAssertEqual(reactions[1].reaction, .skin)
     }
+
+    // MARK: - Сводки только видимого месяца (перф: сетка не грузит весь журнал)
+
+    func testDaysInIntervalKeepsOnlyLogsInside() throws {
+        let logs = [
+            log("broccoli", "2026-05-31T23:00:00Z"),   // до интервала
+            log("broccoli", "2026-06-01T08:00:00Z"),
+            log("egg_yolk", "2026-06-15T09:00:00Z"),
+            log("egg_yolk", "2026-06-15T18:00:00Z"),   // тот же день
+            log("broccoli", "2026-07-01T08:00:00Z"),   // после интервала
+        ]
+        let service = CalendarService(catalog: catalog, logs: logs, calendar: utc)
+        let june = try XCTUnwrap(utc.dateInterval(of: .month, for: date("2026-06-15T12:00:00Z")))
+
+        let days = service.days(in: june)
+
+        XCTAssertEqual(days.count, 2, "только дни внутри июня")
+        XCTAssertEqual(days.first?.entries.count, 2, "новые сверху: 15 июня с двумя записями")
+        XCTAssertEqual(days.map(\.date), days.map(\.date).sorted(by: >), "дни новые сверху")
+    }
+
+    func testDaysInIntervalEmptyWhenNothingInside() throws {
+        let service = CalendarService(catalog: catalog,
+                                      logs: [log("broccoli", "2026-06-10T08:00:00Z")],
+                                      calendar: utc)
+        let august = try XCTUnwrap(utc.dateInterval(of: .month, for: date("2026-08-10T12:00:00Z")))
+        XCTAssertTrue(service.days(in: august).isEmpty)
+    }
 }

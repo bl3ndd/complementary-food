@@ -73,6 +73,20 @@ struct CalendarService {
             .sorted { $0.date > $1.date }
     }
 
+    /// Сводки по дням внутри интервала — для сетки месяца. Группируем только то,
+    /// что реально видно на экране, а не весь журнал за всё время.
+    func days(in interval: DateInterval) -> [DaySummary] {
+        let grouped = Dictionary(grouping: logs.filter { interval.contains($0.date) }) {
+            calendar.startOfDay(for: $0.date)
+        }
+        return grouped
+            .map { day, logs in
+                DaySummary(date: day,
+                           entries: logs.sorted { $0.date < $1.date }.map(entry))
+            }
+            .sorted { $0.date > $1.date }
+    }
+
     /// Сводка за конкретный день (пустой `DaySummary`, если активности не было).
     func day(_ date: Date) -> DaySummary {
         let start = calendar.startOfDay(for: date)

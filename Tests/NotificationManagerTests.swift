@@ -76,23 +76,44 @@ final class NotificationManagerTests: XCTestCase {
 
     // MARK: - Триггер: еженедельный повтор по дню недели nextDue
 
+    /// `now` инжектим: без него тест зависел от текущего дня недели и проходил
+    /// примерно раз в семь дней (просроченный срок якорится к «сегодня» — B8).
     func testTriggerIsWeeklyRecurringOnNextDueWeekday() throws {
         let manager = NotificationManager(center: MockCenter())
         let due = Calendar.current.date(byAdding: .day, value: 4, to: now)!
         let groups = [group(.egg, introduced: true, allergy: false,
-                            status: .overdue, nextDue: due)]
+                            status: .dueSoon, nextDue: due)]
 
-        let request = try XCTUnwrap(manager.requests(for: groups, intervalDays: 4).first)
+        let request = try XCTUnwrap(
+            manager.requests(for: groups, intervalDays: 4, now: now).first)
         let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
 
         XCTAssertTrue(trigger.repeats, "напоминание должно повторяться еженедельно")
         XCTAssertEqual(trigger.dateComponents.weekday,
-                       Calendar.current.component(.weekday, from: due))
+                       Calendar.current.component(.weekday, from: due),
+                       "срок в будущем → день недели берём от него")
         XCTAssertEqual(trigger.dateComponents.hour, 10)
         XCTAssertEqual(trigger.dateComponents.minute, 0)
         // Только день недели + время → недельный цикл (нет года/месяца/числа).
         XCTAssertNil(trigger.dateComponents.day)
         XCTAssertNil(trigger.dateComponents.month)
+    }
+
+    /// B8: если срок уже прошёл, день недели берём от «сегодня», иначе первый пуш
+    /// прилетит только через неделю.
+    func testOverdueTriggerAnchorsToTodayNotPastDueDate() throws {
+        let manager = NotificationManager(center: MockCenter())
+        let overdue = Calendar.current.date(byAdding: .day, value: -10, to: now)!
+        let groups = [group(.egg, introduced: true, allergy: false,
+                            status: .overdue, nextDue: overdue)]
+
+        let request = try XCTUnwrap(
+            manager.requests(for: groups, intervalDays: 4, now: now).first)
+        let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
+
+        XCTAssertEqual(trigger.dateComponents.weekday,
+                       Calendar.current.component(.weekday, from: now),
+                       "просрочка не должна ждать неделю до своего старого дня")
     }
 
     // MARK: - Триггер: ежедневный повтор для дневного аллергена (interval 1)

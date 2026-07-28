@@ -168,7 +168,9 @@ struct CalendarView: View {
     }
 
     private var feedContent: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        // Ленивый стек: на четырёх месяцах дневника обычный VStack создавал все
+        // ~450 строк сразу при заходе на таб — отсюда и «подлагивает».
+        LazyVStack(alignment: .leading, spacing: 14) {
             let feed = service.feed(filter: filter, query: search)
             if feed.isEmpty {
                 feedEmpty
@@ -275,9 +277,17 @@ struct CalendarView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
+            // Сводки считаем ОДИН раз на сетку. Раньше `summaries` было computed-
+            // свойством и вызывалось из каждой из ~42 ячеек — то есть журнал за все
+            // месяцы перегруппировывался 42 раза за рендер.
+            let summaries = monthSummaries
             LazyVGrid(columns: columns, spacing: 6) {
                 ForEach(Array(monthCells().enumerated()), id: \.offset) { _, date in
-                    if let date { dayCell(date) } else { Color.clear.frame(height: 40) }
+                    if let date {
+                        dayCell(date, summary: summaries[cal.startOfDay(for: date)])
+                    } else {
+                        Color.clear.frame(height: 40)
+                    }
                 }
             }
             if !logs.isEmpty {
@@ -324,15 +334,17 @@ struct CalendarView: View {
         }
     }
 
-    /// Сводки по дням, ключ — начало дня (для подсветки сетки; фильтр не применяем —
-    /// сетка показывает всю активность как карта покрытия).
-    private var summaries: [Date: DaySummary] {
-        Dictionary(uniqueKeysWithValues: service.days().map { ($0.date, $0) })
+    /// Сводки по дням ВИДИМОГО месяца, ключ — начало дня (фильтр не применяем —
+    /// сетка показывает всю активность как карту покрытия).
+    private var monthSummaries: [Date: DaySummary] {
+        guard let interval = cal.dateInterval(of: .month, for: monthAnchor) else { return [:] }
+        var service = self.service
+        service.calendar = cal
+        return Dictionary(uniqueKeysWithValues: service.days(in: interval).map { ($0.date, $0) })
     }
 
-    private func dayCell(_ date: Date) -> some View {
+    private func dayCell(_ date: Date, summary: DaySummary?) -> some View {
         let start = cal.startOfDay(for: date)
-        let summary = summaries[start]
         let active = summary != nil
         let hasReaction = summary?.hasReaction ?? false
         let isToday = cal.isDateInToday(date)
