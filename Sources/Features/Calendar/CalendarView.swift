@@ -138,7 +138,11 @@ struct CalendarView: View {
         let active = mode == value && search.isEmpty
         return Button {
             Haptics.select()
-            withAnimation(.snappy) { mode = value; search = "" }
+            // Без withAnimation: иначе SwiftUI анимирует подмену всего дерева
+            // (лента ↔ сетка) — это сотни вьюх и просадка кадров. Капсула
+            // сегмента анимируется отдельно, ниже.
+            mode = value
+            search = ""
         } label: {
             Text(title)
                 .font(.subheadline.weight(.semibold))
@@ -150,6 +154,7 @@ struct CalendarView: View {
                     if active {
                         Capsule().fill(Theme.accentGradient)
                             .matchedGeometryEffect(id: "segment.pill", in: segmentNS)
+                            .animation(.snappy, value: mode)   // едет только капсула
                     }
                 }
         }
@@ -163,8 +168,6 @@ struct CalendarView: View {
             filterChips
             feedContent
         }
-        // Мягкая перестройка ленты при смене фильтра/поиска.
-        .animation(.spring(response: 0.4, dampingFraction: 0.85), value: filter)
     }
 
     private var feedContent: some View {
@@ -195,7 +198,7 @@ struct CalendarView: View {
                     let active = filter == f
                     Button {
                         Haptics.select()
-                        withAnimation(.snappy) { filter = f }
+                        filter = f   // подсветку чипа анимируем, список — нет
                     } label: {
                         Text(f.title)
                             .font(.caption.weight(.semibold))
@@ -367,9 +370,10 @@ struct CalendarView: View {
                 .frame(width: 40, height: 40)
                 .background {
                     if active {
+                        // Без тени: 31 кружок × тень = столько же offscreen-проходов
+                        // за кадр, и сетка ощутимо роняла FPS при открытии.
                         Circle().fill(LinearGradient(colors: [fill, fill.opacity(0.82)],
                                                      startPoint: .top, endPoint: .bottom))
-                            .shadow(color: fill.opacity(0.35), radius: 5, y: 2)
                     } else if isToday {
                         Circle().fill(Theme.fill)
                     }

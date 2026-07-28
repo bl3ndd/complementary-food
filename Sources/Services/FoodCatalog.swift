@@ -3,15 +3,27 @@ import Foundation
 /// Загрузчик каталога продуктов из `foods.json` в бандле (офлайн-first, SPEC §8).
 struct FoodCatalog {
     let foods: [Food]
+    /// Индекс каталожных продуктов по id. Раньше `food(id:)` на КАЖДЫЙ вызов
+    /// склеивал массив (`foods + custom`) и сканировал его линейно — а зовётся он
+    /// на каждую запись журнала: на четырёх месяцах это сотни лишних аллокаций и
+    /// десятки тысяч сравнений строк за одну перерисовку ленты.
+    private let index: [String: Food]
 
     static let shared = FoodCatalog.load()
 
     /// Свои продукты пользователя (из SwiftData), подмешиваются ко всем выборкам.
     /// Обновляется из `CustomFood` при запуске и изменениях каталога.
     nonisolated(unsafe) static var custom: [Food] = []
+    nonisolated(unsafe) private static var customIndex: [String: Food] = [:]
+
+    init(foods: [Food]) {
+        self.foods = foods
+        self.index = Dictionary(foods.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+    }
 
     static func setCustom(_ foods: [CustomFood]) {
         custom = foods.map(\.asFood)
+        customIndex = Dictionary(custom.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     }
 
     /// Каталожные + свои продукты вместе.
@@ -45,7 +57,7 @@ struct FoodCatalog {
     var all: [Food] { combined }
 
     func food(id: String) -> Food? {
-        combined.first { $0.id == id }
+        index[id] ?? FoodCatalog.customIndex[id]
     }
 
     func byCategory(_ category: FoodCategory) -> [Food] {
