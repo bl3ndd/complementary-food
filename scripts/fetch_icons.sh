@@ -36,7 +36,7 @@ chicken 1F357
 cod 1F41F
 hake 1F420
 salmon 1F363
-cottage_cheese 1F95E
+cottage_cheese 1FAD9
 kefir 1F964
 yogurt 1F366
 cow_milk 1F95B
@@ -78,7 +78,7 @@ ryazhenka 1F9CB
 wheat 1F33E
 crab 1F980
 water 1F4A7
-compote 1F9C3
+compote 1F379
 bread 1F35E
 olive_oil 1FAD2
 "

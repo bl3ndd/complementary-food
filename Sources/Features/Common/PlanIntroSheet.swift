@@ -1,15 +1,19 @@
 import SwiftUI
 import SwiftData
 
-/// Лист планирования ввода: выбрать дату (сегодня/будущее) и продукт. Создаёт
-/// запланированную запись (`FoodLog.planned`). Используется с Главной и из Календаря.
+/// Лист планирования ввода: выбрать дату (сегодня/будущее) и **сколько угодно
+/// продуктов** — за день ребёнок ест не один продукт, планировать по одному было
+/// мучением. Создаёт запланированные записи (`FoodLog.planned`).
+/// Используется с Главной и из Календаря.
 struct PlanIntroSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Query(filter: #Predicate<FoodLog> { $0.planned }) private var plannedLogs: [FoodLog]
     @State private var search = ""
     @State private var date: Date
-    @State private var dupAlert = false
+    /// Отмеченные в этом сеансе продукты (id). Уже запланированные на эту дату
+    /// показываются отдельной галочкой и не выбираются повторно.
+    @State private var picked: Set<String> = []
 
     private let catalog = FoodCatalog.shared
 
@@ -30,17 +34,7 @@ struct PlanIntroSheet: View {
 
                 List {
                     ForEach(catalog.search(search)) { food in
-                        Button { plan(food) } label: {
-                            HStack(spacing: 10) {
-                                FoodIcon(food: food, size: 30)
-                                Text(food.localizedName).foregroundStyle(.primary)
-                                if isPlanned(food) {
-                                    Spacer()
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(Theme.lilac)
-                                }
-                            }
-                        }
+                        row(food)
                     }
                 }
                 .searchable(text: $search, prompt: Text("Поиск продукта"))
@@ -49,14 +43,41 @@ struct PlanIntroSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Отмена") { dismiss() } }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Готово") { planPicked() }.disabled(picked.isEmpty)
+                }
             }
-            .alert("Уже запланировано", isPresented: $dupAlert) {
-                Button("Ок", role: .cancel) {}
-            } message: {
-                Text("Этот продукт уже запланирован на выбранную дату.")
-            }
+            // Смена даты меняет и «уже запланировано» — выбор сбрасываем, чтобы
+            // случайно не перенести галочки на другой день.
+            .onChange(of: date) { picked.removeAll() }
         }
         .cozySheet()
+    }
+
+    private func row(_ food: Food) -> some View {
+        let already = isPlanned(food)
+        let selected = picked.contains(food.id)
+        return Button {
+            guard !already else { return }
+            Haptics.select()
+            if selected { picked.remove(food.id) } else { picked.insert(food.id) }
+        } label: {
+            HStack(spacing: 10) {
+                FoodIcon(food: food, size: 30)
+                Text(food.localizedName)
+                    .foregroundStyle(already ? .secondary : .primary)
+                Spacer()
+                if already {
+                    // Уже в планах на этот день — повторно не добавляем.
+                    Image(systemName: "checkmark.circle.fill").foregroundStyle(Theme.lilac)
+                } else {
+                    Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                        .foregroundStyle(selected ? Theme.accent : .secondary)
+                }
+            }
+        }
+        .listRowBackground(Theme.card)
+        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
     }
 
     /// Этот продукт уже запланирован на выбранную дату? (дедуп, чтобы не плодить копии).
@@ -67,9 +88,12 @@ struct PlanIntroSheet: View {
         }
     }
 
-    private func plan(_ food: Food) {
-        guard !isPlanned(food) else { dupAlert = true; return }
-        context.insert(FoodLog(foodId: food.id, date: date, type: .intro, planned: true))
+    private func planPicked() {
+        guard !picked.isEmpty else { return }
+        Haptics.success()
+        for id in picked {
+            context.insert(FoodLog(foodId: id, date: date, type: .intro, planned: true))
+        }
         try? context.save()
         dismiss()
     }

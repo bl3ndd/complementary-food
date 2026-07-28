@@ -1,4 +1,5 @@
 import XCTest
+import UIKit
 @testable import Prikorm
 
 /// Тесты каталога продуктов (Task 2): декодинг JSON, валидность данных,
@@ -236,5 +237,18 @@ final class FoodCatalogTests: XCTestCase {
                           emoji: "🧃", isAllergen: false, allergenGroup: nil, minAgeMonths: 8)
         XCTAssertEqual(custom.localizedName, "Зубочистка-компот-42")
         XCTAssertEqual(custom.name, "Зубочистка-компот-42")
+    }
+
+    // MARK: - Иконки: у каждого продукта свой ассет, без пересечений (были ляпы
+    // вида «творог = стопка панкейков»)
+
+    func testEveryCatalogFoodHasOwnIconAsset() throws {
+        let catalog = FoodCatalog.load(bundle: .main)
+        let bundle = Bundle(for: type(of: self))
+        for food in catalog.foods {
+            XCTAssertNotNil(UIImage(named: "food_\(food.id)", in: bundle, compatibleWith: nil)
+                            ?? UIImage(named: "food_\(food.id)"),
+                            "у продукта «\(food.name)» нет своей иконки food_\(food.id)")
+        }
     }
 }

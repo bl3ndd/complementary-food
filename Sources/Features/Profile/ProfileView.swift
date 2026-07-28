@@ -233,7 +233,10 @@ struct ProfileView: View {
     private var dangerSection: some View {
         Section {
             Button(role: .destructive) { showResetConfirm = true } label: {
+                // .foregroundStyle явно: у роли .destructive краснеет только текст,
+                // а иконка тянет глобальный tint приложения и остаётся коралловой.
                 Label("Сбросить все данные", systemImage: "trash")
+                    .foregroundStyle(.red)
             }
         } footer: {
             Text("Сначала выгрузите данные (Данные → Дневник для педиатра) — после сброса восстановить нельзя.")

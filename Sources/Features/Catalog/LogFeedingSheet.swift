@@ -31,8 +31,16 @@ struct LogFeedingSheet: View {
             ScrollView {
                 VStack(spacing: 16) {
                     header
-                    if mode == .feeding { likingCard }
-                    if mode == .reaction { reactionCard }
+                    // Обе карточки в любом режиме: в редакторе записи реакция есть,
+                    // а при самой записи её не было — приходилось сохранять и лезть
+                    // править. Режим решает только порядок и заголовок.
+                    if mode == .feeding {
+                        likingCard
+                        reactionCard
+                    } else {
+                        reactionCard
+                        likingCard
+                    }
                     detailsCard
                     PhotosAttachCard(photos: $photos)
                 }

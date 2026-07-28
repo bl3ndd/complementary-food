@@ -217,15 +217,14 @@ struct DashboardView: View {
                 }
                 .padding(.vertical, 6)
             } else {
-                let shown = Array(collectionFoods.prefix(20))
-                let ghosts = max(0, 20 - shown.count)
+                // Только то, что реально введено: пунктирные «пустые слоты» до 20 штук
+                // читались как невыполненный план, хотя коллекция — про уже сделанное.
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 46), spacing: 10)], spacing: 10) {
-                    ForEach(shown) { food in
+                    ForEach(collectionFoods.prefix(20)) { food in
                         Button { path.append(food) } label: { FoodIcon(food: food, size: 44) }
                             .buttonStyle(.plain)
                             .transition(.scale.combined(with: .opacity))
                     }
-                    ForEach(0..<ghosts, id: \.self) { _ in ghostCell }
                 }
                 .animation(.spring(response: 0.45, dampingFraction: 0.7), value: introducedCount)
             }
