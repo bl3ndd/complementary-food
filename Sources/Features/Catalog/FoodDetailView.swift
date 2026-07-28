@@ -85,6 +85,13 @@ struct FoodDetailView: View {
             Text("Напоминания по этому аллергену отключатся.")
         }
         .overlay { cheerOverlay }
+        .task {
+            // Карточку могли открыть в день, когда окно уже закрылось.
+            service.completeDueIntroductions(profile: child.feedingProfile)
+        }
+        .onChange(of: state) { old, new in
+            if old == .introducing, new == .introduced { celebrateCompletion() }
+        }
     }
 
     // MARK: - Герой (адаптивный)
@@ -327,9 +334,8 @@ struct FoodDetailView: View {
         case .notIntroduced:
             return BarAction(title: "Начать введение") { start(date: startDate) }
         case .introducing:
-            return canComplete
-                ? BarAction(title: "Ввёл успешно ✅", tint: .green) { complete() }
-                : BarAction(title: "Записать кормление") { logMode = .feeding }
+            // Кнопки «Ввёл успешно» нет: окно наблюдения закрывается само по плану.
+            return BarAction(title: "Записать кормление") { logMode = .feeding }
         case .introduced:
             return BarAction(title: "Записать кормление") { logMode = .feeding }
         case .paused:
@@ -347,9 +353,6 @@ struct FoodDetailView: View {
             return []
         case .introducing:
             var items: [BarAction] = []
-            if canComplete {
-                items.append(BarAction(title: "Записать кормление") { logMode = .feeding })
-            }
             items.append(BarAction(title: "Была реакция") { logMode = .reaction })
             items.append(BarAction(title: "Приостановить ввод", role: .destructive) { confirmStop = true })
             return items
@@ -426,10 +429,10 @@ struct FoodDetailView: View {
     private func retryLater() { Haptics.tap(); service.scheduleRetry(food); refresh() }
     private func flagAllergy() { Haptics.warning(); service.markAllergy(food); refresh() }
 
-    private func complete() {
+    /// Продукт «дозрел» прямо на открытой карточке — показываем поздравление.
+    /// Раньше момент ловился по нажатию «Ввёл успешно», кнопки больше нет.
+    private func celebrateCompletion() {
         Haptics.success()
-        service.completeIntroduction(food)
-        refresh()
         withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) { showCheer = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
             withAnimation { showCheer = false }

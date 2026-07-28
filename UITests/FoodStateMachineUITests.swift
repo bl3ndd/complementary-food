@@ -17,7 +17,7 @@ final class FoodStateMachineUITests: XCTestCase {
         app.allowNotificationsIfAsked()
 
         app.staticTexts["Вводится"].assertExists(timeout: 5)
-        app.staticTexts["День 1 из 3"].assertExists(timeout: 4, "нет счётчика окна")
+        app.staticTexts["День 1 из 2"].assertExists(timeout: 4, "нет счётчика окна")
         app.buttons["Записать кормление"].assertExists(timeout: 4, "нет primary-действия")
 
         // Меню «…»: вторичные действия.
@@ -28,14 +28,14 @@ final class FoodStateMachineUITests: XCTestCase {
         app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.15)).tap()
     }
 
-    // E-FOOD-03: окно прошло → «Ввёл успешно» → поздравление → введён + сводка.
+    // E-FOOD-03: окно прошло → продукт введён САМ (ручной кнопки больше нет) + сводка.
     func testCompleteIntroductionAfterWindow() {
         let app = XCUIApplication.pudding(seed: "window-done")
         app.acceptDisclaimer()
         app.openFoodCard("брокк", rowTitle: "Брокколи")
 
-        app.buttons["Ввёл успешно ✅"].waitTap()
-        app.staticTexts["Продукт введён! 🎉"].assertExists(timeout: 4, "нет поздравления")
+        XCTAssertFalse(app.buttons["Ввёл успешно ✅"].exists,
+                       "ручное подтверждение убрано — окно закрывается по плану")
         app.staticTexts["Введён"].assertExists(timeout: 6)
         app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Кормлений'"))
             .firstMatch.assertExists(timeout: 4, "нет строки-сводки у введённого")
@@ -43,7 +43,8 @@ final class FoodStateMachineUITests: XCTestCase {
 
     // E-FOOD-06/07: пауза → «через 2 месяца» → возобновить; окно НЕ скипается.
     func testPauseRetryResumeDoesNotSkipWindow() {
-        let app = XCUIApplication.pudding(seed: "window-done")
+        // Сид с ОТКРЫТЫМ окном: «window-done» теперь автозавершается при запуске.
+        let app = XCUIApplication.pudding(seed: "introducing")
         app.acceptDisclaimer()
         app.openFoodCard("брокк", rowTitle: "Брокколи")
 
@@ -63,10 +64,10 @@ final class FoodStateMachineUITests: XCTestCase {
         app.buttons["Возобновить ввод"].waitTap()
         app.allowNotificationsIfAsked()
         app.staticTexts["Вводится"].assertExists(timeout: 5)
-        app.staticTexts["День 1 из 3"].assertExists(timeout: 4,
+        app.staticTexts["День 1 из 2"].assertExists(timeout: 4,
             "повторный ввод должен начинать окно заново")
         app.buttons["Записать кормление"].assertExists(timeout: 4,
-            "primary должен быть «Записать кормление», а не «Ввёл успешно»")
+            "primary — запись кормления; ручного завершения ввода больше нет")
     }
 
     // E-FOOD-04/05: введён → пометить аллергию → вернуть в оборот.

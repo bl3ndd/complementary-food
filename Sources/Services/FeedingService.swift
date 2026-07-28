@@ -34,12 +34,36 @@ struct FeedingService {
 
     /// introducing → introduced (окно наблюдения прошло, реакции нет). Guard в
     /// сервисе, а не только видимость кнопки: из других состояний не форсим «введён».
-    func completeIntroduction(_ food: Food) {
+    func completeIntroduction(_ food: Food, now: Date = Date()) {
         let s = status(for: food.id)
         guard s.state == .introducing else { return }
         s.state = .introduced
-        s.completedAt = Date()
+        s.completedAt = now
         save()
+    }
+
+    /// Автозавершение: у всех продуктов «в процессе» проверяем окно наблюдения из
+    /// плана и закрываем те, у которых оно прошло. Ручной кнопки «Ввёл успешно»
+    /// больше нет — если план говорит N дней, приложение само и считает продукт
+    /// введённым, а не ждёт подтверждения. Возвращает id завершённых.
+    @discardableResult
+    func completeDueIntroductions(profile: FeedingProfile,
+                                  catalog: FoodCatalog = .shared,
+                                  now: Date = Date(),
+                                  calendar: Calendar = .current) -> [String] {
+        let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>())) ?? []
+        var completed: [String] = []
+        for s in statuses where s.state == .introducing {
+            guard let food = catalog.food(id: s.foodId), let start = s.introStartedAt else { continue }
+            guard FeedingService.isObservationComplete(start: start,
+                                                       observationDays: profile.observationDays(for: food),
+                                                       now: now, calendar: calendar) else { continue }
+            s.state = .introduced
+            s.completedAt = now
+            completed.append(s.foodId)
+        }
+        if !completed.isEmpty { save() }
+        return completed
     }
 
     /// Запись кормления. Реакция — только запись в журнал и НЕ меняет статус ввода

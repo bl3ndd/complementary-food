@@ -44,10 +44,10 @@ enum UITestSupport {
             break   // только ребёнок — пустой дневник
 
         case "introducing":
-            introducing("broccoli", startedDaysAgo: 0)   // день 1 из 3
+            introducing("broccoli", startedDaysAgo: 0)   // день 1 из 2
 
         case "window-done":
-            introducing("broccoli", startedDaysAgo: 5)   // окно (3 дн) прошло → можно завершать
+            introducing("broccoli", startedDaysAgo: 5)   // окно (2 дн) прошло → закроется само
 
         case "introduced":
             introduce("broccoli", daysAgo: 10)

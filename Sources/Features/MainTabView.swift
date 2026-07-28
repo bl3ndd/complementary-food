@@ -7,6 +7,7 @@ struct MainTabView: View {
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
     @ObservedObject private var router = AppRouter.shared
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage("disclaimer.acknowledged") private var disclaimerAcked = false
 
     enum Tab { case today, catalog, calendar, allergens, profile }
@@ -28,8 +29,14 @@ struct MainTabView: View {
                 if disclaimerAcked {
                     await NotificationManager.shared.ensureAuthorized()
                 }
-                // Держим расписание напоминаний в актуальном виде при запуске.
-                NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+                // Окно наблюдения закрывается само (кнопки «Ввёл успешно» нет),
+                // поэтому при каждом запуске догоняем то, что дозрело, пока
+                // приложение было закрыто.
+                syncIntroductions()
+            }
+            .onChange(of: scenePhase) { _, phase in
+                // И при возврате из фона: день мог смениться.
+                if phase == .active { syncIntroductions() }
             }
             .onChange(of: disclaimerAcked) { _, acked in
                 // Свежая установка: «Понятно» на дисклеймере → сразу системный промпт.
@@ -39,6 +46,12 @@ struct MainTabView: View {
                                         set: { if !$0 { disclaimerAcked = true } })) {
                 DisclaimerGateSheet { disclaimerAcked = true }
             }
+    }
+
+    /// Закрывает дозревшие окна наблюдения и переставляет напоминания.
+    private func syncIntroductions() {
+        FeedingService(context: context).completeDueIntroductions(profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }
 
     private var tabs: some View {

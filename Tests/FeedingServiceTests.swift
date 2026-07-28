@@ -482,4 +482,47 @@ final class FeedingServiceTests: XCTestCase {
         let log = try XCTUnwrap(try logs(context, foodId: food.id).first)
         XCTAssertNil(log.severity, "тяжесть без реакции смысла не имеет")
     }
+
+    // MARK: - Автозавершение окна наблюдения (ручной кнопки «Ввёл успешно» нет)
+
+    @MainActor
+    func testCompleteDueIntroductionsClosesElapsedWindowOnly() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let child = Child()                       // окна по умолчанию: 2 дн / 3 дн
+        let catalog = FoodCatalog(foods: [makeFood(id: "broccoli"),
+                                          makeFood(id: "egg_yolk", allergen: true, group: .egg)])
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        func daysAgo(_ n: Int) -> Date {
+            Calendar.current.date(byAdding: .day, value: -n, to: now)!
+        }
+
+        service.startIntroduction(catalog.foods[0], date: daysAgo(1))   // день 2 из 2 → пора
+        service.startIntroduction(catalog.foods[1], date: daysAgo(1))   // аллерген: день 2 из 3
+
+        let completed = service.completeDueIntroductions(profile: child.feedingProfile,
+                                                         catalog: catalog, now: now)
+
+        XCTAssertEqual(completed, ["broccoli"], "аллергену нужно окно длиннее")
+        let statuses = try context.fetch(FetchDescriptor<IntroductionStatus>())
+        XCTAssertEqual(statuses.first { $0.foodId == "broccoli" }?.state, .introduced)
+        XCTAssertNotNil(statuses.first { $0.foodId == "broccoli" }?.completedAt)
+        XCTAssertEqual(statuses.first { $0.foodId == "egg_yolk" }?.state, .introducing)
+    }
+
+    @MainActor
+    func testCompleteDueIntroductionsIgnoresPausedAndAllergy() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let food = makeFood()
+        let catalog = FoodCatalog(foods: [food])
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+
+        service.startIntroduction(food, date: Calendar.current.date(byAdding: .day, value: -9, to: now)!)
+        service.stopIntroduction(food)            // пауза, окно давно «прошло»
+
+        XCTAssertTrue(service.completeDueIntroductions(profile: Child().feedingProfile,
+                                                       catalog: catalog, now: now).isEmpty)
+        XCTAssertEqual(try context.fetch(FetchDescriptor<IntroductionStatus>()).first?.state, .paused)
+    }
 }

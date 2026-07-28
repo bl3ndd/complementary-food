@@ -15,8 +15,8 @@ final class Child {
     // MARK: - Параметры «своего плана» (custom). CloudKit-safe дефолты.
     var customStartAgeMonths: Int = 6
     /// Окно наблюдения для обычного продукта и для аллергена — раздельно (п.10).
-    var customObservationDaysRegular: Int = 3
-    var customObservationDaysAllergen: Int = 5
+    var customObservationDaysRegular: Int = 2
+    var customObservationDaysAllergen: Int = 3
     var customAllergenFrequencyPerWeek: Int = 2
     /// Список групп аллергенов строкой rawValue через запятую (примитив — для CloudKit).
     /// `other` включён: под ним в каталоге цитрусовые/клубника/киви и свои продукты
