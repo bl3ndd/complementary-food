@@ -8,7 +8,6 @@ struct MainTabView: View {
     @Query private var logs: [FoodLog]
     @ObservedObject private var router = AppRouter.shared
     @Environment(\.scenePhase) private var scenePhase
-    @AppStorage("disclaimer.acknowledged") private var disclaimerAcked = false
 
     enum Tab { case today, catalog, calendar, allergens, profile }
 
@@ -24,11 +23,9 @@ struct MainTabView: View {
                 // Подмешиваем свои продукты в каталог (для истории/календаря).
                 let customs = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []
                 FoodCatalog.setCustom(customs)
-                // Разрешение на уведомления просим сразу (после гейта — в onChange ниже);
+                // Разрешение на уведомления просим сразу после онбординга:
                 // ensureAuthorized промптит только в notDetermined, т.е. один раз.
-                if disclaimerAcked {
-                    await NotificationManager.shared.ensureAuthorized()
-                }
+                await NotificationManager.shared.ensureAuthorized()
                 // Окно наблюдения закрывается само (кнопки «Ввёл успешно» нет),
                 // поэтому при каждом запуске догоняем то, что дозрело, пока
                 // приложение было закрыто.
@@ -37,14 +34,6 @@ struct MainTabView: View {
             .onChange(of: scenePhase) { _, phase in
                 // И при возврате из фона: день мог смениться.
                 if phase == .active { syncIntroductions() }
-            }
-            .onChange(of: disclaimerAcked) { _, acked in
-                // Свежая установка: «Понятно» на дисклеймере → сразу системный промпт.
-                if acked { Task { await NotificationManager.shared.ensureAuthorized() } }
-            }
-            .sheet(isPresented: Binding(get: { !disclaimerAcked },
-                                        set: { if !$0 { disclaimerAcked = true } })) {
-                DisclaimerGateSheet { disclaimerAcked = true }
             }
     }
 
@@ -90,26 +79,3 @@ struct MainTabView: View {
     }
 }
 
-/// Одноразовый дисклеймер при первом входе в приложение (App Review 1.4.1 / страховка).
-/// Не совет — а явное «мы только дневник, решения с педиатром».
-private struct DisclaimerGateSheet: View {
-    let onAccept: () -> Void
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            Image(systemName: "heart.text.square.fill")
-                .font(.system(size: 56)).foregroundStyle(Theme.accent)
-            Text("Прежде чем начать").font(.title2.bold())
-            Text(Disclaimer.medical)
-                .font(.callout).foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            Spacer()
-            BigButton(title: "Понятно") { onAccept() }
-        }
-        .padding(28)
-        .background(AppBackground())
-        .interactiveDismissDisabled()
-    }
-}

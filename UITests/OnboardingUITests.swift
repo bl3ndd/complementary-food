@@ -1,6 +1,6 @@
 import XCTest
 
-/// E-ONB-01…04: онбординг, «Назад», гейт дисклеймера, «уже введённые» продукты.
+/// E-ONB-01…04: онбординг, «Назад», «уже введённые» продукты.
 final class OnboardingUITests: XCTestCase {
 
     override func setUpWithError() throws { continueAfterFailure = false }
@@ -34,11 +34,13 @@ final class OnboardingUITests: XCTestCase {
         app.staticTexts["Что уже ввели?"].assertExists(timeout: 4)
         app.row(containing: "Брокколи").waitTap()
 
-        // Финиш → гейт дисклеймера → таббар (E-ONB-01).
+        // Финиш → сразу таббар: блокирующего дисклеймер-гейта больше нет,
+        // текст живёт в Профиле → «О приложении» (E-ONB-01).
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Погнали'")).firstMatch.waitTap()
-        app.staticTexts["Прежде чем начать"].assertExists(timeout: 8, "гейт дисклеймера не показался")
-        app.buttons["Понятно"].waitTap()
-        app.tabBars.buttons["Сегодня"].assertExists(timeout: 8, "таббар не появился после гейта")
+        app.allowNotificationsIfAsked()
+        XCTAssertFalse(app.staticTexts["Прежде чем начать"].exists,
+                       "гейт дисклеймера убран — не должен всплывать")
+        app.tabBars.buttons["Сегодня"].assertExists(timeout: 8, "таббар не появился после онбординга")
 
         // E-ONB-04: «уже введён» — в дневнике записей НЕТ (никаких фейковых логов).
         app.staticTexts["Ника"].assertExists()

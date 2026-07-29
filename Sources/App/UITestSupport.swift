@@ -15,8 +15,6 @@ enum UITestSupport {
     }
 
     static func prepare(_ context: ModelContext) {
-        // Гейт дисклеймера должен быть предсказуем в каждом прогоне.
-        UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
         guard let seed else { return }
 
         let cal = Calendar.current

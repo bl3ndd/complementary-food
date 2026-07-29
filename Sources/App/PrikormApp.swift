@@ -22,7 +22,6 @@ struct PrikormApp: App {
         #if DEBUG
         if demo {
             // Дневник за ~4 месяца: смотреть, как приложение живёт на реальном объёме.
-            UserDefaults.standard.set(true, forKey: "disclaimer.acknowledged")
             SampleData.seedDiary(container.mainContext)
         }
         if CommandLine.arguments.contains("-seedSample") {

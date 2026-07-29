@@ -1,8 +1,10 @@
 import SwiftUI
 import SwiftData
 
-/// Онбординг (SPEC §12): Welcome → Ребёнок → Методика. Медицинский дисклеймер —
-/// в Профиле (секция «Важно»). Пуши тут НЕ просим — сразу после дисклеймер-гейта.
+/// Онбординг (SPEC §12): Welcome → Ребёнок → План → Что уже ввели.
+/// Медицинский дисклеймер — в Профиле → «О приложении» (блокирующего гейта нет:
+/// приложение ничего не советует, поэтому не держим человека на экране с текстом).
+/// Разрешение на уведомления просим сразу после онбординга, в MainTabView.
 struct OnboardingView: View {
     @Environment(\.modelContext) private var context
 
@@ -228,10 +230,6 @@ struct OnboardingView: View {
     }
 
     private func finish() {
-        // Новый онбординг = свежий старт: дисклеймер-гейт должен всплыть снова (в т.ч.
-        // после сброса). Чистим ДО создания Child — гейт всплывёт на свежем MainTabView,
-        // без мигания на старом. На первой установке флаг и так false — no-op.
-        UserDefaults.standard.removeObject(forKey: "disclaimer.acknowledged")
         // AppRouter — синглтон: после сброса из Профиля таб остался бы .profile.
         // Свежий старт всегда открывается на главной.
         AppRouter.shared.selectedTab = .today

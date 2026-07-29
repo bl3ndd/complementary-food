@@ -1,7 +1,7 @@
 import XCTest
 
 /// E-PRF-01…07: профиль — секции, план (предупреждение пустых аллергенов),
-/// гейты «Данных», сброс → онбординг → гейт дисклеймера снова.
+/// гейты «Данных», сброс → онбординг.
 final class ProfileUITests: XCTestCase {
 
     override func setUpWithError() throws { continueAfterFailure = false }
@@ -77,8 +77,8 @@ final class ProfileUITests: XCTestCase {
             .firstMatch.waitForExistence(timeout: 2))
     }
 
-    // E-PRF-07: сброс → онбординг; после нового онбординга гейт дисклеймера снова.
-    func testResetLeadsToOnboardingAndGateAgain() {
+    // E-PRF-07: сброс → онбординг → сразу приложение (гейта дисклеймера больше нет).
+    func testResetLeadsToOnboarding() {
         let app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
         app.openTab("Профиль")
@@ -93,9 +93,7 @@ final class ProfileUITests: XCTestCase {
         app.buttons["Далее"].waitTap()
         app.buttons["Далее"].waitTap()
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Погнали'")).firstMatch.waitTap()
-        app.staticTexts["Прежде чем начать"].assertExists(timeout: 8,
-            "после сброса гейт дисклеймера должен показаться снова")
-        app.buttons["Понятно"].tap()
+        app.allowNotificationsIfAsked()
         let todayTab = app.tabBars.buttons["Сегодня"]
         todayTab.assertExists(timeout: 6)
         // Регресс: сброс шёл из Профиля — синглтон-роутер не должен утащить на
