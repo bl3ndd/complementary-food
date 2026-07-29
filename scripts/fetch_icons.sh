@@ -38,7 +38,7 @@ hake 1F420
 salmon 1F363
 cottage_cheese 1FAD9
 kefir 1F964
-yogurt 1F366
+yogurt 1F368
 cow_milk 1F95B
 egg_yolk 1F373
 egg_white 1F95A

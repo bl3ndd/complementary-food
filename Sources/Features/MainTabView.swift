@@ -49,7 +49,12 @@ struct MainTabView: View {
     }
 
     /// Закрывает дозревшие окна наблюдения и переставляет напоминания.
+    /// Заодно разово подтягивает план на новые дефолты окон (2/3), если юзер
+    /// их не менял руками.
     private func syncIntroductions() {
+        if PlanMigration.ObservationWindowsV2.apply(to: child) {
+            try? context.save()
+        }
         FeedingService(context: context).completeDueIntroductions(profile: child.feedingProfile)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }

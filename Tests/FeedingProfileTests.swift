@@ -99,4 +99,51 @@ final class FeedingProfileTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(p.maintenanceIntervalDays, 1)
         XCTAssertFalse(p.allergenGroups.isEmpty)
     }
+
+    // MARK: - Разовая миграция окон наблюдения (3/5 → 2/3)
+
+    private func freshDefaults(_ name: String) throws -> UserDefaults {
+        let d = try XCTUnwrap(UserDefaults(suiteName: name))
+        d.removePersistentDomain(forName: name)
+        return d
+    }
+
+    func testWindowsMigrationUpdatesUntouchedPlan() throws {
+        let defaults = try freshDefaults("plan.migration.untouched")
+        defer { defaults.removePersistentDomain(forName: "plan.migration.untouched") }
+        let child = Child()
+        child.customObservationDaysRegular = PlanMigration.ObservationWindowsV2.oldRegular
+        child.customObservationDaysAllergen = PlanMigration.ObservationWindowsV2.oldAllergen
+
+        XCTAssertTrue(PlanMigration.ObservationWindowsV2.apply(to: child, defaults: defaults))
+        XCTAssertEqual(child.customObservationDaysRegular, 2)
+        XCTAssertEqual(child.customObservationDaysAllergen, 3)
+    }
+
+    func testWindowsMigrationKeepsCustomizedPlan() throws {
+        let defaults = try freshDefaults("plan.migration.custom")
+        defer { defaults.removePersistentDomain(forName: "plan.migration.custom") }
+        let child = Child()
+        child.customObservationDaysRegular = 7      // юзер настроил сам
+        child.customObservationDaysAllergen = 10
+
+        XCTAssertFalse(PlanMigration.ObservationWindowsV2.apply(to: child, defaults: defaults))
+        XCTAssertEqual(child.customObservationDaysRegular, 7, "чужие настройки не трогаем")
+        XCTAssertEqual(child.customObservationDaysAllergen, 10)
+    }
+
+    func testWindowsMigrationRunsOnlyOnce() throws {
+        let defaults = try freshDefaults("plan.migration.once")
+        defer { defaults.removePersistentDomain(forName: "plan.migration.once") }
+        let child = Child()
+        child.customObservationDaysRegular = PlanMigration.ObservationWindowsV2.oldRegular
+        child.customObservationDaysAllergen = PlanMigration.ObservationWindowsV2.oldAllergen
+
+        XCTAssertTrue(PlanMigration.ObservationWindowsV2.apply(to: child, defaults: defaults))
+        // Юзер потом сам вернул старые значения — повторно не переписываем.
+        child.customObservationDaysRegular = PlanMigration.ObservationWindowsV2.oldRegular
+        child.customObservationDaysAllergen = PlanMigration.ObservationWindowsV2.oldAllergen
+        XCTAssertFalse(PlanMigration.ObservationWindowsV2.apply(to: child, defaults: defaults))
+        XCTAssertEqual(child.customObservationDaysRegular, 3)
+    }
 }

@@ -456,7 +456,7 @@
       "id": "yogurt",
       "name": "Йогурт",
       "category": "dairy",
-      "emoji": "🍦",
+      "emoji": "🍨",
       "isAllergen": true,
       "allergenGroup": "dairy",
       "minAgeMonths": 8,
