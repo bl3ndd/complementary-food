@@ -53,7 +53,7 @@ struct PrikormApp: App {
     static let cloudKitContainer = "iCloud.com.pudding.app"
 
     private static func makeContainer(inMemory: Bool) -> ModelContainer {
-        let schema = Schema(AppSchemaV1.models)
+        let schema = Schema(AppSchemaCurrent.models)
         // UI-тесты — всегда чистая память, без облака.
         let config = inMemory
             ? ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)

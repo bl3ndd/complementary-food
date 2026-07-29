@@ -19,9 +19,24 @@ enum AppSchemaV1: VersionedSchema {
     }
 }
 
+/// V2: добавлена `AppInstall` — отметка «когда пришёл» под обещание пожизненного
+/// доступа ранним пользователям. Новая сущность = lightweight-переход.
+enum AppSchemaV2: VersionedSchema {
+    static var versionIdentifier: Schema.Version { Schema.Version(1, 1, 0) }
+
+    static var models: [any PersistentModel.Type] {
+        AppSchemaV1.models + [AppInstall.self]
+    }
+}
+
+/// Текущая схема — всегда последняя версия.
+typealias AppSchemaCurrent = AppSchemaV2
+
 enum AppMigrationPlan: SchemaMigrationPlan {
-    static var schemas: [any VersionedSchema.Type] { [AppSchemaV1.self] }
-    static var stages: [MigrationStage] { [] }
+    static var schemas: [any VersionedSchema.Type] { [AppSchemaV1.self, AppSchemaV2.self] }
+    static var stages: [MigrationStage] {
+        [.lightweight(fromVersion: AppSchemaV1.self, toVersion: AppSchemaV2.self)]
+    }
 }
 
 /// Аварийное восстановление стора: если контейнер не создаётся даже с планом

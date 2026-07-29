@@ -165,4 +165,43 @@ final class ModelTests: XCTestCase {
         child.customAllergenFrequencyPerWeek = 1
         XCTAssertEqual(child.feedingProfile.maintenanceIntervalDays, 7)  // 7/1 → 7
     }
+
+    // MARK: - Отметка «когда пришёл» под обещание ранним пользователям
+
+    @MainActor
+    func testEarlyAdopterRegistersOnceAndKeepsFirstDate() throws {
+        let schema = Schema(AppSchemaCurrent.models)
+        let container = try ModelContainer(for: schema,
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+        let context = container.mainContext
+        let service = EarlyAdopter(context: context)
+        let first = Date(timeIntervalSince1970: 1_700_000_000)
+
+        let created = service.registerIfNeeded(now: first, version: "1.0.0")
+        XCTAssertEqual(created.firstLaunchedAt, first)
+        XCTAssertEqual(created.firstVersion, "1.0.0")
+
+        // Повторный запуск — та же запись, дата не съезжает.
+        let again = service.registerIfNeeded(now: first.addingTimeInterval(86_400 * 30),
+                                             version: "1.2.0")
+        XCTAssertEqual(again.firstLaunchedAt, first, "дата первого запуска не должна двигаться")
+        XCTAssertEqual(try context.fetchCount(FetchDescriptor<AppInstall>()), 1,
+                       "запись не должна дублироваться")
+    }
+
+    @MainActor
+    func testEarlyAdopterPicksEarliestWhenDuplicatesSynced() throws {
+        let schema = Schema(AppSchemaCurrent.models)
+        let container = try ModelContainer(for: schema,
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+        let context = container.mainContext
+        let early = Date(timeIntervalSince1970: 1_700_000_000)
+
+        // Гонка двух устройств на одном iCloud: две записи прилетели через синк.
+        context.insert(AppInstall(firstLaunchedAt: early.addingTimeInterval(86_400), firstVersion: "1.0.0"))
+        context.insert(AppInstall(firstLaunchedAt: early, firstVersion: "1.0.0"))
+
+        XCTAssertEqual(EarlyAdopter(context: context).registerIfNeeded().firstLaunchedAt, early,
+                       "берём самую раннюю отметку")
+    }
 }

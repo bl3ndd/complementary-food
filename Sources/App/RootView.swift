@@ -4,6 +4,7 @@ import SwiftData
 /// Гейт: нет ребёнка → онбординг; есть → основное приложение (SPEC §12).
 struct RootView: View {
     @Query private var children: [Child]
+    @Environment(\.modelContext) private var context
     /// Оформление: система / светлая / тёмная (Профиль → Приложение). Применяется сразу.
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
 
@@ -19,6 +20,11 @@ struct RootView: View {
         }
         // Мягкий кроссфейд онбординг ↔ приложение (финиш онбординга / сброс данных).
         .animation(.easeInOut(duration: 0.45), value: children.isEmpty)
+        .task {
+            // Пишем «когда пришёл» с первого запуска — задним числом это уже
+            // не восстановить, а на этом держится обещание ранним пользователям.
+            EarlyAdopter(context: context).registerIfNeeded()
+        }
         .tint(Theme.accent)
         .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
         // Палитра адаптивная (Theme.dynamic). По умолчанию идём за системой, но даём

@@ -45,6 +45,7 @@
 		4C2B29103C7D32BE6CD3065E /* CalendarPerfUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1E35B7B9295C6B689CE26 /* CalendarPerfUITests.swift */; };
 		5175661213B86BD0231DD81D /* DiaryPDFExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270020787FFBB9A220680C29 /* DiaryPDFExport.swift */; };
 		51E1607B81EE325063A2D1E4 /* foods.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CF87C40EB3D72ED2F5C39B7 /* foods.json */; };
+		526648C2079544C1B1235F25 /* EarlyAdopter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDF9D4482573C1FD797BA49 /* EarlyAdopter.swift */; };
 		5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752BF5E941CC9648AC650547 /* ModelTests.swift */; };
 		5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */; };
 		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
@@ -78,6 +79,7 @@
 		C5D0EAB39E7C11FC66DEC3DB /* FeedingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */; };
 		DA535DF91D83E045954F8FFE /* ReactivityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A081273EF9B4302E370D3 /* ReactivityUITests.swift */; };
 		E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E7FEF7218059F4616EC495 /* CalendarService.swift */; };
+		E779298BC3D510C314B43859 /* AppInstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52A8D665B9B96AEFF31A1C3 /* AppInstall.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
 		ECE49371C67DE382A0CB70AD /* PlanIntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */; };
 		F4D20301E8188A213C6274E7 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E98201C1EC77290CBF1D4B /* AppTheme.swift */; };
@@ -135,6 +137,7 @@
 		3FFDE7EF3527F84544CCED5C /* RecapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapView.swift; sourceTree = "<group>"; };
 		4088924D10FC333495FBF4AE /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		49835FD1784A5B3FA0982C87 /* CustomFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFood.swift; sourceTree = "<group>"; };
+		4CDF9D4482573C1FD797BA49 /* EarlyAdopter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarlyAdopter.swift; sourceTree = "<group>"; };
 		4CF87C40EB3D72ED2F5C39B7 /* foods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = foods.json; sourceTree = "<group>"; };
 		50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenMaintenance.swift; sourceTree = "<group>"; };
 		50BFA277A9F595AEA4F56908 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 		BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingService.swift; sourceTree = "<group>"; };
 		BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailView.swift; sourceTree = "<group>"; };
+		C52A8D665B9B96AEFF31A1C3 /* AppInstall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstall.swift; sourceTree = "<group>"; };
 		C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergensView.swift; sourceTree = "<group>"; };
 		C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mascot.swift; sourceTree = "<group>"; };
 		CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceTests.swift; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 		949615AD1DB64EDC31B86B4A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C52A8D665B9B96AEFF31A1C3 /* AppInstall.swift */,
 				21161D9379ED59AF6BECDBFB /* Child.swift */,
 				49835FD1784A5B3FA0982C87 /* CustomFood.swift */,
 				ECEB249AEAB045519C4FC7B9 /* Enums.swift */,
@@ -328,6 +333,7 @@
 				F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */,
 				A4E7FEF7218059F4616EC495 /* CalendarService.swift */,
 				270020787FFBB9A220680C29 /* DiaryPDFExport.swift */,
+				4CDF9D4482573C1FD797BA49 /* EarlyAdopter.swift */,
 				BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */,
 				E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */,
 				1E5CB23367B4B53F2901425F /* NotificationManager.swift */,
@@ -594,6 +600,7 @@
 				03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */,
 				B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */,
 				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
+				E779298BC3D510C314B43859 /* AppInstall.swift in Sources */,
 				F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */,
 				BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */,
 				FCC36B053705C5497D2B8214 /* AppReview.swift in Sources */,
@@ -613,6 +620,7 @@
 				AE56D291E94D7068264C7E9A /* DiaryEntryRow.swift in Sources */,
 				5175661213B86BD0231DD81D /* DiaryPDFExport.swift in Sources */,
 				9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */,
+				526648C2079544C1B1235F25 /* EarlyAdopter.swift in Sources */,
 				BA6883AE8CA59600E865195B /* EditLogSheet.swift in Sources */,
 				E7B506A7E08332292C71C790 /* Enums.swift in Sources */,
 				2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */,

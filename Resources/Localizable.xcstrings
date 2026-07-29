@@ -1,6 +1,172 @@
 {
   "sourceLanguage" : "ru",
   "strings" : {
+    "Ранний пользователь" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Früher Nutzer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Early user"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuario desde el principio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisateur de la première heure"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utente della prima ora"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "初期ユーザー"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "초기 사용자"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vroege gebruiker"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wczesny użytkownik"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuário desde o começo"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İlk kullanıcı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ранній користувач"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "早期用户"
+          }
+        }
+      }
+    },
+    "Pudding пока полностью бесплатный. Когда появятся платные возможности, для тебя они останутся бесплатными — ты пришёл в самом начале." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding ist derzeit komplett kostenlos. Wenn kostenpflichtige Funktionen kommen, bleiben sie für dich kostenlos – du warst von Anfang an dabei."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding is completely free for now. When paid features arrive, they stay free for you — you were here from the start."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding es completamente gratis por ahora. Cuando lleguen las funciones de pago, para ti seguirán siendo gratuitas: estuviste desde el principio."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding est entièrement gratuit pour l'instant. Quand des fonctions payantes arriveront, elles resteront gratuites pour toi — tu étais là dès le début."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding è del tutto gratuito per ora. Quando arriveranno le funzioni a pagamento, per te resteranno gratuite: c'eri fin dall'inizio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding は今のところ完全に無料です。有料機能が登場しても、あなたには無料のままです。最初からいてくれたので。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding은 지금은 완전히 무료입니다. 유료 기능이 생겨도 당신에게는 계속 무료입니다 — 처음부터 함께했으니까요."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding is voorlopig helemaal gratis. Komen er betaalde functies, dan blijven ze voor jou gratis — jij was er vanaf het begin."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding jest na razie całkowicie darmowy. Gdy pojawią się funkcje płatne, dla ciebie zostaną darmowe — byłeś tu od początku."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Pudding é totalmente gratuito por enquanto. Quando surgirem recursos pagos, para você eles seguirão gratuitos — você esteve aqui desde o começo."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding şimdilik tamamen ücretsiz. Ücretli özellikler geldiğinde senin için ücretsiz kalacaklar — en baştan buradaydın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding поки що повністю безкоштовний. Коли зʼявляться платні можливості, для тебе вони лишаться безкоштовними — ти прийшов на самому початку."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pudding 目前完全免费。将来即使有付费功能，对你也依然免费——你从一开始就在。"
+          }
+        }
+      }
+    },
     "Оформление" : {
       "extractionState" : "manual",
       "localizations" : {

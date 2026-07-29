@@ -11,6 +11,7 @@ struct ProfileView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Query private var logs: [FoodLog]
     @Query private var statuses: [IntroductionStatus]
+    @Query private var installs: [AppInstall]
 
     @AppStorage("app.language") private var language: AppLanguage = .system
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
@@ -199,6 +200,11 @@ struct ProfileView: View {
         }
     }
 
+    /// Дата первого запуска — основание для обещания «ранним пожизненно».
+    private var earlyAdopterSince: Date? {
+        installs.map(\.firstLaunchedAt).min()
+    }
+
     private var hasRecapData: Bool {
         RecapService(catalog: catalog, logs: logs).hasData(for: Date())
     }
@@ -220,11 +226,20 @@ struct ProfileView: View {
                 Label("Источники методики", systemImage: "book")
             }
             LabeledContent("Версия", value: Bundle.main.appVersion)
+            if let since = earlyAdopterSince {
+                LabeledContent("Ранний пользователь", value: since.formatted(.dateTime.day().month().year()))
+            }
         } header: {
             Text("О приложении")
         } footer: {
-            Text(Disclaimer.medical + "\n\n" + String(localized: "Иконки: OpenMoji (CC BY-SA 4.0)"))
-                .font(.footnote)
+            VStack(alignment: .leading, spacing: 10) {
+                if earlyAdopterSince != nil {
+                    Text("Pudding пока полностью бесплатный. Когда появятся платные возможности, для тебя они останутся бесплатными — ты пришёл в самом начале.")
+                        .foregroundStyle(Theme.accent)
+                }
+                Text(Disclaimer.medical + "\n\n" + String(localized: "Иконки: OpenMoji (CC BY-SA 4.0)"))
+            }
+            .font(.footnote)
         }
     }
 

@@ -27,9 +27,13 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 - **Services** (`Sources/Services/`): stateless business logic. `FoodCatalog`,
   `FeedingService`, `AllergenTracker`, `AllergenMaintenance`, `CalendarService`,
   `NotificationManager`, `RecapService`, `DiaryPDFExport`.
-- **Схема хранилища версионирована** (`Sources/App/AppSchema.swift`): `AppSchemaV1` +
-  `AppMigrationPlan` + `StoreRecovery`. Меняешь модели — заводи `AppSchemaV2` и стадию
-  миграции, **не правь V1**. Контейнер не падает в `fatalError`: стор не открылся →
+- **Схема хранилища версионирована** (`Sources/App/AppSchema.swift`): `AppSchemaV1`/`V2` +
+  `AppMigrationPlan` + `StoreRecovery`; контейнер собирается по `AppSchemaCurrent`.
+  Меняешь модели — заводи следующую версию и стадию миграции, **не правь старые**.
+- **1.0 полностью бесплатная.** Ранним пользователям обещан пожизненный доступ к
+  будущему Pro; основание — запись `AppInstall` (дата первого запуска), которую
+  ставит `EarlyAdopter` при старте. Не удалять и не переносить в `UserDefaults`:
+  она должна переживать переустановку через iCloud. Контейнер не падает в `fatalError`: стор не открылся →
   файлы уходят в `corrupt-*` → чистый старт → в крайнем случае in-memory.
 - **Features** (`Sources/Features/`): SwiftUI views grouped by screen. Shared UI
   lives in `Features/Common/` — cartoon theme (`Theme`, `AppBackground`,
