@@ -43,8 +43,19 @@ struct PlanIntroSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Отмена") { dismiss() } }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Готово") { planPicked() }.disabled(picked.isEmpty)
+            }
+            // Подтверждение — крупной кнопкой снизу: она видна и когда открыт поиск
+            // (тулбар в этот момент занят строкой поиска), и сразу показывает,
+            // сколько продуктов отмечено.
+            .safeAreaInset(edge: .bottom) {
+                if !picked.isEmpty {
+                    BigButton(title: "Готово") { planPicked() }
+                        .padding(.horizontal).padding(.vertical, 8)
+                        .background(
+                            LinearGradient(colors: [Theme.card.opacity(0), Theme.card.opacity(0.95)],
+                                           startPoint: .top, endPoint: .bottom)
+                                .ignoresSafeArea(edges: .bottom)
+                        )
                 }
             }
             // Смена даты меняет и «уже запланировано» — выбор сбрасываем, чтобы

@@ -66,16 +66,18 @@ final class CalendarUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openTab("Календарь")
 
-        // E-CAL-08: яблоко уже запланировано на сегодня → повторный выбор → алерт.
+        // E-CAL-08: яблоко уже запланировано на сегодня → выбрать повторно нельзя.
+        // Раньше это был алерт «Уже запланировано»; с мультивыбором такой продукт
+        // просто не отмечается, и кнопка подтверждения не появляется.
         // Поиск — именно поле шита («Поиск продукта»), а не календаря позади.
         app.buttons["Запланировать ввод"].waitTap()
         let search = app.searchFields["Поиск продукта"]
         search.waitTap()
         search.typeText("яблоко")
         app.row(containing: "Яблоко").waitTap()
-        app.alerts["Уже запланировано"].assertExists(timeout: 4, "нет дедупа планов")
-        app.alerts.buttons["Ок"].tap()
-        // Закрыть шит, если ещё открыт (ядро кейса — сам алерт дедупа выше).
+        XCTAssertFalse(app.buttons["Готово"].waitForExistence(timeout: 2),
+                       "уже запланированный продукт не должен выбираться повторно")
+
         let cancel = app.navigationBars["Запланировать ввод"].buttons["Отмена"]
         if cancel.waitForExistence(timeout: 2) { cancel.tap() }
     }

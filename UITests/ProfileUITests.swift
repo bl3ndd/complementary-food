@@ -59,9 +59,10 @@ final class ProfileUITests: XCTestCase {
         app.navigationBars["Твой план прикорма"].assertExists(timeout: 5)
         app.staticTexts["Аллергены для ввода"].assertExists(timeout: 4)
 
-        // Снять все 9 групп (Big-9 включены по умолчанию).
+        // Снять все 10 групп: к Big-9 добавилась «Другое» — под ней в каталоге
+        // цитрусовые/клубника/киви и свои продукты с галкой «аллерген».
         for group in ["Яйцо", "Арахис", "Орехи", "Молочные", "Глютен",
-                      "Рыба", "Морепродукты", "Соя", "Кунжут"] {
+                      "Рыба", "Морепродукты", "Соя", "Кунжут", "Другое"] {
             let chip = app.buttons[group].firstMatch
             if !chip.isHittable { app.swipeUp() }
             chip.waitTap(timeout: 4)

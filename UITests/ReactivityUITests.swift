@@ -47,8 +47,8 @@ final class ReactivityUITests: XCTestCase {
         let app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
 
-        // До: коллекция пуста, 0/71.
-        app.staticTexts["0/71"].assertExists(timeout: 8, "нет стартового счётчика 0/71")
+        // До: коллекция пуста. Знаменатель — ближайшая веха (5), а не весь каталог.
+        app.staticTexts["0/5"].assertExists(timeout: 8, "нет стартового счётчика 0/5")
 
         // Мутация: добавить свой продукт.
         app.openTab("Каталог")
@@ -59,7 +59,7 @@ final class ReactivityUITests: XCTestCase {
 
         // Главная: счётчик и знаменатель обновились без перезапуска.
         app.openTab("Сегодня")
-        app.staticTexts["1/72"].assertExists(timeout: 6,
+        app.staticTexts["1/5"].assertExists(timeout: 6,
             "коллекция не отреагировала на свой продукт (статик-каталог протух?)")
 
         // Мутация: удалить свой продукт.
@@ -72,7 +72,7 @@ final class ReactivityUITests: XCTestCase {
 
         // Главная: счётчик вернулся.
         app.openTab("Сегодня")
-        app.staticTexts["0/71"].assertExists(timeout: 6,
+        app.staticTexts["0/5"].assertExists(timeout: 6,
             "коллекция не отреагировала на удаление своего продукта")
     }
 
@@ -103,27 +103,20 @@ final class ReactivityUITests: XCTestCase {
             "intro-запись не попала в дневник")
     }
 
-    // R4: «Ввёл успешно» → «Сейчас вводишь» исчез, коллекция 1/71, бейдж «Введён».
+    // R4: окно прошло → продукт закрывается САМ (ручной кнопки нет) и это
+    // разъезжается по экранам: «Сейчас вводишь» пусто, коллекция +1, бейдж «Введён».
     func testR4_CompleteIntroductionPropagates() {
         let app = XCUIApplication.pudding(seed: "window-done")
         app.acceptDisclaimer()
 
-        app.staticTexts["Сейчас вводишь"].assertExists(timeout: 8)
-        app.staticTexts["0/71"].assertExists(timeout: 4)
+        XCTAssertFalse(app.staticTexts["Сейчас вводишь"].waitForExistence(timeout: 3),
+                       "продукт с прошедшим окном не должен оставаться «в процессе»")
+        app.staticTexts["1/5"].assertExists(timeout: 8, "коллекция не выросла после автозавершения")
 
-        app.openFoodCard("брокк", rowTitle: "Брокколи")
-        app.buttons["Ввёл успешно ✅"].waitTap()
-        app.staticTexts["Введён"].assertExists(timeout: 8)
-        app.navigationBars.buttons.firstMatch.tap()
-
+        app.openTab("Каталог")
         app.buttons.matching(NSPredicate(
             format: "label CONTAINS 'Брокколи' AND label CONTAINS 'Введён'"))
-            .firstMatch.assertExists(timeout: 5, "бейдж «Введён» не обновился в каталоге")
-
-        app.openTab("Сегодня")
-        app.staticTexts["1/71"].assertExists(timeout: 6, "коллекция не выросла после ввода")
-        XCTAssertFalse(app.staticTexts["Сейчас вводишь"].waitForExistence(timeout: 2),
-                       "«Сейчас вводишь» должно исчезнуть после завершения")
+            .firstMatch.assertExists(timeout: 6, "бейдж «Введён» не обновился в каталоге")
     }
 
     // R5: «Дал» аллерген → строка «В норме» + запись в ленте календаря.
@@ -171,6 +164,7 @@ final class ReactivityUITests: XCTestCase {
         let search = app.searchFields["Поиск продукта"]
         search.waitTap(); search.typeText("манго")
         app.row(containing: "Манго").waitTap()
+        app.buttons["Готово"].waitTap()   // мультивыбор: подтверждаем выбранное
 
         // Лента: план появился (на сегодня → в прошло-сегодняшней группе с «Выполнено»).
         app.staticTexts["Манго"].firstMatch.assertExists(timeout: 6, "план не попал в ленту")
