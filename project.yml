@@ -26,7 +26,7 @@ settings:
   base:
     SWIFT_VERSION: "5.0"
     MARKETING_VERSION: "1.0.0"
-    CURRENT_PROJECT_VERSION: "1"
+    CURRENT_PROJECT_VERSION: "3"
 targets:
   Prikorm:
     type: application
@@ -35,6 +35,25 @@ targets:
       - path: Sources
       - path: Resources
         buildPhase: resources
+    # Info.plist явным файлом, а не GENERATE_INFOPLIST_FILE: ключ UIBackgroundModes
+    # через INFOPLIST_KEY_* не доезжал до бандла (проверено на архиве), а без него
+    # CloudKit не получает тихие пуши и синк подтягивается только при запуске.
+    info:
+      path: Info.plist
+      properties:
+        CFBundleDisplayName: Pudding
+        # Версии — из build settings, иначе XcodeGen подставляет свои дефолты
+        # («1.0» / «1») и в стор уезжает не тот номер сборки.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
+        UIBackgroundModes: [remote-notification]
+        # Экран запуска в цвете приложения: белая вспышка перед тёмной темой
+        # выглядит как чужой экран (и бьёт по глазам ночью).
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+
     # iCloud-синхрон (SwiftData + CloudKit, приватная база пользователя).
     # Файл entitlements генерируется отсюда — руками в Xcode галки не ставить,
     # следующий `xcodegen generate` их сотрёт.
@@ -52,13 +71,6 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.pudding.app
         TARGETED_DEVICE_FAMILY: "1"
-        GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_CFBundleDisplayName: "Pudding"
-        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
-        # Тихие пуши CloudKit о чужих изменениях — иначе синк подтягивается
-        # только при запуске, а не вживую.
-        INFOPLIST_KEY_UIBackgroundModes: remote-notification
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: A89ST3SFXS
       configs:

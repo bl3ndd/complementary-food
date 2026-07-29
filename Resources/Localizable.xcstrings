@@ -1,6 +1,172 @@
 {
   "sourceLanguage" : "ru",
   "strings" : {
+    "%lld из %lld кормлений" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld von %2$lld Mahlzeiten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld of %2$lld feedings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld de %2$lld tomas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld repas sur %2$lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld pasti su %2$lld"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$lld回中 %1$lld回"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$lld회 중 %1$lld회"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld van %2$lld voedingen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld z %2$lld posiłków"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld de %2$lld refeições"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$lld öğünden %1$lld"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld з %2$lld годувань"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%2$lld 次中的第 %1$lld 次"
+          }
+        }
+      }
+    },
+    "Продолжай вводить продукт — записано %lld из %lld кормлений. Следи за реакцией 👀" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Führe das Lebensmittel weiter ein – %1$lld von %2$lld Mahlzeiten erfasst. Achte auf Reaktionen 👀"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep introducing the food — %1$lld of %2$lld feedings logged. Watch for reactions 👀"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sigue introduciendo el alimento: %1$lld de %2$lld tomas registradas. Atenta a las reacciones 👀"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue d'introduire l'aliment — %1$lld repas sur %2$lld enregistrés. Surveille les réactions 👀"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continua a introdurre l'alimento — %1$lld pasti su %2$lld registrati. Occhio alle reazioni 👀"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "食材の導入を続けましょう — %2$lld回中 %1$lld回を記録済み。反応に注意 👀"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "재료를 계속 진행하세요 — %2$lld회 중 %1$lld회 기록됨. 반응을 살펴보세요 👀"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ga door met introduceren — %1$lld van %2$lld voedingen vastgelegd. Let op reacties 👀"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontynuuj wprowadzanie — zapisano %1$lld z %2$lld posiłków. Uważaj na reakcje 👀"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue introduzindo o alimento — %1$lld de %2$lld refeições registradas. Fique de olho nas reações 👀"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gıdayı vermeye devam et — %2$lld öğünden %1$lld kaydedildi. Tepkilere dikkat 👀"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продовжуй вводити продукт — записано %1$lld з %2$lld годувань. Стеж за реакцією 👀"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续添加这种食材 — 已记录 %2$lld 次中的 %1$lld 次。注意观察反应 👀"
+          }
+        }
+      }
+    },
     "Ранний пользователь" : {
       "extractionState" : "manual",
       "localizations" : {

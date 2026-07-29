@@ -178,12 +178,13 @@ struct DashboardView: View {
             .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
     }
 
+    /// Прогресс окна — по числу дней, в которые продукт давали.
     private func dayInfo(_ s: IntroductionStatus) -> String {
         guard let start = s.introStartedAt else { return "" }
-        let day = FeedingService.observationDay(start: start)
         let window = catalog.food(id: s.foodId).map { child.feedingProfile.observationDays(for: $0) }
             ?? child.feedingProfile.observationDaysRegular
-        return String(localized: "День \(min(day, window)) из \(window)")
+        let done = FeedingService.introFeedingDays(logs: logs, foodId: s.foodId, since: start)
+        return String(localized: "\(min(done, window)) из \(window) кормлений")
     }
 
     // MARK: - Коллекция продуктов (заполняется)

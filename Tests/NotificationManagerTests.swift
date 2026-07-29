@@ -190,29 +190,51 @@ final class NotificationManagerTests: XCTestCase {
         cal.date(from: DateComponents(year: 2026, month: 6, day: day, hour: hour))!
     }
 
-    func testIntroRequestsScheduleEachWindowDay() {
+    /// Напоминаний столько, сколько дней с кормлением ещё не набрано.
+    func testIntroRequestsCoverRemainingFeedingDays() {
         let cal = utcCal()
         let s = IntroductionStatus(foodId: "broccoli", state: .introducing)
         s.introStartedAt = at(10, 8, cal)               // старт: 10-е, 08:00
+        // Одно кормление уже записано (день старта) → остаётся два дня из трёх.
+        let logs = [FoodLog(foodId: "broccoli", date: at(10, 8, cal), type: .intro)]
         let reqs = NotificationManager(center: MockCenter())
-            .introRequests(statuses: [s], observationDays: 3, now: at(10, 8, cal), calendar: cal)
+            .introRequests(statuses: [s], observationDays: 3, logs: logs,
+                           now: at(10, 9, cal), calendar: cal)
 
-        XCTAssertEqual(reqs.map(\.identifier).sorted(),
-                       ["intro-broccoli-1", "intro-broccoli-2", "intro-broccoli-3"])
+        XCTAssertEqual(reqs.count, 2, "осталось два дня — два напоминания")
         for r in reqs {
             XCTAssertEqual((r.trigger as? UNCalendarNotificationTrigger)?.repeats, false)
         }
     }
 
-    func testIntroRequestsSkipPastDays() {
+    /// Сегодня продукт уже давали — сегодняшнее напоминание не нужно, начинаем с завтра
+    /// (день засчитывается один раз, сколько бы кормлений в нём ни было).
+    func testIntroRequestsStartTomorrowWhenAlreadyFedToday() throws {
         let cal = utcCal()
         let s = IntroductionStatus(foodId: "broccoli", state: .introducing)
         s.introStartedAt = at(10, 8, cal)
-        // «сейчас» — 11-е 12:00: дни 1 (10-е) и 2 (11-е, 10:00) уже прошли, остаётся день 3.
+        let logs = [FoodLog(foodId: "broccoli", date: at(10, 8, cal), type: .intro)]
         let reqs = NotificationManager(center: MockCenter())
-            .introRequests(statuses: [s], observationDays: 3, now: at(11, 12, cal), calendar: cal)
+            .introRequests(statuses: [s], observationDays: 2, logs: logs,
+                           now: at(10, 9, cal), calendar: cal)
 
-        XCTAssertEqual(reqs.map(\.identifier), ["intro-broccoli-3"])
+        let first = try XCTUnwrap(reqs.first?.trigger as? UNCalendarNotificationTrigger)
+        XCTAssertEqual(reqs.count, 1, "остался один день")
+        XCTAssertEqual(first.dateComponents.day, 11, "напоминание — на завтра, не на сегодня")
+    }
+
+    /// Норма набрана — напоминания не ставим вовсе.
+    func testIntroRequestsEmptyWhenEnoughFeedingDays() {
+        let cal = utcCal()
+        let s = IntroductionStatus(foodId: "broccoli", state: .introducing)
+        s.introStartedAt = at(10, 8, cal)
+        let logs = [FoodLog(foodId: "broccoli", date: at(10, 8, cal), type: .intro),
+                    FoodLog(foodId: "broccoli", date: at(11, 19, cal), type: .intro)]
+        let reqs = NotificationManager(center: MockCenter())
+            .introRequests(statuses: [s], observationDays: 2, logs: logs,
+                           now: at(11, 20, cal), calendar: cal)
+
+        XCTAssertTrue(reqs.isEmpty)
     }
 
     func testIntroRequestsIgnoreNonIntroducing() {

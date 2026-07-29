@@ -57,10 +57,12 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   наблюдения раздельное: `observationDaysRegular`/`observationDaysAllergen` +
   `observationDays(for:food)`. Реакция — только запись в журнале (не двигает статус);
   стоп/возобновить/`retryAt`/`markAllergy` — ручные (`FeedingService`).
-  **Завершение ввода автоматическое**: окно из плана прошло →
-  `completeDueIntroductions` переводит в `introduced` (зовётся из `MainTabView`
-  при запуске/активации и из карточки продукта). Ручной кнопки нет.
-  Дефолт окон — 2 дня обычный / 3 аллерген. Submission
+  **Завершение ввода автоматическое и меряется КОРМЛЕНИЯМИ, а не календарём**:
+  продукт введён, когда его дали в N разных дней (`FeedingService.introFeedingDays`),
+  N — из плана (дефолт 2 обычный / 3 аллерген). Закрывается прямо в `logFeeding`,
+  плюс свипер `completeDueIntroductions` при запуске/активации. Ручной кнопки нет.
+  Напоминаний ставится столько, сколько дней осталось; если сегодня уже кормили —
+  первое на завтра. Submission
   checklist: `docs/SUBMISSION.md`; test map: `docs/TEST-CASES.md`.
 - **Keep business logic out of views.** Views call services; services are pure
   functions over `ModelContext` + catalog data. This is what makes the logic unit-testable

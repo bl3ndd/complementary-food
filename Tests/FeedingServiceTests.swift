@@ -486,28 +486,75 @@ final class FeedingServiceTests: XCTestCase {
     // MARK: - Автозавершение окна наблюдения (ручной кнопки «Ввёл успешно» нет)
 
     @MainActor
-    func testCompleteDueIntroductionsClosesElapsedWindowOnly() throws {
+    func testIntroductionClosesAfterEnoughFeedings() throws {
         let context = try makeContext()
         let service = FeedingService(context: context)
-        let child = Child()                       // окна по умолчанию: 2 дн / 3 дн
-        let catalog = FoodCatalog(foods: [makeFood(id: "broccoli"),
-                                          makeFood(id: "egg_yolk", allergen: true, group: .egg)])
+        let child = Child()                       // норма по умолчанию: 2 кормления / 3 у аллергена
+        context.insert(child)
+        let broccoli = makeFood(id: "broccoli")
+        let egg = makeFood(id: "egg_yolk", allergen: true, group: .egg)
+        let catalog = FoodCatalog(foods: [broccoli, egg])
+
+        // Старт уже создаёт первую запись кормления.
+        service.startIntroduction(broccoli)
+        service.startIntroduction(egg)
+        XCTAssertEqual(service.status(for: "broccoli").state, .introducing, "одного кормления мало")
+
+        // Второе кормление В ДРУГОЙ ДЕНЬ закрывает окно обычного продукта.
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        service.logFeeding(broccoli, liking: .liked, reaction: nil, date: tomorrow)
+        XCTAssertEqual(service.status(for: "broccoli").state, .introduced)
+        XCTAssertNotNil(service.status(for: "broccoli").completedAt)
+
+        // Аллергену нужно три разных дня — после второго он всё ещё вводится.
+        service.logFeeding(egg, liking: .neutral, reaction: nil, date: tomorrow)
+        XCTAssertEqual(service.status(for: "egg_yolk").state, .introducing)
+        let dayAfter = Calendar.current.date(byAdding: .day, value: 2, to: Date())!
+        service.logFeeding(egg, liking: .neutral, reaction: nil, date: dayAfter)
+        XCTAssertEqual(service.status(for: "egg_yolk").state, .introduced)
+
+        // Свипер на всякий случай ничего не ломает и не находит новых.
+        XCTAssertTrue(service.completeDueIntroductions(profile: child.feedingProfile,
+                                                       catalog: catalog).isEmpty)
+    }
+
+    /// Два кормления за один день — это один день наблюдения, окно не закрывается.
+    @MainActor
+    func testTwoFeedingsSameDayDoNotCompleteIntroduction() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        context.insert(Child())                     // норма: 2 разных дня
+        let food = makeFood()
+
+        service.startIntroduction(food)             // первое кормление, сегодня
+        service.logFeeding(food, liking: .liked, reaction: nil)   // второе — тоже сегодня
+
+        XCTAssertEqual(service.status(for: food.id).state, .introducing,
+                       "два кормления за день — всё ещё один день наблюдения")
+
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        service.logFeeding(food, liking: .liked, reaction: nil, date: tomorrow)
+        XCTAssertEqual(service.status(for: food.id).state, .introduced)
+    }
+
+    /// Календарь роли не играет: сколько бы дней ни прошло, без записей продукт
+    /// остаётся «в процессе» (продукт можно давать вечером — считаем кормления).
+    @MainActor
+    func testCalendarDaysAloneDoNotCompleteIntroduction() throws {
+        let context = try makeContext()
+        let service = FeedingService(context: context)
+        let child = Child()
+        let food = makeFood()
+        let catalog = FoodCatalog(foods: [food])
         let now = Date(timeIntervalSince1970: 1_700_000_000)
-        func daysAgo(_ n: Int) -> Date {
-            Calendar.current.date(byAdding: .day, value: -n, to: now)!
-        }
+        let longAgo = Calendar.current.date(byAdding: .day, value: -30, to: now)!
 
-        service.startIntroduction(catalog.foods[0], date: daysAgo(1))   // день 2 из 2 → пора
-        service.startIntroduction(catalog.foods[1], date: daysAgo(1))   // аллерген: день 2 из 3
+        service.startIntroduction(food, date: longAgo)   // одна запись, месяц назад
 
-        let completed = service.completeDueIntroductions(profile: child.feedingProfile,
-                                                         catalog: catalog, now: now)
-
-        XCTAssertEqual(completed, ["broccoli"], "аллергену нужно окно длиннее")
-        let statuses = try context.fetch(FetchDescriptor<IntroductionStatus>())
-        XCTAssertEqual(statuses.first { $0.foodId == "broccoli" }?.state, .introduced)
-        XCTAssertNotNil(statuses.first { $0.foodId == "broccoli" }?.completedAt)
-        XCTAssertEqual(statuses.first { $0.foodId == "egg_yolk" }?.state, .introducing)
+        XCTAssertTrue(service.completeDueIntroductions(profile: child.feedingProfile,
+                                                       catalog: catalog, now: now).isEmpty,
+                      "прошедшие дни сами по себе ввод не закрывают")
+        XCTAssertEqual(service.status(for: food.id).state, .introducing)
     }
 
     @MainActor
@@ -519,7 +566,8 @@ final class FeedingServiceTests: XCTestCase {
         let now = Date(timeIntervalSince1970: 1_700_000_000)
 
         service.startIntroduction(food, date: Calendar.current.date(byAdding: .day, value: -9, to: now)!)
-        service.stopIntroduction(food)            // пауза, окно давно «прошло»
+        service.logFeeding(food, liking: nil, reaction: nil)   // норма набрана (второй день)…
+        service.stopIntroduction(food)                          // …но продукт на паузе
 
         XCTAssertTrue(service.completeDueIntroductions(profile: Child().feedingProfile,
                                                        catalog: catalog, now: now).isEmpty)

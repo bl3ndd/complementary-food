@@ -46,14 +46,11 @@ final class ScenarioTests: XCTestCase {
         XCTAssertEqual(s.state, .introducing)
         let start = try XCTUnwrap(s.introStartedAt)
 
-        // Окно ещё идёт — завершать рано (B4/B2).
-        XCTAssertFalse(FeedingService.isObservationComplete(
-            start: start, observationDays: 3, now: start))
+        // Одного кормления мало: окно меряется записями, а не днями.
+        XCTAssertEqual(service.introFeedingDays(foodId: broccoli.id, since: start), 1)
 
-        // Прошло окно — теперь можно завершить (B3).
-        let after = Calendar.current.date(byAdding: .day, value: 3, to: start)!
-        XCTAssertTrue(FeedingService.isObservationComplete(
-            start: start, observationDays: 3, now: after))
+        // Даже спустя дни без записей продукт остаётся «в процессе».
+        XCTAssertEqual(service.status(for: broccoli.id).state, .introducing)
 
         service.completeIntroduction(broccoli)
         XCTAssertEqual(service.status(for: broccoli.id).state, .introduced)

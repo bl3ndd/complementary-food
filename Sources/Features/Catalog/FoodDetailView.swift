@@ -38,16 +38,16 @@ struct FoodDetailView: View {
         FeedingService.windowStart(introStartedAt: introStartedAt,
                                    introLogDates: logs.filter { $0.type == .intro }.map(\.date))
     }
-    private var observationDay: Int? {
-        windowStart.map { FeedingService.observationDay(start: $0) }
+    /// В скольких РАЗНЫХ днях продукт уже давали в текущую попытку. Календарь сам
+    /// по себе ничего не подтверждает, но и два кормления за вечер — это один день.
+    private var feedingsDone: Int {
+        guard let start = windowStart else { return 0 }
+        return FeedingService.introFeedingDays(logs: logs, foodId: food.id, since: start)
     }
-    private var canComplete: Bool {
-        guard let start = windowStart else { return false }
-        return FeedingService.isObservationComplete(start: start, observationDays: observationDays)
-    }
+    private var canComplete: Bool { feedingsDone >= observationDays }
     private var windowFraction: CGFloat {
-        guard observationDays > 0, let day = observationDay else { return 0 }
-        return min(1, max(0, CGFloat(day) / CGFloat(observationDays)))
+        guard observationDays > 0 else { return 0 }
+        return min(1, max(0, CGFloat(feedingsDone) / CGFloat(observationDays)))
     }
 
     var body: some View {
@@ -156,10 +156,8 @@ struct FoodDetailView: View {
     @ViewBuilder private var subStatus: some View {
         switch state {
         case .introducing:
-            if let day = observationDay {
-                Text("День \(min(day, observationDays)) из \(observationDays)")
-                    .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-            }
+            Text("\(min(feedingsDone, observationDays)) из \(observationDays) кормлений")
+                .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
         case .introduced:
             summaryLine
         case .paused:

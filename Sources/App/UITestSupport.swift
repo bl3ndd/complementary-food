@@ -47,7 +47,9 @@ enum UITestSupport {
             introducing("broccoli", startedDaysAgo: 0)   // день 1 из 2
 
         case "window-done":
-            introducing("broccoli", startedDaysAgo: 5)   // окно (2 дн) прошло → закроется само
+            // Норма набрана: продукт давали в два РАЗНЫХ дня → закроется сам при старте.
+            introducing("broccoli", startedDaysAgo: 5)
+            context.insert(FoodLog(foodId: "broccoli", date: days(-4), type: .intro))
 
         case "introduced":
             introduce("broccoli", daysAgo: 10)

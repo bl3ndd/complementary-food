@@ -42,22 +42,38 @@ struct FeedingService {
         save()
     }
 
-    /// Автозавершение: у всех продуктов «в процессе» проверяем окно наблюдения из
-    /// плана и закрываем те, у которых оно прошло. Ручной кнопки «Ввёл успешно»
-    /// больше нет — если план говорит N дней, приложение само и считает продукт
-    /// введённым, а не ждёт подтверждения. Возвращает id завершённых.
+    /// Сколько РАЗНЫХ дней продукт реально давали в текущую попытку ввода.
+    ///
+    /// Окно меряется кормлениями, а не календарём (продукт дают и вечером —
+    /// «второй день» сам по себе ничего не подтверждает), но два кормления
+    /// в один день — это всё ещё один день наблюдения.
+    static func introFeedingDays(logs: [FoodLog], foodId: String, since start: Date,
+                                 calendar: Calendar = .current) -> Int {
+        let days = logs
+            .filter { $0.foodId == foodId && !$0.planned && $0.date >= start }
+            .map { calendar.startOfDay(for: $0.date) }
+        return Set(days).count
+    }
+
+    func introFeedingDays(foodId: String, since start: Date,
+                          calendar: Calendar = .current) -> Int {
+        let logs = (try? context.fetch(FetchDescriptor<FoodLog>())) ?? []
+        return Self.introFeedingDays(logs: logs, foodId: foodId, since: start, calendar: calendar)
+    }
+
+    /// Автозавершение: продукт становится введённым, когда его дали в столько
+    /// РАЗНЫХ дней, сколько задано в плане (обычный — 2, аллерген — 3). Ручной
+    /// кнопки «Ввёл успешно» нет. Возвращает id завершённых.
     @discardableResult
     func completeDueIntroductions(profile: FeedingProfile,
                                   catalog: FoodCatalog = .shared,
-                                  now: Date = Date(),
-                                  calendar: Calendar = .current) -> [String] {
+                                  now: Date = Date()) -> [String] {
         let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>())) ?? []
         var completed: [String] = []
         for s in statuses where s.state == .introducing {
             guard let food = catalog.food(id: s.foodId), let start = s.introStartedAt else { continue }
-            guard FeedingService.isObservationComplete(start: start,
-                                                       observationDays: profile.observationDays(for: food),
-                                                       now: now, calendar: calendar) else { continue }
+            let needed = profile.observationDays(for: food)
+            guard introFeedingDays(foodId: s.foodId, since: start) >= needed else { continue }
             s.state = .introduced
             s.completedAt = now
             completed.append(s.foodId)
@@ -89,6 +105,17 @@ struct FeedingService {
             s.introStartedAt = date
         }
         save()
+        // Набралось нужное число кормлений — продукт введён прямо сейчас, а не
+        // «когда-нибудь при следующем запуске».
+        if s.state == .introducing, let profile = currentProfile() {
+            completeDueIntroductions(profile: profile)
+        }
+    }
+
+    /// План текущего ребёнка (в MVP он один). Нужен, чтобы запись кормления могла
+    /// сама закрыть окно, не таща профиль через все вызовы.
+    private func currentProfile() -> FeedingProfile? {
+        (try? context.fetch(FetchDescriptor<Child>()))?.first?.feedingProfile
     }
 
     /// Переустановить фото записи (из редактора): очистить legacy + старые дети,

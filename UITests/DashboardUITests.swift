@@ -49,14 +49,14 @@ final class DashboardUITests: XCTestCase {
         app.navigationBars["Запись"].buttons["Отмена"].tap()
         app.navigationBars["Запись"].waitGone()   // дождаться dismiss, иначе тап глотается
 
-        // E-DASH-08: «Сейчас вводишь» (кабачок, день 1) → карточка продукта.
+        // E-DASH-08: «Сейчас вводишь» (кабачок, 1 из 2 кормлений) → карточка продукта.
         // Тап строго по строке карточки (в дневнике тоже есть «Кабачок»); карточка
         // ниже фолда — доскроллить, иначе тап уходит мимо экрана.
         app.staticTexts["Сейчас вводишь"].assertExists(timeout: 5)
         // Строка у нижнего края: центр может быть под таб-баром (isHittable при этом
         // true, тап уходит в таб-бар) — всегда доскроллить перед тапом.
         app.swipeUp()
-        app.row(containing: "День 1").waitTap()
+        app.row(containing: "из 2 кормлений").waitTap()
         app.navigationBars["Кабачок"].assertExists(timeout: 5,
             "строка «Сейчас вводишь» не открыла карточку")
         app.navigationBars["Кабачок"].buttons.firstMatch.tap()   // назад

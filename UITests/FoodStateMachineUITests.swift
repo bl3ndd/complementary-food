@@ -17,7 +17,7 @@ final class FoodStateMachineUITests: XCTestCase {
         app.allowNotificationsIfAsked()
 
         app.staticTexts["Вводится"].assertExists(timeout: 5)
-        app.staticTexts["День 1 из 2"].assertExists(timeout: 4, "нет счётчика окна")
+        app.staticTexts["1 из 2 кормлений"].assertExists(timeout: 4, "нет счётчика окна")
         app.buttons["Записать кормление"].assertExists(timeout: 4, "нет primary-действия")
 
         // Меню «…»: вторичные действия.
@@ -64,8 +64,8 @@ final class FoodStateMachineUITests: XCTestCase {
         app.buttons["Возобновить ввод"].waitTap()
         app.allowNotificationsIfAsked()
         app.staticTexts["Вводится"].assertExists(timeout: 5)
-        app.staticTexts["День 1 из 2"].assertExists(timeout: 4,
-            "повторный ввод должен начинать окно заново")
+        app.staticTexts["0 из 2 кормлений"].assertExists(timeout: 4,
+            "после возобновления окно начинается заново — прошлые кормления не в счёт")
         app.buttons["Записать кормление"].assertExists(timeout: 4,
             "primary — запись кормления; ручного завершения ввода больше нет")
     }

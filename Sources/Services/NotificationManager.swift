@@ -91,8 +91,10 @@ final class NotificationManager {
         // retry важнее окна ввода — их ставим всегда, окно ввода добиваем до лимита (B7).
         let priority = requests(for: groups, intervalDays: profile.maintenanceIntervalDays)
             + retryRequests(statuses: statuses)
-        let intro = introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen)
-            + introRequests(statuses: regularIntro, observationDays: profile.observationDaysRegular)
+        let intro = introRequests(statuses: allergenIntro,
+                                  observationDays: profile.observationDaysAllergen, logs: logs)
+            + introRequests(statuses: regularIntro,
+                            observationDays: profile.observationDaysRegular, logs: logs)
         let cap = 60
         let all = priority + Array(intro.prefix(max(0, cap - priority.count)))
         Task {
@@ -147,11 +149,14 @@ final class NotificationManager {
         }
     }
 
-    /// Чистая функция: ежедневные напоминания на окно наблюдения. Для каждого
-    /// продукта в статусе «вводится» ставим по одному напоминанию на каждый день
-    /// окна (день 1…N), пропуская дни, чьё время уже прошло. Одноразовые триггеры.
+    /// Чистая функция: напоминания «дай продукт ещё раз», пока не набралось нужное
+    /// число кормлений. Считаем НЕ дни, а сколько раз реально дали (продукт можно
+    /// дать и вечером): сколько кормлений осталось — столько напоминаний и ставим,
+    /// по одному на ближайшие дни. Одноразовые триггеры; после каждой записи
+    /// `refresh` пересобирает список, и лишние снимаются.
     func introRequests(statuses: [IntroductionStatus],
                        observationDays: Int,
+                       logs: [FoodLog] = [],
                        now: Date = Date(),
                        calendar: Calendar = .current) -> [UNNotificationRequest] {
         guard observationDays > 0 else { return [] }
@@ -159,9 +164,21 @@ final class NotificationManager {
             .filter { $0.state == .introducing }
             .compactMap { status -> [UNNotificationRequest]? in
                 guard let start = status.introStartedAt else { return nil }
-                let startDay = calendar.startOfDay(for: start)
-                return (1...observationDays).compactMap { day in
-                    guard let dayDate = calendar.date(byAdding: .day, value: day - 1, to: startDay)
+                let done = FeedingService.introFeedingDays(logs: logs, foodId: status.foodId,
+                                                           since: start, calendar: calendar)
+                let remaining = observationDays - done
+                guard remaining > 0 else { return nil }
+
+                // Если сегодня продукт уже давали, сегодняшнее напоминание не нужно:
+                // засчитывается один день — одно кормление.
+                let today = calendar.startOfDay(for: now)
+                let fedToday = logs.contains {
+                    $0.foodId == status.foodId && !$0.planned
+                        && calendar.isDate($0.date, inSameDayAs: now)
+                }
+                let firstOffset = fedToday ? 1 : 0
+                return (firstOffset..<(firstOffset + remaining)).compactMap { offset in
+                    guard let dayDate = calendar.date(byAdding: .day, value: offset, to: today)
                     else { return nil }
                     var comps = calendar.dateComponents([.year, .month, .day], from: dayDate)
                     comps.hour = hour
@@ -170,12 +187,12 @@ final class NotificationManager {
 
                     let content = UNMutableNotificationContent()
                     content.title = "Pudding"
-                    content.body = String(localized: "Продолжай вводить продукт — день \(day) из \(observationDays). Следи за реакцией 👀")
+                    content.body = String(localized: "Продолжай вводить продукт — записано \(done) из \(observationDays) кормлений. Следи за реакцией 👀")
                     content.sound = .default
 
                     let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
                     return UNNotificationRequest(
-                        identifier: "\(introPrefix)\(status.foodId)-\(day)",
+                        identifier: "\(introPrefix)\(status.foodId)-\(offset)",
                         content: content, trigger: trigger)
                 }
             }
