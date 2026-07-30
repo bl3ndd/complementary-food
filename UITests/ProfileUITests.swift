@@ -90,6 +90,7 @@ final class ProfileUITests: XCTestCase {
         // Онбординг с нуля.
         app.staticTexts["Pudding"].assertExists(timeout: 8, "сброс не вернул к онбордингу")
         app.buttons["Далее"].waitTap()
+        app.buttons["Понятно"].waitTap()     // дисклеймер перед данными ребёнка
         app.buttons["Далее"].waitTap()
         app.buttons["Далее"].waitTap()
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Погнали'")).firstMatch.waitTap()

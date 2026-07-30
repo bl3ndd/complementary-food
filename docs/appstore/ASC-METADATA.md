@@ -147,8 +147,8 @@ baby,solids,first foods,weaning,blw,allergen,tracker,diary,feeding,reaction,food
 ```
 Pudding is a local-only baby feeding diary (no account, no backend, no data collection beyond the user's own private iCloud).
 
-- The app records feedings and reactions entered by the parent. It never gives medical or feeding advice and never suggests what or when to feed: every plan parameter (start age, observation windows, allergen list and frequency) is configured by the user.
-- The medical disclaimer ("Pudding is a feeding diary, not medical advice — make decisions together with your pediatrician") is always available in Profile - About, and is repeated in the App Store description.
+- Onboarding starts with a medical disclaimer step ("Прежде чем начать" / "Before we start") shown BEFORE any child data is entered, per guideline 1.4.1. The same text is always available in Profile - About and is repeated in the App Store description.
+- The app records feedings and reactions entered by the parent. It never gives medical or feeding advice and never suggests what or when to feed: every plan parameter (start age, observation windows, allergen list and frequency) is configured by the user. A food is marked as introduced only after the parent logs feedings on several different days.
 - Data is stored on device and synced through the user's own private CloudKit database. We have no servers and no access to that data.
 - Notifications are optional reminders for the user's own schedule, requested in context after onboarding.
 - PDF export and the recap card are generated on-device from the user's own records.

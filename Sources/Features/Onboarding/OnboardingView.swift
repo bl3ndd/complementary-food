@@ -1,9 +1,10 @@
 import SwiftUI
 import SwiftData
 
-/// Онбординг (SPEC §12): Welcome → Ребёнок → План → Что уже ввели.
-/// Медицинский дисклеймер — в Профиле → «О приложении» (блокирующего гейта нет:
-/// приложение ничего не советует, поэтому не держим человека на экране с текстом).
+/// Онбординг (SPEC §12): Welcome → Дисклеймер → Ребёнок → План → Что уже ввели.
+/// Дисклеймер стоит ДО ввода данных ребёнка: человек читает «мы не медицинский
+/// совет» прежде, чем что-то заполнять (App Review 1.4.1). Тот же текст всегда
+/// доступен в Профиле → «О приложении».
 /// Разрешение на уведомления просим сразу после онбординга, в MainTabView.
 struct OnboardingView: View {
     @Environment(\.modelContext) private var context
@@ -19,15 +20,16 @@ struct OnboardingView: View {
     @State private var search = ""
 
     private let catalog = FoodCatalog.shared
-    private let lastStep = 3
+    private let lastStep = 4
 
     var body: some View {
         VStack(spacing: 16) {
             Group {
                 switch step {
                 case 0:  centered(welcomeStep)
-                case 1:  centered(childStep)
-                case 2:  planStep
+                case 1:  centered(disclaimerStep)
+                case 2:  centered(childStep)
+                case 3:  planStep
                 default: alreadyStep
                 }
             }
@@ -60,6 +62,19 @@ struct OnboardingView: View {
             Text("Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.")
                 .foregroundStyle(.secondary).padding(.horizontal)
         }
+    }
+
+    /// Медицинский дисклеймер — перед вводом данных ребёнка.
+    private var disclaimerStep: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "heart.text.square.fill")
+                .font(.system(size: 52)).foregroundStyle(Theme.accent)
+            Text("Прежде чем начать").font(.title2.bold())
+            Text(Disclaimer.medical)
+                .font(.callout).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 4)
     }
 
     private var childStep: some View {
@@ -199,10 +214,16 @@ struct OnboardingView: View {
     /// Имя необязательно (SPEC §12) — двигаться можно всегда.
     private var canProceed: Bool { true }
 
+    /// На шаге дисклеймера кнопка читается как подтверждение, а не «дальше».
+    private var buttonTitle: String {
+        if step >= lastStep { return String(localized: "Погнали!") }
+        return step == 1 ? String(localized: "Понятно") : String(localized: "Далее")
+    }
+
     private var button: some View {
         Button(action: next) {
             HStack(spacing: 8) {
-                Text(step >= lastStep ? String(localized: "Погнали!") : String(localized: "Далее"))
+                Text(buttonTitle)
                     .font(.headline.bold())
                 if step >= lastStep {
                     OpenMojiIcon(asset: "ui_rocket", fallback: "🚀", size: 22)
