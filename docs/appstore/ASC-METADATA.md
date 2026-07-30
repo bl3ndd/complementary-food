@@ -61,7 +61,7 @@ Pudding — простой и тёплый дневник первого при�
 
 • Дневник кормлений — записывай продукт, оценку «как зашло», заметку и фото в пару касаний
 • Реакции — фиксируй кожные и ЖКТ-реакции с фото, вся история всегда под рукой
-• Ввод новых продуктов — своё окно наблюдения для обычных продуктов и аллергенов, прогресс «день 2 из 3» прямо на карточке
+• Ввод новых продуктов — своё окно наблюдения для обычных продуктов и аллергенов: продукт становится введённым после нескольких кормлений в разные дни, прогресс «2 из 3 кормлений» прямо на карточке
 • Поддержка аллергенов — Pudding напомнит вовремя повторить уже введённый аллерген, чтобы не растерять привыкание
 • Коллекция продуктов — стена введённых продуктов пополняется с каждым успехом малыша
 • Календарь-лента — вся история по дням, фильтры «реакции» и «планы», планирование ввода на будущее
@@ -105,7 +105,7 @@ WHAT IT DOES:
 
 • Feeding diary — log a food, a “how it went” rating, a note and photos in a couple of taps
 • Reactions — record skin and tummy reactions with photos; the full history is always at hand
-• Introducing new foods — separate observation windows for regular foods and allergens, with “day 2 of 3” progress right on the food card
+• Introducing new foods — separate observation windows for regular foods and allergens: a food counts as introduced after a few feedings on different days, with «2 of 3 feedings» progress right on the food card
 • Allergen maintenance — gentle reminders to repeat introduced allergens so tolerance isn’t lost
 • Food collection — a wall of introduced foods that fills up with every little win
 • Calendar feed — full history by day, “reactions” and “plans” filters, plan future introductions
@@ -129,7 +129,7 @@ baby,solids,first foods,weaning,blw,allergen,tracker,diary,feeding,reaction,food
 
 Снять на iPhone 17 (тёмный статусбар, наполненные данные — можно `-seedSample`):
 1. Главная «Стена Pudding» (маскот, плитки, коллекция)
-2. Карточка продукта «вводится» (кольцо «день 2 из 3»)
+2. Карточка продукта «вводится» (кольцо «2 из 3 кормлений»)
 3. Календарь-лента с фильтрами
 4. Аллергены (сводка «пора освежить»)
 5. PDF для педиатра (превью share) или Рекап месяца
