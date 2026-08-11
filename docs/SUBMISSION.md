@@ -13,9 +13,7 @@
 ⚠️ **К версии прикреплён build 1 от 23.07**, а после него — 28 коммитов (CloudKit-синк,
 тёмная тема, миграции, новое правило завершения ввода, бесплатная 1.0). Нужен свежий архив.
 
-⚠️ **Расхождение номера версии**: в ASC версия называется `1.0`, а `project.yml` собирает
-`MARKETING_VERSION = 1.0.0`. Билд с `1.0.0` к записи `1.0` не прицепится — надо либо
-переименовать версию в ASC в `1.0.0`, либо вернуть в `project.yml` `1.0`.
+✅ **Номер версии сведён**: запись в ASC переименована в `1.0.0` (как в `project.yml`).
 
 ## 🛠️ В коде — сделано
 - [x] Методики верифицированы, источники + оговорки в `FeedingProfile` и UI (1.4.1)
@@ -50,15 +48,28 @@
       local-only, без аккаунта/аналитики/бэкенда, дисклеймер-гейт на месте
 
 ## 🚦 Что осталось до кнопки Submit
-1. Согласовать номер версии (`1.0` в ASC ↔ `1.0.0` в `project.yml`), затем **собрать архив
-   и залить build 3** — к версии всё ещё прикреплён build 1 от 23.07.
-2. ~~Review Notes~~ — залиты и соответствуют текущему поведению (сверено 11.08).
-3. App Privacy → Save **и** Publish (только через веб-UI; через API состояние не читается).
-4. ~~Privacy Policy URL по локалям~~ — проставлен везде.
-5. ~~Pricing & Availability~~ — Free, 175/175 территорий (сверено 11.08 через API).
-6. Подтвердить support-email (`woodoo201818@gmail.com` — TODO в `AppLinks.swift`,
+1. `xcodegen generate` (добавился `Resources/PrivacyInfo.xcprivacy`) → **архив → build 3**
+   → прицепить к версии вместо build 1 от 23.07. Без манифеста заливка ловит ITMS-91053.
+2. **CloudKit Console → Deploy Schema to Production** (иначе синк мёртв у реальных
+   пользователей). Через ASC API не делается; либо консоль, либо `xcrun cktool` с
+   management-токеном из той же консоли.
+3. App Privacy → Save **и** Publish (только веб-UI: в ASC API таких эндпоинтов нет —
+   проверены `appDataUsages`, `dataUsages`, `appPrivacyDetails`, все 404).
+4. Подтвердить support-email (`woodoo201818@gmail.com` — TODO в `AppLinks.swift`,
    он же в App Review Information).
-7. Submit for Review.
+5. Решить по Content Rights: сейчас `DOES_NOT_USE_THIRD_PARTY_CONTENT`, при этом иконки —
+   OpenMoji (CC BY-SA 4.0), то есть стороннее лицензированное творчество.
+6. Submit for Review.
+
+## ✅ Сделано через API 11.08
+- Версия переименована `1.0` → `1.0.0` (под `MARKETING_VERSION`).
+- Review Notes дополнены: фоновый режим `remote-notification` = только тихие пуши
+  CloudKit; позиция по 5.1.3(ii) (приватная база пользователя, доступа у нас нет);
+  «Data Not Collected» + PhotosPicker вместо доступа ко всей галерее.
+- `ageRatingDeclaration.socialMedia = false` (оставалось незаполненным).
+- Сверено и подтверждено: Pricing = Free, 175/175 территорий, Support/Privacy URL во всех
+  15 локалях, 75/75 скриншотов `COMPLETE`, рейтинг 4+, категории Health & Fitness + Lifestyle.
+- Политика с новым пунктом про срок хранения уже на проде (Vercel деплоит из GitHub).
 
 ## Будущее (вне текущей подачи)
 - ~~CloudKit-синк~~ — включён (приватная база пользователя); политика и тексты витрины
