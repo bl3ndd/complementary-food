@@ -55,18 +55,11 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
 
     # iCloud-синхрон (SwiftData + CloudKit, приватная база пользователя).
-    # Файл entitlements генерируется отсюда — руками в Xcode галки не ставить,
-    # следующий `xcodegen generate` их сотрёт.
-    entitlements:
-      path: Prikorm.entitlements
-      properties:
-        com.apple.developer.icloud-container-identifiers:
-          - iCloud.com.pudding.app
-        com.apple.developer.icloud-services:
-          - CloudKit
-        # Синк ездит на тихих пушах. В Release подменяется на production —
-        # см. CODE_SIGN_ENTITLEMENTS ниже.
-        aps-environment: development
+    # Файлы entitlements — РУЧНЫЕ (`Prikorm.entitlements` для Debug,
+    # `Prikorm.release.entitlements` для Release). Блока `entitlements:` здесь быть
+    # не должно: XcodeGen прописывает из него CODE_SIGN_ENTITLEMENTS сразу в оба
+    # конфига и молча затирает переопределение для Release — релизный архив уезжал
+    # с `aps-environment: development`, и экспорт в App Store падал на профиле.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.pudding.app
@@ -74,8 +67,10 @@ targets:
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: A89ST3SFXS
       configs:
-        # У релизного билда aps-environment обязан быть production, иначе App Store
-        # отбивает загрузку. Отдельный файл — потому что XcodeGen генерит только один.
+        Debug:
+          CODE_SIGN_ENTITLEMENTS: Prikorm.entitlements
+        # У релизного билда aps-environment обязан быть production, а контейнер
+        # iCloud — Production, иначе App Store отбивает загрузку.
         Release:
           CODE_SIGN_ENTITLEMENTS: Prikorm.release.entitlements
   PrikormTests:

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- Релизный вариант entitlements: то же самое, что генерит XcodeGen для Debug,
-     но aps-environment = production (требование App Store для загружаемых билдов).
-     Меняешь iCloud-контейнер в project.yml — поправь и здесь. -->
+<!-- Релизный вариант entitlements: то же самое, что в Prikorm.entitlements (Debug),
+     но aps-environment = production и контейнер iCloud = Production — требование
+     App Store для загружаемых билдов, без них экспорт архива падает на профиле.
+     Меняешь iCloud-контейнер — поправь оба файла. -->
 <plist version="1.0">
 <dict>
 	<key>aps-environment</key>
 	<string>production</string>
+	<key>com.apple.developer.icloud-container-environment</key>
+	<string>Production</string>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
 		<string>iCloud.com.pudding.app</string>
