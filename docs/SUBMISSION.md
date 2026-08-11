@@ -48,18 +48,28 @@
       local-only, без аккаунта/аналитики/бэкенда, дисклеймер-гейт на месте
 
 ## 🚦 Что осталось до кнопки Submit
-1. `xcodegen generate` (добавился `Resources/PrivacyInfo.xcprivacy`) → **архив → build 3**
-   → прицепить к версии вместо build 1 от 23.07. Без манифеста заливка ловит ITMS-91053.
-2. **CloudKit Console → Deploy Schema to Production** (иначе синк мёртв у реальных
+1. **CloudKit Console → Deploy Schema to Production** (иначе синк мёртв у реальных
    пользователей). Через ASC API не делается; либо консоль, либо `xcrun cktool` с
    management-токеном из той же консоли.
-3. App Privacy → Save **и** Publish (только веб-UI: в ASC API таких эндпоинтов нет —
+2. App Privacy → Save **и** Publish (только веб-UI: в ASC API таких эндпоинтов нет —
    проверены `appDataUsages`, `dataUsages`, `appPrivacyDetails`, все 404).
-4. Подтвердить support-email (`woodoo201818@gmail.com` — TODO в `AppLinks.swift`,
+3. Подтвердить support-email (`woodoo201818@gmail.com` — TODO в `AppLinks.swift`,
    он же в App Review Information).
-5. Решить по Content Rights: сейчас `DOES_NOT_USE_THIRD_PARTY_CONTENT`, при этом иконки —
+4. Решить по Content Rights: сейчас `DOES_NOT_USE_THIRD_PARTY_CONTENT`, при этом иконки —
    OpenMoji (CC BY-SA 4.0), то есть стороннее лицензированное творчество.
-6. Submit for Review.
+5. Submit for Review.
+
+## 📦 Build 3 (11.08)
+Собран и залит: архив Release → экспорт `app-store-connect` → `altool --validate-app`
+(VERIFY SUCCEEDED) → `--upload-app`. Обработался в `VALID`, **прицеплен к версии 1.0.0**.
+В бандле: `Apple Distribution`, `aps-environment = production`, iCloud-контейнер
+`Production`, `PrivacyInfo.xcprivacy`, 14 `.lproj`, min iOS 17.0, шифрование — exempt.
+
+⚠️ **Подпись distribution не поедет по ASC-ключу**: `-authenticationKey*` даёт
+`Cloud signing permission error` (у ключа нет прав, в аккаунте только Development-
+сертификат). Экспорт проходит через залогиненную учётку Xcode:
+`xcodebuild -exportArchive -allowProvisioningUpdates` **без** ключей ASC —
+подпись cloud-managed, в аккаунте новых сертификатов и профилей не появляется.
 
 ## ✅ Сделано через API 11.08
 - Версия переименована `1.0` → `1.0.0` (под `MARKETING_VERSION`).
