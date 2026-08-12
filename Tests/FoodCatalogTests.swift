@@ -148,6 +148,18 @@ final class FoodCatalogTests: XCTestCase {
                       "поиск '\(needle)' должен находить '\(target.name)'")
     }
 
+    /// Регресс: поиск считал счёт только по каноническому (русскому) имени, поэтому на
+    /// остальных 13 языках не находил вообще ничего — «banana» не давала «Банан».
+    /// Язык прогона заранее не известен, так что проверяем инвариант: продукт
+    /// находится по тому имени, которое видит пользователь, И по каноническому.
+    func testSearchFindsFoodByLocalizedAndCanonicalName() throws {
+        let target = try XCTUnwrap(catalog.food(id: "banana"))
+        XCTAssertTrue(catalog.search(target.localizedName).contains { $0.id == target.id },
+                      "поиск по видимому имени «\(target.localizedName)» не нашёл продукт")
+        XCTAssertTrue(catalog.search(target.name).contains { $0.id == target.id },
+                      "каноническое имя должно искаться на любом языке интерфейса")
+    }
+
     func testSearchNoMatchReturnsEmpty() {
         XCTAssertTrue(catalog.search("zzzнетничегоzzz").isEmpty)
     }

@@ -76,7 +76,12 @@ struct FoodCatalog {
         var seen = Set<String>()
 
         for food in combined {
-            if let s = Self.nameScore(Self.normalize(food.name), q) {
+            // Ищем И по каноническому имени (RU-ключ), И по локализованному: иначе на
+            // любом языке кроме русского поиск продуктов не работает вовсе — «banana»
+            // не находит «Банан». Берём лучший из двух счётов.
+            let canonical = Self.nameScore(Self.normalize(food.name), q)
+            let localized = Self.nameScore(Self.normalize(food.localizedName), q)
+            if let s = [canonical, localized].compactMap({ $0 }).min() {
                 ranked.append((food, s))
                 seen.insert(food.id)
             }
