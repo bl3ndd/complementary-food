@@ -237,7 +237,10 @@ struct ProfileView: View {
                     Text("Pudding пока полностью бесплатный. Когда появятся платные возможности, для тебя они останутся бесплатными — ты пришёл в самом начале.")
                         .foregroundStyle(Theme.accent)
                 }
-                Text(Disclaimer.medical + "\n\n" + String(localized: "Иконки: OpenMoji (CC BY-SA 4.0)"))
+                // Ссылка вне локализованной строки: URL одинаков на всех языках,
+                // а требование CC BY-SA — указать источник, не только имя автора.
+                Text(Disclaimer.medical + "\n\n"
+                     + String(localized: "Иконки: OpenMoji (CC BY-SA 4.0)") + " — openmoji.org")
             }
             .font(.footnote)
         }

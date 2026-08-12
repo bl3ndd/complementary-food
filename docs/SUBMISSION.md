@@ -55,9 +55,10 @@
    проверены `appDataUsages`, `dataUsages`, `appPrivacyDetails`, все 404).
 3. Подтвердить support-email (`woodoo201818@gmail.com` — TODO в `AppLinks.swift`,
    он же в App Review Information).
-4. Решить по Content Rights: сейчас `DOES_NOT_USE_THIRD_PARTY_CONTENT`, при этом иконки —
-   OpenMoji (CC BY-SA 4.0), то есть стороннее лицензированное творчество.
-5. Submit for Review.
+4. Submit for Review.
+
+Content Rights закрыт 11.08: выставлено `USES_THIRD_PARTY_CONTENT` (иконки OpenMoji под
+CC BY-SA 4.0). При запросе Apple показываем `CREDITS.md` и openmoji.org.
 
 ## 📦 Build 3 (11.08)
 Собран и залит: архив Release → экспорт `app-store-connect` → `altool --validate-app`

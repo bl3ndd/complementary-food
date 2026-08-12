@@ -28,7 +28,7 @@ ja, ko, zh-Hans (name/subtitle + промо/описание/кейворды, �
 | Subtitle (RU) | `Первый прикорм и аллергены` (26/30) |
 | Primary Category | Health & Fitness (Здоровье и фитнес) |
 | Secondary Category | Lifestyle (Образ жизни) |
-| Content Rights | Не содержит стороннего контента… → **No** (OpenMoji — CC BY-SA, атрибуция в приложении; это ок) |
+| Content Rights | **Yes, uses third-party content** (11.08). Иконки — OpenMoji под CC BY-SA 4.0: это лицензированное чужое творчество, и строчка «Иконки: OpenMoji (CC BY-SA 4.0)» видна ревьюеру в Профиле. Раньше стояло No — противоречило самому приложению. Лицензия публичная, при запросе показываем `CREDITS.md` + openmoji.org |
 | Age Rating | Все вопросы «None» → **4+** |
 | License Agreement | стандартный EULA |
 
