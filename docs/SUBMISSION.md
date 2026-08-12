@@ -60,6 +60,18 @@
 Content Rights закрыт 11.08: выставлено `USES_THIRD_PARTY_CONTENT` (иконки OpenMoji под
 CC BY-SA 4.0). При запросе Apple показываем `CREDITS.md` и openmoji.org.
 
+## 📦 Build 4 (12.08) — уехал в стор вместо 3-го
+Причина пересборки: в 3-м билде **поиск продуктов работал только по русским именам**
+(`FoodCatalog.search` считал счёт по каноническому `food.name`), то есть на 13 языках
+из 14 не находил ничего. Нашлось при записи демо-видео. Исправлено, тест добавлен,
+169/169 на устройстве.
+
+К заявке приложено **демо-видео** `PuddingReviewDemo.mp4` (~2.5 мин, английский UI) —
+`appStoreReviewAttachments` через API; сценарий воспроизводится
+`TEST_RUNNER_DEMO=1 … -only-testing:PrikormUITests/ReviewDemoUITests` + `simctl io recordVideo`.
+Review Notes уточнены: ввод начинает родитель кнопкой «Start introducing», а два
+кормления в один день считаются за одно.
+
 ## 📦 Build 3 (11.08)
 Собран и залит: архив Release → экспорт `app-store-connect` → `altool --validate-app`
 (VERIFY SUCCEEDED) → `--upload-app`. Обработался в `VALID`, **прицеплен к версии 1.0.0**.
