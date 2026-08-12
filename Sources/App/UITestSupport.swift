@@ -75,8 +75,12 @@ enum UITestSupport {
             context.insert(FoodLog(foodId: "pear", date: days(1), type: .intro, planned: true))
 
         case "showcase":
-            // Витрина для скриншотов App Store: наполненная коллекция, «день 2 из 3»,
+            // Витрина для скриншотов App Store: наполненная коллекция, «2 из 3 кормлений»,
             // аллерген «пора освежить», планы и живой дневник за сегодня.
+            // Окно обычных продуктов — 3 кормления (дефолт 2): иначе авокадо с двумя
+            // кормлениями закрывается свипером при старте и карточка «Сейчас вводишь»
+            // не успевает попасть в кадр.
+            child.customObservationDaysRegular = 3
             for id in ["broccoli", "zucchini", "pumpkin", "carrot", "potato", "apple",
                        "pear", "banana", "peach", "oatmeal", "buckwheat", "turkey",
                        "strawberry"] {
@@ -87,7 +91,8 @@ enum UITestSupport {
             context.insert(FoodLog(foodId: "egg_yolk", date: days(-5), type: .maintenance))
             introduce("peanut", daysAgo: 10)
             context.insert(FoodLog(foodId: "peanut", date: days(-1), type: .maintenance))
-            // Вводится сейчас: авокадо, день 2 из 3 (для карточки с кольцом).
+            // Вводится сейчас: авокадо — кормления вчера (из introducing) и сегодня
+            // (ниже) = «2 из 3 кормлений» на кольце.
             introducing("avocado", startedDaysAgo: 1)
             // Дневник за сегодня: три записи.
             context.insert(FoodLog(

@@ -69,7 +69,7 @@ final class ScreenshotUITests: XCTestCase {
         sleep(2)   // cozy-анимации карточек должны доиграть
         shoot("01_Dashboard", lang)
 
-        // 02 — Карточка продукта «вводится» (кольцо «день 2 из 3»).
+        // 02 — Карточка продукта «вводится» (кольцо «2 из 3 кормлений»).
         // Координатный тап — не бросает на hittable-проверке кастомной кнопки.
         let introRow = app.buttons["screenshot.introducing"]
         if introRow.waitForExistence(timeout: 5) {
