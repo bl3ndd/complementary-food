@@ -143,15 +143,24 @@ baby,solids,first foods,weaning,blw,allergen,tracker,diary,feeding,reaction,food
 | Contact | Evgeny Varzin · woodoo201818@gmail.com *(⚠️ подтвердить ящик — TODO из AppLinks)* |
 | Notes | см. ниже |
 
-**Review Notes** (залиты через API):
+**Review Notes** (перезалиты через API 14.08 — ответ на реджект 2.1, лимит 4000 символов;
+полный ответ в Resolution Center — `docs/appstore/REVIEW-REPLY-2.1.md`):
 ```
-Pudding is a local-only baby feeding diary (no account, no backend, no data collection beyond the user's own private iCloud).
+Pudding is an offline diary for a baby's first solid foods. No account, no backend, no third-party SDKs, no in-app purchases.
 
-- Onboarding starts with a medical disclaimer step ("Прежде чем начать" / "Before we start") shown BEFORE any child data is entered, per guideline 1.4.1. The same text is always available in Profile - About and is repeated in the App Store description.
-- The app records feedings and reactions entered by the parent. It never gives medical or feeding advice and never suggests what or when to feed: every plan parameter (start age, observation windows, allergen list and frequency) is configured by the user. A food is marked as introduced only after the parent logs feedings on several different days.
-- Data is stored on device and synced through the user's own private CloudKit database. We have no servers and no access to that data.
-- Notifications are optional reminders for the user's own schedule, requested in context after onboarding.
-- PDF export and the recap card are generated on-device from the user's own records.
+1. DEMO VIDEO: attached, captured on a physical iPhone 17 running iOS 26.6 with the built-in iOS screen recorder. It begins with launching the app from the Home screen and walks through the full typical flow described in item 4, including the notification prompt. The app has NO registration/login/account deletion, NO paid content, IAP or subscriptions, NO user-generated content shared between users, and NO ATT prompt. The only system prompt is the notification request, shown in the video; the app works fully if it is denied. Photos are attached via the system PhotosPicker; the photo library is never requested.
+
+2. TESTED ON: iPhone 17 (iPhone18,3) / iOS 26.6 - primary device, full manual pass plus automated unit and UI tests; iPhone 15 Pro Max (iPhone16,2) / iOS 26.6; iPhone 13 (iPhone14,5) / iOS 26.4. Tests also run on iPhone simulators from iOS 18.2 to 26.4, Xcode 26.4. iPhone only.
+
+3. WHAT IT DOES / FOR WHOM: for parents of infants roughly 4-12 months old. When solids start, a new food is given every few days and the parent must remember which food, when, and how the child reacted - usually kept on paper. Pudding keeps that record: a bundled food catalog, a per-food introduction the parent starts manually, a feeding log (date, portion, how the child liked it, reaction, note, photo), a calendar diary, introduced allergens with reminders to repeat them, and a PDF export for the pediatrician. It is a diary, not an advisor: no medical advice, no diagnosis, it never tells a parent what or when to feed. Every plan parameter (start age, observation windows, allergen list and frequency) is set by the user. A medical disclaimer is an onboarding step shown BEFORE any child data is entered, and stays in Profile - About.
+
+4. SETUP / ACCESS: nothing required - no account, no credentials, no sample files. Install and open. Onboarding: welcome -> disclaimer ("Before you start") -> child's name and birth date -> feeding plan -> optional list of foods already introduced -> "Let's go"; notifications are requested afterwards. Today tab: today's journal and foods being introduced. Catalog tab: search (in the interface language), open a food -> "Start introducing" -> "Log a feeding"; a food becomes introduced automatically after feedings on several DIFFERENT days (2 by default, 3 for allergens). Allergens tab: repeat reminders. Calendar tab: the full diary. Profile tab: child, plan, language, PDF export, recap card, About (disclaimer, privacy policy, terms, support, credits).
+
+5. EXTERNAL SERVICES: none. Apple frameworks only (SwiftUI, SwiftData, UserNotifications, PhotosUI, PDFKit), no third-party packages. No backend of ours, no authentication, no payment processor, no analytics or ads, no AI, no external data provider. The food catalog is a static JSON file bundled in the app. The only network use is Apple CloudKit, syncing to the user's own private database in their personal iCloud; we have no access to it. Hence "Data Not Collected". The "remote-notification" background mode exists only so CloudKit can deliver silent sync pushes - we run no push server; every reminder is a local notification.
+
+6. REGIONS: no regional differences. Identical features and content everywhere, free in all territories, no IAP, no server-side configuration. The UI is localized into 14 languages and follows the device language; that affects wording only, never functionality.
+
+7. REGULATED INDUSTRY / THIRD-PARTY MATERIAL: not a medical device, no medical or diagnostic service, no HealthKit, no clinical records - it only stores what the parent types and points the user to their pediatrician. The only third-party material is the OpenMoji icon set (openmoji.org) under Creative Commons BY-SA 4.0, which allows use with attribution; the credit "Icons: OpenMoji (CC BY-SA 4.0)" is shown in Profile - About. All other assets and text are ours.
 ```
 
 ## 9. Технические перед загрузкой билда
