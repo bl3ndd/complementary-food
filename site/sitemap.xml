@@ -295,4 +295,270 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/terms"/>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/en/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/de/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/es/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/fr/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/it/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/nl/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/pl/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/pt-br/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/tr/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/uk/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/ja/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/ko/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pudding-for-children.vercel.app/zh/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudding-for-children.vercel.app/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://pudding-for-children.vercel.app/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://pudding-for-children.vercel.app/es/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pudding-for-children.vercel.app/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://pudding-for-children.vercel.app/it/blog"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://pudding-for-children.vercel.app/nl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://pudding-for-children.vercel.app/pl/blog"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pudding-for-children.vercel.app/pt-br/blog"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://pudding-for-children.vercel.app/tr/blog"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://pudding-for-children.vercel.app/uk/blog"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://pudding-for-children.vercel.app/ja/blog"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://pudding-for-children.vercel.app/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://pudding-for-children.vercel.app/zh/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pudding-for-children.vercel.app/en/blog"/>
+    <priority>0.6</priority>
+  </url>
 </urlset>

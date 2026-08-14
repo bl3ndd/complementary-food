@@ -17,7 +17,8 @@
   "nav": {
     "features": "Funktionen",
     "screens": "Screenshots",
-    "privacy": "Datenschutz"
+    "privacy": "Datenschutz",
+    "blog": "Blog"
   },
   "h1": "Beikost ohne Panik",
   "hero_sub": "Pudding hält Mahlzeiten und Reaktionen sorgfältig fest, zeigt das Beobachtungsfenster und erinnert dich rechtzeitig daran, eingeführte Allergene zu wiederholen. Was und wann dein Baby isst — das entscheidest du.",
@@ -133,5 +134,16 @@
     "support": "Support",
     "disclaimer": "Pudding ist ein Beikost-Tagebuch, keine medizinische Beratung. Entscheidungen über Lebensmittel und Allergene triffst du gemeinsam mit deiner Kinderärztin."
   },
-  "jsonld_desc": "Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster, Allergen-Erinnerungen und ein PDF für die Kinderärztin. Die Daten liegen auf dem Gerät und werden über die eigene iCloud des Nutzers synchronisiert."
+  "jsonld_desc": "Beikost-Tagebuch: Mahlzeiten und Reaktionen festhalten, Beobachtungsfenster, Allergen-Erinnerungen und ein PDF für die Kinderärztin. Die Daten liegen auf dem Gerät und werden über die eigene iCloud des Nutzers synchronisiert.",
+  "blog": {
+    "title": "Pudding Blog — ein Beikost-Tagebuch führen",
+    "meta_desc": "Wie du ein Beikost-Tagebuch führst: was du notierst, wie du Reaktionen festhältst und die Essensgeschichte deines Kindes an einem Ort behältst.",
+    "h1": "Blog",
+    "lead": "Wie du ein Beikost-Tagebuch führst und keinen Eintrag verlierst.",
+    "back": "Alle Artikel",
+    "empty": "Artikel folgen in Kürze.",
+    "cta_h": "Führe das Tagebuch in der App",
+    "cta_p": "Pudding notiert Mahlzeiten, Reaktionen und Allergene — kostenlos, ohne Konto, alles bleibt auf deinem Handy.",
+    "cta_btn": "Mehr über Pudding"
+  }
 }

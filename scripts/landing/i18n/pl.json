@@ -17,7 +17,8 @@
   "nav": {
     "features": "Funkcje",
     "screens": "Zrzuty ekranu",
-    "privacy": "Prywatność"
+    "privacy": "Prywatność",
+    "blog": "Blog"
   },
   "h1": "Rozszerzanie diety bez paniki",
   "hero_sub": "Pudding starannie zapisuje posiłki i reakcje, pokazuje okno obserwacji i przypomina, żeby w porę powtórzyć wprowadzone alergeny. Co i kiedy podać dziecku — decydujesz ty.",
@@ -133,5 +134,16 @@
     "support": "Wsparcie",
     "disclaimer": "Pudding to dziennik żywienia, a nie porada medyczna. Decyzje o produktach i alergenach podejmuj razem ze swoim pediatrą."
   },
-  "jsonld_desc": "Dziennik rozszerzania diety: zapis posiłków i reakcji, okno obserwacji, przypomnienia o alergenach i PDF dla pediatry. Dane są na urządzeniu i synchronizują się przez prywatny iCloud użytkownika."
+  "jsonld_desc": "Dziennik rozszerzania diety: zapis posiłków i reakcji, okno obserwacji, przypomnienia o alergenach i PDF dla pediatry. Dane są na urządzeniu i synchronizują się przez prywatny iCloud użytkownika.",
+  "blog": {
+    "title": "Blog Pudding — dziennik rozszerzania diety",
+    "meta_desc": "Jak prowadzić dziennik rozszerzania diety: co zapisywać, jak śledzić reakcje i mieć historię posiłków dziecka w jednym miejscu.",
+    "h1": "Blog",
+    "lead": "Jak prowadzić dziennik rozszerzania diety i nie zgubić żadnego wpisu.",
+    "back": "Wszystkie artykuły",
+    "empty": "Artykuły pojawią się wkrótce.",
+    "cta_h": "Prowadź dziennik w aplikacji",
+    "cta_p": "Pudding zapisuje posiłki, reakcje i alergeny — za darmo, bez konta, wszystko zostaje w telefonie.",
+    "cta_btn": "Poznaj Pudding"
+  }
 }

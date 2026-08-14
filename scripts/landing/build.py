@@ -13,9 +13,12 @@ from __future__ import annotations
 import json
 import pathlib
 
+from md import load_articles, render_markdown
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 I18N = pathlib.Path(__file__).resolve().parent / "i18n"
 SITE = ROOT / "site"
+CONTENT = ROOT / "content" / "blog"
 BASE = "https://pudding-for-children.vercel.app"
 
 # Порядок = порядок в переключателе языков. Первый — источник (ru, лежит в корне).
@@ -35,26 +38,87 @@ def page_url(d: dict) -> str:
 
 
 def hreflangs(all_d: dict, cur: dict) -> str:
-    out = [f'  <link rel="canonical" href="{page_url(cur)}">']
+    return hreflang_links({l: page_url(all_d[l]) for l in LANGS}, page_url(cur))
+
+
+def hreflang_links(urls: dict, canonical: str) -> str:
+    """canonical + alternate по словарю {lang: url}. x-default — на en, а если
+    его в словаре нет (статья не переведена), на канонический."""
+    out = [f'  <link rel="canonical" href="{canonical}">']
     for lang in LANGS:
-        out.append(f'  <link rel="alternate" hreflang="{lang}" href="{page_url(all_d[lang])}">')
-    out.append(f'  <link rel="alternate" hreflang="x-default" href="{page_url(all_d["en"])}">')
+        if lang in urls:
+            out.append(f'  <link rel="alternate" hreflang="{lang}" href="{urls[lang]}">')
+    out.append('  <link rel="alternate" hreflang="x-default" '
+               f'href="{urls.get("en", canonical)}">')
     return "\n".join(out)
 
 
-def lang_picker(all_d: dict, cur: dict) -> str:
-    """Дропдаун на <details> — без JS, чтобы не расширять CSP."""
+def blog_url(d: dict, slug: str = "") -> str:
+    """`/blog` и `/blog/<slug>` для ru (корень), `/<lang>/blog/...` для остальных."""
+    prefix = d["path"].rstrip("/")
+    return f"{BASE}{prefix}/blog" + (f"/{slug}" if slug else "")
+
+
+def lang_picker(all_d: dict, cur: dict, hrefs: dict | None = None) -> str:
+    """Дропдаун на <details> — без JS, чтобы не расширять CSP.
+
+    `hrefs` — куда ведут пункты; по умолчанию на лендинг локали. Со страницы
+    статьи передаём ссылки на её же перевод, чтобы переключение языка не
+    выкидывало читателя из текста на главную."""
     items = []
     for lang in LANGS:
         d = all_d[lang]
         active = ' class="active"' if lang == cur["lang"] else ""
-        items.append(f'<a{active} href="{d["path"]}" hreflang="{lang}" lang="{lang}">{esc(d["native"])}</a>')
+        href = (hrefs or {}).get(lang, d["path"])
+        items.append(f'<a{active} href="{href}" hreflang="{lang}" lang="{lang}">{esc(d["native"])}</a>')
     return (
         '<details class="langpick">\n'
         f'          <summary aria-label="{esc(cur["lang_label"])}"><span class="globe">🌐</span>{esc(cur["native_short"])}</summary>\n'
         f'          <div class="langmenu">{"".join(items)}</div>\n'
         "        </details>"
     )
+
+
+def site_header(all_d: dict, d: dict, lang_hrefs: dict | None = None) -> str:
+    """Шапка. На лендинге якоря ведут на секции, поэтому ссылки абсолютные от
+    корня локали — иначе с /blog/<slug> «Возможности» ведёт в никуда."""
+    home = d["path"]
+    return (
+        '  <header class="site">\n'
+        '    <div class="wrap nav">\n'
+        f'      <a class="brand" href="{home}"><img src="/assets/pudding.svg" alt="Pudding">Pudding</a>\n'
+        '      <div class="nav-right">\n'
+        f'        <a href="{home}#features">{esc(d["nav"]["features"])}</a>\n'
+        f'        <a href="{home}#screens">{esc(d["nav"]["screens"])}</a>\n'
+        f'        <a href="{blog_path(d)}">{esc(d["nav"]["blog"])}</a>\n'
+        f'        <a href="{home}#privacy">{esc(d["nav"]["privacy"])}</a>\n'
+        f'        {lang_picker(all_d, d, lang_hrefs)}\n'
+        "      </div>\n"
+        "    </div>\n"
+        "  </header>"
+    )
+
+
+def site_footer(d: dict) -> str:
+    legal = "/en" if d.get("legal") == "en" else d["path"].rstrip("/")
+    return (
+        '  <footer class="site">\n'
+        '    <div class="wrap">\n'
+        '      <div class="links">\n'
+        f'        <a href="{legal}/privacy">{esc(d["footer"]["privacy"])}</a>\n'
+        f'        <a href="{legal}/terms">{esc(d["footer"]["terms"])}</a>\n'
+        f'        <a href="{blog_path(d)}">{esc(d["nav"]["blog"])}</a>\n'
+        f'        <a href="mailto:woodoo201818@gmail.com">{esc(d["footer"]["support"])}</a>\n'
+        "      </div>\n"
+        "      <p>© 2026 Pudding</p>\n"
+        f'      <p class="disclaimer">{esc(d["footer"]["disclaimer"])}</p>\n'
+        "    </div>\n"
+        "  </footer>"
+    )
+
+
+def blog_path(d: dict, slug: str = "") -> str:
+    return blog_url(d, slug)[len(BASE):]
 
 
 def render(all_d: dict, lang: str) -> str:
@@ -94,7 +158,6 @@ def render(all_d: dict, lang: str) -> str:
         json.dumps({"@type": "Question", "name": q["q"],
                     "acceptedAnswer": {"@type": "Answer", "text": q["a"]}}, ensure_ascii=False)
         for q in d["faq"])
-    legal = "/en" if d.get("legal") == "en" else d["path"].rstrip("/")
 
     return f"""<!DOCTYPE html>
 <html lang="{d['lang']}">
@@ -124,17 +187,7 @@ def render(all_d: dict, lang: str) -> str:
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header class="site">
-    <div class="wrap nav">
-      <a class="brand" href="{d['path']}"><img src="/assets/pudding.svg" alt="Pudding">Pudding</a>
-      <div class="nav-right">
-        <a href="#features">{esc(d['nav']['features'])}</a>
-        <a href="#screens">{esc(d['nav']['screens'])}</a>
-        <a href="#privacy">{esc(d['nav']['privacy'])}</a>
-        {lang_picker(all_d, d)}
-      </div>
-    </div>
-  </header>
+{site_header(all_d, d)}
 
   <main>
     <section class="hero wrap">
@@ -212,17 +265,7 @@ def render(all_d: dict, lang: str) -> str:
     <a class="btn" href="#">{esc(d['cta_store'])}</a>
   </div>
 
-  <footer class="site">
-    <div class="wrap">
-      <div class="links">
-        <a href="{legal}/privacy">{esc(d['footer']['privacy'])}</a>
-        <a href="{legal}/terms">{esc(d['footer']['terms'])}</a>
-        <a href="mailto:woodoo201818@gmail.com">{esc(d['footer']['support'])}</a>
-      </div>
-      <p>© 2026 Pudding</p>
-      <p class="disclaimer">{esc(d['footer']['disclaimer'])}</p>
-    </div>
-  </footer>
+{site_footer(d)}
 
   <script type="application/ld+json">
   {{
@@ -269,7 +312,124 @@ def render(all_d: dict, lang: str) -> str:
 """
 
 
-def sitemap(all_d: dict) -> str:
+def blog_head(d: dict, title: str, desc: str, url: str, urls: dict) -> str:
+    """Общая голова для /blog и статей: та же типографика и OG, что у лендинга."""
+    return f"""<!DOCTYPE html>
+<html lang="{d['lang']}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{esc(title)}</title>
+  <meta name="description" content="{esc(desc)}">
+  <meta name="robots" content="index, follow">
+{hreflang_links(urls, url)}
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Pudding">
+  <meta property="og:locale" content="{d['og_locale']}">
+  <meta property="og:url" content="{url}">
+  <meta property="og:title" content="{esc(title)}">
+  <meta property="og:description" content="{esc(desc)}">
+  <meta property="og:image" content="{BASE}/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{esc(title)}">
+  <meta name="twitter:description" content="{esc(desc)}">
+  <meta name="twitter:image" content="{BASE}/assets/og.png">
+  <link rel="icon" href="/assets/pudding.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap{d.get('font_subset','')}" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+"""
+
+
+def render_post(all_d: dict, lang: str, slug: str, by_lang: dict) -> str:
+    d = all_d[lang]
+    a = by_lang[lang]
+    url = blog_url(d, slug)
+    urls = {l: blog_url(all_d[l], slug) for l in LANGS if l in by_lang}
+    ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": a["title"],
+        "description": a["description"],
+        "datePublished": a["date"],
+        "inLanguage": d["lang"],
+        "mainEntityOfPage": url,
+        "author": {"@type": "Organization", "name": "Pudding", "url": f"{BASE}/"},
+        "publisher": {"@type": "Organization", "name": "Pudding",
+                      "logo": {"@type": "ImageObject", "url": f"{BASE}/assets/pudding.svg"}},
+    }, ensure_ascii=False, indent=2)
+    # На непереведённых языках пункт ведёт в блог этой локали, а не на статью.
+    picker = {l: (blog_path(all_d[l], slug) if l in by_lang else blog_path(all_d[l]))
+              for l in LANGS}
+    return (blog_head(d, a["title"], a["description"], url, urls)
+            + site_header(all_d, d, picker) + "\n"
+            + f"""
+  <main class="wrap post">
+    <p class="post-back"><a href="{blog_path(d)}">← {esc(d['blog']['back'])}</a></p>
+    <article>
+      <h1>{esc(a['title'])}</h1>
+      <p class="post-date">{esc(a['date'])}</p>
+{render_markdown(a['body'])}
+    </article>
+    <aside class="post-cta">
+      <img src="/assets/pudding.svg" alt="Pudding" width="72" height="72">
+      <div>
+        <h2>{esc(d['blog']['cta_h'])}</h2>
+        <p>{esc(d['blog']['cta_p'])}</p>
+        <a class="btn" href="{d['path']}">{esc(d['blog']['cta_btn'])}</a>
+      </div>
+    </aside>
+    <p class="post-disclaimer">{esc(d['footer']['disclaimer'])}</p>
+  </main>
+
+"""
+            + site_footer(d) + "\n"
+            + f"""
+  <script type="application/ld+json">
+{ld}
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
+""")
+
+
+def render_blog_index(all_d: dict, lang: str, articles: dict) -> str:
+    d = all_d[lang]
+    url = blog_url(d)
+    urls = {l: blog_url(all_d[l]) for l in LANGS}
+    # Свежие сверху; при равной дате — по слагу, чтобы сборка была воспроизводимой.
+    posts = sorted((a[lang] for a in articles.values() if lang in a),
+                   key=lambda a: (a["date"], a["slug"]), reverse=True)
+    cards = "\n".join(
+        f'      <a class="postcard" href="{blog_path(d, p["slug"])}">'
+        f'<h2>{esc(p["title"])}</h2><p>{esc(p["description"])}</p>'
+        f'<span class="post-date">{esc(p["date"])}</span></a>'
+        for p in posts) or f'      <p class="lead">{esc(d["blog"]["empty"])}</p>'
+    return (blog_head(d, d["blog"]["title"], d["blog"]["meta_desc"], url, urls)
+            + site_header(all_d, d, {l: blog_path(all_d[l]) for l in LANGS}) + "\n"
+            + f"""
+  <main class="wrap postlist">
+    <h1>{esc(d['blog']['h1'])}</h1>
+    <p class="lead">{esc(d['blog']['lead'])}</p>
+    <div class="postcards">
+{cards}
+    </div>
+  </main>
+
+"""
+            + site_footer(d) + "\n"
+            + """
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
+""")
+
+
+def sitemap(all_d: dict, articles: dict | None = None) -> str:
+    articles = articles or {}
     rows = []
     for lang in LANGS:
         alts = "\n".join(
@@ -287,21 +447,53 @@ def sitemap(all_d: dict) -> str:
                 f'    <xhtml:link rel="alternate" hreflang="en" href="{BASE}/en/{page}"/>\n'
                 f'    <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}/en/{page}"/>\n'
                 "    <priority>0.5</priority>\n  </url>")
+    for lang in LANGS:
+        alts = "\n".join(
+            f'    <xhtml:link rel="alternate" hreflang="{l}" href="{blog_url(all_d[l])}"/>'
+            for l in LANGS)
+        rows.append(
+            f"  <url>\n    <loc>{blog_url(all_d[lang])}</loc>\n{alts}\n"
+            f'    <xhtml:link rel="alternate" hreflang="x-default" href="{blog_url(all_d["en"])}"/>\n'
+            "    <priority>0.6</priority>\n  </url>")
+    for slug, by_lang in sorted(articles.items()):
+        alts = "\n".join(
+            f'    <xhtml:link rel="alternate" hreflang="{l}" href="{blog_url(all_d[l], slug)}"/>'
+            for l in LANGS if l in by_lang)
+        xdefault = blog_url(all_d["en" if "en" in by_lang else next(iter(by_lang))], slug)
+        for lang in LANGS:
+            if lang not in by_lang:
+                continue
+            rows.append(
+                f"  <url>\n    <loc>{blog_url(all_d[lang], slug)}</loc>\n"
+                f"    <lastmod>{by_lang[lang]['date']}</lastmod>\n{alts}\n"
+                f'    <xhtml:link rel="alternate" hreflang="x-default" href="{xdefault}"/>\n'
+                "    <priority>0.7</priority>\n  </url>")
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
             '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
             + "\n".join(rows) + "\n</urlset>\n")
 
 
+def write(path: pathlib.Path, html: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(html, encoding="utf-8")
+    print("→", path.relative_to(ROOT))
+
+
 def main() -> None:
     all_d = {lang: load(lang) for lang in LANGS}
+    articles = load_articles(CONTENT)
     for lang in LANGS:
         d = all_d[lang]
-        out = SITE / d["path"].strip("/") / "index.html"
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(render(all_d, lang), encoding="utf-8")
-        print("→", out.relative_to(ROOT))
-    (SITE / "sitemap.xml").write_text(sitemap(all_d), encoding="utf-8")
+        write(SITE / d["path"].strip("/") / "index.html", render(all_d, lang))
+        write(SITE / blog_path(d).strip("/") / "index.html",
+              render_blog_index(all_d, lang, articles))
+    for slug, by_lang in sorted(articles.items()):
+        for lang in LANGS:
+            if lang in by_lang:
+                write(SITE / blog_path(all_d[lang], slug).strip("/") / "index.html",
+                      render_post(all_d, lang, slug, by_lang))
+    (SITE / "sitemap.xml").write_text(sitemap(all_d, articles), encoding="utf-8")
     print("→ site/sitemap.xml")
 
 

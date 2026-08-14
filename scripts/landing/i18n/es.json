@@ -17,7 +17,8 @@
   "nav": {
     "features": "Funciones",
     "screens": "Capturas",
-    "privacy": "Privacidad"
+    "privacy": "Privacidad",
+    "blog": "Blog"
   },
   "h1": "Alimentación complementaria sin agobios",
   "hero_sub": "Pudding anota con cuidado las tomas y las reacciones, muestra la ventana de observación y te recuerda repetir a tiempo los alérgenos ya introducidos. Qué y cuándo darle a tu bebé lo decides tú.",
@@ -133,5 +134,16 @@
     "support": "Soporte",
     "disclaimer": "Pudding es un diario de alimentación, no un consejo médico. Las decisiones sobre alimentos y alérgenos se toman junto a tu pediatra."
   },
-  "jsonld_desc": "Diario de alimentación complementaria: registro de tomas y reacciones, ventana de observación, recordatorios de alérgenos y PDF para el pediatra. Los datos se guardan en el dispositivo y se sincronizan con el iCloud personal del usuario."
+  "jsonld_desc": "Diario de alimentación complementaria: registro de tomas y reacciones, ventana de observación, recordatorios de alérgenos y PDF para el pediatra. Los datos se guardan en el dispositivo y se sincronizan con el iCloud personal del usuario.",
+  "blog": {
+    "title": "Blog de Pudding — el diario de alimentación complementaria",
+    "meta_desc": "Cómo llevar un diario de alimentación complementaria: qué anotar, cómo registrar las reacciones y tener el historial de tu bebé en un solo lugar.",
+    "h1": "Blog",
+    "lead": "Cómo llevar el diario de la alimentación complementaria sin perder ni un registro.",
+    "back": "Todos los artículos",
+    "empty": "Pronto habrá artículos aquí.",
+    "cta_h": "Lleva el diario en la app",
+    "cta_p": "Pudding registra tomas, reacciones y alérgenos: gratis, sin cuenta y todo se queda en tu teléfono.",
+    "cta_btn": "Conocer Pudding"
+  }
 }

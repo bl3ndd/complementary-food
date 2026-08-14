@@ -17,7 +17,8 @@
   "nav": {
     "features": "Özellikler",
     "screens": "Ekranlar",
-    "privacy": "Gizlilik"
+    "privacy": "Gizlilik",
+    "blog": "Blog"
   },
   "h1": "Ek gıda, telaş yok",
   "hero_sub": "Pudding öğünleri ve tepkileri özenle kaydeder, gözlem penceresini gösterir ve verdiğin alerjenleri zamanında tekrarlamanı hatırlatır. Bebeğine neyi ne zaman vereceğine sen karar verirsin.",
@@ -133,5 +134,16 @@
     "support": "Destek",
     "disclaimer": "Pudding bir beslenme günlüğüdür, tıbbi tavsiye değildir. Gıdalar ve alerjenlerle ilgili kararları doktorunla birlikte ver."
   },
-  "jsonld_desc": "Ek gıda günlüğü: öğün ve tepki kayıtları, gözlem penceresi, alerjen hatırlatmaları ve doktor için PDF. Veriler cihazda tutulur ve kullanıcının kendi iCloud'u üzerinden eşitlenir."
+  "jsonld_desc": "Ek gıda günlüğü: öğün ve tepki kayıtları, gözlem penceresi, alerjen hatırlatmaları ve doktor için PDF. Veriler cihazda tutulur ve kullanıcının kendi iCloud'u üzerinden eşitlenir.",
+  "blog": {
+    "title": "Pudding Blog — ek gıda günlüğü tutmak",
+    "meta_desc": "Ek gıda günlüğü nasıl tutulur: neleri not etmeli, tepkileri nasıl takip etmeli ve bebeğinizin beslenme geçmişini tek bir yerde nasıl saklamalı.",
+    "h1": "Blog",
+    "lead": "Ek gıda günlüğünü tek bir kayıt bile kaybetmeden nasıl tutarsınız.",
+    "back": "Tüm yazılar",
+    "empty": "Yazılar çok yakında burada.",
+    "cta_h": "Günlüğü uygulamada tutun",
+    "cta_p": "Pudding öğünleri, tepkileri ve alerjenleri kaydeder — ücretsiz, hesap yok, her şey telefonunuzda kalır.",
+    "cta_btn": "Pudding'i tanıyın"
+  }
 }

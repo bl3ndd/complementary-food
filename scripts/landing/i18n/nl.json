@@ -17,7 +17,8 @@
   "nav": {
     "features": "Functies",
     "screens": "Schermen",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "blog": "Blog"
   },
   "h1": "Bijvoeding zonder paniek",
   "hero_sub": "Pudding legt voedingen en reacties zorgvuldig vast, laat het observatievenster zien en herinnert je er op tijd aan om geïntroduceerde allergenen te herhalen. Wat en wanneer je kindje eet, bepaal jij.",
@@ -133,5 +134,16 @@
     "support": "Support",
     "disclaimer": "Pudding is een voedingsdagboek, geen medisch advies. Beslissingen over producten en allergenen neem je samen met je kinderarts."
   },
-  "jsonld_desc": "Bijvoedingsdagboek: voedingen en reacties vastleggen, observatievenster, allergenenherinneringen en een PDF voor de kinderarts. Gegevens staan op het toestel en synchroniseren via de eigen iCloud van de gebruiker."
+  "jsonld_desc": "Bijvoedingsdagboek: voedingen en reacties vastleggen, observatievenster, allergenenherinneringen en een PDF voor de kinderarts. Gegevens staan op het toestel en synchroniseren via de eigen iCloud van de gebruiker.",
+  "blog": {
+    "title": "Pudding Blog — een hapjesdagboek bijhouden",
+    "meta_desc": "Hoe je een hapjesdagboek bijhoudt: wat je noteert, hoe je reacties bijhoudt en de eetgeschiedenis van je kind op één plek bewaart.",
+    "h1": "Blog",
+    "lead": "Hoe je een hapjesdagboek bijhoudt zonder ook maar één notitie kwijt te raken.",
+    "back": "Alle artikelen",
+    "empty": "Er komen binnenkort artikelen.",
+    "cta_h": "Houd het dagboek bij in de app",
+    "cta_p": "Pudding noteert voedingen, reacties en allergenen — gratis, zonder account, alles blijft op je telefoon.",
+    "cta_btn": "Over Pudding"
+  }
 }

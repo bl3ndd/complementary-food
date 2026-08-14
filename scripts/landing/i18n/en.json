@@ -16,7 +16,8 @@
   "nav": {
     "features": "Features",
     "screens": "Screenshots",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "blog": "Blog"
   },
   "h1": "Starting solids, zero panic",
   "hero_sub": "Pudding quietly keeps track of feedings and reactions, shows the observation window, and reminds you to repeat introduced allergens on time. What and when to feed your baby — that's your call.",
@@ -132,5 +133,16 @@
     "support": "Support",
     "disclaimer": "Pudding is a feeding diary, not medical advice. Make decisions about introducing foods and allergens together with your pediatrician."
   },
-  "jsonld_desc": "A first-foods diary: feeding and reaction logs, observation windows, allergen reminders, and a PDF for your pediatrician. Data is stored on device and synced through the user's own iCloud."
+  "jsonld_desc": "A first-foods diary: feeding and reaction logs, observation windows, allergen reminders, and a PDF for your pediatrician. Data is stored on device and synced through the user's own iCloud.",
+  "blog": {
+    "title": "Pudding Blog — keeping a solid foods diary",
+    "meta_desc": "How to keep a solid foods diary: what to record, how to track reactions, and how to keep your baby's eating history in one place.",
+    "h1": "Blog",
+    "lead": "How to keep a solid foods diary and never lose an entry.",
+    "back": "All articles",
+    "empty": "Articles are coming soon.",
+    "cta_h": "Keep the diary in the app",
+    "cta_p": "Pudding records feedings, reactions and allergens — free, no account, everything stays on your phone.",
+    "cta_btn": "About Pudding"
+  }
 }

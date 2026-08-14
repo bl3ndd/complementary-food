@@ -17,7 +17,8 @@
   "nav": {
     "features": "Fonctions",
     "screens": "Captures",
-    "privacy": "Confidentialité"
+    "privacy": "Confidentialité",
+    "blog": "Blog"
   },
   "h1": "La diversification, sans panique",
   "hero_sub": "Pudding note soigneusement les repas et les réactions, affiche la fenêtre d'observation et te rappelle de reproposer à temps les allergènes déjà introduits. Quoi et quand donner à ton bébé — c'est toi qui décides.",
@@ -133,5 +134,16 @@
     "support": "Support",
     "disclaimer": "Pudding est un carnet de diversification, pas un avis médical. Les décisions sur les aliments et les allergènes se prennent avec ton pédiatre."
   },
-  "jsonld_desc": "Carnet de diversification : repas et réactions notés, fenêtre d'observation, rappels d'allergènes et PDF pour le pédiatre. Les données restent sur l'appareil et se synchronisent via l'iCloud personnel de l'utilisateur."
+  "jsonld_desc": "Carnet de diversification : repas et réactions notés, fenêtre d'observation, rappels d'allergènes et PDF pour le pédiatre. Les données restent sur l'appareil et se synchronisent via l'iCloud personnel de l'utilisateur.",
+  "blog": {
+    "title": "Blog Pudding — tenir un journal de diversification",
+    "meta_desc": "Comment tenir un journal de diversification alimentaire : quoi noter, comment suivre les réactions et garder l'historique des repas de votre bébé au même endroit.",
+    "h1": "Blog",
+    "lead": "Comment tenir un journal de diversification sans perdre la moindre note.",
+    "back": "Tous les articles",
+    "empty": "Les articles arrivent bientôt.",
+    "cta_h": "Tenez le journal dans l'application",
+    "cta_p": "Pudding enregistre les repas, les réactions et les allergènes — gratuit, sans compte, tout reste sur votre téléphone.",
+    "cta_btn": "Découvrir Pudding"
+  }
 }

@@ -152,3 +152,22 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 - Скриншоты лендинга — ресайз из `appstore_screenshots/raw/<locale>/` в
   `site/assets/screens/<locale>/` (1080px, JPEG q92, `sips`). Пересняли витрину —
   пересобери и их.
+- Тесты генератора: `python3 -m unittest discover -s scripts/landing` (голый unittest,
+  без зависимостей — `build.py` должен запускаться системным `python3`).
+
+## Блог (`content/blog/`)
+
+- Статьи лежат как `content/blog/<slug>/<lang>.json` (`title`/`description`/`keyword`/
+  `date`/`body`), тело — markdown-подмножество; `scripts/landing/md.py` рендерит его в
+  HTML **с полным экранированием** (текст пишет модель, доверять ему как HTML нельзя).
+- `build.py` генерит `/blog` и `/blog/<slug>` на всех 14 языках + hreflang и sitemap.
+  Локаль, для которой перевода нет, **пропускается** — иначе на её URL уедет английский
+  текст под чужим hreflang.
+- Новую статью пишет `scripts/write_article.py` (Opus 5 — оригинал на EN, Haiku 4.5 —
+  переводы на 13 языков), темы берутся из реального спроса в Search Console.
+  Запускается кроном `.github/workflows/weekly-article.yml`, секреты — `ANTHROPIC_API_KEY`
+  и `GSC_SERVICE_ACCOUNT_JSON`.
+- **Ниша — только дневник и учёт**, не советы по питанию: приложение принципиально ничего
+  не советует, и сайт не должен обещать то, чего продукт не делает (плюс медицинский YMYL
+  от анонимного сайта не ранжируется). Запрет зашит в промпт и продублирован проверкой
+  `ADVICE_MARKERS` — сработала, статья не публикуется.

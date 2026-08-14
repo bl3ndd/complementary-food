@@ -17,7 +17,8 @@
   "nav": {
     "features": "Funzioni",
     "screens": "Schermate",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "blog": "Blog"
   },
   "h1": "Svezzamento senza ansia",
   "hero_sub": "Pudding annota con cura pappe e reazioni, mostra la finestra di osservazione e ti ricorda di riproporre in tempo gli allergeni già introdotti. Cosa e quando dare al tuo bambino lo decidi tu.",
@@ -133,5 +134,16 @@
     "support": "Supporto",
     "disclaimer": "Pudding è un diario dello svezzamento, non un consiglio medico. Le decisioni su alimenti e allergeni prendile insieme al tuo pediatra."
   },
-  "jsonld_desc": "Diario dello svezzamento: registro di pappe e reazioni, finestra di osservazione, promemoria per gli allergeni e PDF per il pediatra. I dati restano sul dispositivo e si sincronizzano tramite l'iCloud personale dell'utente."
+  "jsonld_desc": "Diario dello svezzamento: registro di pappe e reazioni, finestra di osservazione, promemoria per gli allergeni e PDF per il pediatra. I dati restano sul dispositivo e si sincronizzano tramite l'iCloud personale dell'utente.",
+  "blog": {
+    "title": "Blog Pudding — il diario dello svezzamento",
+    "meta_desc": "Come tenere un diario dello svezzamento: cosa annotare, come registrare le reazioni e avere in un unico posto lo storico dei pasti del bambino.",
+    "h1": "Blog",
+    "lead": "Come tenere il diario dello svezzamento senza perdere neanche una nota.",
+    "back": "Tutti gli articoli",
+    "empty": "Gli articoli arriveranno presto.",
+    "cta_h": "Tieni il diario nell'app",
+    "cta_p": "Pudding registra pasti, reazioni e allergeni: gratis, senza account, tutto resta sul telefono.",
+    "cta_btn": "Scopri Pudding"
+  }
 }

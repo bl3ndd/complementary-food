@@ -17,7 +17,8 @@
   "nav": {
     "features": "Recursos",
     "screens": "Telas",
-    "privacy": "Privacidade"
+    "privacy": "Privacidade",
+    "blog": "Blog"
   },
   "h1": "Introdução alimentar sem pânico",
   "hero_sub": "O Pudding registra com carinho as refeições e as reações, mostra a janela de observação e lembra você de repetir na hora certa os alérgenos já introduzidos. O que e quando oferecer ao bebê é você quem decide.",
@@ -133,5 +134,16 @@
     "support": "Suporte",
     "disclaimer": "O Pudding é um diário alimentar, não um conselho médico. Decisões sobre alimentos e alérgenos devem ser tomadas junto ao seu pediatra."
   },
-  "jsonld_desc": "Diário de introdução alimentar: registro de refeições e reações, janela de observação, lembretes de alérgenos e PDF para o pediatra. Os dados ficam no aparelho e sincronizam pelo iCloud pessoal do usuário."
+  "jsonld_desc": "Diário de introdução alimentar: registro de refeições e reações, janela de observação, lembretes de alérgenos e PDF para o pediatra. Os dados ficam no aparelho e sincronizam pelo iCloud pessoal do usuário.",
+  "blog": {
+    "title": "Blog do Pudding — o diário da introdução alimentar",
+    "meta_desc": "Como manter um diário da introdução alimentar: o que anotar, como registrar reações e ter o histórico das refeições do bebê em um só lugar.",
+    "h1": "Blog",
+    "lead": "Como manter o diário da introdução alimentar sem perder nenhum registro.",
+    "back": "Todos os artigos",
+    "empty": "Em breve haverá artigos aqui.",
+    "cta_h": "Mantenha o diário no aplicativo",
+    "cta_p": "O Pudding registra refeições, reações e alérgenos — grátis, sem conta, tudo fica no seu celular.",
+    "cta_btn": "Conhecer o Pudding"
+  }
 }
