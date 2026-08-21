@@ -5,10 +5,23 @@ struct MainTabView: View {
     let child: Child
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
+    /// Тот же хвост журнала, что и у дашборда, а не весь дневник: бейдж таба иначе
+    /// пересчитывает поддержку аллергенов по тысячам записей на каждое изменение
+    /// стора — и утаскивает в пересчёт весь шелл табов вместе со вкладками.
     @Query private var logs: [FoodLog]
     @ObservedObject private var router = AppRouter.shared
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.displayScale) private var displayScale
+
+    init(child: Child) {
+        self.child = child
+        // Выровнено по началу дня — предикат обязан быть стабильным между проходами
+        // body, иначе @Query перевыбирает журнал на ровном месте.
+        let cal = Calendar.current
+        let cutoff = cal.date(byAdding: .day, value: -DashboardView.recentWindowDays,
+                              to: cal.startOfDay(for: Date())) ?? .distantPast
+        _logs = Query(FetchDescriptor<FoodLog>(predicate: #Predicate { $0.date >= cutoff }))
+    }
 
     enum Tab { case today, catalog, calendar, allergens, profile }
 

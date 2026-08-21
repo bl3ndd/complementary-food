@@ -9,7 +9,11 @@ struct DashboardView: View {
     var goToCatalog: () -> Void = {}
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
-    @Query private var logs: [FoodLog]
+    /// Только записи за сегодня — из них рисуется лента дня.
+    @Query private var todayLogs: [FoodLog]
+    /// Хвост журнала (см. `recentWindowDays`) — поддержка аллергенов и прогресс
+    /// окна наблюдения смотрят назад недалеко, весь дневник им не нужен.
+    @Query private var recentLogs: [FoodLog]
     @State private var editingLog: FoodLog?
     @State private var showFeed = false
     @State private var showReaction = false
@@ -20,6 +24,41 @@ struct DashboardView: View {
 
     private let catalog = FoodCatalog.shared
 
+    /// Насколько далеко назад дашборду нужен журнал.
+    ///
+    /// Для статуса аллергена окно **точное**: интервал поддержки — максимум 7 дней,
+    /// всё, что старше, и так «просрочено», а базой в этом случае служит `completedAt`
+    /// статуса (см. `AllergenMaintenance`). Единственное огрубление — подпись
+    /// «N из M кормлений» у ввода, который висит незакрытым дольше этого срока:
+    /// там счётчик может недосчитать старые кормления. На автозакрытие ввода это
+    /// не влияет — свипер `completeDueIntroductions` считает по полному фетчу.
+    static let recentWindowDays = 30
+
+    init(child: Child, goToCatalog: @escaping () -> Void = {}) {
+        self.child = child
+        self.goToCatalog = goToCatalog
+
+        // Весь журнал в @Query — это две беды сразу. Первая: каждый проход body
+        // сканирует тысячи SwiftData-объектов (у живого дневника их 2678, и одна
+        // только лента дня стоила 28 мс — при бюджете кадра 8.3 мс). Вторая, хуже:
+        // чтение полей подписывает вьюху на изменения КАЖДОГО объекта, и любая
+        // запись в стор роняет весь экран в полный пересчёт. Фильтрует пусть SQLite.
+        let cal = Calendar.current
+        let dayStart = cal.startOfDay(for: Date())
+        _todayLogs = Query(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.date >= dayStart }))
+
+        // Границы берём на момент создания вьюхи и ВЫРАВНИВАЕМ ПО НАЧАЛУ ДНЯ: вьюха
+        // пересоздаётся на каждый проход body шелла табов, и «сейчас минус 30 дней»
+        // давало бы каждый раз чуть другой предикат — то есть новую выборку.
+        // Если приложение переживёт полночь, в выборках просто окажется чуть больше
+        // старых записей: день ленты всё равно отсекается по актуальной дате
+        // в `todayEntries`, а окно поддержки от лишних суток не страдает.
+        let cutoff = cal.date(byAdding: .day, value: -Self.recentWindowDays, to: dayStart) ?? .distantPast
+        _recentLogs = Query(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.date >= cutoff }))
+    }
+
     var body: some View {
         // Сводки считаются ОДИН раз за проход body и дальше передаются готовыми.
         // Раньше это были вычисляемые свойства, и каждое прочёсывало весь дневник
@@ -27,12 +66,18 @@ struct DashboardView: View {
         // На демо-объёме (~450 записей) скролл проседал до 46 fps.
         // `child.feedingProfile` тоже не бесплатный: парсит строку групп аллергенов
         // и дёргает String(localized:) — а раньше он собирался заново в каждой сводке.
+        let _ = DashboardPerf.on ? Self._printChanges() : ()
+        let t0 = CFAbsoluteTimeGetCurrent()
         let profile = child.feedingProfile
         let today = todayEntries
+        let tToday = CFAbsoluteTimeGetCurrent()
         let groups = allergenGroups(profile)
+        let tGroups = CFAbsoluteTimeGetCurrent()
         let introducing = introducingItems(profile)
         let introducedStatuses = statuses.filter { $0.state == .introduced }
         let collection = introducedStatuses.compactMap { catalog.food(id: $0.foodId) }
+        let _ = DashboardPerf.log(t0: t0, afterToday: tToday, afterGroups: tGroups,
+                                  logs: recentLogs.count, statuses: statuses.count)
 
         NavigationStack(path: $path) {
             ScrollView {
@@ -209,7 +254,7 @@ struct DashboardView: View {
         var starts: [String: Date] = [:]
         for s in active { if let start = s.introStartedAt { starts[s.foodId] = start } }
         // Один проход по журналу на всю карточку вместо полного скана на продукт.
-        let done = FeedingService.introFeedingDays(logs: logs, since: starts)
+        let done = FeedingService.introFeedingDays(logs: recentLogs, since: starts)
 
         return active.compactMap { s in
             guard let food = catalog.food(id: s.foodId) else { return nil }
@@ -390,14 +435,35 @@ struct DashboardView: View {
     }
 
     private var todayEntries: [DayEntry] {
-        CalendarService(catalog: catalog, logs: logs).day(Date()).entries.filter { !$0.planned }
+        CalendarService(catalog: catalog, logs: todayLogs).day(Date()).entries.filter { !$0.planned }
     }
 
     private func allergenGroups(_ profile: FeedingProfile) -> [AllergenGroupStatus] {
         AllergenMaintenance(catalog: catalog, profile: profile,
-                            statuses: statuses, logs: logs).groups()
+                            statuses: statuses, logs: recentLogs).groups()
     }
     private func dueCount(_ groups: [AllergenGroupStatus]) -> Int {
         groups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
+    }
+}
+
+// MARK: - Временная диагностика перфа (флаг `-dashperf`)
+
+/// ВРЕМЕННО. Показывает, сколько раз и почему пересчитывается body главной и
+/// во что обходятся сводки. Снести, как только причина рывков найдена.
+enum DashboardPerf {
+    static let on = ProcessInfo.processInfo.arguments.contains("-dashperf")
+
+    private nonisolated(unsafe) static var count = 0
+
+    static func log(t0: CFAbsoluteTime, afterToday: CFAbsoluteTime, afterGroups: CFAbsoluteTime,
+                    logs: Int, statuses: Int) {
+        guard on else { return }
+        count += 1
+        let end = CFAbsoluteTimeGetCurrent()
+        let ms = { (a: CFAbsoluteTime, b: CFAbsoluteTime) in String(format: "%.2f", (b - a) * 1000) }
+        print("⏱ dash.body #\(count) total=\(ms(t0, end))ms "
+              + "today=\(ms(t0, afterToday))ms groups=\(ms(afterToday, afterGroups))ms "
+              + "rest=\(ms(afterGroups, end))ms | logs=\(logs) statuses=\(statuses)")
     }
 }

@@ -278,4 +278,40 @@ final class AllergenTests: XCTestCase {
         XCTAssertFalse(egg.isIntroduced)
         XCTAssertNil(egg.lastGiven, "журнал по рыбе не должен считаться дозой яйца")
     }
+
+    /// Инвариант, на котором держится узкая выборка журнала на дашборде
+    /// (`DashboardView.recentWindowDays`): доза старше интервала поддержки уже
+    /// не влияет на статус — он `overdue` и с ней, и без неё. Значит обрезать
+    /// журнал по окну безопасно.
+    func testDoseOlderThanMaintenanceWindowDoesNotChangeStatus() throws {
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg])   // интервал 7 дней
+        let s = IntroductionStatus(foodId: "egg_yolk", state: .introduced)
+        s.completedAt = daysAgo(40)
+        let ancient = [FoodLog(foodId: "egg_yolk", date: daysAgo(30), type: .maintenance)]
+
+        func status(_ logs: [FoodLog]) throws -> AllergenStatus {
+            try XCTUnwrap(AllergenMaintenance(catalog: catalog, profile: prof,
+                                              statuses: [s], logs: logs, now: now)
+                .groups().first?.status)
+        }
+
+        XCTAssertEqual(try status(ancient), try status([]),
+                       "давняя доза не меняет статус — журнал можно обрезать по окну")
+        XCTAssertEqual(try status(ancient), .overdue)
+    }
+
+    /// А вот доза внутри окна статус меняет — иначе обрезка была бы бессмысленной.
+    func testRecentDoseKeepsGroupOk() throws {
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg])
+        let s = IntroductionStatus(foodId: "egg_yolk", state: .introduced)
+        s.completedAt = daysAgo(40)
+
+        let g = try XCTUnwrap(AllergenMaintenance(
+            catalog: catalog, profile: prof, statuses: [s],
+            logs: [FoodLog(foodId: "egg_yolk", date: daysAgo(1), type: .maintenance)],
+            now: now).groups().first)
+        XCTAssertEqual(g.status, .ok)
+    }
 }
