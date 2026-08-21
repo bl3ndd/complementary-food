@@ -61,6 +61,22 @@ struct FeedingService {
         return Self.introFeedingDays(logs: logs, foodId: foodId, since: start, calendar: calendar)
     }
 
+    /// То же самое сразу по нескольким продуктам, за ОДИН проход по журналу.
+    /// Главная показывает прогресс окна для каждого вводимого продукта, и поштучный
+    /// вызов означал полный скан дневника на каждую строку карточки — на каждую
+    /// перерисовку экрана. Ключ результата — `foodId`, продукты без кормлений в
+    /// словарь не попадают (у вызывающего это ноль).
+    static func introFeedingDays(logs: [FoodLog], since starts: [String: Date],
+                                 calendar: Calendar = .current) -> [String: Int] {
+        guard !starts.isEmpty else { return [:] }
+        var days: [String: Set<Date>] = [:]
+        for log in logs {
+            guard !log.planned, let start = starts[log.foodId], log.date >= start else { continue }
+            days[log.foodId, default: []].insert(calendar.startOfDay(for: log.date))
+        }
+        return days.mapValues(\.count)
+    }
+
     /// Автозавершение: продукт становится введённым, когда его дали в столько
     /// РАЗНЫХ дней, сколько задано в плане (обычный — 2, аллерген — 3). Ручной
     /// кнопки «Ввёл успешно» нет. Возвращает id завершённых.

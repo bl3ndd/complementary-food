@@ -10,10 +10,13 @@ import UIKit
 /// вместо литералов `.white` / `Color.black.opacity(…)`.
 enum Theme {
     /// Пара «цвет для светлой / цвет для тёмной» одним динамическим Color.
+    /// Мост `UIColor(Color)` — дорогой (резолв через среду SwiftUI), поэтому обе
+    /// стороны конвертим ОДИН раз при создании, а не внутри trait-провайдера:
+    /// провайдер зовётся на каждое разрешение цвета, а цвета темы стоят в каждой
+    /// карточке, кнопке и иконке экрана.
     static func dynamic(_ light: Color, _ dark: Color) -> Color {
-        Color(uiColor: UIColor { traits in
-            UIColor(traits.userInterfaceStyle == .dark ? dark : light)
-        })
+        let l = UIColor(light), d = UIColor(dark)
+        return Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? d : l })
     }
 
     // MARK: - Палитра (бренд)
@@ -142,12 +145,18 @@ extension View {
     func cartoonCard(padding: CGFloat = 16) -> some View {
         self.padding(padding)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+            // Тень висит на самой фигуре, а не на собранной карточке. На собранной
+            // Core Animation вынуждена блюрить произвольное содержимое offscreen
+            // каждый кадр; на залитой фигуре она берёт готовый shadowPath. Заливка
+            // непрозрачная и покрывает карточку целиком — силуэт тени тот же.
+            .background {
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(Theme.card)
+                    .shadow(color: Theme.accentDeep.opacity(0.12), radius: 14, x: 0, y: 7)
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .stroke(Theme.cardStroke, lineWidth: 1))
-            // Одна тень вместо двух — каждый .shadow это offscreen-проход на карточку.
-            .shadow(color: Theme.accentDeep.opacity(0.12), radius: 14, x: 0, y: 7)
     }
 }
 

@@ -241,4 +241,41 @@ final class AllergenTests: XCTestCase {
     func testDefaultPlanIncludesOtherGroup() {
         XCTAssertTrue(Child().customAllergenGroups.contains(.other))
     }
+
+    // MARK: - Одна прошивка индексов на все группы (перф главной)
+
+    /// `lastGiven` — САМАЯ поздняя чистая доза, а не последняя в массиве:
+    /// журнал приходит из `@Query` без гарантий порядка.
+    func testLastGivenIsMaxRegardlessOfLogOrder() throws {
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg])
+        let s = IntroductionStatus(foodId: "egg_yolk", state: .introduced)
+        let logs = [
+            FoodLog(foodId: "egg_yolk", date: daysAgo(1), type: .maintenance),
+            FoodLog(foodId: "egg_yolk", date: daysAgo(9), type: .maintenance),
+            FoodLog(foodId: "egg_yolk", date: daysAgo(5), type: .maintenance),
+        ]
+
+        let g = try XCTUnwrap(AllergenMaintenance(catalog: catalog, profile: prof,
+                                                  statuses: [s], logs: logs, now: now).groups().first)
+        XCTAssertEqual(g.lastGiven, daysAgo(1))
+    }
+
+    /// Продукты и записи групп, которых нет в плане, не должны подмешиваться
+    /// в отслеживаемые: индекс продукт → группа строится один раз на все группы.
+    func testFoodsOutsideProfileGroupsDoNotLeak() throws {
+        let catalog = FoodCatalog(foods: [food("egg_yolk", group: .egg),
+                                          food("cod", group: .fish)])
+        let prof = profile(frequencyPerWeek: 1, groups: [.egg])
+        let statuses = [IntroductionStatus(foodId: "cod", state: .introduced)]
+        let logs = [FoodLog(foodId: "cod", date: daysAgo(1), type: .maintenance)]
+
+        let groups = AllergenMaintenance(catalog: catalog, profile: prof,
+                                         statuses: statuses, logs: logs, now: now).groups()
+        XCTAssertEqual(groups.map(\.group), [.egg])
+        let egg = try XCTUnwrap(groups.first)
+        XCTAssertEqual(egg.foods.map(\.id), ["egg_yolk"])
+        XCTAssertFalse(egg.isIntroduced)
+        XCTAssertNil(egg.lastGiven, "журнал по рыбе не должен считаться дозой яйца")
+    }
 }

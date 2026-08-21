@@ -573,4 +573,50 @@ final class FeedingServiceTests: XCTestCase {
                                                        catalog: catalog, now: now).isEmpty)
         XCTAssertEqual(try context.fetch(FetchDescriptor<IntroductionStatus>()).first?.state, .paused)
     }
+
+    // MARK: - Пакетный подсчёт дней ввода (перф главной)
+
+    /// Пакетная версия должна совпадать с поштучной: главная считает прогресс окна
+    /// одним проходом по журналу, и разъехаться эти две ветки не имеют права.
+    func testBatchedIntroFeedingDaysMatchesPerFoodVersion() {
+        let cal = utcCalendar()
+        let starts = ["broccoli": day(1, cal), "zucchini": day(2, cal)]
+        let logs = [
+            FoodLog(foodId: "broccoli", date: day(1, cal), type: .intro),
+            FoodLog(foodId: "broccoli", date: day(1, cal).addingTimeInterval(3600 * 6), type: .intro),
+            FoodLog(foodId: "broccoli", date: day(3, cal), type: .intro),
+            FoodLog(foodId: "zucchini", date: day(4, cal), type: .intro),
+        ]
+
+        let batch = FeedingService.introFeedingDays(logs: logs, since: starts, calendar: cal)
+        for (foodId, start) in starts {
+            XCTAssertEqual(batch[foodId] ?? 0,
+                           FeedingService.introFeedingDays(logs: logs, foodId: foodId,
+                                                           since: start, calendar: cal),
+                           foodId)
+        }
+        XCTAssertEqual(batch["broccoli"], 2, "два кормления в один день — один день окна")
+        XCTAssertEqual(batch["zucchini"], 1)
+    }
+
+    func testBatchedIntroFeedingDaysSkipsPlannedAndPreStartLogs() {
+        let cal = utcCalendar()
+        let starts = ["broccoli": day(5, cal)]
+        let logs = [
+            FoodLog(foodId: "broccoli", date: day(3, cal), type: .intro),                  // до старта
+            FoodLog(foodId: "broccoli", date: day(6, cal), type: .intro, planned: true),   // план
+            FoodLog(foodId: "zucchini", date: day(6, cal), type: .intro),                  // чужой продукт
+            FoodLog(foodId: "broccoli", date: day(7, cal), type: .intro),
+        ]
+
+        let batch = FeedingService.introFeedingDays(logs: logs, since: starts, calendar: cal)
+        XCTAssertEqual(batch["broccoli"], 1)
+        XCTAssertNil(batch["zucchini"], "продукт вне запроса в результат не попадает")
+    }
+
+    func testBatchedIntroFeedingDaysOnEmptyStartsIsEmpty() {
+        XCTAssertTrue(FeedingService.introFeedingDays(
+            logs: [FoodLog(foodId: "broccoli", date: Date(), type: .intro)],
+            since: [:], calendar: utcCalendar()).isEmpty)
+    }
 }

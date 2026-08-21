@@ -275,4 +275,23 @@ final class CalendarServiceTests: XCTestCase {
         let august = try XCTUnwrap(utc.dateInterval(of: .month, for: date("2026-08-10T12:00:00Z")))
         XCTAssertTrue(service.days(in: august).isEmpty)
     }
+
+    // MARK: - Границы дня (быстрый путь без isDate(inSameDayAs:))
+
+    /// `day(_:)` сравнивает даты с границами дня напрямую — полночь входит в день,
+    /// полночь следующего уже нет.
+    func testDayIncludesMidnightAndExcludesNextMidnight() {
+        let logs = [
+            log("broccoli", "2026-06-10T00:00:00Z"),
+            log("broccoli", "2026-06-10T23:59:59Z"),
+            log("egg_yolk", "2026-06-11T00:00:00Z"),
+            log("egg_yolk", "2026-06-09T23:59:59Z"),
+        ]
+        let service = CalendarService(catalog: catalog, logs: logs, calendar: utc)
+
+        let tenth = service.day(date("2026-06-10T12:00:00Z"))
+        XCTAssertEqual(tenth.entries.count, 2)
+        XCTAssertEqual(tenth.date, date("2026-06-10T00:00:00Z"))
+        XCTAssertTrue(tenth.entries.allSatisfy { $0.foodName == "Брокколи" })
+    }
 }

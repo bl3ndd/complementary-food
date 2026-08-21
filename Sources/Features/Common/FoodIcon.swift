@@ -5,7 +5,9 @@ import UIKit
 /// и композить полноразмерные текстуры дорого (лагают переходы/списки). Декодим в
 /// нужный размер один раз и кэшируем. Синхронно — чтобы работал `ImageRenderer`
 /// (рекап-карточка снимает вьюху сразу, без ожидания async-загрузки).
-final class IconCache {
+/// `NSCache`, `UIImage(named:)` и `preparingThumbnail` потокобезопасны — прогрев
+/// поэтому можно гонять с фонового приоритета.
+final class IconCache: @unchecked Sendable {
     static let shared = IconCache()
 
     private let cache: NSCache<NSString, UIImage> = {
@@ -14,9 +16,17 @@ final class IconCache {
         return c
     }()
 
+    /// Бакет размера. Иконки главной просят 38/40/44/46 pt — чуть разные пиксельные
+    /// размеры, и раньше это были ТРИ отдельные декодированные копии одной картинки.
+    /// Округляем вверх (вверх — чтобы никогда не растягивать) до шага 48 px: один
+    /// декод обслуживает весь экран, и памяти уходит втрое меньше.
+    private static func bucket(_ px: CGFloat) -> CGFloat {
+        max(48, (px / 48).rounded(.up) * 48)
+    }
+
     /// Первая существующая иконка из списка кандидатов, уменьшённая до `px` пикселей.
     func thumbnail(_ candidates: [String], px: CGFloat) -> UIImage? {
-        let side = max(1, px.rounded())
+        let side = Self.bucket(px)
         let key = "\(candidates.joined(separator: "|"))@\(Int(side))" as NSString
         if let cached = cache.object(forKey: key) { return cached }
 
@@ -30,6 +40,15 @@ final class IconCache {
         }
         if let result { cache.setObject(result, forKey: key) }
         return result
+    }
+
+    /// Прогрев в фоне. Без него первый пролёт по главной декодит десятки PNG
+    /// (618×618 → ~44 pt) синхронно, прямо в кадрах скролла — это и читается
+    /// как рывок на первом свайпе. Повторные вызовы бьют в кэш и бесплатны.
+    func prewarm(_ candidates: [[String]], px: CGFloat) {
+        Task.detached(priority: .utility) { [self] in
+            for list in candidates { _ = thumbnail(list, px: px) }
+        }
     }
 }
 
@@ -63,7 +82,8 @@ struct FoodIcon: View {
     @Environment(\.displayScale) private var scale
 
     /// Имена ассетов-кандидатов (просто строки, без загрузки картинок).
-    private var candidates: [String] {
+    /// Static — тем же порядком кандидатов пользуется прогрев кэша.
+    static func assetCandidates(for food: Food) -> [String] {
         // Свои продукты — OpenMoji-иконка по выбранному эмодзи (без подмены категорией).
         if food.id.hasPrefix("custom-") {
             return CustomFoodIcons.asset(for: food.emoji).map { [$0] } ?? []
@@ -73,6 +93,8 @@ struct FoodIcon: View {
         names.append("cat_\(food.category.rawValue)")
         return names
     }
+
+    private var candidates: [String] { Self.assetCandidates(for: food) }
 
     @ViewBuilder private var tile: some View {
         let fill = Theme.softGradient(Theme.categoryColor(food.category))

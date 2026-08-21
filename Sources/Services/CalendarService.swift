@@ -90,8 +90,13 @@ struct CalendarService {
     /// Сводка за конкретный день (пустой `DaySummary`, если активности не было).
     func day(_ date: Date) -> DaySummary {
         let start = calendar.startOfDay(for: date)
+        // Границы дня считаем один раз и дальше сравниваем даты числами. Было
+        // `isDate(_:inSameDayAs:)` на КАЖДУЮ запись — это полноценное календарное
+        // вычисление на лог, и на дневнике за несколько месяцев их сотни за один
+        // проход body главной.
+        let end = calendar.date(byAdding: .day, value: 1, to: start) ?? start
         let entries = logs
-            .filter { calendar.isDate($0.date, inSameDayAs: date) }
+            .filter { $0.date >= start && $0.date < end }
             .sorted { $0.date < $1.date }
             .map(entry)
         return DaySummary(date: start, entries: entries)

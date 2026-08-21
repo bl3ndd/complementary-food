@@ -25,40 +25,62 @@ struct AllergenMaintenance {
     var now: Date = Date()
     var calendar: Calendar = .current
 
+    /// Один проход по каталогу, статусам и журналу вместо прохода НА КАЖДУЮ группу.
+    /// Раньше это было O(групп × журнала) — на дневнике за пару месяцев тысячи
+    /// обращений к SwiftData-полям за одну перерисовку главной (сводка считается и
+    /// на дашборде, и в бейдже таба).
     func groups() -> [AllergenGroupStatus] {
         let tracker = AllergenTracker(profile: profile)
+        let wanted = Set(profile.allergenGroups)
+
+        // Каталог: продукты по группам (порядок каталога сохраняем — по нему
+        // выбирается представитель) + обратный индекс продукт → группа.
+        // `all`, а не `foods`: свои продукты пользователя тоже могут быть
+        // помечены аллергеном — раньше они молча выпадали из трекера.
+        var foodsByGroup: [AllergenGroup: [Food]] = [:]
+        var groupOfFood: [String: AllergenGroup] = [:]
+        for food in catalog.all {
+            guard let g = food.allergenGroup, wanted.contains(g) else { continue }
+            foodsByGroup[g, default: []].append(food)
+            groupOfFood[food.id] = g
+        }
+
+        var statusesByGroup: [AllergenGroup: [IntroductionStatus]] = [:]
+        for s in statuses {
+            guard let g = groupOfFood[s.foodId] else { continue }
+            statusesByGroup[g, default: []].append(s)
+        }
+
+        // «Последний приём» — только фактические чистые дозы: без планов, без
+        // будущих дат и без реакций (реакция ≠ доза для поддержки толерантности).
+        var cleanGivenByGroup: [AllergenGroup: Date] = [:]
+        for log in logs {
+            guard let g = groupOfFood[log.foodId], !log.planned, log.date <= now,
+                  (log.reaction ?? .none) == .none else { continue }
+            if let best = cleanGivenByGroup[g], best >= log.date { continue }
+            cleanGivenByGroup[g] = log.date
+        }
 
         return profile.allergenGroups.compactMap { group in
-            // `all`, а не `foods`: свои продукты пользователя тоже могут быть
-            // помечены аллергеном — раньше они молча выпадали из трекера.
-            let foods = catalog.all.filter { $0.allergenGroup == group }
-            guard !foods.isEmpty else { return nil }
+            guard let foods = foodsByGroup[group], !foods.isEmpty else { return nil }
 
-            let foodIds = Set(foods.map { $0.id })
-            let groupStatuses = statuses.filter { foodIds.contains($0.foodId) }
+            let groupStatuses = statusesByGroup[group] ?? []
             let hasAllergy = groupStatuses.contains { $0.state == .allergy }
-            let isIntroduced = groupStatuses.contains { $0.state == .introduced }
-            // «Последний приём» — только фактические чистые дозы: без планов, без
-            // будущих дат и без реакций (реакция ≠ доза для поддержки толерантности).
-            let cleanGiven = logs.filter {
-                foodIds.contains($0.foodId) && !$0.planned && $0.date <= now
-                    && ($0.reaction ?? .none) == .none
-            }.map(\.date).max()
+            let introducedStatuses = groupStatuses.filter { $0.state == .introduced }
             // Если фактических доз нет (напр. «уже введено» из онбординга без логов),
             // базой берём дату завершения ввода — иначе аллерген сразу «просрочен».
-            let introducedAt = groupStatuses.filter { $0.state == .introduced }
-                .compactMap { $0.completedAt }.max()
-            let lastGiven = cleanGiven ?? introducedAt
+            let introducedAt = introducedStatuses.compactMap { $0.completedAt }.max()
+            let lastGiven = cleanGivenByGroup[group] ?? introducedAt
 
             // Представитель группы: первый введённый продукт, иначе первый из группы.
-            let introducedFoodIds = Set(groupStatuses.filter { $0.state == .introduced }.map(\.foodId))
+            let introducedFoodIds = Set(introducedStatuses.map(\.foodId))
             let representative = foods.first { introducedFoodIds.contains($0.id) } ?? foods.first
 
             return AllergenGroupStatus(
                 group: group,
                 foods: foods,
                 representativeFood: representative,
-                isIntroduced: isIntroduced,
+                isIntroduced: !introducedStatuses.isEmpty,
                 hasAllergy: hasAllergy,
                 lastGiven: lastGiven,
                 status: tracker.status(lastGiven: lastGiven, now: now, calendar: calendar),

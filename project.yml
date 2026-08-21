@@ -47,6 +47,10 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         ITSAppUsesNonExemptEncryption: false
+        # Без этого ключа iOS держит весь апп на 60 Гц: на ProMotion-айфонах
+        # максимальная частота кадров по умолчанию 60, и никакая оптимизация
+        # рендера выше не поднимет.
+        CADisableMinimumFrameDurationOnPhone: true
         UIBackgroundModes: [remote-notification]
         # Экран запуска в цвете приложения: белая вспышка перед тёмной темой
         # выглядит как чужой экран (и бьёт по глазам ночью).

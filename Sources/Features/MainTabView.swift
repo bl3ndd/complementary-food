@@ -8,6 +8,7 @@ struct MainTabView: View {
     @Query private var logs: [FoodLog]
     @ObservedObject private var router = AppRouter.shared
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.displayScale) private var displayScale
 
     enum Tab { case today, catalog, calendar, allergens, profile }
 
@@ -23,6 +24,11 @@ struct MainTabView: View {
                 // Подмешиваем свои продукты в каталог (для истории/календаря).
                 let customs = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []
                 FoodCatalog.setCustom(customs)
+                // Иконки продуктов декодим заранее и в фоне: иначе первый скролл
+                // главной/каталога разжимает PNG прямо в кадре и заметно дёргается.
+                IconCache.shared.prewarm(
+                    FoodCatalog.shared.all.map { FoodIcon.assetCandidates(for: $0) },
+                    px: 46 * displayScale)
                 // Разрешение на уведомления просим сразу после онбординга:
                 // ensureAuthorized промптит только в notDetermined, т.е. один раз.
                 await NotificationManager.shared.ensureAuthorized()

@@ -21,20 +21,33 @@ struct DashboardView: View {
     private let catalog = FoodCatalog.shared
 
     var body: some View {
+        // Сводки считаются ОДИН раз за проход body и дальше передаются готовыми.
+        // Раньше это были вычисляемые свойства, и каждое прочёсывало весь дневник
+        // при каждом обращении: todayEntries — 7 раз, allergenGroups — 4, коллекция — 3.
+        // На демо-объёме (~450 записей) скролл проседал до 46 fps.
+        // `child.feedingProfile` тоже не бесплатный: парсит строку групп аллергенов
+        // и дёргает String(localized:) — а раньше он собирался заново в каждой сводке.
+        let profile = child.feedingProfile
+        let today = todayEntries
+        let groups = allergenGroups(profile)
+        let introducing = introducingItems(profile)
+        let introducedStatuses = statuses.filter { $0.state == .introduced }
+        let collection = introducedStatuses.compactMap { catalog.food(id: $0.foodId) }
+
         NavigationStack(path: $path) {
             ScrollView {
                 VStack(spacing: 16) {
-                    heroCard.cozyAppear()
+                    heroCard(today: today).cozyAppear()
                     actionTiles.cozyAppear(0.06)
-                    todayCard.cozyAppear(0.12)
-                    introducingCard.cozyAppear(0.18)
-                    collectionCard.cozyAppear(0.24)
-                    allergenCard.cozyAppear(0.30)
+                    todayCard(today: today).cozyAppear(0.12)
+                    introducingCard(introducing).cozyAppear(0.18)
+                    collectionCard(collection, introduced: introducedStatuses.count).cozyAppear(0.24)
+                    allergenCard(groups).cozyAppear(0.30)
                 }
                 .padding()
                 // Карточка «Сейчас вводишь» появляется/уходит пружиной, а не скачком.
                 .animation(.spring(response: 0.5, dampingFraction: 0.85),
-                           value: introducingItems.map(\.food.id))
+                           value: introducing.map(\.food.id))
             }
             .background(AppBackground())
             .navigationTitle("Сегодня")
@@ -53,9 +66,9 @@ struct DashboardView: View {
 
     // MARK: - Шапка (компактная строка, без карточной обвязки)
 
-    private var heroCard: some View {
+    private func heroCard(today: [DayEntry]) -> some View {
         HStack(spacing: 12) {
-            Mascot(mood: todayEntries.isEmpty ? .happy : .cheer, size: 44).gentleBob()
+            Mascot(mood: today.isEmpty ? .happy : .cheer, size: 44).gentleBob()
             VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
                     .font(.caption2.weight(.semibold)).foregroundStyle(.secondary)
@@ -67,12 +80,12 @@ struct DashboardView: View {
                 }
             }
             Spacer(minLength: 8)
-            if !todayEntries.isEmpty {
+            if !today.isEmpty {
                 // «записей: N» — формат пинится E2E (R9, CONTAINS).
-                Text("записей: \(todayEntries.count)")
+                Text("записей: \(today.count)")
                     .font(.caption.weight(.bold)).foregroundStyle(Theme.accent)
                     .contentTransition(.numericText())
-                    .animation(.snappy, value: todayEntries.count)
+                    .animation(.snappy, value: today.count)
                     .padding(.horizontal, 10).padding(.vertical, 5)
                     .background(Theme.accent.opacity(0.12), in: Capsule())
             }
@@ -103,9 +116,12 @@ struct DashboardView: View {
                             iconBackground: .white.opacity(0.22))
                     .foregroundStyle(.white)
                     // Бренд-градиент — как BigButton: primary-действие экрана.
-                    .background(Theme.accentGradient,
-                                in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-                    .shadow(color: Theme.accentDeep.opacity(0.30), radius: 10, x: 0, y: 5)
+                    // Тень на фигуре, а не на плитке целиком (см. cartoonCard).
+                    .background {
+                        RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            .fill(Theme.accentGradient)
+                            .shadow(color: Theme.accentDeep.opacity(0.30), radius: 10, x: 0, y: 5)
+                    }
             }
             .buttonStyle(BouncyButtonStyle())
 
@@ -115,10 +131,13 @@ struct DashboardView: View {
                 actionLabel("Реакция", asset: "react_skin", emoji: "🩹",
                             iconBackground: Color.orange.opacity(0.15))
                     .foregroundStyle(.primary)
-                    .background(Theme.card, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .background {
+                        RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            .fill(Theme.card)
+                            .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
+                    }
                     .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous)
                         .stroke(Color.orange.opacity(0.35), lineWidth: 1.5))
-                    .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
             }
             .buttonStyle(BouncyButtonStyle())
         }
@@ -141,14 +160,15 @@ struct DashboardView: View {
 
     // MARK: - Сейчас вводишь (окно наблюдения)
 
-    @ViewBuilder private var introducingCard: some View {
-        if !introducingItems.isEmpty {
+    @ViewBuilder
+    private func introducingCard(_ items: [IntroducingItem]) -> some View {
+        if !items.isEmpty {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(spacing: 6) {
                     Image(systemName: "leaf.fill").foregroundStyle(Theme.mint)
                     Text("Сейчас вводишь").font(.headline)
                 }
-                ForEach(Array(introducingItems.enumerated()), id: \.element.status.foodId) { idx, item in
+                ForEach(Array(items.enumerated()), id: \.element.id) { idx, item in
                     if idx > 0 { Divider() }
                     Button { path.append(item.food) } label: {
                         HStack(spacing: 12) {
@@ -156,7 +176,7 @@ struct DashboardView: View {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(item.food.localizedName).font(.subheadline.weight(.semibold))
                                     .foregroundStyle(.primary)
-                                Text(dayInfo(item.status)).font(.caption).foregroundStyle(.secondary)
+                                Text(item.progress).font(.caption).foregroundStyle(.secondary)
                             }
                             Spacer()
                             Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
@@ -173,39 +193,54 @@ struct DashboardView: View {
         }
     }
 
-    private var introducingItems: [(food: Food, status: IntroductionStatus)] {
-        statuses.filter { $0.state == .introducing }
-            .compactMap { s in catalog.food(id: s.foodId).map { (food: $0, status: s) } }
+    /// Строка карточки «Сейчас вводишь» с уже готовым прогрессом окна.
+    private struct IntroducingItem: Identifiable {
+        let food: Food
+        let status: IntroductionStatus
+        /// Прогресс окна — по числу дней, в которые продукт давали.
+        let progress: String
+        var id: String { status.foodId }
     }
 
-    /// Прогресс окна — по числу дней, в которые продукт давали.
-    private func dayInfo(_ s: IntroductionStatus) -> String {
-        guard let start = s.introStartedAt else { return "" }
-        let window = catalog.food(id: s.foodId).map { child.feedingProfile.observationDays(for: $0) }
-            ?? child.feedingProfile.observationDaysRegular
-        let done = FeedingService.introFeedingDays(logs: logs, foodId: s.foodId, since: start)
-        return String(localized: "\(min(done, window)) из \(window) кормлений")
+    private func introducingItems(_ profile: FeedingProfile) -> [IntroducingItem] {
+        let active = statuses.filter { $0.state == .introducing }
+        guard !active.isEmpty else { return [] }
+
+        var starts: [String: Date] = [:]
+        for s in active { if let start = s.introStartedAt { starts[s.foodId] = start } }
+        // Один проход по журналу на всю карточку вместо полного скана на продукт.
+        let done = FeedingService.introFeedingDays(logs: logs, since: starts)
+
+        return active.compactMap { s in
+            guard let food = catalog.food(id: s.foodId) else { return nil }
+            guard s.introStartedAt != nil else {
+                return IntroducingItem(food: food, status: s, progress: "")
+            }
+            let window = profile.observationDays(for: food)
+            let text = String(localized: "\(min(done[s.foodId] ?? 0, window)) из \(window) кормлений")
+            return IntroducingItem(food: food, status: s, progress: text)
+        }
     }
 
     // MARK: - Коллекция продуктов (заполняется)
 
-    private var collectionCard: some View {
+    private func collectionCard(_ foods: [Food], introduced: Int) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
                 Text("Коллекция продуктов").font(.headline)
                 Spacer()
                 // Цель — ближайшая веха, а не весь каталог: до 71 продукта не доходит
                 // никто, и шкала «почти пустая» вместо мотивации давала обратное.
-                Text("\(introducedCount)/\(collectionGoal)")
+                Text("\(introduced)/\(collectionGoal(introduced))")
                     .font(.subheadline.bold()).foregroundStyle(Theme.accent)
                     .contentTransition(.numericText())
-                    .animation(.snappy, value: introducedCount)
+                    .animation(.snappy, value: introduced)
             }
-            ProgressView(value: Double(introducedCount), total: Double(collectionGoal))
+            ProgressView(value: Double(introduced), total: Double(collectionGoal(introduced)))
                 .tint(Theme.accent)
-                .animation(.spring(response: 0.5, dampingFraction: 0.85), value: introducedCount)
+                .animation(.spring(response: 0.5, dampingFraction: 0.85), value: introduced)
 
-            if collectionFoods.isEmpty {
+            if foods.isEmpty {
                 // Пустая коллекция: тёплый эмпти-стейт вместо сетки пунктирных кругов.
                 HStack(spacing: 14) {
                     Mascot(mood: .curious, size: 56).gentleBob()
@@ -221,17 +256,17 @@ struct DashboardView: View {
                 // Только то, что реально введено: пунктирные «пустые слоты» до 20 штук
                 // читались как невыполненный план, хотя коллекция — про уже сделанное.
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 46), spacing: 10)], spacing: 10) {
-                    ForEach(collectionFoods.prefix(20)) { food in
+                    ForEach(foods.prefix(20)) { food in
                         Button { path.append(food) } label: { FoodIcon(food: food, size: 44) }
                             .buttonStyle(.plain)
                             .transition(.scale.combined(with: .opacity))
                     }
                 }
-                .animation(.spring(response: 0.45, dampingFraction: 0.7), value: introducedCount)
+                .animation(.spring(response: 0.45, dampingFraction: 0.7), value: introduced)
             }
 
             Button { goToCatalog() } label: {
-                Label(collectionFoods.isEmpty ? "Открыть каталог" : "Вся коллекция",
+                Label(foods.isEmpty ? "Открыть каталог" : "Вся коллекция",
                       systemImage: "square.grid.2x2")
                     .font(.subheadline.weight(.semibold)).foregroundStyle(Theme.accent)
             }
@@ -249,24 +284,25 @@ struct DashboardView: View {
 
     // MARK: - Витрина аллергенов
 
-    private var allergenCard: some View {
+    private func allergenCard(_ groups: [AllergenGroupStatus]) -> some View {
         Button { AppRouter.shared.selectedTab = .allergens } label: {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Аллергены").font(.headline)
                     Spacer()
-                    if dueCount > 0 {
-                        Text("\(dueCount)").font(.caption.bold()).foregroundStyle(.white)
+                    let due = dueCount(groups)
+                    if due > 0 {
+                        Text("\(due)").font(.caption.bold()).foregroundStyle(.white)
                             .padding(.horizontal, 7).padding(.vertical, 2)
                             .background(Color.orange, in: Capsule())
                             .gentlePulse()
                     }
-                    Text("\(introducedAllergenCount)/\(allergenGroups.count)")
+                    Text("\(groups.filter(\.isIntroduced).count)/\(groups.count)")
                         .font(.subheadline.bold()).foregroundStyle(Theme.accent)
                     Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
                 }
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 56), spacing: 8)], spacing: 10) {
-                    ForEach(allergenGroups) { allergenCircle($0) }
+                    ForEach(groups) { allergenCircle($0) }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -301,7 +337,7 @@ struct DashboardView: View {
 
     // MARK: - Лента дня
 
-    private var todayCard: some View {
+    private func todayCard(today: [DayEntry]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 8) {
                 Text("Дневник за сегодня").font(.headline)
@@ -311,10 +347,10 @@ struct DashboardView: View {
                         .font(.caption.weight(.semibold)).foregroundStyle(Theme.accent)
                 }
             }
-            if todayEntries.isEmpty {
+            if today.isEmpty {
                 Text("Записей сегодня ещё нет").font(.subheadline).foregroundStyle(.secondary)
             } else {
-                ForEach(todayEntries) { entry in
+                ForEach(today) { entry in
                     HStack(spacing: 12) {
                         if let food = entry.food { FoodIcon(food: food, size: 38) }
                         else { EmojiAvatar(emoji: "🍽️", asset: "ui_plate", size: 38) }
@@ -341,39 +377,27 @@ struct DashboardView: View {
         .cartoonCard()
         // Новая запись мягко «вплывает» в дневник (сохранение из быстрого листа).
         .animation(.spring(response: 0.45, dampingFraction: 0.8),
-                   value: todayEntries.map(\.id))
+                   value: today.map(\.id))
     }
 
     // MARK: - Данные
 
-    private var introducedCount: Int {
-        statuses.filter { $0.state == .introduced }.count
-    }
-
     /// Ближайшая веха коллекции: 5 → 10 → 25 → 50 → весь каталог. Шкала реально
     /// заполняется и сбрасывается на следующую цель, а не висит почти пустой.
-    private var collectionGoal: Int {
+    private func collectionGoal(_ introduced: Int) -> Int {
         let steps = [5, 10, 25, 50, catalog.all.count]
-        return steps.first { $0 > introducedCount } ?? max(1, catalog.all.count)
-    }
-
-    /// Стена коллекции — только введённые (совпадает со счётчиком в шапке).
-    /// «Сейчас вводишь» показывается отдельной карточкой выше, не дублируем.
-    private var collectionFoods: [Food] {
-        statuses.filter { $0.state == .introduced }
-            .compactMap { catalog.food(id: $0.foodId) }
+        return steps.first { $0 > introduced } ?? max(1, catalog.all.count)
     }
 
     private var todayEntries: [DayEntry] {
         CalendarService(catalog: catalog, logs: logs).day(Date()).entries.filter { !$0.planned }
     }
 
-    private var allergenGroups: [AllergenGroupStatus] {
-        AllergenMaintenance(catalog: catalog, profile: child.feedingProfile,
+    private func allergenGroups(_ profile: FeedingProfile) -> [AllergenGroupStatus] {
+        AllergenMaintenance(catalog: catalog, profile: profile,
                             statuses: statuses, logs: logs).groups()
     }
-    private var introducedAllergenCount: Int { allergenGroups.filter { $0.isIntroduced }.count }
-    private var dueCount: Int {
-        allergenGroups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
+    private func dueCount(_ groups: [AllergenGroupStatus]) -> Int {
+        groups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
     }
 }
