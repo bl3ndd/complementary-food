@@ -66,18 +66,12 @@ struct DashboardView: View {
         // На демо-объёме (~450 записей) скролл проседал до 46 fps.
         // `child.feedingProfile` тоже не бесплатный: парсит строку групп аллергенов
         // и дёргает String(localized:) — а раньше он собирался заново в каждой сводке.
-        let _ = DashboardPerf.on ? Self._printChanges() : ()
-        let t0 = CFAbsoluteTimeGetCurrent()
         let profile = child.feedingProfile
         let today = todayEntries
-        let tToday = CFAbsoluteTimeGetCurrent()
         let groups = allergenGroups(profile)
-        let tGroups = CFAbsoluteTimeGetCurrent()
         let introducing = introducingItems(profile)
         let introducedStatuses = statuses.filter { $0.state == .introduced }
         let collection = introducedStatuses.compactMap { catalog.food(id: $0.foodId) }
-        let _ = DashboardPerf.log(t0: t0, afterToday: tToday, afterGroups: tGroups,
-                                  logs: recentLogs.count, statuses: statuses.count)
 
         NavigationStack(path: $path) {
             ScrollView {
@@ -444,26 +438,5 @@ struct DashboardView: View {
     }
     private func dueCount(_ groups: [AllergenGroupStatus]) -> Int {
         groups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
-    }
-}
-
-// MARK: - Временная диагностика перфа (флаг `-dashperf`)
-
-/// ВРЕМЕННО. Показывает, сколько раз и почему пересчитывается body главной и
-/// во что обходятся сводки. Снести, как только причина рывков найдена.
-enum DashboardPerf {
-    static let on = ProcessInfo.processInfo.arguments.contains("-dashperf")
-
-    private nonisolated(unsafe) static var count = 0
-
-    static func log(t0: CFAbsoluteTime, afterToday: CFAbsoluteTime, afterGroups: CFAbsoluteTime,
-                    logs: Int, statuses: Int) {
-        guard on else { return }
-        count += 1
-        let end = CFAbsoluteTimeGetCurrent()
-        let ms = { (a: CFAbsoluteTime, b: CFAbsoluteTime) in String(format: "%.2f", (b - a) * 1000) }
-        print("⏱ dash.body #\(count) total=\(ms(t0, end))ms "
-              + "today=\(ms(t0, afterToday))ms groups=\(ms(afterToday, afterGroups))ms "
-              + "rest=\(ms(afterGroups, end))ms | logs=\(logs) statuses=\(statuses)")
     }
 }
