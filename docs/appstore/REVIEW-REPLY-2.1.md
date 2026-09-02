@@ -52,7 +52,7 @@ also been added to App Review Information → Notes, and a new screen recording 
 on a physical device is attached to this submission.
 
 1. SCREEN RECORDING
-Attached: PuddingReviewDemo.mp4 — captured on a physical iPhone 17 running iOS 26.6
+Attached: PuddingReviewDemo.mp4 — captured on a physical iPhone 17 running iOS 26.6.1
 with the built-in iOS screen recorder. It begins with launching the app from the Home
 screen and shows the complete typical flow: first-launch onboarding (medical
 disclaimer → child's name → feeding plan → foods already introduced), the notification
@@ -68,13 +68,11 @@ fully functional if the user declines it. Photos are attached through the system
 PhotosPicker, so the app never requests access to the photo library.
 
 2. DEVICES AND OPERATING SYSTEMS TESTED
-- iPhone 17 (iPhone18,3) — iOS 26.6 — primary test device: full manual pass plus the
-  automated unit and UI test suites
-- iPhone 15 Pro Max (iPhone16,2) — iOS 26.6
-- iPhone 13 (iPhone14,5) — iOS 26.4
-Additionally the automated test suite runs on iPhone simulators from iOS 18.2 (the
-app's minimum is iOS 17.0) through iOS 26.4, built with Xcode 26.4. The app is iPhone
-only (TARGETED_DEVICE_FAMILY = 1).
+- iPhone 17 (iPhone18,3) — iOS 26.6.1 (build 23G83) — primary test device: a full
+  manual pass over every screen, plus the automated unit and UI test suites run on the
+  device itself.
+The app is iPhone only (TARGETED_DEVICE_FAMILY = 1) and its deployment target is
+iOS 17.0.
 
 3. WHAT THE APP DOES, AND FOR WHOM
 Pudding is an offline diary for complementary feeding — the period when a baby starts
@@ -164,9 +162,19 @@ Evgenii Varzin
 
 ## Осталось руками
 
-- [ ] Переснять демо на iPhone (см. выше), заменить вложение
-      `appStoreReviewAttachments` (старое `d714193a-…` удалить, новое залить).
-- [ ] Вставить текст выше в **Resolution Center** — эндпоинта в ASC API нет,
-      только веб: App Store Connect → приложение → App Review → сообщение от Apple → Reply.
-- [ ] Подтвердить список устройств из пункта 2: iPhone 15 Pro Max и iPhone 13 стоят
-      в списке спаренных, но проверь, что билд 4 реально гонялся на них — иначе убрать.
+Состояние на 02.09.2026 (проверено в ASC): реджект от 14.08 висит на билде `1.0.0 (4)`,
+`Messages (1)` — в треде **только сообщение Apple, ответа от нас нет**. То есть три
+недели заявка простояла не потому, что Apple думает, а потому что мы не ответили.
+Submission ID `4409bcd0-d7a0-4e6b-b1a7-a675cc8f9cd3`.
+
+- [x] Демо переснято на живом iPhone 17 (iOS 26.6.1) 02.09: запись начинается с
+      пустого приложения и проходит весь флоу.
+- [ ] Заменить вложение `appStoreReviewAttachments`: старое `d714193a-…` (снято на
+      симуляторе — именно к нему претензия) удалить, новое залить.
+- [ ] Вставить текст выше в **Resolution Center** — эндпоинта в ASC API нет, только
+      веб: App Store Connect → приложение → Distribution → сообщение от Apple →
+      **Reply to App Review**.
+- [x] Список устройств в пункте 2 сведён к одному iPhone 17 — единственному, на
+      котором билд подтверждённо гонялся. Заявка про прогон на симуляторах убрана.
+      Если 15 Pro Max и 13-й реально видели этот билд, их можно вернуть в список —
+      но только если это правда, а не «стоят в спаренных».
