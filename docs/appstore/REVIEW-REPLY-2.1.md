@@ -48,18 +48,28 @@ system». Плюс шаблонный запрос по пунктам 2–7, к
 Hello,
 
 Thank you for the review. Below is the requested information. A condensed version has
-also been added to App Review Information → Notes, and a new screen recording captured
-on a physical device is attached to this submission.
+also been added to App Review Information → Notes, a new screen recording captured on a
+physical device is attached, and a new build (1.0.0 build 5) has been uploaded.
 
 1. SCREEN RECORDING
-Attached: PuddingReviewDemo.mp4 — captured on a physical iPhone 17 running iOS 26.6.1
-with the built-in iOS screen recorder. It begins with launching the app from the Home
-screen and shows the complete typical flow: first-launch onboarding (medical
-disclaimer → child's name → feeding plan → foods already introduced), the notification
-permission prompt, the Today dashboard, the food catalog and search, opening a food
-card and starting an introduction, logging a feeding (rating, note, optional photo)
-and the resulting progress, the allergen list, the calendar diary, and Profile → About
-with the privacy policy, terms and support links.
+Attached: a screen recording made on 2 September 2026 on a physical iPhone 17 running
+iOS 26.6.1, using the built-in iOS screen recorder, on a clean install of the build
+submitted here. It opens on the app's very first screen and follows the whole flow in
+one take:
+- first-launch onboarding: welcome → the medical disclaimer ("Before you start" → "Got
+  it") → the child's name and date of birth → the feeding plan (start age, observation
+  windows, allergen frequency and the allergen list) → the optional "Already
+  introduced?" list → "Let's go";
+- the notification permission prompt ("Pudding Would Like to Send You Notifications"),
+  which appears immediately after onboarding;
+- the Today dashboard, the food catalog, planning an introduction, logging a feeding
+  (how the child liked it, reaction, date and time, note, photo) and editing that entry;
+- the allergen list and the calendar diary;
+- Profile: the child's profile, the feeding plan, reminders, the appearance and
+  language settings, the PDF export for a pediatrician, the "do not give" list and the
+  shareable monthly recap;
+- Profile → About: support, privacy policy, terms of use, methodology sources, the app
+  version, the medical disclaimer and the OpenMoji attribution.
 The app does NOT have: account registration, login or account deletion; paid content,
 in-app purchases or subscriptions; user-generated content shared between users or any
 social feed; an App Tracking Transparency prompt. The only system prompt is the
