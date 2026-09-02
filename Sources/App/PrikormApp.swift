@@ -51,20 +51,26 @@ struct PrikormApp: App {
     /// личный iCloud владельца устройства, мы к ним доступа не имеем.
     static let cloudKitContainer = "iCloud.com.pudding.app"
 
-    private static func makeContainer(inMemory: Bool) -> ModelContainer {
+    /// Не `private` — на in-memory-ветку есть тест (`AppShellTests`).
+    static func makeContainer(inMemory: Bool) -> ModelContainer {
         let schema = Schema(AppSchemaCurrent.models)
-        // UI-тесты — всегда чистая память, без облака.
-        let config = inMemory
-            ? ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-            : ModelConfiguration(schema: schema, isStoredInMemoryOnly: false,
-                                 cloudKitDatabase: .private(cloudKitContainer))
+        // UI-тесты и демо — всегда чистая память, без облака. Плана миграции здесь
+        // быть НЕ должно: мигрировать в пустой памяти нечего, а в связке с ним
+        // `isStoredInMemoryOnly` не срабатывает — контейнер молча открывал обычный
+        // стор, и сид `-demo` уезжал в реальный дневник и дальше в iCloud владельца.
+        if inMemory {
+            let memoryOnly = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            return try! ModelContainer(for: schema, configurations: [memoryOnly])
+        }
 
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false,
+                                        cloudKitDatabase: .private(cloudKitContainer))
         if let container = try? ModelContainer(for: schema,
                                                migrationPlan: AppMigrationPlan.self,
                                                configurations: [config]) {
             return container
         }
-        if !inMemory {
+        do {
             // Облако не поднялось (нет entitlement в профиле, отозван контейнер) —
             // это не повод не открыться: работаем локально, дневник важнее синка.
             let local = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

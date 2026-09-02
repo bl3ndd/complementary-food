@@ -33,6 +33,32 @@ final class AppShellTests: XCTestCase {
              emoji: "🥚", isAllergen: true, allergenGroup: group, minAgeMonths: 6)
     }
 
+    // MARK: - Демо и UI-тесты не имеют права трогать реальный стор
+
+    /// Регрессия: `isStoredInMemoryOnly` НЕ срабатывает, если контейнер собирают
+    /// вместе с `migrationPlan` — SwiftData молча открывает обычный файловый стор.
+    /// Из-за этого сид `-demo` уезжал в реальный дневник владельца и дальше в его
+    /// iCloud: в личном сторе накопилось 8 поколений демо-данных (7 «Ник», по 8
+    /// статусов на продукт), а `AppInstall` — запись, на которой держится обещание
+    /// ранним пользователям, — размножилась до 11 штук.
+    ///
+    /// Проверяем поведением, а не полем конфига: у сломанной версии `configurations`
+    /// всё равно рапортует `isStoredInMemoryOnly == true`, врёт именно контейнер.
+    /// Два подряд созданных памятных контейнера обязаны быть изолированы —
+    /// если они смотрят в один файл, второй увидит вставленное первым.
+    @MainActor
+    func testInMemoryContainerNeverTouchesTheRealStore() throws {
+        let first = PrikormApp.makeContainer(inMemory: true)
+        first.mainContext.insert(Child(name: "Ника", birthDate: now))
+        try first.mainContext.save()
+
+        let second = PrikormApp.makeContainer(inMemory: true)
+        let leaked = try second.mainContext.fetch(FetchDescriptor<Child>())
+        XCTAssertTrue(leaked.isEmpty,
+                      "in-memory контейнер пережил пересоздание — значит открыт файловый стор, "
+                      + "и сид -demo пишет в реальный дневник")
+    }
+
     // MARK: - Онбординг создаёт валидного ребёнка
 
     /// Повторяет OnboardingView.finish(): вставка Child делает RootView-гейт
