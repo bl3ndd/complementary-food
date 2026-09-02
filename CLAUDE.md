@@ -152,8 +152,14 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 - Скриншоты лендинга — ресайз из `appstore_screenshots/raw/<locale>/` в
   `site/assets/screens/<locale>/` (1080px, JPEG q92, `sips`). Пересняли витрину —
   пересобери и их.
-- Тесты генератора: `python3 -m unittest discover -s scripts/landing` (голый unittest,
-  без зависимостей — `build.py` должен запускаться системным `python3`).
+- Тесты — **две команды**, `scripts/landing` не пакет, поэтому discover туда не заходит:
+  `python3 -m unittest discover -s scripts/landing` (генератор лендинга) и
+  `python3 -m unittest discover -s scripts -p 'test_*.py'` (выбор темы для статьи).
+  Голый unittest, без зависимостей — `build.py` должен запускаться системным `python3`.
+- **Подтверждение прав Google Search Console** — мета-тег `GSC_VERIFICATION` в `build.py`,
+  а НЕ файл в `site/`: `cleanUrls` в `vercel.json` редиректит `/что-то.html` на `/что-то`,
+  и робот за файлом подтверждения получил бы редирект. Ресурс в GSC — **префиксный**
+  (`https://pudding-for-children.vercel.app/`), доменный невозможен: DNS у `vercel.app` не наш.
 
 ## Блог (`content/blog/`)
 

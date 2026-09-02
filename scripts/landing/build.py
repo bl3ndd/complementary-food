@@ -21,6 +21,11 @@ SITE = ROOT / "site"
 CONTENT = ROOT / "content" / "blog"
 BASE = "https://pudding-for-children.vercel.app"
 
+# Подтверждение прав в Google Search Console. Тег, а не файл: `cleanUrls`
+# в vercel.json редиректит /что-то.html на /что-то, и робот за файлом
+# подтверждения получил бы редирект вместо содержимого.
+GSC_VERIFICATION = '<meta name="google-site-verification" content="_lFDMFwheNZizHJ89Vp38iD7sAK9obP0pOnKzUsG_aM">'
+
 # Порядок = порядок в переключателе языков. Первый — источник (ru, лежит в корне).
 LANGS = ["ru", "en", "de", "es", "fr", "it", "nl", "pl", "pt-BR", "tr", "uk", "ja", "ko", "zh-Hans"]
 
@@ -164,6 +169,7 @@ def render(all_d: dict, lang: str) -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {GSC_VERIFICATION}
   <title>{esc(d['title'])}</title>
   <meta name="description" content="{esc(d['meta_desc'])}">
   <meta name="keywords" content="{esc(d['keywords'])}">
@@ -319,6 +325,7 @@ def blog_head(d: dict, title: str, desc: str, url: str, urls: dict) -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {GSC_VERIFICATION}
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(desc)}">
   <meta name="robots" content="index, follow">

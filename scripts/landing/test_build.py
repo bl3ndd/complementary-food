@@ -73,6 +73,26 @@ class ArticleLoadingTests(unittest.TestCase):
         self.assertEqual(load_articles(pathlib.Path("/nope/does/not/exist")), {})
 
 
+class SearchConsoleTests(unittest.TestCase):
+    """Подтверждение прав в GSC живёт в шаблоне, а не в файле, положенном руками
+    в site/ — иначе следующая генерация его затрёт и права слетят."""
+
+    def test_verification_tag_is_in_both_heads(self):
+        all_d = {lang: build.load(lang) for lang in build.LANGS}
+        landing = build.render(all_d, "en")
+        self.assertIn(build.GSC_VERIFICATION, landing)
+
+        d = build.load("en")
+        blog = build.blog_head(d, "T", "D", build.blog_url(d), {"en": build.blog_url(d)})
+        self.assertIn(build.GSC_VERIFICATION, blog)
+
+    def test_verification_tag_is_a_meta_tag_not_a_file_reference(self):
+        # Файл подтверждения ломается о cleanUrls в vercel.json (редирект
+        # /что-то.html -> /что-то), поэтому способ обязан оставаться тегом.
+        self.assertTrue(build.GSC_VERIFICATION.startswith("<meta "))
+        self.assertNotIn(".html", build.GSC_VERIFICATION)
+
+
 class UrlTests(unittest.TestCase):
     def setUp(self):
         self.all_d = {lang: build.load(lang) for lang in build.LANGS}

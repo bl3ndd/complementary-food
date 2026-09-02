@@ -77,6 +77,35 @@ ADVICE_MARKERS = [
 # Темы, которые НЕ пишем, — дублируют лендинг или уводят в медицину.
 BANNED = "medical advice, feeding schedules, age recommendations, allergy guidance, nutrition claims"
 
+# Затравочные ключи на случай, когда GSC недоступен. Без них промпт просил модель
+# «придумай длиннохвостый запрос» — то есть гадать без данных о частотности, и
+# первая статья ушла в ключ, который в таком виде почти никто не набирает.
+#
+# Три группы по интенту. Коммерческие («чем вести дневник») конвертят кратно лучше
+# информационных, и правило ниши они не нарушают: разговор про ИНСТРУМЕНТЫ УЧЁТА,
+# а не про питание. Список правится руками — это не автогенерация.
+SEED_KEYWORDS = [
+    # как вести запись
+    "how to keep a baby feeding diary",
+    "what to write down when starting solids",
+    "how to remember what your baby ate",
+    "keeping a feeding log consistent between two parents",
+    "feeding notes for daycare or grandparents",
+    "organising baby food photos and notes",
+    # инструменты и форматы (коммерческий интент)
+    "baby feeding tracker app",
+    "baby food diary app",
+    "notes app vs dedicated feeding diary",
+    "spreadsheet vs app for tracking baby food",
+    "paper feeding log vs digital diary",
+    # шаблоны и врач
+    "printable baby food log",
+    "baby feeding log template",
+    "what to bring to a pediatrician appointment from your notes",
+    "how to show a feeding diary to a doctor",
+    "exporting a feeding diary as pdf",
+]
+
 
 def gsc_queries() -> list[dict] | None:
     """Небрендовые запросы из Search Console за 90 дней. Без секрета — None,
@@ -134,8 +163,12 @@ def published() -> list[dict]:
 
 def demand_block(queries: list[dict] | None) -> str:
     if not queries:
-        return ("Pick a fresh long-tail keyword a real parent would type into Google, "
-                "about RECORDING and TRACKING complementary feeding — not about what to feed.")
+        seeds = "\n".join(f"- {k}" for k in SEED_KEYWORDS)
+        return (
+            "Search Console data is not available for this run. Pick the keyword from THIS "
+            "list — one that none of the published articles below already answers. Use it as "
+            "the article's `keyword` verbatim or as a close long-tail variant; do not invent "
+            "an unrelated one.\n\n" + seeds)
     lines = "\n".join(
         f"- {q['query']} — {q['impressions']} impr, {q['clicks']} clicks, pos {q['position']}"
         for q in queries[:60])
@@ -161,7 +194,11 @@ answered by giving feeding or medical advice, pick a different topic.
 WRITE ABOUT INSTEAD — record-keeping and organisation:
 - how to keep a feeding diary and what is actually worth writing down
 - reconstructing what a child ate when a reaction shows up later
-- paper vs notes app vs a dedicated diary; printable logs and their limits
+- paper vs notes app vs spreadsheet vs a dedicated diary: what each format costs you in
+  practice (searching back months later, two parents editing, photos, exporting for a doctor).
+  Compare FORMATS, never name or describe other companies' apps — you cannot verify their
+  features and inventing them would be a false claim about a real product.
+- printable and template logs: what a template does well and where it stops working
 - keeping the record consistent across two parents, grandparents, or daycare
 - what a pediatrician can actually use from a parent's own notes
 - organising photos, portions and notes so the history stays searchable
