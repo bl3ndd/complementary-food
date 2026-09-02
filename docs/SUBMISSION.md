@@ -55,9 +55,15 @@
       local-only, без аккаунта/аналитики/бэкенда, дисклеймер-гейт на месте
 
 ## 🚦 Что осталось до кнопки Submit
-1. **CloudKit Console → Deploy Schema to Production** (иначе синк мёртв у реальных
-   пользователей). Через ASC API не делается; либо консоль, либо `xcrun cktool` с
-   management-токеном из той же консоли.
+1. ~~**CloudKit Console → Deploy Schema to Production**~~ — **закрыто, проверено 02.09.2026.**
+   В контейнере `iCloud.com.pudding.app` диалог Deploy показывает **ноль изменений**, а в
+   Development лежат все шесть типов (`CD_Child` 16 полей, `CD_FoodLog` 15,
+   `CD_IntroductionStatus` 12, `CD_CustomFood` 12, `CD_LogPhoto` 11, `CD_AppInstall` 10).
+   Ноль изменений при непустом Development = в Production ровно те же типы, схема уехала.
+   ⚠️ Осторожно с выбором контейнера: в консоли по умолчанию открывался контейнер другого
+   приложения, и Deploy предлагал влить туда чужой `CD_DiaryEntry`. Схема Production
+   необратима — типы и поля добавляются навсегда, поэтому перед нажатием всегда сверять
+   имя контейнера и ожидать ровно эти шесть `CD_`-типов.
 2. App Privacy → Save **и** Publish (только веб-UI: в ASC API таких эндпоинтов нет —
    проверены `appDataUsages`, `dataUsages`, `appPrivacyDetails`, все 404).
 3. Подтвердить support-email (`woodoo201818@gmail.com` — TODO в `AppLinks.swift`,
