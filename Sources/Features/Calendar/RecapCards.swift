@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Карточки рекап-карусели (Pro).
 ///
@@ -16,6 +17,9 @@ import SwiftUI
 struct ShareCardChrome<Content: View>: View {
     let title: String
     let subtitle: String?
+    /// Фото малыша. С ним карточку выкладывают заметно охотнее, чем с иконкой
+    /// продукта — поэтому само фото бесплатное, оно работает на карусель.
+    var photo: Data?
     @ViewBuilder var content: Content
 
     var body: some View {
@@ -32,6 +36,14 @@ struct ShareCardChrome<Content: View>: View {
                     .background(.white.opacity(0.20), in: Capsule())
                     .overlay(Capsule().stroke(.white.opacity(0.35), lineWidth: 1))
                     .padding(.top, 30)
+
+                if let photo, let ui = UIImage(data: photo) {
+                    Image(uiImage: ui).resizable().scaledToFill()
+                        .frame(width: 72, height: 72)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(.white.opacity(0.7), lineWidth: 3))
+                        .padding(.top, 14)
+                }
 
                 if let subtitle {
                     Text(subtitle)
@@ -97,12 +109,13 @@ private struct HeroNumber: View {
 struct CollectionPosterCard: View {
     let poster: CollectionPoster
     let childName: String
+    var childPhoto: Data?
 
     /// Сетка обрезается, иначе на большой коллекции иконки станут микроскопическими.
     private var shown: [Food] { Array(poster.foods.prefix(24)) }
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Коллекция вкусов"), subtitle: childName) {
+        ShareCardChrome(title: String(localized: "Коллекция вкусов"), subtitle: childName, photo: childPhoto) {
             Sheet {
                 VStack(spacing: 18) {
                     HeroNumber(value: poster.count, label: String(localized: "продуктов попробовано"))
@@ -130,9 +143,10 @@ struct CollectionPosterCard: View {
 struct MilestoneCard: View {
     let milestone: Milestone
     let childName: String
+    var childPhoto: Data?
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Новая веха"), subtitle: childName) {
+        ShareCardChrome(title: String(localized: "Новая веха"), subtitle: childName, photo: childPhoto) {
             Sheet {
                 VStack(spacing: 16) {
                     Mascot(mood: .cheer, size: 92)
@@ -153,9 +167,10 @@ struct MilestoneCard: View {
 struct FirstTimeCard: View {
     let firstTime: FirstTime
     let childName: String
+    var childPhoto: Data?
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Первый раз"), subtitle: childName) {
+        ShareCardChrome(title: String(localized: "Первый раз"), subtitle: childName, photo: childPhoto) {
             Sheet {
                 VStack(spacing: 16) {
                     FoodIcon(food: firstTime.food, size: 96, circular: true)
@@ -186,9 +201,10 @@ struct FirstTimeCard: View {
 struct TastesTopCard: View {
     let top: TastesTop
     let childName: String
+    var childPhoto: Data?
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Что зашло"), subtitle: childName) {
+        ShareCardChrome(title: String(localized: "Что зашло"), subtitle: childName, photo: childPhoto) {
             Sheet {
                 VStack(alignment: .leading, spacing: 18) {
                     column(String(localized: "Любимое"), top.liked)
@@ -222,6 +238,7 @@ struct TastesTopCard: View {
 struct TasteCalendarCard: View {
     let calendar: TasteCalendar
     let childName: String
+    var childPhoto: Data?
 
     private var marked: Set<Int> { Set(calendar.days) }
     private var daysInMonth: Int {
@@ -229,7 +246,7 @@ struct TasteCalendarCard: View {
     }
 
     var body: some View {
-        ShareCardChrome(title: monthTitle, subtitle: childName) {
+        ShareCardChrome(title: monthTitle, subtitle: childName, photo: childPhoto) {
             Sheet {
                 VStack(spacing: 18) {
                     HeroNumber(value: calendar.days.count,

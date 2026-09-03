@@ -51,6 +51,7 @@ extension RecapCardKind {
 struct RecapCarouselView: View {
     let cards: [RecapCardKind]
     let childName: String
+    var childPhoto: Data?
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -92,11 +93,11 @@ struct RecapCarouselView: View {
     private func card(_ kind: RecapCardKind) -> some View {
         switch kind {
         case let .month(recap):     RecapCard(recap: recap)
-        case let .poster(poster):   CollectionPosterCard(poster: poster, childName: childName)
-        case let .milestone(m):     MilestoneCard(milestone: m, childName: childName)
-        case let .firstTime(ft):    FirstTimeCard(firstTime: ft, childName: childName)
-        case let .tastes(top):      TastesTopCard(top: top, childName: childName)
-        case let .tasteCalendar(c): TasteCalendarCard(calendar: c, childName: childName)
+        case let .poster(poster):   CollectionPosterCard(poster: poster, childName: childName, childPhoto: childPhoto)
+        case let .milestone(m):     MilestoneCard(milestone: m, childName: childName, childPhoto: childPhoto)
+        case let .firstTime(ft):    FirstTimeCard(firstTime: ft, childName: childName, childPhoto: childPhoto)
+        case let .tastes(top):      TastesTopCard(top: top, childName: childName, childPhoto: childPhoto)
+        case let .tasteCalendar(c): TasteCalendarCard(calendar: c, childName: childName, childPhoto: childPhoto)
         }
     }
 

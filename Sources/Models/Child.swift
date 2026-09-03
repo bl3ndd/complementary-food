@@ -9,6 +9,10 @@ final class Child {
     var id: UUID = UUID()
     var name: String = ""
     var birthDate: Date = Date()
+    /// Фото малыша. Бесплатная возможность: оно не «приятность», а идентичность —
+    /// и именно оно делает шэр-карточки живыми. External storage, потому что
+    /// картинка в строке таблицы раздувает выборки.
+    @Attribute(.externalStorage) var photo: Data?
     /// id методики. Метод всегда «свой план», поле оставлено ради CloudKit-совместимости.
     var feedingProfileId: String = FeedingProfile.customId
 

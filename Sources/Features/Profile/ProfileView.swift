@@ -99,6 +99,7 @@ struct ProfileView: View {
 
     private var childSection: some View {
         Section("Малыш") {
+            ChildPhotoRow(photo: $child.photo)
             LabeledContent("Имя") {
                 TextField("Имя малыша", text: $child.name)
                     .multilineTextAlignment(.trailing)
@@ -186,7 +187,8 @@ struct ProfileView: View {
                     firstTime: service.latestFirstTime(),
                     tastes: service.tastesTop(),
                     tasteCalendar: service.tasteCalendar(for: Date())),
-                childName: child.name)
+                childName: child.name,
+                childPhoto: child.photo)
         } else {
             RecapSheet(recap: month)
         }

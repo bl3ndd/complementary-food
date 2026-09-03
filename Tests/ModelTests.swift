@@ -204,4 +204,58 @@ final class ModelTests: XCTestCase {
         XCTAssertEqual(EarlyAdopter(context: context).registerIfNeeded().firstLaunchedAt, early,
                        "берём самую раннюю отметку")
     }
+    // MARK: - Схема V3: фото малыша
+
+    /// Поле добавляется опциональным, значит переход lightweight и существующие
+    /// записи получают nil. Проверяем, что стор с планом миграции поднимается и
+    /// данные на месте — миграция единственное место во всей Pro-затее, где можно
+    /// задеть уже введённый дневник.
+    @MainActor
+    func testSchemaV3OpensWithMigrationPlanAndKeepsData() throws {
+        let schema = Schema(AppSchemaCurrent.models)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: schema,
+                                           migrationPlan: AppMigrationPlan.self,
+                                           configurations: [config])
+        let ctx = container.mainContext
+        let child = Child(name: "Эмма", birthDate: Date(timeIntervalSince1970: 1_700_000_000))
+        ctx.insert(child)
+        ctx.insert(FoodLog(foodId: "apple", date: .now, type: .intro))
+        try ctx.save()
+
+        let children = try ctx.fetch(FetchDescriptor<Child>())
+        XCTAssertEqual(children.count, 1)
+        XCTAssertNil(children.first?.photo, "у существующих записей фото просто nil")
+        XCTAssertEqual(try ctx.fetch(FetchDescriptor<FoodLog>()).count, 1)
+    }
+
+    @MainActor
+    func testChildPhotoRoundTrips() throws {
+        let schema = Schema(AppSchemaCurrent.models)
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+        let ctx = container.mainContext
+
+        let child = Child(name: "Эмма", birthDate: .now)
+        child.photo = Data([0xFF, 0xD8, 0xFF, 0xE0])
+        ctx.insert(child)
+        try ctx.save()
+
+        let back = try XCTUnwrap(try ctx.fetch(FetchDescriptor<Child>()).first)
+        XCTAssertEqual(back.photo, Data([0xFF, 0xD8, 0xFF, 0xE0]))
+    }
+
+    /// План миграции обязан покрывать все версии: пропущенная ступень роняет
+    /// приложение у тех, кто обновляется с давней сборки.
+    ///
+    /// И обратное тоже: ЛИШНЯЯ версия с тем же набором моделей роняет приложение
+    /// на старте (проверено 03.09.2026 — тест-хост умирал с signal abrt). Поэтому
+    /// число ступеней жёстко привязано к числу версий.
+    func testMigrationPlanCoversEveryVersionAndHasNoDuplicates() {
+        XCTAssertEqual(AppMigrationPlan.stages.count, AppMigrationPlan.schemas.count - 1)
+        let ids = AppMigrationPlan.schemas.map { "\($0.versionIdentifier)" }
+        XCTAssertEqual(ids.count, Set(ids).count, "две версии с одним идентификатором")
+    }
+
 }

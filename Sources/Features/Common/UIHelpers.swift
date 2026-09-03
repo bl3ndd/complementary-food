@@ -279,3 +279,54 @@ struct ShareableFile: Identifiable {
     let id = UUID()
     let url: URL
 }
+
+/// Фото малыша в профиле: аватар + выбор из галереи, тап по крестику — убрать.
+///
+/// Через системный `PhotosPicker`, поэтому доступ ко всей галерее не запрашивается
+/// и purpose string не нужен (важно для App Review 5.1.1). Картинка ужимается тем
+/// же `compressedImageData`, что и фото записей.
+struct ChildPhotoRow: View {
+    @Binding var photo: Data?
+    @State private var item: PhotosPickerItem?
+
+    var body: some View {
+        HStack(spacing: 14) {
+            if let photo, let ui = UIImage(data: photo) {
+                Image(uiImage: ui).resizable().scaledToFill()
+                    .frame(width: 56, height: 56)
+                    .clipShape(Circle())
+            } else {
+                Circle().fill(Theme.fill)
+                    .frame(width: 56, height: 56)
+                    .overlay(Image(systemName: "person.crop.circle")
+                        .font(.title2).foregroundStyle(.secondary))
+            }
+
+            PhotosPicker(selection: $item, matching: .images, photoLibrary: .shared()) {
+                Text(photo == nil ? "Добавить фото" : "Заменить фото")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.accent)
+            }
+
+            Spacer(minLength: 0)
+
+            if photo != nil {
+                Button {
+                    photo = nil
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .onChange(of: item) { _, new in
+            guard let new else { return }
+            Task {
+                let raw = try? await new.loadTransferable(type: Data.self)
+                let small = raw.flatMap { compressedImageData($0) }
+                await MainActor.run { if let small { photo = small }; item = nil }
+            }
+        }
+    }
+}

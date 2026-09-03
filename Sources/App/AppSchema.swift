@@ -29,11 +29,26 @@ enum AppSchemaV2: VersionedSchema {
     }
 }
 
+/// **Ловушка, проверенная на устройстве 03.09.2026.** Правило «меняешь модели —
+/// заводи следующую версию» работает, когда добавляешь НОВЫЙ ТИП: так V2 добавила
+/// `AppInstall`, и схемы стали различимы. Для нового ПОЛЯ у существующего типа оно
+/// не работает: все `VersionedSchema` ссылаются на одни и те же Swift-типы, поэтому
+/// поле появляется сразу во всех версиях, две соседние становятся неотличимы, и
+/// SwiftData падает при построении пути миграции — тест-хост умирал с `signal abrt`
+/// ещё до подключения.
+///
+/// Поэтому опциональное поле (`Child.photo`) добавлено В ТЕКУЩУЮ версию, без бампа:
+/// SwiftData мигрирует такое сам, существующие записи получают `nil`. Заводить
+/// новую версию имеет смысл только вместе с новым типом — либо с полными копиями
+/// моделей на каждую версию, чего этот проект сознательно не делает.
+
 /// Текущая схема — всегда последняя версия.
 typealias AppSchemaCurrent = AppSchemaV2
 
 enum AppMigrationPlan: SchemaMigrationPlan {
-    static var schemas: [any VersionedSchema.Type] { [AppSchemaV1.self, AppSchemaV2.self] }
+    static var schemas: [any VersionedSchema.Type] {
+        [AppSchemaV1.self, AppSchemaV2.self]
+    }
     static var stages: [MigrationStage] {
         [.lightweight(fromVersion: AppSchemaV1.self, toVersion: AppSchemaV2.self)]
     }
