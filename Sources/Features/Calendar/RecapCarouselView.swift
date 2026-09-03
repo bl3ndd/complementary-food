@@ -23,6 +23,27 @@ enum RecapCardKind: Identifiable {
     }
 }
 
+extension RecapCardKind {
+    /// Собирает набор карточек, выбрасывая пустые: листать «ноль продуктов»
+    /// незачем, а пустая карточка в сторис выглядит как баг.
+    /// Месячная идёт первой — она бесплатная и служит крючком.
+    static func carousel(month: MonthRecap,
+                         poster: CollectionPoster,
+                         milestone: Milestone?,
+                         firstTime: FirstTime?,
+                         tastes: TastesTop,
+                         tasteCalendar: TasteCalendar) -> [RecapCardKind] {
+        var out: [RecapCardKind] = []
+        if !month.isEmpty { out.append(.month(month)) }
+        if !poster.isEmpty { out.append(.poster(poster)) }
+        if let milestone { out.append(.milestone(milestone)) }
+        if let firstTime { out.append(.firstTime(firstTime)) }
+        if !tastes.isEmpty { out.append(.tastes(tastes)) }
+        if !tasteCalendar.days.isEmpty { out.append(.tasteCalendar(tasteCalendar)) }
+        return out
+    }
+}
+
 /// Свайп-карусель шэр-карточек (Pro).
 ///
 /// Месячная карточка идёт первой и остаётся бесплатной — она крючок: человек

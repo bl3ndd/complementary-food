@@ -154,6 +154,43 @@ final class RecapCardsTests: XCTestCase {
         XCTAssertTrue(top.isEmpty)
     }
 
+    // MARK: - Набор карточек карусели
+
+    private func emptyMonth() -> MonthRecap {
+        MonthRecap(month: now, childName: "Эмма", ageMonths: 7, triedFoods: [],
+                   newCount: 0, totalLogs: 0, favorite: nil)
+    }
+
+    private func fullMonth() -> MonthRecap {
+        MonthRecap(month: now, childName: "Эмма", ageMonths: 7, triedFoods: [food("apple")],
+                   newCount: 1, totalLogs: 3, favorite: nil)
+    }
+
+    /// Пустая карточка в сторис выглядит как баг, поэтому в набор она не попадает.
+    func testCarouselSkipsEmptyCards() {
+        let cards = RecapCardKind.carousel(
+            month: emptyMonth(),
+            poster: CollectionPoster(foods: [], count: 0),
+            milestone: nil,
+            firstTime: nil,
+            tastes: TastesTop(liked: [], disliked: []),
+            tasteCalendar: TasteCalendar(month: now, days: []))
+        XCTAssertTrue(cards.isEmpty)
+    }
+
+    func testCarouselKeepsFilledCardsAndPutsMonthFirst() {
+        let cards = RecapCardKind.carousel(
+            month: fullMonth(),
+            poster: CollectionPoster(foods: [food("apple")], count: 1),
+            milestone: Milestone(reached: 10, total: 11),
+            firstTime: nil,
+            tastes: TastesTop(liked: [food("apple")], disliked: []),
+            tasteCalendar: TasteCalendar(month: now, days: [3]))
+
+        XCTAssertEqual(cards.map(\.id), ["month", "poster", "milestone", "tastes", "calendar"])
+        XCTAssertEqual(cards.first?.id, "month", "бесплатная месячная карточка — крючок, она первая")
+    }
+
     // MARK: - Календарь вкусов
 
     func testCalendarMarksOnlyDebutDays() {

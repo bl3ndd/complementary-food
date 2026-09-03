@@ -15,6 +15,9 @@ struct ProfileView: View {
 
     @AppStorage("app.language") private var language: AppLanguage = .system
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
+    @AppStorage(Palette.storageKey) private var paletteId: String = Palette.pudding.id
+    @ObservedObject private var proStore = ProStore.shared
+    @State private var showPro = false
     @State private var notifStatus: UNAuthorizationStatus = .notDetermined
     @State private var showResetConfirm = false
     @State private var showLanguageRestart = false
@@ -27,6 +30,13 @@ struct ProfileView: View {
     @State private var exporting: ExportKind?
 
     private let catalog = FoodCatalog.shared
+
+    /// Право на Pro. Самая ранняя запись установки — дубли из CloudKit не должны
+    /// отбирать обещанное раннему пользователю.
+    private var entitlements: Entitlements {
+        Entitlements(install: installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
+                     purchased: proStore.isPurchased)
+    }
 
     var body: some View {
         NavigationStack {
@@ -45,6 +55,7 @@ struct ProfileView: View {
                 childSection
                 planSection
                 appSection
+                proSection
                 dataSection
                 aboutSection
                 dangerSection
@@ -69,10 +80,8 @@ struct ProfileView: View {
                 showLanguageRestart = true
             }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
-            .sheet(isPresented: $showRecap) {
-                RecapSheet(recap: RecapService(catalog: catalog, logs: logs)
-                    .recap(for: Date(), childName: child.name, ageMonths: child.ageInMonths))
-            }
+            .sheet(isPresented: $showRecap) { recapDestination }
+            .sheet(isPresented: $showPro) { ProSheet(entitlements: entitlements) }
             .alert("Сбросить все данные?", isPresented: $showResetConfirm) {
                 Button("Сбросить", role: .destructive) { resetAll() }
                 Button("Отмена", role: .cancel) {}
@@ -132,6 +141,22 @@ struct ProfileView: View {
             } label: {
                 Label("Оформление", systemImage: "circle.lefthalf.filled")
             }
+            Picker(selection: $paletteId) {
+                ForEach(Palette.all) { p in
+                    Text(p.isPro && !entitlements.isPro ? "\(p.title) 🔒" : p.title).tag(p.id)
+                }
+            } label: {
+                Label("Цветовая гамма", systemImage: "paintpalette")
+            }
+            // Выбор платной гаммы без права возвращаем назад и показываем, за что
+            // просим денег: молча игнорировать тап — худший вид пейвола.
+            .onChange(of: paletteId) { _, new in
+                let picked = Palette.palette(id: new)
+                if picked.isPro && !entitlements.isPro {
+                    paletteId = Palette.pudding.id
+                    showPro = true
+                }
+            }
             Picker(selection: $language) {
                 ForEach(AppLanguage.allCases) { lang in
                     Text(lang.title).tag(lang)
@@ -143,6 +168,52 @@ struct ProfileView: View {
             Text("Приложение")
         } footer: {
             Text("Напоминания держат введённые аллергены под контролем — без них трекер не сработает. Язык применяется после перезапуска.")
+        }
+    }
+
+    /// Без Pro — одна месячная карточка (крючок), с Pro — вся карусель.
+    @ViewBuilder private var recapDestination: some View {
+        let service = RecapService(catalog: catalog, logs: logs)
+        let month = service.recap(for: Date(), childName: child.name,
+                                  ageMonths: child.ageInMonths)
+        if entitlements.isPro {
+            let introduced = statuses.filter { $0.state == .introduced }.map(\.foodId)
+            RecapCarouselView(
+                cards: RecapCardKind.carousel(
+                    month: month,
+                    poster: service.collectionPoster(introducedFoodIds: introduced),
+                    milestone: service.milestone(introducedCount: introduced.count),
+                    firstTime: service.latestFirstTime(),
+                    tastes: service.tastesTop(),
+                    tasteCalendar: service.tasteCalendar(for: Date())),
+                childName: child.name)
+        } else {
+            RecapSheet(recap: month)
+        }
+    }
+
+    // MARK: - Pro
+
+    private var proSection: some View {
+        Section {
+            if entitlements.isPro {
+                LabeledContent("Pudding Pro") {
+                    Label("Открыт", systemImage: "checkmark.seal.fill")
+                        .labelStyle(.titleAndIcon)
+                        .foregroundStyle(Theme.accent)
+                }
+                Button("Что входит в Pro") { showPro = true }
+            } else {
+                Button {
+                    showPro = true
+                } label: {
+                    Label("Открыть Pudding Pro", systemImage: "sparkles")
+                }
+            }
+        } footer: {
+            Text(entitlements.isPro && !entitlements.purchased
+                 ? String(localized: "Ты пришёл в самом начале — Pro твой навсегда, платить не нужно.")
+                 : String(localized: "Разовая покупка. Дневник, аллергены, календарь, синхронизация и PDF для педиатра остаются бесплатными."))
         }
     }
 

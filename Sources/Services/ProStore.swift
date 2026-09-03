@@ -49,6 +49,10 @@ final class ProStore: ObservableObject {
     /// НЕ попадает: человек сам закрыл лист, ругаться не за что.
     @Published private(set) var lastError: String?
 
+    /// Общий экземпляр для вьюх — как `NotificationManager.shared` и `AppRouter.shared`.
+    /// В тестах используется обычный `init` с моком.
+    static let shared = ProStore(purchasing: StoreKitPurchasing())
+
     private let purchasing: ProPurchasing
     private let productId: String
 

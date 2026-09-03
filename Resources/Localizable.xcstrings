@@ -1160,7 +1160,40 @@
         }
       }
     },
+    "Pro добавляет приятное: карточки, гаммы, иконки и виджет. Записи, аллергены, календарь, синхронизация и PDF для педиатра — всегда бесплатно.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro adds the nice-to-haves: cards, themes, icons and a widget. Entries, allergens, the calendar, sync and the PDF for your pediatrician are always free."
+          }
+        }
+      }
+    },
+    "Pro открыт": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro unlocked"
+          }
+        }
+      }
+    },
     "Pudding": {},
+    "Pudding Pro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pudding Pro"
+          }
+        }
+      }
+    },
     "Pudding пока полностью бесплатный. Когда появятся платные возможности, для тебя они останутся бесплатными — ты пришёл в самом начале.": {
       "extractionState": "manual",
       "localizations": {
@@ -5665,6 +5698,17 @@
         }
       }
     },
+    "Виджет «Коллекция»": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collection widget"
+          }
+        }
+      }
+    },
     "Виноград": {
       "extractionState": "manual",
       "localizations": {
@@ -7072,6 +7116,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "月龄"
+          }
+        }
+      }
+    },
+    "Восстановить покупки": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore purchases"
           }
         }
       }
@@ -9567,6 +9622,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "今日日记"
+          }
+        }
+      }
+    },
+    "Дневник остаётся бесплатным": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The diary stays free"
           }
         }
       }
@@ -14465,6 +14531,17 @@
         }
       }
     },
+    "Иконки приложения": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App icons"
+          }
+        }
+      }
+    },
     "Иконки: OpenMoji (CC BY-SA 4.0)": {
       "extractionState": "manual",
       "localizations": {
@@ -17210,6 +17287,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "食物收藏"
+          }
+        }
+      }
+    },
+    "Коллекция, вехи, первый раз, топ вкусов — карточками для сторис": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collection, milestones, first tastes and favourites — as cards for your stories"
           }
         }
       }
@@ -25865,6 +25953,50 @@
         }
       }
     },
+    "Открыт": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlocked"
+          }
+        }
+      }
+    },
+    "Открыть Pro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get Pro"
+          }
+        }
+      }
+    },
+    "Открыть Pro · %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get Pro · %@"
+          }
+        }
+      }
+    },
+    "Открыть Pudding Pro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get Pudding Pro"
+          }
+        }
+      }
+    },
     "Открыть каталог": {
       "extractionState": "manual",
       "localizations": {
@@ -31850,6 +31982,28 @@
         }
       }
     },
+    "Разовая покупка, не подписка": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One-time purchase, not a subscription"
+          }
+        }
+      }
+    },
+    "Разовая покупка. Дневник, аллергены, календарь, синхронизация и PDF для педиатра остаются бесплатными.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A one-time purchase. The diary, allergens, calendar, sync and the PDF for your pediatrician stay free."
+          }
+        }
+      }
+    },
     "Ранний пользователь": {
       "extractionState": "manual",
       "localizations": {
@@ -32012,6 +32166,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "植物油，富含单不饱和脂肪和维生素E。"
+          }
+        }
+      }
+    },
+    "Растущая сетка продуктов прямо на домашнем экране": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A growing grid of foods right on your Home Screen"
           }
         }
       }
@@ -32604,6 +32769,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "本月有记录后，回顾就会解锁。"
+          }
+        }
+      }
+    },
+    "Рекап-карусель": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recap carousel"
           }
         }
       }
@@ -33931,6 +34107,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "自定义食物"
+          }
+        }
+      }
+    },
+    "Своя иконка на домашнем экране": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your own icon on the Home Screen"
           }
         }
       }
@@ -38084,6 +38271,17 @@
         }
       }
     },
+    "Ты пришёл в самом начале — Pro твой навсегда, платить не нужно.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You were here from the start — Pro is yours for good, no payment needed."
+          }
+        }
+      }
+    },
     "Тыква": {
       "extractionState": "manual",
       "localizations": {
@@ -40408,6 +40606,28 @@
         }
       }
     },
+    "Цветовая гамма": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colour theme"
+          }
+        }
+      }
+    },
+    "Цветовые гаммы": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colour themes"
+          }
+        }
+      }
+    },
     "Цинк": {
       "extractionState": "stale",
       "localizations": {
@@ -41072,6 +41292,17 @@
         }
       }
     },
+    "Что входит в Pro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's in Pro"
+          }
+        }
+      }
+    },
     "Что зашло": {
       "extractionState": "manual",
       "localizations": {
@@ -41161,6 +41392,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "已经引入了哪些？"
+          }
+        }
+      }
+    },
+    "Шесть палитр, и они же красят карточки, которыми делишься": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Six palettes — and they colour the cards you share, too"
           }
         }
       }
