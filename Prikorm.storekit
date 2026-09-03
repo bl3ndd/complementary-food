@@ -1,0 +1,38 @@
+{
+  "identifier" : "A1B2C3D4",
+  "nonRenewingSubscriptions" : [
+  ],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : true,
+      "internalID" : "PRO0000001",
+      "localizations" : [
+        {
+          "description" : "Recap carousel, colour themes, alternate app icons and the collection widget. One-time purchase, no subscription.",
+          "displayName" : "Pudding Pro",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Рекап-карусель, цветовые темы, альтернативные иконки и виджет коллекции. Разовая покупка, не подписка.",
+          "displayName" : "Pudding Pro",
+          "locale" : "ru"
+        }
+      ],
+      "productID" : "com.pudding.app.pro",
+      "referenceName" : "Pudding Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6789296295",
+    "_developerTeamID" : "A89ST3SFXS",
+    "_lastSynchronizedDate" : 0
+  },
+  "subscriptionGroups" : [
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

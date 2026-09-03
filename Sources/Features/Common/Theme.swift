@@ -19,11 +19,45 @@ enum Theme {
         return Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? d : l })
     }
 
+    // MARK: - Активная гамма
+
+    /// Выбранная цветовая гамма. Меняет акцент и фоновую подложку; нейтральные
+    /// поверхности ниже от неё не зависят.
+    private(set) static var palette: Palette = .pudding
+    private static var resolved = Resolved(.pudding)
+
+    /// Применить гамму. Зовётся из корневой вьюхи ДО отрисовки детей, поэтому
+    /// смена применяется сразу, без перезапуска (в отличие от языка).
+    static func apply(_ new: Palette) {
+        guard new != palette else { return }
+        palette = new
+        resolved = Resolved(new)
+    }
+
+    /// Динамические цвета собираются ОДИН раз на смену гаммы, а не на каждое
+    /// обращение: мост `UIColor(Color)` дорогой, а акцент стоит в каждой кнопке,
+    /// кольце и иконке экрана.
+    private struct Resolved {
+        let accent: Color
+        let accentDeep: Color
+        let bgTop: Color
+        let bgBottom: Color
+        let accentGradient: LinearGradient
+
+        init(_ p: Palette) {
+            accent     = Theme.dynamic(p.accent.light, p.accent.dark)
+            accentDeep = Theme.dynamic(p.accentDeep.light, p.accentDeep.dark)
+            bgTop      = Theme.dynamic(p.bgTop.light, p.bgTop.dark)
+            bgBottom   = Theme.dynamic(p.bgBottom.light, p.bgBottom.dark)
+            accentGradient = LinearGradient(colors: [accent, accentDeep],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing)
+        }
+    }
+
     // MARK: - Палитра (бренд)
-    static let accent     = dynamic(Color(red: 0.99, green: 0.49, blue: 0.31),
-                                    Color(red: 1.00, green: 0.58, blue: 0.42))   // тёплый коралл
-    static let accentDeep = dynamic(Color(red: 0.97, green: 0.33, blue: 0.44),
-                                    Color(red: 0.98, green: 0.44, blue: 0.54))   // коралл → малина
+    static var accent: Color     { resolved.accent }
+    static var accentDeep: Color { resolved.accentDeep }
     static let sunny      = dynamic(Color(red: 1.00, green: 0.78, blue: 0.28),
                                     Color(red: 1.00, green: 0.82, blue: 0.40))   // солнечный жёлтый
     static let mint       = dynamic(Color(red: 0.36, green: 0.80, blue: 0.60),
@@ -39,11 +73,9 @@ enum Theme {
 
     // MARK: - Поверхности (семантические)
 
-    /// Фон приложения: тёплый кремовый ↔ глубокий сливовый.
-    static let bgTop    = dynamic(Color(red: 1.00, green: 0.98, blue: 0.93),
-                                  Color(red: 0.09, green: 0.07, blue: 0.11))
-    static let bgBottom = dynamic(Color(red: 1.00, green: 0.92, blue: 0.94),
-                                  Color(red: 0.13, green: 0.09, blue: 0.13))
+    /// Фон приложения — из активной гаммы.
+    static var bgTop: Color    { resolved.bgTop }
+    static var bgBottom: Color { resolved.bgBottom }
 
     /// Карточка/лист поверх фона (была прибита к `.white`).
     static let card     = dynamic(.white, Color(red: 0.16, green: 0.14, blue: 0.19))
@@ -58,9 +90,7 @@ enum Theme {
     static let cardStroke = dynamic(Color.white.opacity(0.9), Color.white.opacity(0.06))
 
     /// Главный градиент-акцент (кнопки, кольца, герой).
-    static let accentGradient = LinearGradient(
-        colors: [accent, accentDeep],
-        startPoint: .topLeading, endPoint: .bottomTrailing)
+    static var accentGradient: LinearGradient { resolved.accentGradient }
 
     /// Цвет-акцент для категории (для «плиток» с эмодзи).
     static func categoryColor(_ category: FoodCategory) -> Color {
