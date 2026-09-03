@@ -63,26 +63,33 @@ struct PrikormApp: App {
             return try! ModelContainer(for: schema, configurations: [memoryOnly])
         }
 
+        // ⚠️ БЕЗ `migrationPlan` — намеренно. С планом SwiftData сверяет отпечаток
+        // схемы, которым помечен стор, со списком версий. Но все `VersionedSchema`
+        // ссылаются на ОДНИ И ТЕ ЖЕ Swift-типы, поэтому любое новое поле меняет
+        // смысл уже выпущенной версии, стор помечен «неизвестной» версией
+        // (`Cannot use staged migration with an unknown model version`), контейнер
+        // не открывается и `StoreRecovery` уводит дневник в `corrupt-*`.
+        // Проверено на устройстве 03-04.09.2026: так терялись данные при обновлении.
+        //
+        // Без плана SwiftData делает неявную lightweight-миграцию, а все наши
+        // изменения аддитивные и опциональные (требование CloudKit) — то есть ровно
+        // тот случай, который она умеет. Понадобится настоящая кастомная миграция —
+        // вводить план вместе с ОТДЕЛЬНЫМИ КОПИЯМИ типов моделей на каждую версию,
+        // иначе повторим ту же ошибку.
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false,
                                         cloudKitDatabase: .private(cloudKitContainer))
-        if let container = try? ModelContainer(for: schema,
-                                               migrationPlan: AppMigrationPlan.self,
-                                               configurations: [config]) {
+        if let container = try? ModelContainer(for: schema, configurations: [config]) {
             return container
         }
         do {
             // Облако не поднялось (нет entitlement в профиле, отозван контейнер) —
             // это не повод не открыться: работаем локально, дневник важнее синка.
             let local = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-            if let localOnly = try? ModelContainer(for: schema,
-                                                   migrationPlan: AppMigrationPlan.self,
-                                                   configurations: [local]) {
+            if let localOnly = try? ModelContainer(for: schema, configurations: [local]) {
                 return localOnly
             }
             StoreRecovery.moveAside()
-            if let fresh = try? ModelContainer(for: schema,
-                                               migrationPlan: AppMigrationPlan.self,
-                                               configurations: [local]) {
+            if let fresh = try? ModelContainer(for: schema, configurations: [local]) {
                 return fresh
             }
         }
