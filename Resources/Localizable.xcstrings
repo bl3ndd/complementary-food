@@ -17038,6 +17038,17 @@
         }
       }
     },
+    "Коллекция вкусов": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taste collection"
+          }
+        }
+      }
+    },
     "Коллекция пока пуста": {
       "extractionState": "manual",
       "localizations": {
@@ -22927,6 +22938,17 @@
         }
       }
     },
+    "Не зашло": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not a hit"
+          }
+        }
+      }
+    },
     "Не медицинский совет — сроки согласуй с педиатром.": {
       "extractionState": "stale",
       "localizations": {
@@ -23836,6 +23858,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "什么都没找到"
+          }
+        }
+      }
+    },
+    "Новая веха": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New milestone"
           }
         }
       }
@@ -26491,6 +26524,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "果胶"
+          }
+        }
+      }
+    },
+    "Первый раз": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First time"
           }
         }
       }
@@ -32383,6 +32427,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "宝宝"
+          }
+        }
+      }
+    },
+    "Рекап": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recap"
           }
         }
       }
@@ -41017,6 +41072,17 @@
         }
       }
     },
+    "Что зашло": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hits and misses"
+          }
+        }
+      }
+    },
     "Что уже ввели?": {
       "localizations": {
         "de": {
@@ -42593,6 +42659,17 @@
         }
       }
     },
+    "а всего уже %lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld in total already"
+          }
+        }
+      }
+    },
     "аллерген": {
       "extractionState": "manual",
       "localizations": {
@@ -42838,6 +42915,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "天"
+          }
+        }
+      }
+    },
+    "дней с новым вкусом": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "days with a new taste"
           }
         }
       }
@@ -43088,6 +43176,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "已计划"
+          }
+        }
+      }
+    },
+    "и ещё %lld": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "and %lld more"
           }
         }
       }
@@ -43756,6 +43855,17 @@
         }
       }
     },
+    "продуктов в коллекции": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "foods in the collection"
+          }
+        }
+      }
+    },
     "продуктов за месяц": {
       "extractionState": "manual",
       "localizations": {
@@ -43835,6 +43945,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "本月食物数"
+          }
+        }
+      }
+    },
+    "продуктов попробовано": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "foods tasted"
           }
         }
       }

@@ -33,6 +33,7 @@
 		2AE136259F2ED1160F362A34 /* RecapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0577843717A8B0375436D4 /* RecapService.swift */; };
 		2B01BE2AA03EBE41CBE41464 /* FoodCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */; };
 		2E024DAE7DAD0B07AC48EC57 /* FeedingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CD4AA983FA435521A60B9 /* FeedingProfile.swift */; };
+		2EC134DBC671F0F15321AD62 /* RecapCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632702C2E0D6A2A7B1659B2E /* RecapCarouselView.swift */; };
 		2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */; };
 		2FA9D61DDD0A71A96C3778CB /* Entitlements.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEFC644581D4A12A345D3FB /* Entitlements.swift */; };
 		305050F4BAFFB26A323BB125 /* DiaryPDFExportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6DB0C860BD7973F5D6918A /* DiaryPDFExportTests.swift */; };
@@ -53,6 +54,7 @@
 		5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752BF5E941CC9648AC650547 /* ModelTests.swift */; };
 		5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */; };
 		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
+		6264F2AC1438E5DFC2047D9C /* RecapCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754B6747DEBDDC038C5EB2AF /* RecapCards.swift */; };
 		659F6D037F6A73319D6E9230 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18465713D438512E16B883 /* Food.swift */; };
 		6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7861AD8F79C95B259F207535 /* FoodIcon.swift */; };
 		6FEA128BF3A6E5EA8D8DECDA /* CalendarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472EB7D1A15DBF98AC21D76 /* CalendarUITests.swift */; };
@@ -159,6 +161,7 @@
 		571C35317E20FC793554110A /* PlanMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanMigration.swift; sourceTree = "<group>"; };
 		57582D03E1DD713519F97F27 /* AllergenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergenTests.swift; sourceTree = "<group>"; };
 		5D35A2E446981A40D823B846 /* ReviewDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDemoUITests.swift; sourceTree = "<group>"; };
+		632702C2E0D6A2A7B1659B2E /* RecapCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapCarouselView.swift; sourceTree = "<group>"; };
 		682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		68F2FE0BD30933E51C81F28C /* CatalogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogUITests.swift; sourceTree = "<group>"; };
 		69338CE31B845A60469CFB85 /* QuickLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogSheet.swift; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 		6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		6EEE512BF23D205F3A40501F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		754B6747DEBDDC038C5EB2AF /* RecapCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapCards.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
 		806C412A4935A271135884DD /* FoodDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailView.swift; sourceTree = "<group>"; };
 		831323745180D62F8316E6B1 /* AppReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReview.swift; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 			children = (
 				E31C5CCF52FEA73D220E561B /* CalendarView.swift */,
 				C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */,
+				754B6747DEBDDC038C5EB2AF /* RecapCards.swift */,
+				632702C2E0D6A2A7B1659B2E /* RecapCarouselView.swift */,
 				3FFDE7EF3527F84544CCED5C /* RecapView.swift */,
 			);
 			path = Calendar;
@@ -683,6 +689,8 @@
 				D4D831E4D509050C2B685867 /* ProStore.swift in Sources */,
 				30E885DD88EDACA5C7036245 /* ProfileView.swift in Sources */,
 				AF68B2A9931993D03C664D81 /* QuickLogSheet.swift in Sources */,
+				6264F2AC1438E5DFC2047D9C /* RecapCards.swift in Sources */,
+				2EC134DBC671F0F15321AD62 /* RecapCarouselView.swift in Sources */,
 				2AE136259F2ED1160F362A34 /* RecapService.swift in Sources */,
 				C0368823FA0F2A357C413340 /* RecapView.swift in Sources */,
 				BC6154128575F7506FCE9C36 /* RootView.swift in Sources */,
