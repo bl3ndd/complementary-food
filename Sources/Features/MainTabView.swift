@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct MainTabView: View {
     let child: Child
@@ -49,11 +50,31 @@ struct MainTabView: View {
                 // поэтому при каждом запуске догоняем то, что дозрело, пока
                 // приложение было закрыто.
                 syncIntroductions()
+                refreshWidget()
             }
             .onChange(of: scenePhase) { _, phase in
                 // И при возврате из фона: день мог смениться.
                 if phase == .active { syncIntroductions() }
             }
+            // Коллекция выросла — обновляем снимок для виджета. Считаем по числу
+            // введённых, а не по всему массиву: пересчитывать снимок на каждое
+            // изменение любого статуса незачем.
+            .onChange(of: statuses.filter { $0.state == .introduced }.count) { _, _ in
+                refreshWidget()
+            }
+    }
+
+    /// Кладёт снимок коллекции в App Group и просит WidgetKit перерисоваться.
+    /// Без App Group (не выдана в профиле) — тихо ничего, виджет просто пустой.
+    private func refreshWidget() {
+        let catalog = FoodCatalog.shared
+        let items = statuses
+            .filter { $0.state == .introduced }
+            .compactMap { catalog.food(id: $0.foodId) }
+            .map { WidgetSnapshot.Item(id: $0.id, emoji: $0.emoji) }
+        if WidgetSnapshotStore.save(.make(items: items)) {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
 
     /// Закрывает дозревшие окна наблюдения и переставляет напоминания.

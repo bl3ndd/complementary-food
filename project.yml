@@ -34,6 +34,9 @@ targets:
   Prikorm:
     type: application
     platform: iOS
+    dependencies:
+      - target: PuddingWidget
+        embed: true
     sources:
       - path: Sources
       - path: Resources
@@ -80,6 +83,34 @@ targets:
         # iCloud — Production, иначе App Store отбивает загрузку.
         Release:
           CODE_SIGN_ENTITLEMENTS: Prikorm.release.entitlements
+  PuddingWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: PuddingWidget
+      # Снимок общий с приложением: расширение не открывает SwiftData и не знает
+      # про CloudKit, ему нужен только этот файл.
+      - path: Sources/App/WidgetSnapshot.swift
+      - path: Resources/Localizable.xcstrings
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.pudding.app.widget
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: A89ST3SFXS
+        CODE_SIGN_ENTITLEMENTS: PuddingWidget.entitlements
+        SKIP_INSTALL: YES
+    # Info.plist явным файлом, а не GENERATE_INFOPLIST_FILE: NSExtension через
+    # INFOPLIST_KEY_* до бандла не доезжает, и installd отказывается ставить
+    # приложение — «appex does not define an NSExtension dictionary». Та же
+    # болезнь, что была с UIBackgroundModes у основного таргета.
+    info:
+      path: PuddingWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Pudding
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+
   PrikormTests:
     type: bundle.unit-test
     platform: iOS
