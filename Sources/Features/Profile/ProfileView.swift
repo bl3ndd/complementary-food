@@ -158,6 +158,16 @@ struct ProfileView: View {
                     showPro = true
                 }
             }
+            // Смена иконки — отдельным действием, а не побочкой выбора гаммы:
+            // iOS показывает системный алерт на каждую смену, и дёргать его без
+            // явного намерения пользователя нельзя.
+            if entitlements.isPro, AppIconManager.names[paletteId] != nil {
+                Button {
+                    AppIconManager.apply(paletteId: paletteId, isPro: true)
+                } label: {
+                    Label("Иконку под гамму", systemImage: "app.badge")
+                }
+            }
             Picker(selection: $language) {
                 ForEach(AppLanguage.allCases) { lang in
                     Text(lang.title).tag(lang)

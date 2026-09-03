@@ -88,6 +88,7 @@
 		C0368823FA0F2A357C413340 /* RecapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFDE7EF3527F84544CCED5C /* RecapView.swift */; };
 		C251313E559EA9F221AEEC08 /* DashboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC3E6EA751A30DF6B403FB5 /* DashboardUITests.swift */; };
 		C260263DBC9B0417E64CF911 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6C6C6964DCE8ADD61EA2DDEC /* Localizable.xcstrings */; };
+		C30F15D4C920CA102F216111 /* AppIconManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4C0F5C9AF78BE7C276C4 /* AppIconManagerTests.swift */; };
 		C5D0EAB39E7C11FC66DEC3DB /* FeedingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC7D9ABBA60C6D85849A078 /* FeedingServiceTests.swift */; };
 		D4D831E4D509050C2B685867 /* ProStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33CA193FD43A9CA19892A79 /* ProStore.swift */; };
 		DA535DF91D83E045954F8FFE /* ReactivityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A081273EF9B4302E370D3 /* ReactivityUITests.swift */; };
@@ -95,6 +96,7 @@
 		E779298BC3D510C314B43859 /* AppInstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52A8D665B9B96AEFF31A1C3 /* AppInstall.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
 		ECE49371C67DE382A0CB70AD /* PlanIntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */; };
+		EE7F4E106A7222A961DD630A /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1C21D2385F986B9F04FF9 /* AppIconManager.swift */; };
 		F4D20301E8188A213C6274E7 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E98201C1EC77290CBF1D4B /* AppTheme.swift */; };
 		F57A8FBC6AF6B7038AE1BE86 /* CustomFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49835FD1784A5B3FA0982C87 /* CustomFood.swift */; };
 		F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */; };
@@ -173,6 +175,7 @@
 		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		754B6747DEBDDC038C5EB2AF /* RecapCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapCards.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
+		7AA1C21D2385F986B9F04FF9 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		8028A283980B46503FCF01F4 /* ProSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProSheet.swift; sourceTree = "<group>"; };
 		806C412A4935A271135884DD /* FoodDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailView.swift; sourceTree = "<group>"; };
 		831323745180D62F8316E6B1 /* AppReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReview.swift; sourceTree = "<group>"; };
@@ -196,6 +199,7 @@
 		B8632C9BB2BCAEADBF9783DB /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 		BA18465713D438512E16B883 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		BA5052AFBD5470E0D3D34A5F /* FeedingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingService.swift; sourceTree = "<group>"; };
+		BB4E4C0F5C9AF78BE7C276C4 /* AppIconManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManagerTests.swift; sourceTree = "<group>"; };
 		BBB58ABFA1CBA2E94BF84495 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		C31842ED2C2F464C4546AEFC /* EntitlementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitlementsTests.swift; sourceTree = "<group>"; };
 		C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailView.swift; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				57582D03E1DD713519F97F27 /* AllergenTests.swift */,
+				BB4E4C0F5C9AF78BE7C276C4 /* AppIconManagerTests.swift */,
 				2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */,
 				2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */,
 				E1CA74998939067F427B3264 /* AppShellTests.swift */,
@@ -437,6 +442,7 @@
 		E89C952FA3A34A1CACCAE9AD /* App */ = {
 			isa = PBXGroup;
 			children = (
+				7AA1C21D2385F986B9F04FF9 /* AppIconManager.swift */,
 				3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */,
 				4088924D10FC333495FBF4AE /* AppLinks.swift */,
 				831323745180D62F8316E6B1 /* AppReview.swift */,
@@ -617,6 +623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11D010D47663E97F43330F26 /* AllergenTests.swift in Sources */,
+				C30F15D4C920CA102F216111 /* AppIconManagerTests.swift in Sources */,
 				99C0A75ED7B0D7512C975255 /* AppLanguageTests.swift in Sources */,
 				5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */,
 				11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */,
@@ -646,6 +653,7 @@
 				03DF82600F9C6BD56745ECDB /* AllergenMaintenance.swift in Sources */,
 				B809319B660E107D50E1B3E0 /* AllergenTracker.swift in Sources */,
 				A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */,
+				EE7F4E106A7222A961DD630A /* AppIconManager.swift in Sources */,
 				E779298BC3D510C314B43859 /* AppInstall.swift in Sources */,
 				F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */,
 				BDC2423AA78C1A524BBA51CF /* AppLinks.swift in Sources */,
@@ -725,6 +733,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconMarshmallow AppIconMatcha AppIconLavender AppIconPeach AppIconHoney AppIconBlueberry";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -802,6 +812,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconMarshmallow AppIconMatcha AppIconLavender AppIconPeach AppIconHoney AppIconBlueberry";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

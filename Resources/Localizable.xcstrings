@@ -14625,6 +14625,17 @@
         }
       }
     },
+    "Иконку под гамму": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Match the app icon"
+          }
+        }
+      }
+    },
     "Имя": {
       "extractionState": "manual",
       "localizations": {
