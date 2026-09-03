@@ -66,6 +66,7 @@
 		72FFE23EA1A9703C2EB246E1 /* FoodDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C412A4935A271135884DD /* FoodDetailView.swift */; };
 		74531C1604425C61034AEBFA /* ReviewDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D35A2E446981A40D823B846 /* ReviewDemoUITests.swift */; };
 		7B547C41F321F1E6F4A91091 /* FoodStateMachineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0691F69720956DB22E693478 /* FoodStateMachineUITests.swift */; };
+		7CE45D97BACF551249FCE084 /* ChildOwnershipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */; };
 		80EC50847B435449C43D48E9 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135AF4CB35D1762658E13BCE /* WidgetSnapshot.swift */; };
 		8194C7D9AD848D6C166D5525 /* ProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBD033DE74ECFCE6B53A451 /* ProfileUITests.swift */; };
 		83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */; };
@@ -172,6 +173,7 @@
 		21161D9379ED59AF6BECDBFB /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
 		218EDD8CEDD9BF1A0BF16A17 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		2292563EFFE2301C7606C3BC /* RecapCardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapCardsTests.swift; sourceTree = "<group>"; };
+		229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOwnershipTests.swift; sourceTree = "<group>"; };
 		24B3F9D6390A41694B9F5043 /* AddCustomFoodSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomFoodSheet.swift; sourceTree = "<group>"; };
 		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		270020787FFBB9A220680C29 /* DiaryPDFExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPDFExport.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */,
 				E1CA74998939067F427B3264 /* AppShellTests.swift */,
 				CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */,
+				229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */,
 				0D6DB0C860BD7973F5D6918A /* DiaryPDFExportTests.swift */,
 				0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */,
 				C31842ED2C2F464C4546AEFC /* EntitlementsTests.swift */,
@@ -706,6 +709,7 @@
 				5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */,
 				11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */,
 				FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */,
+				7CE45D97BACF551249FCE084 /* ChildOwnershipTests.swift in Sources */,
 				305050F4BAFFB26A323BB125 /* DiaryPDFExportTests.swift in Sources */,
 				8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */,
 				0ECA73BB9350F59BE6FB8161 /* EntitlementsTests.swift in Sources */,

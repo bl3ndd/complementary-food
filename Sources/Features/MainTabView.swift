@@ -84,6 +84,9 @@ struct MainTabView: View {
         if PlanMigration.ObservationWindowsV2.apply(to: child) {
             try? context.save()
         }
+        // Старые записи (дневник был глобальным) привязываем к ребёнку. Идемпотентно:
+        // уже привязанные не трогаются, при нескольких детях не делается ничего.
+        PlanMigration.ChildOwnership.apply(context: context)
         FeedingService(context: context).completeDueIntroductions(profile: child.feedingProfile)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }

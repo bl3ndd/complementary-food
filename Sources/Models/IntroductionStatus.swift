@@ -6,6 +6,11 @@ import SwiftData
 @Model
 final class IntroductionStatus {
     var foodId: String = ""
+    /// Чей это дневник. Опциональное — требование CloudKit и условие того, что поле
+    /// добавляется БЕЗ новой версии схемы (см. CLAUDE.md). У записей, сделанных до
+    /// появления нескольких детей, тут `nil`, пока их не подхватит бэкфилл
+    /// `PlanMigration.ChildOwnership`.
+    var childId: UUID?
     var stateRaw: String = IntroState.notIntroduced.rawValue
     var introStartedAt: Date?
     var completedAt: Date?

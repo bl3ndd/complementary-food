@@ -258,4 +258,56 @@ final class ModelTests: XCTestCase {
         XCTAssertEqual(ids.count, Set(ids).count, "две версии с одним идентификатором")
     }
 
+    // MARK: - Привязка записей к ребёнку
+
+    /// Поле опциональное (требование CloudKit и условие добавления без бампа схемы),
+    /// поэтому проверяем оба состояния: старая запись без владельца и новая с ним.
+    @MainActor
+    func testChildIdRoundTripsAndIsOptional() throws {
+        let schema = Schema(AppSchemaCurrent.models)
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+        let ctx = container.mainContext
+
+        let owner = UUID()
+        let owned = FoodLog(foodId: "apple", date: .now, type: .intro)
+        owned.childId = owner
+        let orphan = FoodLog(foodId: "pear", date: .now, type: .intro)
+        ctx.insert(owned); ctx.insert(orphan)
+
+        let status = IntroductionStatus(foodId: "apple", state: .introducing)
+        status.childId = owner
+        ctx.insert(status)
+        try ctx.save()
+
+        let logs = try ctx.fetch(FetchDescriptor<FoodLog>())
+        XCTAssertEqual(logs.first { $0.foodId == "apple" }?.childId, owner)
+        XCTAssertNil(logs.first { $0.foodId == "pear" }?.childId,
+                     "запись без владельца обязана оставаться валидной")
+        XCTAssertEqual(try ctx.fetch(FetchDescriptor<IntroductionStatus>()).first?.childId, owner)
+    }
+
+    /// Выборка по владельцу — то, на чём держится разделение дневников.
+    @MainActor
+    func testFetchFiltersByChild() throws {
+        let schema = Schema(AppSchemaCurrent.models)
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+        let ctx = container.mainContext
+
+        let elder = UUID(), younger = UUID()
+        for (food, owner) in [("apple", elder), ("pear", elder), ("plum", younger)] {
+            let log = FoodLog(foodId: food, date: .now, type: .intro)
+            log.childId = owner
+            ctx.insert(log)
+        }
+        try ctx.save()
+
+        let mine = try ctx.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.childId == elder }))
+        XCTAssertEqual(Set(mine.map(\.foodId)), ["apple", "pear"])
+    }
+
 }
