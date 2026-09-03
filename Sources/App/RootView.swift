@@ -9,6 +9,8 @@ struct RootView: View {
     @ObservedObject private var proStore = ProStore.shared
     /// Выбранная цветовая гамма. В отличие от языка применяется сразу.
     @AppStorage(Palette.storageKey) private var paletteId: String = Palette.pudding.id
+    /// Какой ребёнок открыт. Состояние устройства, а не данные — в стор не кладём.
+    @AppStorage(ActiveChild.storageKey) private var activeChildId: String = ""
     /// Оформление: система / светлая / тёмная (Профиль → Приложение). Применяется сразу.
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
 
@@ -25,7 +27,7 @@ struct RootView: View {
         let _ = Theme.apply(Palette.allowed(id: paletteId, isPro: entitlements.isPro))
 
         Group {
-            if let child = children.first {
+            if let child = ActiveChild.resolve(children: children, storedId: activeChildId) {
                 MainTabView(child: child)
                     .transition(.opacity)
             } else {

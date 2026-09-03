@@ -8,18 +8,21 @@ import SwiftData
 /// два дневника.
 final class ChildOwnershipTests: XCTestCase {
 
+    /// Возвращаем КОНТЕЙНЕР, а не сразу `mainContext`: контейнер владеет контекстом,
+    /// и если отдать наружу только контекст, контейнер освобождается на выходе из
+    /// функции, а тест падает на первом же обращении.
     @MainActor
-    private func makeContext() throws -> ModelContext {
+    private func makeContainer() throws -> ModelContainer {
         let schema = Schema(AppSchemaCurrent.models)
-        let container = try ModelContainer(
+        return try ModelContainer(
             for: schema,
             configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
-        return container.mainContext
     }
 
     @MainActor
     func testSingleChildAdoptsAllOrphanRecords() throws {
-        let ctx = try makeContext()
+        let container = try makeContainer()
+        let ctx = container.mainContext
         let child = Child(name: "Эмма", birthDate: .now)
         ctx.insert(child)
         ctx.insert(FoodLog(foodId: "apple", date: .now, type: .intro))
@@ -40,7 +43,8 @@ final class ChildOwnershipTests: XCTestCase {
     /// идемпотентным, иначе второй прогон угонит чужие записи активному ребёнку.
     @MainActor
     func testRepeatedRunChangesNothing() throws {
-        let ctx = try makeContext()
+        let container = try makeContainer()
+        let ctx = container.mainContext
         let child = Child(name: "Эмма", birthDate: .now)
         ctx.insert(child)
         ctx.insert(FoodLog(foodId: "apple", date: .now, type: .intro))
@@ -54,7 +58,8 @@ final class ChildOwnershipTests: XCTestCase {
     /// Главное правило: при нескольких детях владельца не угадываем.
     @MainActor
     func testSeveralChildrenLeaveOrphansUntouched() throws {
-        let ctx = try makeContext()
+        let container = try makeContainer()
+        let ctx = container.mainContext
         ctx.insert(Child(name: "Эмма", birthDate: .now))
         ctx.insert(Child(name: "Лев", birthDate: .now))
         ctx.insert(FoodLog(foodId: "apple", date: .now, type: .intro))
@@ -67,7 +72,8 @@ final class ChildOwnershipTests: XCTestCase {
 
     @MainActor
     func testAlreadyOwnedRecordsAreNotReassigned() throws {
-        let ctx = try makeContext()
+        let container = try makeContainer()
+        let ctx = container.mainContext
         let child = Child(name: "Эмма", birthDate: .now)
         ctx.insert(child)
         let foreign = UUID()
@@ -82,13 +88,15 @@ final class ChildOwnershipTests: XCTestCase {
 
     @MainActor
     func testEmptyStoreDoesNotCrash() throws {
-        let ctx = try makeContext()
+        let container = try makeContainer()
+        let ctx = container.mainContext
         XCTAssertEqual(PlanMigration.ChildOwnership.apply(context: ctx), 0)
     }
 
     @MainActor
     func testNoChildMeansNoAdoption() throws {
-        let ctx = try makeContext()
+        let container = try makeContainer()
+        let ctx = container.mainContext
         ctx.insert(FoodLog(foodId: "apple", date: .now, type: .intro))
         try ctx.save()
 
