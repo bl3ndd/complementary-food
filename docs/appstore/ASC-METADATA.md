@@ -163,6 +163,46 @@ Pudding is an offline diary for a baby's first solid foods. No account, no backe
 7. REGULATED INDUSTRY / THIRD-PARTY MATERIAL: not a medical device, no medical or diagnostic service, no HealthKit, no clinical records - it only stores what the parent types and points the user to their pediatrician. The only third-party material is the OpenMoji icon set (openmoji.org) under Creative Commons BY-SA 4.0, which allows use with attribution; the credit "Icons: OpenMoji (CC BY-SA 4.0)" is shown in Profile - About. All other assets and text are ours.
 ```
 
+## 8а. Покупка Pro (готовится к следующему релизу)
+
+⚠️ **Не заводить в ASC, пока текущая заявка на ревью.** Добавление покупки к
+версии, которая проверяется, — лишний повод для вопросов. Всё ниже применяется
+вместе с билдом, где Pro реально появится.
+
+| Поле | Значение |
+|---|---|
+| Тип | **Non-Consumable** (разовая покупка, НЕ подписка) |
+| Product ID | `com.pudding.app.pro` (совпадает с `ProProductID.pro`) |
+| Family Sharing | **включить** — родителей двое, платить дважды они не должны |
+| Цена | ставится в ASC; в коде не хардкодится, показываем `product.displayPrice` |
+
+**Что входит в Pro:** рекап-карусель, цветовые гаммы, альтернативные иконки,
+виджет «Коллекция». **Что остаётся бесплатным:** весь дневник, аллергены с
+напоминаниями, календарь, iCloud-синк, мульти-профили, PDF «для педиатра», лист
+«Не давать», одиночная рекап-карточка, фото ребёнка.
+
+### Review Notes — заменить абзац про отсутствие покупок
+
+Сейчас в Notes и в ответе на реджект 2.1 стоит «NO paid content, IAP or
+subscriptions». С релизом Pro это станет ложью, и ревьюер найдёт расхождение.
+Заменить на:
+
+```
+IN-APP PURCHASE: the app offers exactly one non-consumable in-app purchase,
+"Pudding Pro" — a one-time purchase, not a subscription. It unlocks optional,
+cosmetic extras only: a carousel of shareable recap cards, colour themes,
+alternate app icons and a Home Screen widget. Everything that makes the app
+useful stays free forever: the whole diary, allergens and their reminders, the
+calendar, iCloud sync, multiple children, the PDF export for a pediatrician,
+the "do not give" list, the monthly recap card and the child's photo. We do not
+paywall access to the user's own data.
+Users who installed the app before Pro existed get it unlocked automatically and
+for free — this is decided on device from a local first-launch record, with no
+account and no server of ours. A "Restore purchases" button is on the purchase
+screen, and the purchase is Family Shareable.
+No new data is collected; the app still declares "Data Not Collected".
+```
+
 ## 9. Технические перед загрузкой билда
 
 - [x] `ITSAppUsesNonExemptEncryption = NO` (в project.yml — вопрос про шифрование не будет всплывать)
