@@ -28,6 +28,10 @@ BASE = "https://babyfooddiary.com"
 # Подтверждение прав в Google Search Console. Тег, а не файл: `cleanUrls`
 # в vercel.json редиректит /что-то.html на /что-то, и робот за файлом
 # подтверждения получил бы редирект вместо содержимого.
+# Ссылка на приложение в App Store. Без кода страны — Apple сама отправит человека
+# в его сторфронт.
+APP_STORE_URL = "https://apps.apple.com/app/id6789296295"
+
 GSC_VERIFICATION = '<meta name="google-site-verification" content="_lFDMFwheNZizHJ89Vp38iD7sAK9obP0pOnKzUsG_aM">'
 
 # Порядок = порядок в переключателе языков. Первый — источник (ru, лежит в корне).
@@ -207,7 +211,7 @@ def render(all_d: dict, lang: str) -> str:
           <h1>{esc(d['h1'])}</h1>
           <p class="sub">{esc(d['hero_sub'])}</p>
           <div class="cta-row">
-            <a class="btn" href="#">{esc(d['cta_store'])}</a>
+            <a class="btn" href="{APP_STORE_URL}">{esc(d['cta_store'])}</a>
             <a class="btn ghost" href="#how">{esc(d['cta_how'])}</a>
           </div>
           <div class="trust-band">
@@ -272,7 +276,7 @@ def render(all_d: dict, lang: str) -> str:
   </main>
 
   <div class="sticky-cta">
-    <a class="btn" href="#">{esc(d['cta_store'])}</a>
+    <a class="btn" href="{APP_STORE_URL}">{esc(d['cta_store'])}</a>
   </div>
 
 {site_footer(d)}

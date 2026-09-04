@@ -73,6 +73,31 @@ class ArticleLoadingTests(unittest.TestCase):
         self.assertEqual(load_articles(pathlib.Path("/nope/does/not/exist")), {})
 
 
+class AppStoreLinkTests(unittest.TestCase):
+    """Кнопка «Скачать» — единственный путь с сайта в стор. Заглушка `href="#"`
+    жила там всё время, пока приложение было не выпущено, и легко пережила бы
+    релиз незамеченной."""
+
+    def test_cta_points_at_the_app_not_a_placeholder(self):
+        all_d = {lang: build.load(lang) for lang in build.LANGS}
+        page = build.render(all_d, "en")
+        self.assertIn(build.APP_STORE_URL, page)
+        self.assertNotIn('class="btn" href="#"', page, "заглушка вместо ссылки на стор")
+
+    def test_app_store_url_has_the_real_app_id(self):
+        self.assertIn("apps.apple.com", build.APP_STORE_URL)
+        self.assertIn("id6789296295", build.APP_STORE_URL)
+
+    def test_no_locale_still_promises_the_app_is_coming(self):
+        # Приложение вышло: «скоро в App Store» на любом языке теперь ложь.
+        soon = ("скоро", "coming", "bald", "pronto", "bientôt", "presto", "binnenkort",
+                "wkrótce", "em breve", "yakında", "незабаром", "近日", "곧", "即将")
+        for lang in build.LANGS:
+            label = build.load(lang)["cta_store"].lower()
+            for marker in soon:
+                self.assertNotIn(marker, label, f"{lang}: кнопка всё ещё обещает релиз")
+
+
 class SearchConsoleTests(unittest.TestCase):
     """Подтверждение прав в GSC живёт в шаблоне, а не в файле, положенном руками
     в site/ — иначе следующая генерация его затрёт и права слетят."""
