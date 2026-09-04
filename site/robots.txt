@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pudding-for-children.vercel.app/sitemap.xml
+Sitemap: https://babyfooddiary.com/sitemap.xml

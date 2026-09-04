@@ -19,7 +19,11 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 I18N = pathlib.Path(__file__).resolve().parent / "i18n"
 SITE = ROOT / "site"
 CONTENT = ROOT / "content" / "blog"
-BASE = "https://pudding-for-children.vercel.app"
+# Основной домен. Старый `pudding-for-children.vercel.app` остаётся жить с 301:
+# в уже выпущенном приложении (билд 5, в продаже) адреса политики, условий и
+# поддержки зашиты в бинарник и указывают на него. Обновятся они только у тех,
+# кто поставит 1.1.0, а часть людей не обновляется никогда.
+BASE = "https://babyfooddiary.com"
 
 # Подтверждение прав в Google Search Console. Тег, а не файл: `cleanUrls`
 # в vercel.json редиректит /что-то.html на /что-то, и робот за файлом

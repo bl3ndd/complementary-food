@@ -123,8 +123,8 @@ def gsc_queries() -> list[dict] | None:
     end = dt.date.today()
     start = end - dt.timedelta(days=90)
     sites = [os.environ["GSC_SITE_URL"]] if os.environ.get("GSC_SITE_URL") else [
-        "sc-domain:pudding-for-children.vercel.app",
-        "https://pudding-for-children.vercel.app/",
+        "sc-domain:babyfooddiary.com",
+        "https://babyfooddiary.com/",
     ]
     problems = []
     for site in sites:
@@ -183,7 +183,7 @@ def demand_block(queries: list[dict] | None) -> str:
 def generate(client: anthropic.Anthropic, queries: list[dict] | None) -> dict:
     done = published()
     done_list = "\n".join(f"- {a['title']} (keyword: {a['keyword']})" for a in done) or "(none yet)"
-    prompt = f"""You write blog articles for Pudding (pudding-for-children.vercel.app) — a free,
+    prompt = f"""You write blog articles for Pudding (babyfooddiary.com) — a free,
 offline iPhone diary for complementary feeding: a parent records which food the baby was given,
 on which day, and how the child reacted. No account, no backend, no ads.
 
