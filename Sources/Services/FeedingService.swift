@@ -5,17 +5,26 @@ import SwiftData
 /// (SPEC §4.4), чтобы вьюхи не дублировали логику.
 struct FeedingService {
     let context: ModelContext
+    /// Чей дневник обслуживаем. Опционально — чтобы существующие вызовы, которым
+    /// ребёнок не важен (свипер, работа с фото), не переписывать; но всё, что
+    /// СОЗДАЁТ записи, обязано его передать, иначе запись останется бесхозной и
+    /// пропадёт из отфильтрованных выборок.
+    var childId: UUID?
 
     /// Находит статус продукта или создаёт новый (notIntroduced).
     func status(for foodId: String) -> IntroductionStatus {
+        // Ищем В ПРЕДЕЛАХ РЕБЁНКА: продукт, введённый старшему, у младшего обязан
+        // считаться невведённым, иначе младший «унаследует» чужую историю.
+        let owner = childId
         var descriptor = FetchDescriptor<IntroductionStatus>(
-            predicate: #Predicate { $0.foodId == foodId }
+            predicate: #Predicate { $0.foodId == foodId && $0.childId == owner }
         )
         descriptor.fetchLimit = 1
         if let existing = try? context.fetch(descriptor).first {
             return existing
         }
         let created = IntroductionStatus(foodId: foodId)
+        created.childId = childId
         context.insert(created)
         return created
     }
@@ -28,7 +37,9 @@ struct FeedingService {
         s.introStartedAt = date
         s.completedAt = nil
         s.retryAt = nil   // начали новый ввод — старое «попробовать снова» неактуально
-        context.insert(FoodLog(foodId: food.id, date: date, type: .intro))
+        let introLog = FoodLog(foodId: food.id, date: date, type: .intro)
+        introLog.childId = childId
+        context.insert(introLog)
         save()
     }
 
@@ -113,6 +124,7 @@ struct FeedingService {
                           liking: liking,
                           note: note,
                           severity: reaction == nil ? nil : severity)
+        log.childId = childId
         context.insert(log)
         attachPhotos(photos, to: log)
         // Бэкдейт кормления во время ввода тянет старт окна назад, чтобы запись

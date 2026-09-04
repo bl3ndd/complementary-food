@@ -31,6 +31,12 @@ struct PrikormApp: App {
             UITestSupport.prepare(container.mainContext)
         }
         #endif
+
+        // Привязку старых записей к ребёнку делаем ДО первой отрисовки: выборки уже
+        // фильтруются по владельцу, и без этого человек после обновления увидел бы
+        // пустой дневник, пока свипер не отработает. Идемпотентно и дёшево — предикат
+        // ищет только записи без владельца.
+        PlanMigration.ChildOwnership.apply(context: container.mainContext)
     }
 
     var body: some Scene {

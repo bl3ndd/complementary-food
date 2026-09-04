@@ -21,7 +21,11 @@ struct MainTabView: View {
         let cal = Calendar.current
         let cutoff = cal.date(byAdding: .day, value: -DashboardView.recentWindowDays,
                               to: cal.startOfDay(for: Date())) ?? .distantPast
-        _logs = Query(FetchDescriptor<FoodLog>(predicate: #Predicate { $0.date >= cutoff }))
+        let cid = child.id
+        _statuses = Query(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == cid }))
+        _logs = Query(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.date >= cutoff && $0.childId == cid }))
     }
 
     enum Tab { case today, catalog, calendar, allergens, profile }
@@ -87,7 +91,7 @@ struct MainTabView: View {
         // Старые записи (дневник был глобальным) привязываем к ребёнку. Идемпотентно:
         // уже привязанные не трогаются, при нескольких детях не делается ничего.
         PlanMigration.ChildOwnership.apply(context: context)
-        FeedingService(context: context).completeDueIntroductions(profile: child.feedingProfile)
+        FeedingService(context: context, childId: child.id).completeDueIntroductions(profile: child.feedingProfile)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }
 
@@ -101,7 +105,7 @@ struct MainTabView: View {
                 .tabItem { Label("Каталог", systemImage: "list.bullet") }
                 .tag(Tab.catalog)
 
-            CalendarView()
+            CalendarView(child: child)
                 .tabItem { Label("Календарь", systemImage: "calendar") }
                 .tag(Tab.calendar)
 

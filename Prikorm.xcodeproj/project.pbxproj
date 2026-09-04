@@ -30,6 +30,7 @@
 		202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5CB23367B4B53F2901425F /* NotificationManager.swift */; };
 		2441C6E86B2B91A59650E1A3 /* AllergensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9552BEB8A9718015F8F199F9 /* AllergensUITests.swift */; };
 		259083FD61421122F65C060E /* AppSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */; };
+		2875D3C173E7A2CE30F99087 /* ChildLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D43BE9AF76F56E65379843 /* ChildLimit.swift */; };
 		28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */; };
 		2AE136259F2ED1160F362A34 /* RecapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0577843717A8B0375436D4 /* RecapService.swift */; };
 		2B01BE2AA03EBE41CBE41464 /* FoodCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */; };
@@ -56,6 +57,7 @@
 		5175661213B86BD0231DD81D /* DiaryPDFExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270020787FFBB9A220680C29 /* DiaryPDFExport.swift */; };
 		51E1607B81EE325063A2D1E4 /* foods.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CF87C40EB3D72ED2F5C39B7 /* foods.json */; };
 		526648C2079544C1B1235F25 /* EarlyAdopter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDF9D4482573C1FD797BA49 /* EarlyAdopter.swift */; };
+		5654BA63E7E70D1566ACE0D8 /* MultiChildTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AE3A2D12AB7ABC0DC1A2B6 /* MultiChildTests.swift */; };
 		5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752BF5E941CC9648AC650547 /* ModelTests.swift */; };
 		5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */; };
 		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
@@ -69,6 +71,7 @@
 		7B547C41F321F1E6F4A91091 /* FoodStateMachineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0691F69720956DB22E693478 /* FoodStateMachineUITests.swift */; };
 		7CE45D97BACF551249FCE084 /* ChildOwnershipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */; };
 		80EC50847B435449C43D48E9 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135AF4CB35D1762658E13BCE /* WidgetSnapshot.swift */; };
+		81663483F79B0DF189F815A3 /* ChildLimitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBA9238B9E24456EDA17147 /* ChildLimitTests.swift */; };
 		8194C7D9AD848D6C166D5525 /* ProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBD033DE74ECFCE6B53A451 /* ProfileUITests.swift */; };
 		8315EB70F94381FD318794A7 /* ActiveChildTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F204F148D1E895BECC4530 /* ActiveChildTests.swift */; };
 		83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */; };
@@ -183,7 +186,9 @@
 		2F1AA2DB4AA026A879CD2544 /* ActiveChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChild.swift; sourceTree = "<group>"; };
 		2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguageTests.swift; sourceTree = "<group>"; };
 		3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		31AE3A2D12AB7ABC0DC1A2B6 /* MultiChildTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiChildTests.swift; sourceTree = "<group>"; };
 		33137266140F2522867A45A1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		3CBA9238B9E24456EDA17147 /* ChildLimitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildLimitTests.swift; sourceTree = "<group>"; };
 		3FFDE7EF3527F84544CCED5C /* RecapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapView.swift; sourceTree = "<group>"; };
 		4088924D10FC333495FBF4AE /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		49835FD1784A5B3FA0982C87 /* CustomFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFood.swift; sourceTree = "<group>"; };
@@ -209,6 +214,7 @@
 		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		754B6747DEBDDC038C5EB2AF /* RecapCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapCards.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
+		78D43BE9AF76F56E65379843 /* ChildLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildLimit.swift; sourceTree = "<group>"; };
 		7AA1C21D2385F986B9F04FF9 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		7DDE4CBD97B6C640083474A4 /* PuddingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuddingWidget.swift; sourceTree = "<group>"; };
 		8028A283980B46503FCF01F4 /* ProSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProSheet.swift; sourceTree = "<group>"; };
@@ -307,6 +313,7 @@
 				2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */,
 				E1CA74998939067F427B3264 /* AppShellTests.swift */,
 				CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */,
+				3CBA9238B9E24456EDA17147 /* ChildLimitTests.swift */,
 				229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */,
 				0D6DB0C860BD7973F5D6918A /* DiaryPDFExportTests.swift */,
 				0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */,
@@ -316,6 +323,7 @@
 				143416CA9FE4CE7F9ADE01D4 /* FoodCatalogTests.swift */,
 				D1E268D96C92E391B0F159AA /* MascotTests.swift */,
 				752BF5E941CC9648AC650547 /* ModelTests.swift */,
+				31AE3A2D12AB7ABC0DC1A2B6 /* MultiChildTests.swift */,
 				F91728E60FD50897DDC17B6E /* NotificationManagerTests.swift */,
 				6ACA3C70172B1750E36E5142 /* PaletteTests.swift */,
 				E12831948917AC330B4AB646 /* ProStoreTests.swift */,
@@ -423,6 +431,7 @@
 				50BEB85E953117EC30176B13 /* AllergenMaintenance.swift */,
 				F53D6AB2BF0763E6EB53A4A4 /* AllergenTracker.swift */,
 				A4E7FEF7218059F4616EC495 /* CalendarService.swift */,
+				78D43BE9AF76F56E65379843 /* ChildLimit.swift */,
 				270020787FFBB9A220680C29 /* DiaryPDFExport.swift */,
 				4CDF9D4482573C1FD797BA49 /* EarlyAdopter.swift */,
 				CBEFC644581D4A12A345D3FB /* Entitlements.swift */,
@@ -716,6 +725,7 @@
 				5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */,
 				11E6F2BF5C713667205FBA23 /* AppShellTests.swift in Sources */,
 				FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */,
+				81663483F79B0DF189F815A3 /* ChildLimitTests.swift in Sources */,
 				7CE45D97BACF551249FCE084 /* ChildOwnershipTests.swift in Sources */,
 				305050F4BAFFB26A323BB125 /* DiaryPDFExportTests.swift in Sources */,
 				8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */,
@@ -725,6 +735,7 @@
 				2B01BE2AA03EBE41CBE41464 /* FoodCatalogTests.swift in Sources */,
 				47C6B433D8A250FD7B0EAB0E /* MascotTests.swift in Sources */,
 				5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */,
+				5654BA63E7E70D1566ACE0D8 /* MultiChildTests.swift in Sources */,
 				3BDBD294BE29B94513069E1A /* NotificationManagerTests.swift in Sources */,
 				8B9F42DA7C54D2407E0FD896 /* PaletteTests.swift in Sources */,
 				0E4C192FEE7ED669CC0EE6F2 /* ProStoreTests.swift in Sources */,
@@ -765,6 +776,7 @@
 				14A679536E76A2808BB20159 /* CalendarView.swift in Sources */,
 				2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */,
 				F957DD6E4373E648D08274F9 /* Child.swift in Sources */,
+				2875D3C173E7A2CE30F99087 /* ChildLimit.swift in Sources */,
 				43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */,
 				F57A8FBC6AF6B7038AE1BE86 /* CustomFood.swift in Sources */,
 				051E64497EB9DEA0DB56EF16 /* CustomPlanEditor.swift in Sources */,

@@ -12,12 +12,16 @@ struct ProfileView: View {
     @Query private var logs: [FoodLog]
     @Query private var statuses: [IntroductionStatus]
     @Query private var installs: [AppInstall]
+    @Query private var children: [Child]
 
     @AppStorage("app.language") private var language: AppLanguage = .system
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
     @AppStorage(Palette.storageKey) private var paletteId: String = Palette.pudding.id
+    @AppStorage(ActiveChild.storageKey) private var activeChildId: String = ""
     @ObservedObject private var proStore = ProStore.shared
     @State private var showPro = false
+    @State private var showAddChild = false
+    @State private var childToDelete: Child?
     @State private var notifStatus: UNAuthorizationStatus = .notDetermined
     @State private var showResetConfirm = false
     @State private var showLanguageRestart = false
@@ -28,6 +32,14 @@ struct ProfileView: View {
     @State private var dataHint: String?
     /// Какой экспорт сейчас рендерится (для крутилки на строке).
     @State private var exporting: ExportKind?
+
+    init(child: Child) {
+        _child = Bindable(wrappedValue: child)
+        let cid = child.id
+        _logs = Query(FetchDescriptor<FoodLog>(predicate: #Predicate { $0.childId == cid }))
+        _statuses = Query(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == cid }))
+    }
 
     private let catalog = FoodCatalog.shared
 
@@ -53,6 +65,7 @@ struct ProfileView: View {
     private var profileForm: some View {
         Form {
                 childSection
+                childrenSection
                 planSection
                 appSection
                 proSection
@@ -82,6 +95,20 @@ struct ProfileView: View {
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
             .sheet(isPresented: $showRecap) { recapDestination }
             .sheet(isPresented: $showPro) { ProSheet(entitlements: entitlements) }
+            .sheet(isPresented: $showAddChild) {
+                OnboardingView { created in
+                    activeChildId = ActiveChild.id(of: created)
+                    showAddChild = false
+                }
+            }
+            .alert("Удалить ребёнка?", isPresented: Binding(
+                get: { childToDelete != nil },
+                set: { if !$0 { childToDelete = nil } })) {
+                Button("Удалить", role: .destructive) { deleteChild() }
+                Button("Отмена", role: .cancel) { childToDelete = nil }
+            } message: {
+                Text("Вместе с ребёнком удалится весь его дневник: записи, статусы продуктов и фото. Это не отменить.")
+            }
             .alert("Сбросить все данные?", isPresented: $showResetConfirm) {
                 Button("Сбросить", role: .destructive) { resetAll() }
                 Button("Отмена", role: .cancel) {}
@@ -202,6 +229,68 @@ struct ProfileView: View {
         } else {
             RecapSheet(recap: month)
         }
+    }
+
+    // MARK: - Дети
+
+    private var childrenSection: some View {
+        Section {
+            ForEach(children) { kid in
+                Button {
+                    activeChildId = ActiveChild.id(of: kid)
+                } label: {
+                    HStack {
+                        Text(kid.name.isEmpty ? String(localized: "Малыш") : kid.name)
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        if kid.id == child.id {
+                            Image(systemName: "checkmark").foregroundStyle(Theme.accent)
+                        }
+                    }
+                }
+                .swipeActions {
+                    // Удалять последнего нельзя: приложению нужен хотя бы один
+                    // ребёнок, иначе экран схлопнется в онбординг поверх данных.
+                    if children.count > 1 {
+                        Button("Удалить", role: .destructive) { childToDelete = kid }
+                    }
+                }
+            }
+            Button {
+                // Лимит ограничивает ДОБАВЛЕНИЕ, а не доступ: уже заведённые дети
+                // остаются на месте, даже если Pro отвалился.
+                if ChildLimit.canAdd(currentCount: children.count, isPro: entitlements.isPro) {
+                    showAddChild = true
+                } else {
+                    showPro = true
+                }
+            } label: {
+                Label("Добавить ребёнка", systemImage: "plus.circle")
+            }
+        } header: {
+            Text("Дети")
+        } footer: {
+            if !entitlements.isPro && children.count >= ChildLimit.freeLimit {
+                Text("Второй и следующие дети — в Pudding Pro. Уже заведённые дети остаются доступными всегда.")
+            }
+        }
+    }
+
+    /// Удаляет ребёнка вместе с его записями. Чужие записи не трогаем.
+    private func deleteChild() {
+        guard let kid = childToDelete else { return }
+        let id = kid.id
+        let logs = (try? context.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.childId == id }))) ?? []
+        logs.forEach { context.delete($0) }
+        let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == id }))) ?? []
+        statuses.forEach { context.delete($0) }
+        context.delete(kid)
+        try? context.save()
+
+        if activeChildId == id.uuidString { activeChildId = "" }
+        childToDelete = nil
     }
 
     // MARK: - Pro

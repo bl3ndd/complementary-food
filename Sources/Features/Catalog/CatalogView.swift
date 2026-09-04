@@ -16,6 +16,13 @@ struct CatalogView: View {
 
     private let catalog = FoodCatalog.shared
 
+    init(child: Child) {
+        self.child = child
+        let cid = child.id
+        _statuses = Query(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == cid }))
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
             foodList
@@ -27,7 +34,7 @@ struct CatalogView: View {
                 }
                 .onAppear { openPending(router.pendingFoodId) }
                 .onChange(of: router.pendingFoodId) { _, fid in openPending(fid) }
-                .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet() }
+                .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet(childId: child.id) }
                 .alert("Удалить свой продукт?",
                        isPresented: Binding(get: { pendingDeleteCustom != nil },
                                             set: { if !$0 { pendingDeleteCustom = nil } }),

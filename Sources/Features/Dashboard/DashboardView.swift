@@ -8,6 +8,9 @@ struct DashboardView: View {
     let child: Child
     var goToCatalog: () -> Void = {}
     @Environment(\.modelContext) private var context
+    /// Все выборки фильтруются по активному ребёнку: дневники детей не должны
+    /// смешиваться. Записи со старым `childId == nil` подхватывает бэкфилл
+    /// `PlanMigration.ChildOwnership` на старте, до первой отрисовки.
     @Query private var statuses: [IntroductionStatus]
     /// Только записи за сегодня — из них рисуется лента дня.
     @Query private var todayLogs: [FoodLog]
@@ -37,6 +40,9 @@ struct DashboardView: View {
     init(child: Child, goToCatalog: @escaping () -> Void = {}) {
         self.child = child
         self.goToCatalog = goToCatalog
+        let cid = child.id
+        _statuses = Query(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == cid }))
 
         // Весь журнал в @Query — это две беды сразу. Первая: каждый проход body
         // сканирует тысячи SwiftData-объектов (у живого дневника их 2678, и одна
@@ -46,7 +52,7 @@ struct DashboardView: View {
         let cal = Calendar.current
         let dayStart = cal.startOfDay(for: Date())
         _todayLogs = Query(FetchDescriptor<FoodLog>(
-            predicate: #Predicate { $0.date >= dayStart }))
+            predicate: #Predicate { $0.date >= dayStart && $0.childId == cid }))
 
         // Границы берём на момент создания вьюхи и ВЫРАВНИВАЕМ ПО НАЧАЛУ ДНЯ: вьюха
         // пересоздаётся на каждый проход body шелла табов, и «сейчас минус 30 дней»
@@ -56,7 +62,7 @@ struct DashboardView: View {
         // в `todayEntries`, а окно поддержки от лишних суток не страдает.
         let cutoff = cal.date(byAdding: .day, value: -Self.recentWindowDays, to: dayStart) ?? .distantPast
         _recentLogs = Query(FetchDescriptor<FoodLog>(
-            predicate: #Predicate { $0.date >= cutoff }))
+            predicate: #Predicate { $0.date >= cutoff && $0.childId == cid }))
     }
 
     var body: some View {

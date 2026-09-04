@@ -6871,6 +6871,17 @@
         }
       }
     },
+    "Вместе с ребёнком удалится весь его дневник: записи, статусы продуктов и фото. Это не отменить.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The child's whole diary goes with them: entries, food statuses and photos. This cannot be undone."
+          }
+        }
+      }
+    },
     "Вода": {
       "extractionState": "manual",
       "localizations": {
@@ -7625,6 +7636,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "二"
+          }
+        }
+      }
+    },
+    "Второй и следующие дети — в Pudding Pro. Уже заведённые дети остаются доступными всегда.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A second child and beyond are part of Pudding Pro. Children you already added stay available for good."
           }
         }
       }
@@ -9129,6 +9151,17 @@
         }
       }
     },
+    "Дети": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Children"
+          }
+        }
+      }
+    },
     "Диарея": {
       "extractionState": "stale",
       "localizations": {
@@ -10131,6 +10164,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "添加食物"
+          }
+        }
+      }
+    },
+    "Добавить ребёнка": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a child"
           }
         }
       }
@@ -25964,6 +26008,17 @@
         }
       }
     },
+    "Отдельный дневник на каждого — записи и статусы не смешиваются": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A separate diary for each one — entries and statuses never mix"
+          }
+        }
+      }
+    },
     "Открыт": {
       "extractionState": "manual",
       "localizations": {
@@ -35128,6 +35183,17 @@
         }
       }
     },
+    "Сколько угодно детей": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As many children as you like"
+          }
+        }
+      }
+    },
     "Скоро": {
       "extractionState": "manual",
       "localizations": {
@@ -39036,6 +39102,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "删除方案？"
+          }
+        }
+      }
+    },
+    "Удалить ребёнка?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this child?"
           }
         }
       }

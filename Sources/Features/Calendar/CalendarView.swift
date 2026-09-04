@@ -5,8 +5,10 @@ import SwiftData
 /// (фильтр-линза + поиск), сетка-месяц вторична как навигатор/планировщик
 /// (SPEC §7). Лента отвечает на «что было», сетка — на «когда».
 struct CalendarView: View {
+    /// Ребёнок приходит параметром, а не через `children.first`: активного
+    /// выбирает `RootView`, и календарь обязан показывать ЕГО дневник.
+    let child: Child
     @Query(sort: \FoodLog.date, order: .reverse) private var logs: [FoodLog]
-    @Query private var children: [Child]
     @Query private var statuses: [IntroductionStatus]
     @Environment(\.modelContext) private var context
 
@@ -14,6 +16,14 @@ struct CalendarView: View {
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
     /// Русские ключи; локализуются в каталоге (`String.LocalizationValue` ниже).
     private let weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+
+    init(child: Child) {
+        self.child = child
+        let cid = child.id
+        _logs = Query(filter: #Predicate { $0.childId == cid },
+                      sort: \FoodLog.date, order: .reverse)
+        _statuses = Query(filter: #Predicate { $0.childId == cid })
+    }
 
     private enum Mode: Hashable { case feed, month }
     @State private var mode: Mode = .feed
@@ -78,7 +88,7 @@ struct CalendarView: View {
                         }
                     }
                     .accessibilityLabel("Экспорт")
-                    .disabled(isExporting || (!hasActualLogs && !hasAvoidItems) || children.isEmpty)
+                    .disabled(isExporting || (!hasActualLogs && !hasAvoidItems) || false)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showRecap = true } label: {
@@ -86,8 +96,7 @@ struct CalendarView: View {
                     }
                     .accessibilityLabel("Рекап месяца")
                     .accessibilityIdentifier("screenshot.recap")
-                    .disabled(children.isEmpty ||
-                              !RecapService(catalog: catalog, logs: logs).hasData(for: monthAnchor))
+                    .disabled(!RecapService(catalog: catalog, logs: logs).hasData(for: monthAnchor))
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showPlan = true } label: {
@@ -97,13 +106,13 @@ struct CalendarView: View {
                 }
             }
             .navigationDestination(for: Date.self) { date in
-                DayDetailView(date: date)
+                DayDetailView(date: date, child: child)
             }
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
             .sheet(isPresented: $showPlan) { PlanIntroSheet() }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
             .sheet(isPresented: $showRecap) {
-                if let child = children.first {
+                if true {
                     RecapSheet(recap: RecapService(catalog: catalog, logs: logs)
                         .recap(for: monthAnchor, childName: child.name,
                                ageMonths: child.ageInMonths))
@@ -433,10 +442,8 @@ struct CalendarView: View {
 
     private func markDone(_ log: FoodLog) {
         Haptics.success()
-        FeedingService(context: context).confirmPlanned(log)
-        if let profile = children.first?.feedingProfile {
-            NotificationManager.shared.refresh(context: context, profile: profile)
-        }
+        FeedingService(context: context, childId: child.id).confirmPlanned(log)
+        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }
 
     private func delete(_ log: FoodLog) {
@@ -461,7 +468,7 @@ struct CalendarView: View {
     /// в фоне: с фотографиями рендер занимает заметное время, и раньше приложение
     /// на это время просто замирало без единого признака работы.
     private func exportPDF(_ kind: ExportKind) {
-        guard !isExporting, let child = children.first else { return }
+        guard !isExporting else { return }
         let export = DiaryPDFExport.make(child: child, logs: logs, statuses: statuses)
         let report = kind == .pediatric ? export.report() : export.avoidReport()
         let name = export.fileName(prefix: kind == .pediatric

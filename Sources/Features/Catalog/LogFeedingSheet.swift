@@ -140,7 +140,7 @@ struct LogFeedingSheet: View {
     private func save() {
         Haptics.success()
         // Заметка пишется в этот же лог кормления (п.20) — отдельной записи нет.
-        FeedingService(context: context).logFeeding(
+        FeedingService(context: context, childId: child.id).logFeeding(
             food,
             liking: liking,
             reaction: reaction == .none ? nil : reaction,

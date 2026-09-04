@@ -7,6 +7,11 @@ import SwiftData
 /// доступен в Профиле → «О приложении».
 /// Разрешение на уведомления просим сразу после онбординга, в MainTabView.
 struct OnboardingView: View {
+    /// Зовётся с созданным ребёнком. Онбординг используется и для ПЕРВОГО входа
+    /// (тогда колбэк не нужен: `RootView` сам покажет приложение), и для
+    /// добавления следующего ребёнка из Профиля — там вызывающему нужно сделать
+    /// нового активным и закрыть лист.
+    var onCreated: (Child) -> Void = { _ in }
     @Environment(\.modelContext) private var context
 
     @State private var step = 0
@@ -265,8 +270,9 @@ struct OnboardingView: View {
         context.insert(child)
         if !introduced.isEmpty {
             let foods = introduced.compactMap { catalog.food(id: $0) }
-            FeedingService(context: context).markIntroduced(foods)
+            FeedingService(context: context, childId: child.id).markIntroduced(foods)
         }
         try? context.save()
+        onCreated(child)
     }
 }

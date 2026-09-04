@@ -24,13 +24,16 @@ struct FoodDetailView: View {
         self.food = food
         self.child = child
         let fid = food.id
-        _statuses = Query(filter: #Predicate { $0.foodId == fid })
-        _logs = Query(filter: #Predicate { $0.foodId == fid && !$0.planned },
+        // Владелец обязателен: продукт, введённый старшему, у младшего должен
+        // показываться невведённым.
+        let cid = child.id
+        _statuses = Query(filter: #Predicate { $0.foodId == fid && $0.childId == cid })
+        _logs = Query(filter: #Predicate { $0.foodId == fid && !$0.planned && $0.childId == cid },
                       sort: \FoodLog.date, order: .reverse)
     }
 
     private var state: IntroState { statuses.first?.state ?? .notIntroduced }
-    private var service: FeedingService { FeedingService(context: context) }
+    private var service: FeedingService { FeedingService(context: context, childId: child.id) }
 
     private var introStartedAt: Date? { statuses.first?.introStartedAt }
     private var observationDays: Int { child.feedingProfile.observationDays(for: food) }

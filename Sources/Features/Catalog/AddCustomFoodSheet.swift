@@ -4,6 +4,9 @@ import SwiftData
 /// Добавление своего продукта (категория «Другое»): название, иконка-эмодзи из
 /// сетки, отметка «аллерген». Сохраняет `CustomFood` и обновляет реестр каталога.
 struct AddCustomFoodSheet: View {
+    /// Владелец создаваемого статуса: без него запись осталась бы бесхозной
+    /// и пропала из отфильтрованных выборок.
+    let childId: UUID?
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
@@ -110,7 +113,7 @@ struct AddCustomFoodSheet: View {
         FoodCatalog.setCustom(all)
         // Свой продукт — сразу в коллекцию: помечаем введённым (ты его добавил — он «твой»).
         // markIntroduced НЕ создаёт запись в дневнике, только статус.
-        FeedingService(context: context).markIntroduced([food.asFood])
+        FeedingService(context: context, childId: childId).markIntroduced([food.asFood])
         dismiss()
     }
 }

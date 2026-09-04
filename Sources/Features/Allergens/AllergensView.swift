@@ -13,6 +13,14 @@ struct AllergensView: View {
 
     private let catalog = FoodCatalog.shared
 
+    init(child: Child) {
+        self.child = child
+        let cid = child.id
+        _statuses = Query(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == cid }))
+        _logs = Query(FetchDescriptor<FoodLog>(predicate: #Predicate { $0.childId == cid }))
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: 14) {
@@ -175,7 +183,7 @@ struct AllergensView: View {
 
     private func give(_ food: Food) {
         Haptics.success()
-        FeedingService(context: context).logFeeding(food, liking: nil, reaction: nil)
+        FeedingService(context: context, childId: child.id).logFeeding(food, liking: nil, reaction: nil)
         NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
     }
 

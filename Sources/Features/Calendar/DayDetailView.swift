@@ -5,14 +5,21 @@ import SwiftData
 /// вкусовой оценкой (SPEC §7).
 struct DayDetailView: View {
     let date: Date
+    let child: Child
     @Environment(\.modelContext) private var context
     @Query private var logs: [FoodLog]
-    @Query private var children: [Child]
     @State private var editingLog: FoodLog?
     @State private var showPlan = false
     @State private var showAddFeeding = false
 
     private let catalog = FoodCatalog.shared
+
+    init(date: Date, child: Child) {
+        self.date = date
+        self.child = child
+        let cid = child.id
+        _logs = Query(filter: #Predicate { $0.childId == cid })
+    }
 
     private var day: DaySummary {
         CalendarService(catalog: catalog, logs: logs).day(date)
@@ -52,7 +59,7 @@ struct DayDetailView: View {
         .sheet(item: $editingLog) { EditLogSheet(log: $0) }
         .sheet(isPresented: $showPlan) { PlanIntroSheet(initialDate: date) }
         .sheet(isPresented: $showAddFeeding) {
-            if let child = children.first {
+            if true {
                 QuickLogSheet(child: child, initialDate: date)
             }
         }
@@ -69,8 +76,9 @@ struct DayDetailView: View {
     /// и переставляет напоминания (B1).
     private func markDone(_ log: FoodLog) {
         Haptics.success()
-        FeedingService(context: context).confirmPlanned(log)
-        if let profile = children.first?.feedingProfile {
+        FeedingService(context: context, childId: child.id).confirmPlanned(log)
+        if true {
+            let profile = child.feedingProfile
             NotificationManager.shared.refresh(context: context, profile: profile)
         }
     }
