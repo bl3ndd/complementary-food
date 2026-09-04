@@ -177,7 +177,7 @@ Pudding is an offline diary for a baby's first solid foods. No account, no backe
 | Цена | ставится в ASC; в коде не хардкодится, показываем `product.displayPrice` |
 
 **Что входит в Pro:** рекап-карусель, цветовые гаммы, альтернативные иконки,
-виджет «Коллекция». **Что остаётся бесплатным:** весь дневник, аллергены с
+виджет «Коллекция», **несколько детей** (бесплатно — один). **Что остаётся бесплатным:** весь дневник, аллергены с
 напоминаниями, календарь, iCloud-синк, мульти-профили, PDF «для педиатра», лист
 «Не давать», одиночная рекап-карточка, фото ребёнка.
 
@@ -189,9 +189,9 @@ subscriptions». С релизом Pro это станет ложью, и рев
 
 ```
 IN-APP PURCHASE: the app offers exactly one non-consumable in-app purchase,
-"Pudding Pro" — a one-time purchase, not a subscription. It unlocks optional,
-cosmetic extras only: a carousel of shareable recap cards, colour themes,
-alternate app icons and a Home Screen widget. Everything that makes the app
+"Pudding Pro" — a one-time purchase, not a subscription. It unlocks optional
+extras: a carousel of shareable recap cards, colour themes, alternate app icons,
+a Home Screen widget, and diaries for more than one child (one child is free). Everything that makes the app
 useful stays free forever: the whole diary, allergens and their reminders, the
 calendar, iCloud sync, multiple children, the PDF export for a pediatrician,
 the "do not give" list, the monthly recap card and the child's photo. We do not
