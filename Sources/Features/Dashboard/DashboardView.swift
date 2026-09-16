@@ -161,12 +161,8 @@ struct DashboardView: View {
                             iconBackground: .white.opacity(0.22))
                     .foregroundStyle(.white)
                     // Бренд-градиент — как BigButton: primary-действие экрана.
-                    // Тень на фигуре, а не на плитке целиком (см. cartoonCard).
-                    .background {
-                        RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .fill(Theme.accentGradient)
-                            .shadow(color: Theme.accentDeep.opacity(0.30), radius: 10, x: 0, y: 5)
-                    }
+                    .background(Theme.accentGradient,
+                                in: RoundedRectangle(cornerRadius: 22, style: .continuous))
             }
             .buttonStyle(BouncyButtonStyle())
 
@@ -176,11 +172,8 @@ struct DashboardView: View {
                 actionLabel("Реакция", asset: "react_skin", emoji: "🩹",
                             iconBackground: Color.orange.opacity(0.15))
                     .foregroundStyle(.primary)
-                    .background {
-                        RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .fill(Theme.card)
-                            .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
-                    }
+                    .background(Theme.card,
+                                in: RoundedRectangle(cornerRadius: 22, style: .continuous))
                     .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous)
                         .stroke(Color.orange.opacity(0.35), lineWidth: 1.5))
             }

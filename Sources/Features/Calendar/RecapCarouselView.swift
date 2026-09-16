@@ -65,7 +65,6 @@ struct RecapCarouselView: View {
                     ForEach(Array(cards.enumerated()), id: \.element.id) { i, kind in
                         card(kind)
                             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                            .shadow(color: .black.opacity(0.15), radius: 12, y: 6)
                             .padding(.horizontal)
                             .padding(.vertical, 8)
                             .tag(i)

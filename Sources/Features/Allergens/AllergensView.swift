@@ -59,7 +59,6 @@ struct AllergensView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.accentGradient,
                     in: RoundedRectangle(cornerRadius: 26, style: .continuous))
-        .shadow(color: Theme.accentDeep.opacity(0.30), radius: 16, x: 0, y: 9)
     }
 
     // MARK: - Строка-карточка

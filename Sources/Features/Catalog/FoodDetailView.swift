@@ -142,7 +142,7 @@ struct FoodDetailView: View {
                     if state != .notIntroduced, state != .introducing {
                         ZStack {
                             Circle().fill(Theme.card).frame(width: 26, height: 26)
-                                .shadow(color: .black.opacity(0.12), radius: 2, y: 1)
+                                .overlay(Circle().stroke(Theme.hairline, lineWidth: 1))
                             OpenMojiIcon(asset: stateAsset, fallback: stateEmoji, size: 19)
                         }
                         .offset(x: 3, y: 3)
@@ -382,7 +382,7 @@ struct FoodDetailView: View {
                         .font(.title3.weight(.bold)).foregroundStyle(Theme.accent)
                         .frame(width: 54, height: 54)
                         .background(Theme.card, in: Circle())
-                        .shadow(color: .black.opacity(0.10), radius: 6, y: 3)
+                        .overlay(Circle().stroke(Theme.hairline, lineWidth: 1))
                 }
                 .accessibilityLabel("Ещё действия")
                 .accessibilityIdentifier("food.more")
@@ -409,7 +409,6 @@ struct FoodDetailView: View {
                 }
                 .padding(28)
                 .background(Theme.card, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
-                .shadow(color: Theme.accentDeep.opacity(0.25), radius: 20, y: 10)
                 .overlay { ConfettiBurst() }
                 .transition(.scale(scale: 0.85).combined(with: .opacity))
             }

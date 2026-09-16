@@ -171,22 +171,19 @@ struct EmojiAvatar: View {
 }
 
 extension View {
-    /// Белая карточка со скруглением и мягкой многослойной тенью.
+    /// Белая карточка со скруглением и тонким контуром.
     func cartoonCard(padding: CGFloat = 16) -> some View {
         self.padding(padding)
             .frame(maxWidth: .infinity, alignment: .leading)
-            // Тень висит на самой фигуре, а не на собранной карточке. На собранной
-            // Core Animation вынуждена блюрить произвольное содержимое offscreen
-            // каждый кадр; на залитой фигуре она берёт готовый shadowPath. Заливка
-            // непрозрачная и покрывает карточку целиком — силуэт тени тот же.
-            .background {
-                RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .fill(Theme.card)
-                    .shadow(color: Theme.accentDeep.opacity(0.12), radius: 14, x: 0, y: 7)
-            }
+            // БЕЗ тени (решение 17.09.2026): тонированная тень под каждой карточкой
+            // давала «шаблонный» вид, а в iOS 26 глубина передаётся слоями и тонкими
+            // разделителями. Но тень была единственным, что отделяло белую карточку
+            // от кремового фона: `cardStroke` в светлой теме — белый контур на белой
+            // заливке, его не видно. Поэтому контур — `hairline`, а не `cardStroke`.
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .stroke(Theme.cardStroke, lineWidth: 1))
+                    .stroke(Theme.hairline, lineWidth: 1))
     }
 }
 

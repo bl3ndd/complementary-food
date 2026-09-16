@@ -73,7 +73,6 @@ struct RecapCard: View {
                 .background(.white, in: RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .padding(.horizontal, 22)
                 .padding(.top, -30)      // карта заезжает под маскота
-                .shadow(color: .black.opacity(0.18), radius: 16, y: 8)
 
                 Spacer(minLength: 0)
 
@@ -173,7 +172,6 @@ struct RecapSheet: View {
             ScrollView {
                 RecapCard(recap: recap)
                     .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                    .shadow(color: .black.opacity(0.15), radius: 12, y: 6)
                     .padding()
             }
             .background(AppBackground())

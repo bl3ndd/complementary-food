@@ -402,7 +402,7 @@ struct CalendarView: View {
                             .font(.system(size: 9, weight: .heavy))
                             .foregroundStyle(fill)
                             .frame(width: 14, height: 14)
-                            .background(Circle().fill(.white).shadow(radius: 1))
+                            .background(Circle().fill(.white))
                     }
                 }
         }

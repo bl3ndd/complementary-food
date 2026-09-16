@@ -211,7 +211,6 @@ struct OnboardingView: View {
             .frame(width: 132, height: 132)
             .background(Theme.softGradient(color), in: Circle())
             .overlay(Circle().stroke(Theme.cardStroke, lineWidth: 1.5))
-            .shadow(color: color.opacity(0.25), radius: 16, y: 8)
     }
 
     // MARK: - Кнопка / переходы
@@ -241,7 +240,6 @@ struct OnboardingView: View {
                     if canProceed { Theme.accentGradient } else { Color.gray.opacity(0.4) }
                 }
                 .clipShape(Capsule())
-                .shadow(color: Theme.accent.opacity(canProceed ? 0.35 : 0), radius: 10, y: 5)
         }
         .buttonStyle(BouncyButtonStyle())
         .disabled(!canProceed)

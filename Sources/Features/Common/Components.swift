@@ -25,7 +25,7 @@ struct Chip: View {
     }
 }
 
-/// Крупная primary-кнопка на всю ширину с градиентом и мягкой тенью.
+/// Крупная primary-кнопка на всю ширину с градиентом.
 struct BigButton: View {
     let title: LocalizedStringKey
     var tint: Color? = nil          // nil → фирменный градиент-акцент
@@ -39,7 +39,6 @@ struct BigButton: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 15)
                 .background(backgroundGradient, in: Capsule())
-                .shadow(color: (tint ?? Theme.accent).opacity(0.35), radius: 10, x: 0, y: 5)
         }
         .buttonStyle(BouncyButtonStyle())
     }
@@ -91,7 +90,6 @@ struct PillButton: View {
                 .background(LinearGradient(colors: [tint, tint.opacity(0.82)],
                                            startPoint: .top, endPoint: .bottom),
                             in: Capsule())
-                .shadow(color: tint.opacity(0.35), radius: 6, x: 0, y: 3)
         }
         .buttonStyle(BouncyButtonStyle())
     }
