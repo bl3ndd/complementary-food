@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import SwiftData
 
 /// Гейт: нет ребёнка → онбординг; есть → основное приложение (SPEC §12).
@@ -25,6 +26,7 @@ struct RootView: View {
         // Гамма применяется ДО отрисовки детей, поэтому смена видна сразу, без
         // перезапуска. Без права на Pro платная гамма молча откатывается на базовую.
         let _ = Theme.apply(Palette.allowed(id: paletteId, isPro: entitlements.isPro))
+        let appliedPalette = Theme.palette.id
 
         Group {
             if let child = ActiveChild.resolve(children: children, storedId: activeChildId) {
@@ -35,6 +37,14 @@ struct RootView: View {
                     .transition(.opacity)
             }
         }
+        // `Theme.*` — обычные статики, SwiftUI не умеет за ними следить. Без этого
+        // смена гаммы доходила только до того, что читает `.tint` из окружения
+        // (системные кнопки, тумблеры, таббар), а всё, что рисуется через
+        // `Theme.accent` напрямую — карточки, кнопки, акцентный текст, — оставалось
+        // на старой гамме, пока конкретная вьюха случайно не перерисуется. Смена
+        // идентичности пересобирает дерево целиком. Меняется только когда гамма
+        // РЕАЛЬНО применилась: попытка выбрать платную без Pro дерево не трогает.
+        .id(appliedPalette)
         // Мягкий кроссфейд онбординг ↔ приложение (финиш онбординга / сброс данных).
         .animation(.easeInOut(duration: 0.45), value: children.isEmpty)
         .task {
@@ -44,10 +54,26 @@ struct RootView: View {
             await proStore.refresh()
         }
         .tint(Theme.accent)
+        // Алерты и диалоги — это UIKit, SwiftUI-шный `.tint` до них не доходит, и без
+        // тинта окна они красились в системный синий. Ассета AccentColor в проекте
+        // нет намеренно: он статичный, а цвет зависит от выбранной гаммы.
+        .onAppear { applyWindowTint() }
+        .onChange(of: appliedPalette) { _, _ in applyWindowTint() }
         .fontDesign(.rounded)            // мультяшный скруглённый шрифт по всему приложению
         // Палитра адаптивная (Theme.dynamic). По умолчанию идём за системой, но даём
         // зафиксировать: дневник ведут ночью, и «всегда тёмная» — законное желание.
         .preferredColorScheme(theme.colorScheme)
+    }
+}
+
+extension RootView {
+    /// Тинт окна под текущую гамму — для UIKit-частей (алерты, диалоги).
+    private func applyWindowTint() {
+        let tint = UIColor(Theme.accent)
+        for scene in UIApplication.shared.connectedScenes {
+            guard let windowScene = scene as? UIWindowScene else { continue }
+            for window in windowScene.windows { window.tintColor = tint }
+        }
     }
 }
 
