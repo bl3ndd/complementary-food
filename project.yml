@@ -25,11 +25,11 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.0"
-    MARKETING_VERSION: "1.0.0"
+    MARKETING_VERSION: "1.1.0"
     # Альтернативные иконки (Pro). Имена обязаны совпадать с AppIconManager.names.
     ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: AppIconMarshmallow AppIconMatcha AppIconLavender AppIconPeach AppIconHoney AppIconBlueberry
     ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
-    CURRENT_PROJECT_VERSION: "5"
+    CURRENT_PROJECT_VERSION: "6"
 targets:
   Prikorm:
     type: application

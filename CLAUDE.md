@@ -95,9 +95,10 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 - **StoreKit только через шов** `ProPurchasing` (как `NotificationScheduling` над
   центром уведомлений): состояние `ProStore` тестируется моком, живая сессия App Store
   в юнит-тестах не нужна. Локальный прогон покупки — `Prikorm.storekit`.
-- **Что платное:** рекап-карусель, цветовые гаммы, альтернативные иконки, виджет.
+- **Что платное:** рекап-карусель, цветовые гаммы, альтернативные иконки, виджет,
+  несколько детей (бесплатно — один, см. «Несколько детей»).
   **Что бесплатное навсегда:** весь дневник, аллергены, календарь, iCloud-синк,
-  мульти-профили, **PDF «для педиатра»**, лист «Не давать», одиночная рекап-карточка,
+  **PDF «для педиатра»**, лист «Не давать», одиночная рекап-карточка,
   фото ребёнка. **Правило: не паволим доступ к собственным данным пользователя** и то,
   что нужно в момент, когда с ребёнком что-то не так.
 - **Гаммы** (`Palette`) меняют акцент и фоновую подложку; нейтральные поверхности общие,
@@ -211,7 +212,8 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
 
 ## Лендинг (`site/`)
 
-- Лендинг живёт на Vercel (`pudding-for-children.vercel.app`, `cleanUrls: true` →
+- Лендинг живёт на Vercel под своим доменом (`babyfooddiary.com`, регистратор
+  Cloudflare, на апексе CNAME в режиме «DNS only»; `cleanUrls: true` →
   ссылки без `.html`) и **генерируется**: `python3 scripts/landing/build.py` собирает
   `site/index.html` (ru) + `site/<lang>/index.html` на **14 языках** и `site/sitemap.xml`.
 - **`site/*/index.html` руками не править** — только тексты в
@@ -228,8 +230,10 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   Голый unittest, без зависимостей — `build.py` должен запускаться системным `python3`.
 - **Подтверждение прав Google Search Console** — мета-тег `GSC_VERIFICATION` в `build.py`,
   а НЕ файл в `site/`: `cleanUrls` в `vercel.json` редиректит `/что-то.html` на `/что-то`,
-  и робот за файлом подтверждения получил бы редирект. Ресурс в GSC — **префиксный**
-  (`https://pudding-for-children.vercel.app/`), доменный невозможен: DNS у `vercel.app` не наш.
+  и робот за файлом подтверждения получил бы редирект. Ресурс в GSC —
+  **доменный** (`sc-domain:babyfooddiary.com`, подтверждён через DNS): он покрывает
+  `www`, `http` и поддомены одним ресурсом. Старый `pudding-for-children.vercel.app`
+  не выключать — он зашит в выпущенный билд 1.0.0.
 
 ## Блог (`content/blog/`)
 

@@ -163,44 +163,51 @@ Pudding is an offline diary for a baby's first solid foods. No account, no backe
 7. REGULATED INDUSTRY / THIRD-PARTY MATERIAL: not a medical device, no medical or diagnostic service, no HealthKit, no clinical records - it only stores what the parent types and points the user to their pediatrician. The only third-party material is the OpenMoji icon set (openmoji.org) under Creative Commons BY-SA 4.0, which allows use with attribution; the credit "Icons: OpenMoji (CC BY-SA 4.0)" is shown in Profile - About. All other assets and text are ours.
 ```
 
-## 8а. Покупка Pro (готовится к следующему релизу)
-
-⚠️ **Не заводить в ASC, пока текущая заявка на ревью.** Добавление покупки к
-версии, которая проверяется, — лишний повод для вопросов. Всё ниже применяется
-вместе с билдом, где Pro реально появится.
+## 8а. Покупка Pro — ЗАВЕДЕНА В ASC (12.10.2026)
 
 | Поле | Значение |
 |---|---|
 | Тип | **Non-Consumable** (разовая покупка, НЕ подписка) |
 | Product ID | `com.pudding.app.pro` (совпадает с `ProProductID.pro`) |
-| Family Sharing | **включить** — родителей двое, платить дважды они не должны |
-| Цена | ставится в ASC; в коде не хардкодится, показываем `product.displayPrice` |
+| ID в ASC | `6821919233` |
+| Family Sharing | включено — родителей двое, платить дважды они не должны |
+| Цена | базовая территория **USA, $4.99**; остальные страны Apple вывел сам |
+| Локализации | 15/15, имя «Pudding Pro», описание ≤45 символов на витрину |
+| Состояние | `MISSING_METADATA` — **не хватает скриншота для ревью** |
+
+**Скриншот для ревью** (`appStoreReviewScreenshot`) обязателен, без него покупку не
+отправить. Снять можно только с живого экрана Pro: `devicectl` команды screenshot не
+имеет, симуляторы запрещены — значит кадр делает человек на телефоне (Профиль →
+«Pudding Pro»), дальше загрузка через API.
 
 **Что входит в Pro:** рекап-карусель, цветовые гаммы, альтернативные иконки,
-виджет «Коллекция», **несколько детей** (бесплатно — один). **Что остаётся бесплатным:** весь дневник, аллергены с
-напоминаниями, календарь, iCloud-синк, мульти-профили, PDF «для педиатра», лист
-«Не давать», одиночная рекап-карточка, фото ребёнка.
+виджет «Коллекция», **несколько детей** (бесплатно — один). **Что остаётся бесплатным:**
+весь дневник, аллергены с напоминаниями, календарь, iCloud-синк, PDF «для педиатра»,
+лист «Не давать», одиночная рекап-карточка, фото ребёнка.
 
-### Review Notes — заменить абзац про отсутствие покупок
+### Review Notes 1.1.0 — уже залиты в ASC
 
-Сейчас в Notes и в ответе на реджект 2.1 стоит «NO paid content, IAP or
-subscriptions». С релизом Pro это станет ложью, и ревьюер найдёт расхождение.
-Заменить на:
+Абзаца «no in-app purchases» в них больше нет. **Лимит поля — 4000 символов**, текст
+ниже занимает 3989: добавляешь строку — убирай другую.
 
 ```
-IN-APP PURCHASE: the app offers exactly one non-consumable in-app purchase,
-"Pudding Pro" — a one-time purchase, not a subscription. It unlocks optional
-extras: a carousel of shareable recap cards, colour themes, alternate app icons,
-a Home Screen widget, and diaries for more than one child (one child is free). Everything that makes the app
-useful stays free forever: the whole diary, allergens and their reminders, the
-calendar, iCloud sync, multiple children, the PDF export for a pediatrician,
-the "do not give" list, the monthly recap card and the child's photo. We do not
-paywall access to the user's own data.
-Users who installed the app before Pro existed get it unlocked automatically and
-for free — this is decided on device from a local first-launch record, with no
-account and no server of ours. A "Restore purchases" button is on the purchase
-screen, and the purchase is Family Shareable.
-No new data is collected; the app still declares "Data Not Collected".
+Pudding is an offline diary for a baby's first solid foods. No account, no backend, no third-party SDKs.
+
+1. IN-APP PURCHASE (new in 1.1.0): exactly ONE non-consumable product, "Pudding Pro" (com.pudding.app.pro) - a ONE-TIME purchase, NOT a subscription, Family Sharing enabled. No trial, no auto-renewal, no account. It unlocks optional extras only: a carousel of shareable recap cards, colour themes, alternate app icons, a Home Screen widget, and diaries for more than one child (the first child is free). Everything holding the user's own data stays free forever and is never gated: the whole diary, allergens, calendar, iCloud sync, the PDF export for a pediatrician, the single recap card, the child's photo. Purchase screen: Profile > "Pudding Pro" - StoreKit price, "Restore purchases", terms and privacy links.
+
+2. WHY PRO MAY LOOK ALREADY UNLOCKED: users who installed before 1.1.0 were promised lifetime access and receive it free. That is decided ON DEVICE from a local first-launch record - no server, no receipt lookup. A reviewer installing a fresh copy sees the normal purchase screen with the price. The multi-child limit is enforced on ADDING a second child, never on reading data already entered.
+
+3. TESTED ON: iPhone 17 (iPhone18,3) / iOS 26.6 - primary device, manual pass plus unit tests; iPhone 15 Pro Max (iPhone16,2) / iOS 26.6; iPhone 13 (iPhone14,5) / iOS 26.4. Simulators iOS 18.2-26.4, Xcode 26.4. iPhone only.
+
+4. WHAT IT DOES / FOR WHOM: for parents of infants roughly 4-12 months old. A new food is given every few days and the parent must remember which, when, and how the child reacted. Pudding keeps that record: a bundled food catalog, a per-food introduction started manually, a feeding log (date, portion, liking, reaction, note, photo), a calendar diary, allergens with repeat reminders, and a PDF export for the pediatrician. It is a diary, not an advisor: no medical advice, no diagnosis, it never tells a parent what or when to feed. Every plan parameter (start age, observation windows, allergen list and frequency) is set by the user. A medical disclaimer is an onboarding step shown BEFORE any child data is entered, and stays in Profile > About.
+
+5. SETUP / ACCESS: nothing required - no account or credentials. Install and open. Onboarding: welcome > disclaimer > child's name and birth date > feeding plan. Today tab: today's journal. Catalog tab: open a food > "Start introducing" > "Log a feeding"; a food becomes introduced automatically after feedings on several DIFFERENT days (2 by default, 3 for allergens). Allergens tab: repeat reminders. Calendar tab: the diary and recap cards. Profile tab: child (switch or add), plan, language, theme, PDF export, Pudding Pro, About.
+
+6. EXTERNAL SERVICES: none. Apple frameworks only (SwiftUI, SwiftData, StoreKit 2, UserNotifications, PhotosUI, PDFKit, WidgetKit), no third-party packages. No backend of ours, no authentication, analytics, ads, AI or external data provider. The food catalog is a static JSON file bundled in the app. The only network use is Apple CloudKit, syncing to the user's own private iCloud database, which we cannot access. Hence "Data Not Collected". The "remote-notification" background mode exists only so CloudKit can deliver silent sync pushes - we run no push server; every reminder is a local notification.
+
+7. REGIONS: no regional differences. Identical features everywhere; the purchase is offered in all territories at the App Store Connect price. The UI is localized into 14 languages and follows the device language; that affects wording only, never functionality.
+
+8. REGULATED INDUSTRY / THIRD-PARTY MATERIAL: not a medical device, no diagnostic service, no HealthKit, no clinical records - it stores only what the parent types and points to their pediatrician. The only third-party material is the OpenMoji icon set (openmoji.org) under CC BY-SA 4.0, credited as "Icons: OpenMoji (CC BY-SA 4.0)" in Profile > About. All other assets and text are ours.
 ```
 
 ## 9. Технические перед загрузкой билда
