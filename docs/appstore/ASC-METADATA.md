@@ -210,6 +210,35 @@ Pudding is an offline diary for a baby's first solid foods. No account, no backe
 8. REGULATED INDUSTRY / THIRD-PARTY MATERIAL: not a medical device, no diagnostic service, no HealthKit, no clinical records - it stores only what the parent types and points to their pediatrician. The only third-party material is the OpenMoji icon set (openmoji.org) under CC BY-SA 4.0, credited as "Icons: OpenMoji (CC BY-SA 4.0)" in Profile > About. All other assets and text are ours.
 ```
 
+## 8б. Ключевые слова 1.1.0 — залиты во все 15 локалей
+
+Ключи в разделах 5–6 — история 1.0. В 1.0 треть места уходила на слова, которые уже
+есть в названии и подзаголовке: Apple индексирует их и так, повтор в ключах ничего не
+даёт. В 1.1.0 повторы убраны вместе с единственным числом от них же (`allergen` при
+`allergens`), освободившееся место отдано под новые запросы.
+
+**Правила:** без пробелов после запятых; ни одного слова из названия/подзаголовка;
+никакого рецептного и советующего (меню, рецепты, «план прикорма») — приложение
+ничего не советует, и такой трафик уйдёт с отказом.
+
+| Локаль | Длина | Ключи |
+|---|---|---|
+| `en-US` | 98 | `baby,weaning,blw,tracker,diary,feeding,reaction,infant,log,puree,journal,allergy,introduce,toddler` |
+| `ru` | 95 | `малыш,введение,кормление,реакция,ребёнок,питание,пюре,каша,аллергия,педприкорм,грудничок,трекер` |
+| `uk` | 94 | `малюк,введення,годування,реакція,дитина,харчування,пюре,каша,алергія,немовля,педприкорм,трекер` |
+| `de-DE` | 93 | `baby,blw,einführen,babybrei,reaktion,säugling,allergie,ernährung,kleinkind,protokoll,breifrei` |
+| `fr-FR` | 98 | `bébé,dme,purée,allergie,sevrage,repas,réaction,carnet,suivi,nourrisson,solide,introduction,journal` |
+| `es-ES` | 95 | `bebe,destete,blw,introduccion,alimentacion,complementaria,reaccion,comida,alergia,pure,registro` |
+| `es-MX` | 95 | `bebe,destete,blw,introduccion,alimentacion,complementaria,reaccion,comida,alergia,pure,registro` |
+| `it` | 94 | `neonato,blw,reazione,alimentazione,autosvezzamento,allergia,omogeneizzati,introduzione,bambino` |
+| `pt-BR` | 98 | `introdução,blw,bebê,desmame,diário,alimentação,reação,comida,registro,alergia,neném,acompanhamento` |
+| `pl` | 97 | `blw,niemowlę,karmienie,dziennik dziecka,reakcja,jedzenie,alergia,papki,obiadki,słoiczki,niemowlak` |
+| `nl-NL` | 99 | `baby,bijvoeding,blw,zelf eten,allergie,dagboek,voeding,reactie,peuter,fruithapje,groentehapje,papje` |
+| `tr` | 91 | `bebek,mama,alerji,beslenme,tepki,günlük,blw,katı,takip,çocuk,püre,kayıt,bebeğim,takvim,6 ay` |
+| `ja` | 87 | `赤ちゃん,育児,子育て,アレルギー,手づかみ食べ,ベビーフード,初期,中期,後期,完了期,乳児,幼児,ベビー,食事,日記,反応,管理,カレンダー,メモ,ごっくん期,もぐもぐ期` |
+| `ko` | 79 | `아기,이유식기록,이유식일지,첫이유식,초기이유식,중기이유식,후기이유식,자기주도이유식,유아식,알러지,육아,육아일기,반응,식단,아기식단,블위,캘린더` |
+| `zh-Hans` | 60 | `辅食添加,喂养,食物,反应,婴儿,婴幼儿,育儿,母婴,断奶,自主进食,手指食物,米粉,果泥,日历,6个月,追踪,宝宝成长` |
+
 ## 9. Технические перед загрузкой билда
 
 - [x] `ITSAppUsesNonExemptEncryption = NO` (в project.yml — вопрос про шифрование не будет всплывать)
