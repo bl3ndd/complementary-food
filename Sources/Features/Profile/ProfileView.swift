@@ -19,6 +19,11 @@ struct ProfileView: View {
     @AppStorage(Palette.storageKey) private var paletteId: String = Palette.pudding.id
     @AppStorage(ActiveChild.storageKey) private var activeChildId: String = ""
     @ObservedObject private var proStore = ProStore.shared
+    #if DEBUG
+    @AppStorage(Entitlements.debugSimulateNewUserKey) private var simulateNewUser = false
+    #else
+    private let simulateNewUser = false
+    #endif
     @State private var showPro = false
     @State private var showAddChild = false
     @State private var childToDelete: Child?
@@ -46,7 +51,7 @@ struct ProfileView: View {
     /// Право на Pro. Самая ранняя запись установки — дубли из CloudKit не должны
     /// отбирать обещанное раннему пользователю.
     private var entitlements: Entitlements {
-        Entitlements(install: installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
+        Entitlements(install: simulateNewUser ? nil : installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
                      purchased: proStore.isPurchased)
     }
 
@@ -72,6 +77,9 @@ struct ProfileView: View {
                 dataSection
                 aboutSection
                 dangerSection
+                #if DEBUG
+                debugSection
+                #endif
             }
             .scrollContentBackground(.hidden)
             .background(AppBackground())
@@ -121,6 +129,19 @@ struct ProfileView: View {
                 Text("Перезапустите приложение, чтобы применить новый язык.")
             }
     }
+
+    #if DEBUG
+    /// Отладка: без локализации (verbatim), в Release секции нет.
+    private var debugSection: some View {
+        Section {
+            Toggle(isOn: $simulateNewUser) {
+                Text(verbatim: "Act as a new user (show paywall)")
+            }
+        } header: {
+            Text(verbatim: "Debug")
+        }
+    }
+    #endif
 
     // MARK: - Малыш
 

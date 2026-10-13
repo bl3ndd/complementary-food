@@ -14,11 +14,16 @@ struct RootView: View {
     @AppStorage(ActiveChild.storageKey) private var activeChildId: String = ""
     /// Оформление: система / светлая / тёмная (Профиль → Приложение). Применяется сразу.
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
+    #if DEBUG
+    @AppStorage(Entitlements.debugSimulateNewUserKey) private var simulateNewUser = false
+    #else
+    private let simulateNewUser = false
+    #endif
 
     /// Право на Pro. Берём САМУЮ РАННЮЮ запись установки: дубли из CloudKit
     /// (их реально бывает больше одной) не должны отбирать обещанное.
     private var entitlements: Entitlements {
-        Entitlements(install: installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
+        Entitlements(install: simulateNewUser ? nil : installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
                      purchased: proStore.isPurchased)
     }
 

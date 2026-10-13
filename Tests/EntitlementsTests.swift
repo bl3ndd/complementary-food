@@ -52,6 +52,19 @@ final class EntitlementsTests: XCTestCase {
 
     // MARK: - Когда версию прочитать не удалось
 
+    /// Боевые дефолты, а не подставленные в тест. Раньше запасная дата стояла на
+    /// 29.08.2026 — раньше, чем 1.0 вышла в продажу (04.09): человек, поставивший
+    /// 1.0 в сентябре, при пустой версии в записи терял обещанный Pro.
+    func testDefaultFallbackDateCoversVersion10Users() {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = TimeZone(identifier: "UTC")!
+        let lastDayOn10 = utc.date(from: DateComponents(year: 2026, month: 10, day: 31))!
+        let e = Entitlements(install: AppInstall(firstLaunchedAt: lastDayOn10, firstVersion: ""),
+                             purchased: false)
+        XCTAssertTrue(e.isEarlyAdopter)
+        XCTAssertEqual(e.proVersion, "1.1.0")
+    }
+
     /// `firstVersion` имеет дефолт "" (требование CloudKit) и может приехать пустым
     /// при частичном синке. Тогда решает дата — и решает щедро.
     func testEmptyVersionFallsBackToDateAndStaysEarly() {

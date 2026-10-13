@@ -22,6 +22,30 @@ final class MultiChildTests: XCTestCase {
              emoji: "🥦", isAllergen: false, allergenGroup: nil, minAgeMonths: 6)
     }
 
+    // MARK: - Карточка продукта видит то, что сама записала
+
+    /// UI-тест «Начать введение» на устройстве: после тапа карточка осталась
+    /// «Не введён». Здесь — путь карточки один в один: сервис с владельцем
+    /// пишет статус, затем выборка с ТЕМ ЖЕ предикатом, что у `@Query` карточки,
+    /// и из ДРУГОГО контекста — так видит стор, а не кэш контекста.
+    @MainActor
+    func testStartedIntroductionIsVisibleThroughCardPredicate() throws {
+        let container = try makeContainer()
+        let ctx = container.mainContext
+        let child = Child(name: "Ника", birthDate: .now)
+        ctx.insert(child)
+        try ctx.save()
+
+        FeedingService(context: ctx, childId: child.id).startIntroduction(food("broccoli"))
+        XCTAssertFalse(ctx.hasChanges, "сервис обязан сохранить — иначе @Query не обновится")
+
+        let fid = "broccoli", cid = child.id
+        let fresh = ModelContext(container)
+        let seen = try fresh.fetch(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.foodId == fid && $0.childId == cid }))
+        XCTAssertEqual(seen.map(\.state), [.introducing])
+    }
+
     // MARK: - Выборки не смешивают детей
 
     @MainActor
