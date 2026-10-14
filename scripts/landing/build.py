@@ -33,6 +33,8 @@ BASE = "https://babyfooddiary.com"
 APP_STORE_URL = "https://apps.apple.com/app/id6789296295"
 
 GSC_VERIFICATION = '<meta name="google-site-verification" content="_lFDMFwheNZizHJ89Vp38iD7sAK9obP0pOnKzUsG_aM">'
+# Bing Webmaster Tools — тот же принцип: тег в шаблоне, а не файл в site/.
+BING_VERIFICATION = '<meta name="msvalidate.01" content="F1D595D6C9E51FBCD32D16E50F43E7B3">'
 
 # Порядок = порядок в переключателе языков. Первый — источник (ru, лежит в корне).
 LANGS = ["ru", "en", "de", "es", "fr", "it", "nl", "pl", "pt-BR", "tr", "uk", "ja", "ko", "zh-Hans"]
@@ -178,6 +180,7 @@ def render(all_d: dict, lang: str) -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {GSC_VERIFICATION}
+  {BING_VERIFICATION}
   <title>{esc(d['title'])}</title>
   <meta name="description" content="{esc(d['meta_desc'])}">
   <meta name="keywords" content="{esc(d['keywords'])}">
@@ -334,6 +337,7 @@ def blog_head(d: dict, title: str, desc: str, url: str, urls: dict) -> str:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {GSC_VERIFICATION}
+  {BING_VERIFICATION}
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(desc)}">
   <meta name="robots" content="index, follow">

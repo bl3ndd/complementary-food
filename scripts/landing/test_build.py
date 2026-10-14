@@ -106,16 +106,19 @@ class SearchConsoleTests(unittest.TestCase):
         all_d = {lang: build.load(lang) for lang in build.LANGS}
         landing = build.render(all_d, "en")
         self.assertIn(build.GSC_VERIFICATION, landing)
+        self.assertIn(build.BING_VERIFICATION, landing)
 
         d = build.load("en")
         blog = build.blog_head(d, "T", "D", build.blog_url(d), {"en": build.blog_url(d)})
         self.assertIn(build.GSC_VERIFICATION, blog)
+        self.assertIn(build.BING_VERIFICATION, blog)
 
     def test_verification_tag_is_a_meta_tag_not_a_file_reference(self):
         # Файл подтверждения ломается о cleanUrls в vercel.json (редирект
         # /что-то.html -> /что-то), поэтому способ обязан оставаться тегом.
         self.assertTrue(build.GSC_VERIFICATION.startswith("<meta "))
         self.assertNotIn(".html", build.GSC_VERIFICATION)
+        self.assertTrue(build.BING_VERIFICATION.startswith("<meta "))
 
 
 class UrlTests(unittest.TestCase):
