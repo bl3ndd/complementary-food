@@ -264,19 +264,16 @@ struct DashboardView: View {
 
     private func collectionCard(_ foods: [Food], introduced: Int) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .firstTextBaseline) {
-                Text("Коллекция продуктов").font(.headline)
-                Spacer()
-                // Цель — ближайшая веха, а не весь каталог: до 71 продукта не доходит
-                // никто, и шкала «почти пустая» вместо мотивации давала обратное.
-                Text("\(introduced)/\(collectionGoal(introduced))")
-                    .font(.subheadline.bold()).foregroundStyle(Theme.accent)
-                    .contentTransition(.numericText())
-                    .animation(.snappy, value: introduced)
-            }
+            Text("Коллекция продуктов").font(.headline)
+            // Цель — ближайшая веха, а не весь каталог: до 71 продукта не доходит
+            // никто, и шкала «почти пустая» вместо мотивации давала обратное.
+            // Счётчик «0/5» убран: без цифр шкала не читается как недовыполненный план.
             ProgressView(value: Double(introduced), total: Double(collectionGoal(introduced)))
                 .tint(Theme.accent)
                 .animation(.spring(response: 0.5, dampingFraction: 0.85), value: introduced)
+                // Цифра ушла с экрана, но VoiceOver (и UI-тесты) её по-прежнему слышат.
+                .accessibilityValue(Text("\(introduced) продуктов введено"))
+                .accessibilityIdentifier("collection.progress")
 
             if foods.isEmpty {
                 // Пустая коллекция: тёплый эмпти-стейт вместо сетки пунктирных кругов.

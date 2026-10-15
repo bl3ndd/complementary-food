@@ -48,7 +48,7 @@ final class ReactivityUITests: XCTestCase {
         app.acceptDisclaimer()
 
         // До: коллекция пуста. Знаменатель — ближайшая веха (5), а не весь каталог.
-        app.staticTexts["0/5"].assertExists(timeout: 8, "нет стартового счётчика 0/5")
+        app.assertCollection(0, timeout: 8, "нет стартового счётчика коллекции 0")
 
         // Мутация: добавить свой продукт.
         app.openTab("Каталог")
@@ -59,7 +59,7 @@ final class ReactivityUITests: XCTestCase {
 
         // Главная: счётчик и знаменатель обновились без перезапуска.
         app.openTab("Сегодня")
-        app.staticTexts["1/5"].assertExists(timeout: 6,
+        app.assertCollection(1, timeout: 6,
             "коллекция не отреагировала на свой продукт (статик-каталог протух?)")
 
         // Мутация: удалить свой продукт.
@@ -72,7 +72,7 @@ final class ReactivityUITests: XCTestCase {
 
         // Главная: счётчик вернулся.
         app.openTab("Сегодня")
-        app.staticTexts["0/5"].assertExists(timeout: 6,
+        app.assertCollection(0, timeout: 6,
             "коллекция не отреагировала на удаление своего продукта")
     }
 
@@ -111,7 +111,7 @@ final class ReactivityUITests: XCTestCase {
 
         XCTAssertFalse(app.staticTexts["Сейчас вводишь"].waitForExistence(timeout: 3),
                        "продукт с прошедшим окном не должен оставаться «в процессе»")
-        app.staticTexts["1/5"].assertExists(timeout: 8, "коллекция не выросла после автозавершения")
+        app.assertCollection(1, timeout: 8, "коллекция не выросла после автозавершения")
 
         app.openTab("Каталог")
         app.buttons.matching(NSPredicate(

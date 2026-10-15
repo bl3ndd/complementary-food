@@ -60,6 +60,15 @@ extension XCUIApplication {
     func row(containing text: String) -> XCUIElement {
         buttons.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch
     }
+
+    /// Счётчик коллекции: цифры на экране нет, она живёт в accessibilityValue
+    /// шкалы («1 продукт введён» — плюральная форма, поэтому сверяем начало).
+    func assertCollection(_ count: Int, timeout: TimeInterval = 6, _ message: String = "",
+                          file: StaticString = #filePath, line: UInt = #line) {
+        progressIndicators.matching(NSPredicate(
+            format: "identifier == 'collection.progress' AND value BEGINSWITH %@", "\(count) "))
+            .firstMatch.assertExists(timeout: timeout, message, file: file, line: line)
+    }
 }
 
 extension XCUIElement {
