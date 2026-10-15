@@ -256,26 +256,19 @@ struct ProfileView: View {
 
     private var childrenSection: some View {
         Section {
-            ForEach(children) { kid in
-                Button {
-                    activeChildId = ActiveChild.id(of: kid)
-                } label: {
-                    HStack {
-                        Text(kid.name.isEmpty ? String(localized: "Малыш") : kid.name)
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        if kid.id == child.id {
-                            Image(systemName: "checkmark").foregroundStyle(Theme.accent)
-                        }
+            // Выпадающий список, а не плоский ряд: с одним ребёнком выбирать нечего,
+            // а с несколькими ряды раздували бы экран.
+            if children.count > 1 {
+                Picker("Ребёнок", selection: Binding(
+                    get: { child.id },
+                    set: { id in activeChildId = ActiveChild.id(of: children.first { $0.id == id }) })) {
+                    ForEach(children) { kid in
+                        Text(kid.name.isEmpty ? String(localized: "Малыш") : kid.name).tag(kid.id)
                     }
                 }
-                .swipeActions {
-                    // Удалять последнего нельзя: приложению нужен хотя бы один
-                    // ребёнок, иначе экран схлопнется в онбординг поверх данных.
-                    if children.count > 1 {
-                        Button("Удалить", role: .destructive) { childToDelete = kid }
-                    }
-                }
+                // Удалять последнего нельзя: приложению нужен хотя бы один
+                // ребёнок, иначе экран схлопнется в онбординг поверх данных.
+                Button("Удалить ребёнка", role: .destructive) { childToDelete = child }
             }
             Button {
                 // Лимит ограничивает ДОБАВЛЕНИЕ, а не доступ: уже заведённые дети
