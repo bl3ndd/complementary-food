@@ -192,7 +192,8 @@ struct ProfileView: View {
             }
             Picker(selection: $paletteId) {
                 ForEach(Palette.all) { p in
-                    Text(p.isPro && !entitlements.isPro ? "\(p.title) 🔒" : p.title).tag(p.id)
+                    // «Pro» словом, а не замком-эмодзи: говорит, чем открывается, а не «нельзя».
+                    Text(p.isPro && !entitlements.isPro ? "\(p.title) · Pro" : p.title).tag(p.id)
                 }
             } label: {
                 Label("Цветовая гамма", systemImage: "paintpalette")
