@@ -52,7 +52,7 @@ struct ProfileView: View {
     /// отбирать обещанное раннему пользователю.
     private var entitlements: Entitlements {
         Entitlements(install: simulateNewUser ? nil : installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
-                     purchased: proStore.isPurchased)
+                     purchased: !simulateNewUser && proStore.isPurchased)
     }
 
     var body: some View {
