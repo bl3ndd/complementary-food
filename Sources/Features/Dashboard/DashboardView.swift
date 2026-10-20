@@ -21,6 +21,7 @@ struct DashboardView: View {
     @State private var showFeed = false
     @State private var showReaction = false
     @State private var showPlan = false
+    @State private var showRecap = false
     /// Явный навигационный путь: value-based NavigationLink в ScrollView на этом
     /// экране инертен (iOS 26) — пушим программно через Button + path.
     @State private var path: [Food] = []
@@ -78,12 +79,14 @@ struct DashboardView: View {
         let introducing = introducingItems(profile)
         let introducedStatuses = statuses.filter { $0.state == .introduced }
         let collection = introducedStatuses.compactMap { catalog.food(id: $0.foodId) }
+        let monthFoods = monthTriedFoods
 
         NavigationStack(path: $path) {
             ScrollView {
                 VStack(spacing: 16) {
                     heroCard(today: today).cozyAppear()
                     actionTiles.cozyAppear(0.06)
+                    recapRow(monthFoods).cozyAppear(0.09)
                     todayCard(today: today).cozyAppear(0.12)
                     introducingCard(introducing).cozyAppear(0.18)
                     collectionCard(collection, introduced: introducedStatuses.count).cozyAppear(0.24)
@@ -103,6 +106,7 @@ struct DashboardView: View {
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
             .sheet(isPresented: $showFeed) { QuickLogSheet(child: child, mode: .feeding) }
             .sheet(isPresented: $showReaction) { QuickLogSheet(child: child, mode: .reaction) }
+            .sheet(isPresented: $showRecap) { RecapDestination(child: child) }
             .sheet(isPresented: $showPlan) {
                 PlanIntroSheet(childId: child.id, initialDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
             }
@@ -194,6 +198,54 @@ struct DashboardView: View {
         .padding(.horizontal, 14).padding(.vertical, 12)
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
+    }
+
+    // MARK: - Рекап месяца
+
+    /// Вход в рекап — на главной, а не в профиле: в настройках его никто не находил.
+    /// Ряд появляется, когда в этом месяце есть хоть одна запись, — пустой рекап
+    /// открывать незачем. Справа — то, что уже попробовали: видно, что внутри.
+    @ViewBuilder
+    private func recapRow(_ foods: [Food]) -> some View {
+        if !foods.isEmpty {
+            Button {
+                Haptics.tap(); showRecap = true
+            } label: {
+                HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Рекап месяца").font(.subheadline.bold()).foregroundStyle(.primary)
+                        Text(Date().formatted(.dateTime.month(.wide)).firstCapitalized)
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    Spacer(minLength: 8)
+                    HStack(spacing: -10) {
+                        ForEach(foods.prefix(4)) { food in
+                            FoodIcon(food: food, size: 32, circular: true)
+                                .overlay(Circle().stroke(Theme.card, lineWidth: 2))
+                        }
+                    }
+                    Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .cartoonCard(padding: 14)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityIdentifier("dashboard.recap")
+        }
+    }
+
+    /// Что попробовали в этом месяце, свежее первым. Хвоста журнала хватает:
+    /// окно `recentWindowDays` длиннее любого месяца от его первого числа до сегодня.
+    private var monthTriedFoods: [Food] {
+        guard let month = Calendar.current.dateInterval(of: .month, for: Date()) else { return [] }
+        var seen = Set<String>()
+        return recentLogs
+            .filter { !$0.planned && month.contains($0.date) }
+            .sorted { $0.date > $1.date }
+            .filter { seen.insert($0.foodId).inserted }
+            .compactMap { catalog.food(id: $0.foodId) }
     }
 
     // MARK: - Сейчас вводишь (окно наблюдения)

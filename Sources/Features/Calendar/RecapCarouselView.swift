@@ -60,19 +60,28 @@ struct RecapCarouselView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
+            VStack(spacing: 14) {
                 TabView(selection: $index) {
                     ForEach(Array(cards.enumerated()), id: \.element.id) { i, kind in
-                        card(kind)
-                            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+                        FittedShareCard { card(kind) }
                             .padding(.horizontal)
-                            .padding(.vertical, 8)
                             .tag(i)
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .always))
+                // Системные точки белые и теряются на светлой карточке — свои, в акценте.
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(reduceMotion ? nil : .easeInOut, value: index)
+
+                HStack(spacing: 7) {
+                    ForEach(cards.indices, id: \.self) { i in
+                        Circle()
+                            .fill(i == index ? Theme.accent : Theme.hairline)
+                            .frame(width: 7, height: 7)
+                    }
+                }
+                .accessibilityHidden(true)
             }
+            .padding(.top, 8)
             .background(AppBackground())
             .navigationTitle("Рекап")
             .navigationBarTitleDisplayMode(.inline)
@@ -88,10 +97,15 @@ struct RecapCarouselView: View {
         .cozySheet()
     }
 
-    @ViewBuilder
     private func card(_ kind: RecapCardKind) -> some View {
+        Self.cardView(kind, childName: childName, childPhoto: childPhoto)
+    }
+
+    /// Карточка отдельно от карусели — её же рендерят тесты.
+    @ViewBuilder
+    static func cardView(_ kind: RecapCardKind, childName: String, childPhoto: Data?) -> some View {
         switch kind {
-        case let .month(recap):     RecapCard(recap: recap)
+        case let .month(recap):     RecapCard(recap: recap, childPhoto: childPhoto)
         case let .poster(poster):   CollectionPosterCard(poster: poster, childName: childName, childPhoto: childPhoto)
         case let .milestone(m):     MilestoneCard(milestone: m, childName: childName, childPhoto: childPhoto)
         case let .firstTime(ft):    FirstTimeCard(firstTime: ft, childName: childName, childPhoto: childPhoto)
@@ -112,5 +126,25 @@ struct RecapCarouselView: View {
         let file = "Pudding\(suffix).png".replacingOccurrences(of: "/", with: "-")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(file)
         do { try data.write(to: url); shareFile = ShareableFile(url: url) } catch {}
+    }
+}
+
+/// Карточка 360×640, вписанная в доступное место целиком. На телефоне между
+/// навбаром и кнопкой «Поделиться» меньше 640 pt по высоте — без масштаба низ
+/// карточки (подпись «сделано в Pudding») обрезался. В картинку для шэра уходит
+/// исходный размер, масштаб только для показа.
+struct FittedShareCard<Card: View>: View {
+    @ViewBuilder var card: Card
+
+    var body: some View {
+        GeometryReader { geo in
+            let scale = min(geo.size.width / 360, geo.size.height / 640, 1)
+            card
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(Theme.hairline, lineWidth: 1))
+                .scaleEffect(scale)
+                .frame(width: geo.size.width, height: geo.size.height)
+        }
     }
 }

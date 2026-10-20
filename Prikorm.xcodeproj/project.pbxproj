@@ -78,6 +78,7 @@
 		8194C7D9AD848D6C166D5525 /* ProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBD033DE74ECFCE6B53A451 /* ProfileUITests.swift */; };
 		8315EB70F94381FD318794A7 /* ActiveChildTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F204F148D1E895BECC4530 /* ActiveChildTests.swift */; };
 		83BD6DB88AC9305A3661C279 /* FoodCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D70CAFFA84437231ADC9D6 /* FoodCatalog.swift */; };
+		842249CA5E65801A62CE01C9 /* RecapDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5F3130F82F1AEE8FB0BB5D /* RecapDestination.swift */; };
 		87EDD71DFFFC564A658E2E1E /* OnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E9B74217E24AA130517A1B /* OnboardingUITests.swift */; };
 		8B9F42DA7C54D2407E0FD896 /* PaletteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA3C70172B1750E36E5142 /* PaletteTests.swift */; };
 		8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */; };
@@ -110,6 +111,7 @@
 		E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E7FEF7218059F4616EC495 /* CalendarService.swift */; };
 		E779298BC3D510C314B43859 /* AppInstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52A8D665B9B96AEFF31A1C3 /* AppInstall.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
+		E95EE1130943D808897CC9BB /* RecapRenderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403A6C33B1430106F0BAB20C /* RecapRenderTests.swift */; };
 		ECE49371C67DE382A0CB70AD /* PlanIntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03D9BB16B36F69413C66580 /* PlanIntroSheet.swift */; };
 		EE7F4E106A7222A961DD630A /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1C21D2385F986B9F04FF9 /* AppIconManager.swift */; };
 		F4D20301E8188A213C6274E7 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E98201C1EC77290CBF1D4B /* AppTheme.swift */; };
@@ -194,6 +196,7 @@
 		33137266140F2522867A45A1 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		3CBA9238B9E24456EDA17147 /* ChildLimitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildLimitTests.swift; sourceTree = "<group>"; };
 		3FFDE7EF3527F84544CCED5C /* RecapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapView.swift; sourceTree = "<group>"; };
+		403A6C33B1430106F0BAB20C /* RecapRenderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapRenderTests.swift; sourceTree = "<group>"; };
 		4088924D10FC333495FBF4AE /* AppLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLinks.swift; sourceTree = "<group>"; };
 		49835FD1784A5B3FA0982C87 /* CustomFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFood.swift; sourceTree = "<group>"; };
 		4CDF9D4482573C1FD797BA49 /* EarlyAdopter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarlyAdopter.swift; sourceTree = "<group>"; };
@@ -259,6 +262,7 @@
 		CBEFC644581D4A12A345D3FB /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		CE80B349B0E07536F04075FE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D1E268D96C92E391B0F159AA /* MascotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotTests.swift; sourceTree = "<group>"; };
+		DA5F3130F82F1AEE8FB0BB5D /* RecapDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapDestination.swift; sourceTree = "<group>"; };
 		DC4A081273EF9B4302E370D3 /* ReactivityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactivityUITests.swift; sourceTree = "<group>"; };
 		DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		E10B39EB0D1AAB884A3AD738 /* StoreReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReset.swift; sourceTree = "<group>"; };
@@ -334,6 +338,7 @@
 				6ACA3C70172B1750E36E5142 /* PaletteTests.swift */,
 				E12831948917AC330B4AB646 /* ProStoreTests.swift */,
 				2292563EFFE2301C7606C3BC /* RecapCardsTests.swift */,
+				403A6C33B1430106F0BAB20C /* RecapRenderTests.swift */,
 				E92C547C212BEF6EC84EEABC /* RecapServiceTests.swift */,
 				03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */,
 				269CB3248FE7555D9A267BAB /* StoreResetTests.swift */,
@@ -416,6 +421,7 @@
 				C433EBD9F4667FE93AD5A17A /* DayDetailView.swift */,
 				754B6747DEBDDC038C5EB2AF /* RecapCards.swift */,
 				632702C2E0D6A2A7B1659B2E /* RecapCarouselView.swift */,
+				DA5F3130F82F1AEE8FB0BB5D /* RecapDestination.swift */,
 				3FFDE7EF3527F84544CCED5C /* RecapView.swift */,
 			);
 			path = Calendar;
@@ -750,6 +756,7 @@
 				8B9F42DA7C54D2407E0FD896 /* PaletteTests.swift in Sources */,
 				0E4C192FEE7ED669CC0EE6F2 /* ProStoreTests.swift in Sources */,
 				98D7D4C7375FEE0168FE0FC1 /* RecapCardsTests.swift in Sources */,
+				E95EE1130943D808897CC9BB /* RecapRenderTests.swift in Sources */,
 				15BA06E44E2481714A9C5793 /* RecapServiceTests.swift in Sources */,
 				28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */,
 				60ED57FFEEDB0DEFE8766E60 /* StoreResetTests.swift in Sources */,
@@ -826,6 +833,7 @@
 				AF68B2A9931993D03C664D81 /* QuickLogSheet.swift in Sources */,
 				6264F2AC1438E5DFC2047D9C /* RecapCards.swift in Sources */,
 				2EC134DBC671F0F15321AD62 /* RecapCarouselView.swift in Sources */,
+				842249CA5E65801A62CE01C9 /* RecapDestination.swift in Sources */,
 				2AE136259F2ED1160F362A34 /* RecapService.swift in Sources */,
 				C0368823FA0F2A357C413340 /* RecapView.swift in Sources */,
 				BC6154128575F7506FCE9C36 /* RootView.swift in Sources */,

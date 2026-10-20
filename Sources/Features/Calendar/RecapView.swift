@@ -6,140 +6,34 @@ import UIKit
 /// Только факты из журнала, без советов.
 struct RecapCard: View {
     let recap: MonthRecap
+    var childPhoto: Data?
 
     var body: some View {
-        // Карточка уезжает в сторис как картинка — она всегда светлая, на своём
-        // бренд-градиенте. Фиксируем схему, иначе `.secondary` внутри белой плашки
-        // в тёмной теме становится светло-серым на белом.
-        card.environment(\.colorScheme, .light)
-    }
+        // Та же журнальная рамка, что у карточек карусели: месячная идёт в ней
+        // первой, и выбиваться из ряда ей нельзя.
+        ShareCardChrome(kicker: "\(monthTitle) · \(recap.ageMonths) \(String(localized: "мес"))",
+                        childName: recap.childName, photo: childPhoto) {
+            VStack(alignment: .leading, spacing: 22) {
+                HeroNumber(value: heroNumber, label: heroLabel)
 
-    private var card: some View {
-        ZStack {
-            // Фон: бренд-градиент + мягкие блики + рассыпанное конфетти.
-            LinearGradient(colors: [Theme.accent, Theme.accentDeep, Theme.lilac],
-                           startPoint: .topLeading, endPoint: .bottomTrailing)
-            glow(x: 60, y: 80, r: 150, opacity: 0.20)
-            glow(x: 320, y: 560, r: 170, opacity: 0.14)
-            confettiDots
-
-            VStack(spacing: 0) {
-                // Шапка: месяц капсулой + имя.
-                Text(monthTitle)
-                    .font(.subheadline.weight(.heavy)).foregroundStyle(.white)
-                    .padding(.horizontal, 16).padding(.vertical, 7)
-                    .background(.white.opacity(0.20), in: Capsule())
-                    .overlay(Capsule().stroke(.white.opacity(0.35), lineWidth: 1))
-                    .padding(.top, 26)
-
-                Text("\(childName) · \(recap.ageMonths) \(String(localized: "мес"))")
-                    .font(.footnote.weight(.semibold)).foregroundStyle(.white.opacity(0.9))
-                    .padding(.top, 8)
-
-                // Маскот выглядывает из-за белой карты.
-                Mascot(mood: .cheer, size: 96)
-                    .padding(.top, 14)
-                    .zIndex(1)
-
-                // Белая карта с фактами месяца.
-                VStack(spacing: 14) {
-                    HStack(alignment: .firstTextBaseline, spacing: 8) {
-                        Text("\(heroNumber)")
-                            .font(.system(size: 58, weight: .heavy, design: .rounded))
-                            .foregroundStyle(Theme.accent)
-                        Text(heroLabel)
-                            .font(.headline.weight(.bold)).foregroundStyle(.primary)
-                    }
-                    .padding(.top, 34)   // место под свисающего маскота
-
-                    iconGrid
-
-                    if let fav = recap.favorite {
-                        HStack(spacing: 8) {
-                            FoodIcon(food: fav, size: 30, circular: true)
-                            Text("\(String(localized: "Любимое")): \(fav.localizedName)")
-                                .font(.subheadline.weight(.bold)).foregroundStyle(.primary)
-                            OpenMojiIcon(asset: "like_liked", fallback: "😋", size: 22)
-                        }
-                        .padding(.horizontal, 14).padding(.vertical, 9)
-                        .background(Theme.sunny.opacity(0.20), in: Capsule())
-                    }
-
-                    Text(statsLine)
-                        .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                        .padding(.bottom, 18)
+                LazyVGrid(columns: Array(repeating: GridItem(.fixed(48), spacing: 12), count: 5),
+                          alignment: .leading, spacing: 12) {
+                    ForEach(recap.triedFoods.prefix(15)) { FoodIcon(food: $0, size: 48, circular: true) }
                 }
-                .frame(maxWidth: .infinity)
-                .background(.white, in: RoundedRectangle(cornerRadius: 30, style: .continuous))
-                .padding(.horizontal, 22)
-                .padding(.top, -30)      // карта заезжает под маскота
 
-                Spacer(minLength: 0)
-
-                HStack(spacing: 6) {
-                    Mascot(mood: .happy, size: 22)
-                    Text("сделано в Pudding")
-                        .font(.caption.weight(.bold)).foregroundStyle(.white)
+                if let fav = recap.favorite {
+                    HStack(spacing: 10) {
+                        FoodIcon(food: fav, size: 32, circular: true)
+                        Text("\(String(localized: "Любимое")): \(fav.localizedName)")
+                            .font(.headline).foregroundStyle(Theme.ink)
+                            .lineLimit(1).minimumScaleFactor(0.7)
+                    }
                 }
-                .padding(.horizontal, 14).padding(.vertical, 8)
-                .background(.white.opacity(0.18), in: Capsule())
-                .padding(.bottom, 22)
+
+                Text(statsLine)
+                    .font(.footnote.weight(.semibold)).foregroundStyle(.secondary)
             }
         }
-        .frame(width: 360, height: 640)
-        .clipped()
-    }
-
-    /// Мягкий белый блик (радиальный градиент — без blur, дёшево для ImageRenderer).
-    private func glow(x: CGFloat, y: CGFloat, r: CGFloat, opacity: Double) -> some View {
-        Circle()
-            .fill(RadialGradient(gradient: Gradient(colors: [.white.opacity(opacity), .clear]),
-                                 center: .center, startRadius: 0, endRadius: r))
-            .frame(width: r * 2, height: r * 2)
-            .position(x: x, y: y)
-    }
-
-    /// Точка конфетти: позиция/размер детерминированы от индекса (sin-хэш).
-    private struct Dot: Identifiable {
-        let id: Int
-        let x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat
-        let angle: Double, opacity: Double, colorIndex: Int
-
-        init(_ i: Int) {
-            id = i
-            let fx = abs(sin(Double(i) * 12.9898))
-            let fy = abs(sin(Double(i) * 78.233))
-            let fs = abs(sin(Double(i) * 39.425))
-            x = 20 + CGFloat(fx) * 320
-            y = 20 + CGFloat(fy) * 600
-            w = 6 + 6 * CGFloat(fs)
-            h = 4 + 4 * CGFloat(fs)
-            angle = fs * 360
-            opacity = 0.35 + 0.3 * fs
-            colorIndex = i % 5
-        }
-    }
-
-    /// Рассыпанное конфетти по фону.
-    private var confettiDots: some View {
-        let colors: [Color] = [.white, Theme.sunny, Theme.mint, .white, Theme.sky]
-        let dots = (0..<16).map(Dot.init)
-        return ForEach(dots) { d in
-            RoundedRectangle(cornerRadius: 2)
-                .fill(colors[d.colorIndex].opacity(d.opacity))
-                .frame(width: d.w, height: d.h)
-                .rotationEffect(.degrees(d.angle))
-                .position(x: d.x, y: d.y)
-        }
-    }
-
-    private var iconGrid: some View {
-        let foods = Array(recap.triedFoods.prefix(12))
-        let cols = Array(repeating: GridItem(.flexible(), spacing: 10), count: 4)
-        return LazyVGrid(columns: cols, spacing: 10) {
-            ForEach(foods) { FoodIcon(food: $0, size: 52, circular: true) }
-        }
-        .padding(.horizontal, 24)
     }
 
     /// Сводка-факты: сколько всего записей и продуктов за месяц.
@@ -147,10 +41,6 @@ struct RecapCard: View {
         "\(String(localized: "Записей")): \(recap.totalLogs) · \(String(localized: "продуктов")): \(recap.triedFoods.count)"
     }
 
-    private var childName: String {
-        recap.childName.trimmingCharacters(in: .whitespaces).isEmpty
-            ? String(localized: "Малыш") : recap.childName
-    }
     private var heroNumber: Int { recap.newCount > 0 ? recap.newCount : recap.triedFoods.count }
     private var heroLabel: String {
         recap.newCount > 0 ? String(localized: "новых вкусов")
@@ -169,11 +59,8 @@ struct RecapSheet: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                RecapCard(recap: recap)
-                    .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                    .padding()
-            }
+            FittedShareCard { RecapCard(recap: recap) }
+                .padding()
             .background(AppBackground())
             .navigationTitle("Рекап месяца")
             .navigationBarTitleDisplayMode(.inline)

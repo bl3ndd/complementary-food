@@ -3,103 +3,109 @@ import UIKit
 
 /// Карточки рекап-карусели (Pro).
 ///
-/// Все — в той же рамке 360×640, что и месячный `RecapCard`, чтобы шэрились
-/// одинаково. Но оформление тише: крупная цифра, воздух и типографика вместо
-/// декора. Конфетти и бликов здесь нет намеренно — карточка должна выглядеть
-/// как разворот журнала, а не как баннер.
+/// Все — в рамке 360×640 (9:16, формат сторис). Оформление — журнальная полоса:
+/// бумажный фон из активной гаммы, текст по левому краю, крупная цифра
+/// и подпись снизу. Ни градиентов, ни бликов, ни белых плашек: прежний вариант
+/// (оранжевый градиент + плашка, прилипшая к верху) оставлял пустой половину кадра
+/// и выглядел шаблоном.
 ///
-/// Как и `RecapCard`, карточки принудительно светлые: они уезжают картинкой, и
-/// `.secondary` внутри белой плашки в тёмной теме стал бы светло-серым на белом.
+/// Карточки принудительно светлые: они уезжают картинкой, и тёмная схема на чужом
+/// экране выглядела бы случайностью.
 
 // MARK: - Общая рамка
 
 /// Фон, шапка и подпись — одинаковые у всех карточек карусели.
 struct ShareCardChrome<Content: View>: View {
-    let title: String
-    let subtitle: String?
+    /// Строка-надпись над содержимым: что это за карточка и когда.
+    let kicker: String
+    let childName: String
     /// Фото малыша. С ним карточку выкладывают заметно охотнее, чем с иконкой
     /// продукта — поэтому само фото бесплатное, оно работает на карусель.
     var photo: Data?
     @ViewBuilder var content: Content
 
     var body: some View {
-        ZStack {
-            // Фон из активной гаммы: то, что мама выкладывает в сторис, должно
-            // совпадать с тем, как выглядит её приложение.
-            LinearGradient(colors: [Theme.accent, Theme.accentDeep],
-                           startPoint: .topLeading, endPoint: .bottomTrailing)
-
-            VStack(spacing: 0) {
-                Text(title)
-                    .font(.subheadline.weight(.heavy)).foregroundStyle(.white)
-                    .padding(.horizontal, 16).padding(.vertical, 7)
-                    .background(.white.opacity(0.20), in: Capsule())
-                    .overlay(Capsule().stroke(.white.opacity(0.35), lineWidth: 1))
-                    .padding(.top, 30)
-
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .center, spacing: 12) {
+                Text(kicker.uppercased())
+                    .font(.caption.weight(.bold)).tracking(1.4)
+                    .foregroundStyle(Theme.accentDeep)
+                    .lineLimit(1).minimumScaleFactor(0.7)
+                Spacer(minLength: 0)
                 if let photo, let ui = UIImage(data: photo) {
                     Image(uiImage: ui).resizable().scaledToFill()
-                        .frame(width: 72, height: 72)
+                        .frame(width: 48, height: 48)
                         .clipShape(Circle())
-                        .overlay(Circle().stroke(.white.opacity(0.7), lineWidth: 3))
-                        .padding(.top, 14)
                 }
-
-                if let subtitle {
-                    Text(subtitle)
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.white.opacity(0.9))
-                        .padding(.top, 8)
-                }
-
-                content
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 24)
-                    .padding(.top, 28)
-
-                Spacer(minLength: 0)
-
-                HStack(spacing: 6) {
-                    Mascot(mood: .happy, size: 22)
-                    Text("сделано в Pudding")
-                        .font(.caption.weight(.bold)).foregroundStyle(.white)
-                }
-                .padding(.horizontal, 14).padding(.vertical, 8)
-                .background(.white.opacity(0.18), in: Capsule())
-                .padding(.bottom, 24)
             }
+            .frame(minHeight: 48)
+            .padding(.top, 28)
+
+            content
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 20)
+
+            Spacer(minLength: 0)
+
+            Rectangle().fill(Theme.ink.opacity(0.12)).frame(height: 1)
+            HStack(spacing: 6) {
+                Text(displayName)
+                    .font(.footnote.weight(.semibold)).foregroundStyle(Theme.ink)
+                Spacer(minLength: 8)
+                Mascot(mood: .happy, size: 18)
+                Text("сделано в Pudding")
+                    .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+            }
+            .padding(.top, 12)
+            .padding(.bottom, 24)
         }
+        .padding(.horizontal, 28)
         .frame(width: 360, height: 640)
+        .background(Theme.bgTop)
         .clipped()
+        // Шрифт приложения задаётся в корне, а ImageRenderer рисует вне дерева —
+        // без явного дизайна картинка для шэра вышла бы другим шрифтом, чем превью.
+        .fontDesign(.rounded)
         .environment(\.colorScheme, .light)
     }
-}
 
-/// Белая плашка под содержимое — как в месячной карточке, но без тени-«ореола».
-private struct Sheet<Content: View>: View {
-    @ViewBuilder var content: Content
-
-    var body: some View {
-        content
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 24)
-            .background(.white, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
+    private var displayName: String {
+        childName.trimmingCharacters(in: .whitespaces).isEmpty
+            ? String(localized: "Малыш") : childName
     }
 }
 
-/// Крупное число с подписью — общий герой почти всех карточек.
-private struct HeroNumber: View {
+/// Крупная цифра и подпись под ней — герой почти всех карточек.
+struct HeroNumber: View {
     let value: Int
     let label: String
+    var size: CGFloat = 112
 
     var body: some View {
-        VStack(spacing: 2) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("\(value)")
-                .font(.system(size: 72, weight: .heavy, design: .rounded))
+                .font(.system(size: size, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.accent)
+                .lineLimit(1).minimumScaleFactor(0.5)
             Text(label)
-                .font(.headline.weight(.bold)).foregroundStyle(.primary)
-                .multilineTextAlignment(.center)
+                .font(.system(size: 26, weight: .semibold, design: .rounded))
+                .foregroundStyle(Theme.ink)
+                .lineLimit(2).minimumScaleFactor(0.7)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+}
+
+/// Сетка иконок продуктов, выровненная по левому краю.
+private struct FoodGrid: View {
+    let foods: [Food]
+    let columns: Int
+    let size: CGFloat
+
+    var body: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.fixed(size), spacing: 10), count: columns),
+                  alignment: .leading, spacing: 10) {
+            ForEach(foods) { FoodIcon(food: $0, size: size, circular: true) }
         }
     }
 }
@@ -112,26 +118,17 @@ struct CollectionPosterCard: View {
     var childPhoto: Data?
 
     /// Сетка обрезается, иначе на большой коллекции иконки станут микроскопическими.
-    private var shown: [Food] { Array(poster.foods.prefix(24)) }
+    private var shown: [Food] { Array(poster.foods.prefix(30)) }
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Коллекция вкусов"), subtitle: childName, photo: childPhoto) {
-            Sheet {
-                VStack(spacing: 18) {
-                    HeroNumber(value: poster.count, label: String(localized: "продуктов попробовано"))
-
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10),
-                                             count: 6), spacing: 10) {
-                        ForEach(shown) { food in
-                            FoodIcon(food: food, size: 34, circular: true)
-                        }
-                    }
-                    .padding(.horizontal, 18)
-
-                    if poster.count > shown.count {
-                        Text("и ещё \(poster.count - shown.count)")
-                            .font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                    }
+        ShareCardChrome(kicker: String(localized: "Коллекция вкусов"),
+                        childName: childName, photo: childPhoto) {
+            VStack(alignment: .leading, spacing: 24) {
+                HeroNumber(value: poster.count, label: String(localized: "продуктов попробовано"))
+                FoodGrid(foods: shown, columns: 6, size: 40)
+                if poster.count > shown.count {
+                    Text("и ещё \(poster.count - shown.count)")
+                        .font(.footnote.weight(.semibold)).foregroundStyle(.secondary)
                 }
             }
         }
@@ -146,17 +143,18 @@ struct MilestoneCard: View {
     var childPhoto: Data?
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Новая веха"), subtitle: childName, photo: childPhoto) {
-            Sheet {
-                VStack(spacing: 16) {
-                    Mascot(mood: .cheer, size: 92)
-                    HeroNumber(value: milestone.reached,
-                               label: String(localized: "продуктов в коллекции"))
-                    if milestone.total > milestone.reached {
-                        Text("а всего уже \(milestone.total)")
-                            .font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
-                    }
+        ShareCardChrome(kicker: String(localized: "Новая веха"),
+                        childName: childName, photo: childPhoto) {
+            VStack(alignment: .leading, spacing: 20) {
+                HeroNumber(value: milestone.reached,
+                           label: String(localized: "продуктов в коллекции"), size: 200)
+                if milestone.total > milestone.reached {
+                    Text("а всего уже \(milestone.total)")
+                        .font(.title3.weight(.semibold)).foregroundStyle(.secondary)
                 }
+                Mascot(mood: .cheer, size: 96)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.top, 12)
             }
         }
     }
@@ -169,28 +167,40 @@ struct FirstTimeCard: View {
     let childName: String
     var childPhoto: Data?
 
+    /// Фото самой записи — это и есть кадр «первой ложки», ради него карточку и делают.
+    private var logPhoto: UIImage? {
+        let data = firstTime.log.photo ?? firstTime.log.photos?
+            .sorted { $0.sortIndex < $1.sortIndex }.first?.data
+        return data.flatMap(UIImage.init(data:))
+    }
+
     var body: some View {
-        ShareCardChrome(title: String(localized: "Первый раз"), subtitle: childName, photo: childPhoto) {
-            Sheet {
-                VStack(spacing: 16) {
-                    FoodIcon(food: firstTime.food, size: 96, circular: true)
+        ShareCardChrome(kicker: String(localized: "Первый раз"),
+                        childName: childName, photo: childPhoto) {
+            VStack(alignment: .leading, spacing: 16) {
+                if let logPhoto {
+                    Image(uiImage: logPhoto).resizable().scaledToFill()
+                        .frame(width: 304, height: 280)
+                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                } else {
+                    FoodIcon(food: firstTime.food, size: 150, circular: true)
+                        .padding(.vertical, 20)
+                }
 
-                    Text(firstTime.food.localizedName)
-                        .font(.system(size: 30, weight: .heavy, design: .rounded))
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 20)
+                Text(firstTime.food.localizedName)
+                    .font(.system(size: 44, weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.ink)
+                    .lineLimit(2).minimumScaleFactor(0.6)
 
+                HStack(spacing: 10) {
                     Text(firstTime.date.formatted(.dateTime.day().month(.wide)))
-                        .font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
-
+                        .foregroundStyle(.secondary)
                     if let liking = firstTime.liking {
-                        Text(liking.title)
-                            .font(.subheadline.weight(.bold)).foregroundStyle(.primary)
-                            .padding(.horizontal, 14).padding(.vertical, 8)
-                            .background(Theme.accent.opacity(0.14), in: Capsule())
+                        Text("·").foregroundStyle(.secondary)
+                        Text(liking.title).foregroundStyle(Theme.accentDeep)
                     }
                 }
+                .font(.title3.weight(.semibold))
             }
         }
     }
@@ -204,29 +214,30 @@ struct TastesTopCard: View {
     var childPhoto: Data?
 
     var body: some View {
-        ShareCardChrome(title: String(localized: "Что зашло"), subtitle: childName, photo: childPhoto) {
-            Sheet {
-                VStack(alignment: .leading, spacing: 18) {
-                    column(String(localized: "Любимое"), top.liked)
-                    if !top.disliked.isEmpty {
-                        column(String(localized: "Не зашло"), top.disliked)
-                    }
+        ShareCardChrome(kicker: String(localized: "Что зашло"),
+                        childName: childName, photo: childPhoto) {
+            VStack(alignment: .leading, spacing: 28) {
+                column(String(localized: "Любимое"), top.liked, accent: true)
+                if !top.disliked.isEmpty {
+                    column(String(localized: "Не зашло"), Array(top.disliked.prefix(3)), accent: false)
                 }
-                .padding(.horizontal, 26)
             }
         }
     }
 
-    private func column(_ title: String, _ foods: [Food]) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+    private func column(_ title: String, _ foods: [Food], accent: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.caption.weight(.heavy)).foregroundStyle(.secondary)
-                .textCase(.uppercase)
+                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .foregroundStyle(accent ? Theme.accent : Theme.ink)
             ForEach(foods) { food in
-                HStack(spacing: 10) {
-                    FoodIcon(food: food, size: 30, circular: true)
+                HStack(spacing: 12) {
+                    FoodIcon(food: food, size: 36, circular: true)
+                    // Без minimumScaleFactor: длинные названия ужимались каждое
+                    // по-своему, и список прыгал по размеру. Пусть лучше обрежутся.
                     Text(food.localizedName)
-                        .font(.subheadline.weight(.semibold)).foregroundStyle(.primary)
+                        .font(.title3.weight(.semibold)).foregroundStyle(Theme.ink)
+                        .lineLimit(1)
                 }
             }
         }
@@ -240,33 +251,49 @@ struct TasteCalendarCard: View {
     let childName: String
     var childPhoto: Data?
 
+    private let cal = Calendar.current
     private var marked: Set<Int> { Set(calendar.days) }
     private var daysInMonth: Int {
-        Calendar.current.range(of: .day, in: .month, for: calendar.month)?.count ?? 30
+        cal.range(of: .day, in: .month, for: calendar.month)?.count ?? 30
+    }
+    /// Сколько пустых клеток перед первым числом — сетка начинается с первого дня
+    /// недели локали, как настоящий календарь.
+    private var leadingBlanks: Int {
+        let weekday = cal.component(.weekday, from: calendar.month)
+        return (weekday - cal.firstWeekday + 7) % 7
+    }
+    private var weekdaySymbols: [String] {
+        let symbols = cal.veryShortStandaloneWeekdaySymbols
+        let start = cal.firstWeekday - 1
+        return Array(symbols[start...] + symbols[..<start])
     }
 
     var body: some View {
-        ShareCardChrome(title: monthTitle, subtitle: childName, photo: childPhoto) {
-            Sheet {
-                VStack(spacing: 18) {
-                    HeroNumber(value: calendar.days.count,
-                               label: String(localized: "дней с новым вкусом"))
+        ShareCardChrome(kicker: monthTitle, childName: childName, photo: childPhoto) {
+            VStack(alignment: .leading, spacing: 24) {
+                HeroNumber(value: calendar.days.count,
+                           label: String(localized: "дней с новым вкусом"))
 
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6),
-                                             count: 7), spacing: 6) {
-                        ForEach(1...daysInMonth, id: \.self) { day in
-                            Circle()
-                                .fill(marked.contains(day) ? Theme.accent : Color.black.opacity(0.06))
-                                .frame(height: 26)
-                        }
+                let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
+                LazyVGrid(columns: columns, spacing: 6) {
+                    ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { _, s in
+                        Text(s).font(.caption2.weight(.bold)).foregroundStyle(.secondary)
                     }
-                    .padding(.horizontal, 22)
+                    ForEach(0..<leadingBlanks, id: \.self) { _ in Color.clear.frame(height: 34) }
+                    ForEach(1...daysInMonth, id: \.self) { day in
+                        let on = marked.contains(day)
+                        Text("\(day)")
+                            .font(.footnote.weight(on ? .bold : .regular))
+                            .foregroundStyle(on ? .white : Theme.ink.opacity(0.45))
+                            .frame(width: 34, height: 34)
+                            .background(on ? Theme.accent : .clear, in: Circle())
+                    }
                 }
             }
         }
     }
 
     private var monthTitle: String {
-        calendar.month.formatted(.dateTime.month(.wide).year()).capitalized
+        calendar.month.formatted(.dateTime.month(.wide).year())
     }
 }

@@ -31,7 +31,6 @@ struct ProfileView: View {
     @State private var showResetConfirm = false
     @State private var showLanguageRestart = false
     @State private var shareFile: ShareableFile?
-    @State private var showRecap = false
     @State private var isResetting = false
     /// Объяснение, почему пункт «Данных» пока недоступен (алерт по тапу).
     @State private var dataHint: String?
@@ -101,7 +100,6 @@ struct ProfileView: View {
                 showLanguageRestart = true
             }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
-            .sheet(isPresented: $showRecap) { recapDestination }
             .sheet(isPresented: $showPro) { ProSheet(entitlements: entitlements) }
             .sheet(isPresented: $showAddChild) {
                 OnboardingView { created in
@@ -231,28 +229,6 @@ struct ProfileView: View {
         }
     }
 
-    /// Без Pro — одна месячная карточка (крючок), с Pro — вся карусель.
-    @ViewBuilder private var recapDestination: some View {
-        let service = RecapService(catalog: catalog, logs: logs)
-        let month = service.recap(for: Date(), childName: child.name,
-                                  ageMonths: child.ageInMonths)
-        if entitlements.isPro {
-            let introduced = statuses.filter { $0.state == .introduced }.map(\.foodId)
-            RecapCarouselView(
-                cards: RecapCardKind.carousel(
-                    month: month,
-                    poster: service.collectionPoster(introducedFoodIds: introduced),
-                    milestone: service.milestone(introducedCount: introduced.count),
-                    firstTime: service.latestFirstTime(),
-                    tastes: service.tastesTop(),
-                    tasteCalendar: service.tasteCalendar(for: Date())),
-                childName: child.name,
-                childPhoto: child.photo)
-        } else {
-            RecapSheet(recap: month)
-        }
-    }
-
     // MARK: - Дети
 
     private var childrenSection: some View {
@@ -333,7 +309,7 @@ struct ProfileView: View {
         }
     }
 
-    // MARK: - Данные (экспорт / рекап / сброс живёт отдельно)
+    // MARK: - Данные (экспорт; рекап — на главной, сброс живёт отдельно)
 
     private var dataSection: some View {
         Section("Данные") {
@@ -357,14 +333,6 @@ struct ProfileView: View {
                           enabled: hasAvoidItems, busy: exporting == .avoid)
             }
             .disabled(exporting != nil)
-
-            Button {
-                if hasRecapData { showRecap = true }
-                else { dataHint = String(localized: "Рекап откроется, когда в этом месяце появятся записи.") }
-            } label: {
-                Label("Рекап месяца", systemImage: "party.popper")
-                    .foregroundStyle(hasRecapData ? Theme.accent : .secondary)
-            }
         }
         .alert("Пока рано", isPresented: Binding(get: { dataHint != nil },
                                                  set: { if !$0 { dataHint = nil } })) {
@@ -390,10 +358,6 @@ struct ProfileView: View {
     /// Дата первого запуска — основание для обещания «ранним пожизненно».
     private var earlyAdopterSince: Date? {
         installs.map(\.firstLaunchedAt).min()
-    }
-
-    private var hasRecapData: Bool {
-        RecapService(catalog: catalog, logs: logs).hasData(for: Date())
     }
 
     // MARK: - О приложении (легалка + версия + кредиты в одном месте)

@@ -37,10 +37,8 @@ final class ProfileUITests: XCTestCase {
         app.terminate()
         app = XCUIApplication.pudding(seed: "rich")
         app.acceptDisclaimer()
-        app.openTab("Профиль")
-        app.swipeUp()
-        // Rich: рекап реально открывается (не алерт).
-        app.buttons["Рекап месяца"].waitTap(timeout: 8)
+        // Rich: рекап (теперь он на главной) реально открывается.
+        app.buttons["dashboard.recap"].waitTap(timeout: 8)
         app.navigationBars["Рекап месяца"].assertExists(timeout: 6,
             "при наличии данных рекап должен открыться")
         app.navigationBars["Рекап месяца"].buttons["Готово"].tap()

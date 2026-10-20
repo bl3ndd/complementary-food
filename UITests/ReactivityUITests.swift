@@ -12,12 +12,9 @@ final class ReactivityUITests: XCTestCase {
         let app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
 
-        // До: рекап в профиле закрыт (алерт «Пока рано»).
-        app.openTab("Профиль")
-        app.swipeUp()
-        app.buttons["Рекап месяца"].waitTap(timeout: 8)
-        app.alerts["Пока рано"].assertExists(timeout: 4)
-        app.alerts.buttons["Понятно"].tap()
+        // До: записей за месяц нет — ряда рекапа на главной нет.
+        app.buttons["Записать"].firstMatch.assertExists(timeout: 8)
+        XCTAssertFalse(app.buttons["dashboard.recap"].exists, "рекап без записей открывать нечего")
 
         // Мутация: записать кормление банана с плитки главной.
         app.openTab("Сегодня")
@@ -33,10 +30,9 @@ final class ReactivityUITests: XCTestCase {
         // Лента календаря обновилась.
         app.openTab("Календарь")
         app.staticTexts["Банан"].firstMatch.assertExists(timeout: 6, "лента календаря не обновилась")
-        // Гейт рекапа открылся.
-        app.openTab("Профиль")
-        app.swipeUp()
-        app.buttons["Рекап месяца"].waitTap(timeout: 8)
+        // Гейт рекапа открылся: ряд появился на главной.
+        app.openTab("Сегодня")
+        app.buttons["dashboard.recap"].waitTap(timeout: 8)
         app.navigationBars["Рекап месяца"].assertExists(timeout: 6,
             "гейт рекапа не отреагировал на появление записи")
         app.navigationBars["Рекап месяца"].buttons["Готово"].tap()
