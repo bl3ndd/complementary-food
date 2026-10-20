@@ -8,9 +8,32 @@ import Foundation
 /// (Vercel, бесплатный
 /// поддомен). ⚠️ TODO перед релизом: подтвердить рабочий support-email.
 enum AppLinks {
-    static let privacyPolicyURL = URL(string: "https://babyfooddiary.com/privacy")!
-    static let termsURL = URL(string: "https://babyfooddiary.com/terms")!
-    static let methodologyInfoURL = URL(string: "https://babyfooddiary.com/#method")!
+    static let site = "https://babyfooddiary.com"
+
+    /// Язык, на котором приложение сейчас показано: выбранный в «Языке» или
+    /// системный. Именно он, а не язык устройства — иначе человек, переключивший
+    /// приложение на английский, попадал бы на русский сайт.
+    static var appLanguage: String { Bundle.main.preferredLocalizations.first ?? "en" }
+
+    /// Политика, условия и источники методики есть только на русском и английском
+    /// (ручные страницы `site/*.html`): остальные языки ведут на английскую версию —
+    /// так же, как ссылки с локализованных лендингов.
+    static func legalPath(for language: String) -> String {
+        language == "ru" ? "" : "/en"
+    }
+
+    static func privacyPolicyURL(language: String = appLanguage) -> URL {
+        URL(string: "\(site)\(legalPath(for: language))/privacy")!
+    }
+
+    static func termsURL(language: String = appLanguage) -> URL {
+        URL(string: "\(site)\(legalPath(for: language))/terms")!
+    }
+
+    static func methodologyInfoURL(language: String = appLanguage) -> URL {
+        URL(string: "\(site)\(legalPath(for: language))/method")!
+    }
+
     static let supportEmail = "woodoo201818@gmail.com"
 
     static var supportMailto: URL { URL(string: "mailto:\(supportEmail)")! }

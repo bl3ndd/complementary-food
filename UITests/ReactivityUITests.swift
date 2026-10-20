@@ -7,14 +7,10 @@ final class ReactivityUITests: XCTestCase {
 
     override func setUpWithError() throws { continueAfterFailure = false }
 
-    // R1: кормление с плитки → дневник главной + лента календаря + гейт рекапа.
+    // R1: кормление с плитки → дневник главной + лента календаря; рекап без Pro → пейвол.
     func testR1_FeedingPropagatesToDiaryCalendarAndGates() {
         let app = XCUIApplication.pudding(seed: "child")
         app.acceptDisclaimer()
-
-        // До: записей за месяц нет — ряда рекапа на главной нет.
-        app.buttons["Записать"].firstMatch.assertExists(timeout: 8)
-        XCTAssertFalse(app.buttons["dashboard.recap"].exists, "рекап без записей открывать нечего")
 
         // Мутация: записать кормление банана с плитки главной.
         app.openTab("Сегодня")
@@ -30,12 +26,11 @@ final class ReactivityUITests: XCTestCase {
         // Лента календаря обновилась.
         app.openTab("Календарь")
         app.staticTexts["Банан"].firstMatch.assertExists(timeout: 6, "лента календаря не обновилась")
-        // Гейт рекапа открылся: ряд появился на главной.
+        // Рекап на главной: UI-тесты идут без Pro — кнопка ведёт на пейвол.
         app.openTab("Сегодня")
         app.buttons["dashboard.recap"].waitTap(timeout: 8)
-        app.navigationBars["Рекап месяца"].assertExists(timeout: 6,
-            "гейт рекапа не отреагировал на появление записи")
-        app.navigationBars["Рекап месяца"].buttons["Готово"].tap()
+        app.navigationBars["Pudding Pro"].assertExists(timeout: 6, "без Pro рекап обязан вести на пейвол")
+        app.navigationBars["Pudding Pro"].buttons["Готово"].tap()
     }
 
     // R2: свой продукт — знаменатель/счётчик коллекции живут (⚠️ статик-каталог).

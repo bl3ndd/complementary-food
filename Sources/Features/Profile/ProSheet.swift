@@ -18,7 +18,12 @@ struct ProSheet: View {
         let subtitle: LocalizedStringKey
     }
 
+    /// Порядок — по силе довода: несколько детей — единственное, что упирается в
+    /// реальную нужду (второй ребёнок), дальше карусель как главный «приятный» пункт.
     private let perks = [
+        Perk(icon: "person.2",
+             title: "Сколько угодно детей",
+             subtitle: "Отдельный дневник на каждого — записи и статусы не смешиваются"),
         Perk(icon: "square.stack.3d.down.right",
              title: "Рекап-карусель",
              subtitle: "Коллекция, вехи, первый раз, топ вкусов — карточками для сторис"),
@@ -28,9 +33,6 @@ struct ProSheet: View {
         Perk(icon: "app.badge",
              title: "Иконки приложения",
              subtitle: "Своя иконка на домашнем экране"),
-        Perk(icon: "person.2",
-             title: "Сколько угодно детей",
-             subtitle: "Отдельный дневник на каждого — записи и статусы не смешиваются"),
         Perk(icon: "square.grid.2x2",
              title: "Виджет «Коллекция»",
              subtitle: "Растущая сетка продуктов прямо на домашнем экране"),
@@ -141,8 +143,8 @@ struct ProSheet: View {
 
     private var legal: some View {
         HStack(spacing: 16) {
-            Link("Условия использования", destination: AppLinks.termsURL)
-            Link("Политика конфиденциальности", destination: AppLinks.privacyPolicyURL)
+            Link("Условия использования", destination: AppLinks.termsURL())
+            Link("Политика конфиденциальности", destination: AppLinks.privacyPolicyURL())
         }
         .font(.caption2).foregroundStyle(.secondary)
         .padding(.bottom, 8)

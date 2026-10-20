@@ -6,6 +6,8 @@ import SwiftData
 /// Коллекция показывает то, что УЖЕ сделано (ретроспектива), без советов/рекомендаций.
 struct DashboardView: View {
     let child: Child
+    /// Право на Pro: рекап-карусель — Pro, без него кнопка ведёт на пейвол.
+    var isPro = false
     var goToCatalog: () -> Void = {}
     @Environment(\.modelContext) private var context
     /// Все выборки фильтруются по активному ребёнку: дневники детей не должны
@@ -22,6 +24,7 @@ struct DashboardView: View {
     @State private var showReaction = false
     @State private var showPlan = false
     @State private var showRecap = false
+    @State private var showRecapTooEarly = false
     /// Явный навигационный путь: value-based NavigationLink в ScrollView на этом
     /// экране инертен (iOS 26) — пушим программно через Button + path.
     @State private var path: [Food] = []
@@ -38,8 +41,9 @@ struct DashboardView: View {
     /// не влияет — свипер `completeDueIntroductions` считает по полному фетчу.
     static let recentWindowDays = 30
 
-    init(child: Child, goToCatalog: @escaping () -> Void = {}) {
+    init(child: Child, isPro: Bool = false, goToCatalog: @escaping () -> Void = {}) {
         self.child = child
+        self.isPro = isPro
         self.goToCatalog = goToCatalog
         let cid = child.id
         _statuses = Query(FetchDescriptor<IntroductionStatus>(
@@ -79,14 +83,12 @@ struct DashboardView: View {
         let introducing = introducingItems(profile)
         let introducedStatuses = statuses.filter { $0.state == .introduced }
         let collection = introducedStatuses.compactMap { catalog.food(id: $0.foodId) }
-        let monthFoods = monthTriedFoods
 
         NavigationStack(path: $path) {
             ScrollView {
                 VStack(spacing: 16) {
                     heroCard(today: today).cozyAppear()
                     actionTiles.cozyAppear(0.06)
-                    recapRow(monthFoods).cozyAppear(0.09)
                     todayCard(today: today).cozyAppear(0.12)
                     introducingCard(introducing).cozyAppear(0.18)
                     collectionCard(collection, introduced: introducedStatuses.count).cozyAppear(0.24)
@@ -100,6 +102,19 @@ struct DashboardView: View {
             .background(AppBackground())
             .navigationTitle("Сегодня")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                // Вход в рекап — на главной, а не в профиле: в настройках его никто
+                // не находил. Та же «искорка», что в календаре; без записей за месяц
+                // неактивна, как и там.
+                if #available(iOS 26, *) {
+                    // Без системного «стеклянного» пузыря: пилюля сама в акценте,
+                    // пузырь вокруг неё дал бы капсулу в капсуле.
+                    ToolbarItem(placement: .topBarTrailing) { recapButton }
+                        .sharedBackgroundVisibility(.hidden)
+                } else {
+                    ToolbarItem(placement: .topBarTrailing) { recapButton }
+                }
+            }
             .navigationDestination(for: Food.self) { food in
                 FoodDetailView(food: food, child: child)
             }
@@ -107,6 +122,11 @@ struct DashboardView: View {
             .sheet(isPresented: $showFeed) { QuickLogSheet(child: child, mode: .feeding) }
             .sheet(isPresented: $showReaction) { QuickLogSheet(child: child, mode: .reaction) }
             .sheet(isPresented: $showRecap) { RecapDestination(child: child) }
+            .alert("Пока рано", isPresented: $showRecapTooEarly) {
+                Button("Понятно", role: .cancel) {}
+            } message: {
+                Text("Рекап откроется, когда в этом месяце появятся записи.")
+            }
             .sheet(isPresented: $showPlan) {
                 PlanIntroSheet(childId: child.id, initialDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
             }
@@ -202,50 +222,26 @@ struct DashboardView: View {
 
     // MARK: - Рекап месяца
 
-    /// Вход в рекап — на главной, а не в профиле: в настройках его никто не находил.
-    /// Ряд появляется, когда в этом месяце есть хоть одна запись, — пустой рекап
-    /// открывать незачем. Справа — то, что уже попробовали: видно, что внутри.
-    @ViewBuilder
-    private func recapRow(_ foods: [Food]) -> some View {
-        if !foods.isEmpty {
-            Button {
-                Haptics.tap(); showRecap = true
-            } label: {
-                HStack(spacing: 12) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Рекап месяца").font(.subheadline.bold()).foregroundStyle(.primary)
-                        Text(Date().formatted(.dateTime.month(.wide)).firstCapitalized)
-                            .font(.caption).foregroundStyle(.secondary)
-                    }
-                    Spacer(minLength: 8)
-                    HStack(spacing: -10) {
-                        ForEach(foods.prefix(4)) { food in
-                            FoodIcon(food: food, size: 32, circular: true)
-                                .overlay(Circle().stroke(Theme.card, lineWidth: 2))
-                        }
-                    }
-                    Image(systemName: "chevron.right").font(.caption).foregroundStyle(.tertiary)
-                }
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .cartoonCard(padding: 14)
-            .accessibilityElement(children: .combine)
-            .accessibilityAddTraits(.isButton)
-            .accessibilityIdentifier("dashboard.recap")
+    /// Кнопка всегда в акценте: серая читалась как «сломано», а не как «рано».
+    /// Без Pro тап ведёт на пейвол (его показывает `RecapDestination`); с Pro и без
+    /// записей за месяц — объясняем, почему рекапа ещё нет.
+    private var recapButton: some View {
+        Button {
+            Haptics.tap()
+            if isPro && !hasMonthLogs { showRecapTooEarly = true } else { showRecap = true }
+        } label: {
+            RecapPill()
         }
+        .buttonStyle(BouncyButtonStyle())
+        .accessibilityLabel("Рекап месяца")
+        .accessibilityIdentifier("dashboard.recap")
     }
 
-    /// Что попробовали в этом месяце, свежее первым. Хвоста журнала хватает:
-    /// окно `recentWindowDays` длиннее любого месяца от его первого числа до сегодня.
-    private var monthTriedFoods: [Food] {
-        guard let month = Calendar.current.dateInterval(of: .month, for: Date()) else { return [] }
-        var seen = Set<String>()
-        return recentLogs
-            .filter { !$0.planned && month.contains($0.date) }
-            .sorted { $0.date > $1.date }
-            .filter { seen.insert($0.foodId).inserted }
-            .compactMap { catalog.food(id: $0.foodId) }
+    /// Есть ли записи в этом месяце. Хвоста журнала хватает: окно
+    /// `recentWindowDays` длиннее любого месяца от его первого числа до сегодня.
+    private var hasMonthLogs: Bool {
+        guard let month = Calendar.current.dateInterval(of: .month, for: Date()) else { return false }
+        return recentLogs.contains { !$0.planned && month.contains($0.date) }
     }
 
     // MARK: - Сейчас вводишь (окно наблюдения)
@@ -486,5 +482,43 @@ struct DashboardView: View {
     }
     private func dueCount(_ groups: [AllergenGroupStatus]) -> Int {
         groups.filter { $0.isIntroduced && !$0.hasAllergy && $0.status != .ok }.count
+    }
+}
+
+/// Пилюля рекапа. Звёздочки внутри вразнобой увеличиваются и уменьшаются —
+/// мерцают; сама пилюля стоит на месте. При «Уменьшении движения» — без анимаций.
+private struct RecapPill: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var twinkle = false
+
+    /// Звёздочки отдельными символами: у системного «sparkles» слои не умеют
+    /// масштабироваться независимо. Разные периоды — и они быстро расходятся по фазе.
+    private struct Star { let size: CGFloat; let x: CGFloat; let y: CGFloat; let period: Double }
+    private let stars = [Star(size: 12, x: -2, y: 2, period: 1.1),
+                         Star(size: 7, x: 6, y: -6, period: 1.5),
+                         Star(size: 5, x: 7, y: 6, period: 0.8)]
+
+    var body: some View {
+        HStack(spacing: 5) {
+            ZStack {
+                ForEach(stars.indices, id: \.self) { i in
+                    let star = stars[i]
+                    Image(systemName: "sparkle")
+                        .font(.system(size: star.size, weight: .bold))
+                        .scaleEffect(reduceMotion ? 1 : (twinkle ? 1.15 : 0.6))
+                        .animation(reduceMotion ? .default
+                                   : .easeInOut(duration: star.period).repeatForever(autoreverses: true),
+                                   value: twinkle)
+                        .offset(x: star.x, y: star.y)
+                }
+            }
+            .frame(width: 18, height: 18)
+            Text("Рекап")
+        }
+        .font(.subheadline.bold())
+        .foregroundStyle(.white)
+        .padding(.horizontal, 14).padding(.vertical, 7)
+        .background(Theme.accent, in: Capsule())
+        .onAppear { twinkle = !reduceMotion }
     }
 }

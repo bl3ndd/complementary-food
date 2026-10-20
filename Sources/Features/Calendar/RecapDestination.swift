@@ -1,8 +1,8 @@
 import SwiftUI
 import SwiftData
 
-/// Что открывает кнопка рекапа на главной: без Pro — одна месячная карточка
-/// (крючок), с Pro — вся карусель.
+/// Что открывает кнопка рекапа на главной: с Pro — карусель, без Pro — пейвол.
+/// (Одиночная месячная карточка для всех остаётся в календаре.)
 ///
 /// Собирается в отдельной вьюхе со своими выборками: карусели нужен весь дневник
 /// ребёнка (постер, «первый раз», топ), а главная держит в `@Query` только хвост
@@ -36,10 +36,10 @@ struct RecapDestination: View {
     }
 
     var body: some View {
-        let service = RecapService(catalog: catalog, logs: logs)
-        let month = service.recap(for: Date(), childName: child.name,
-                                  ageMonths: child.ageInMonths)
         if entitlements.isPro {
+            let service = RecapService(catalog: catalog, logs: logs)
+            let month = service.recap(for: Date(), childName: child.name,
+                                      ageMonths: child.ageInMonths)
             let introduced = statuses.filter { $0.state == .introduced }.map(\.foodId)
             RecapCarouselView(
                 cards: RecapCardKind.carousel(
@@ -52,7 +52,7 @@ struct RecapDestination: View {
                 childName: child.name,
                 childPhoto: child.photo)
         } else {
-            RecapSheet(recap: month)
+            ProSheet(entitlements: entitlements)
         }
     }
 }

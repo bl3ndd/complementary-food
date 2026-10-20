@@ -37,11 +37,11 @@ final class ProfileUITests: XCTestCase {
         app.terminate()
         app = XCUIApplication.pudding(seed: "rich")
         app.acceptDisclaimer()
-        // Rich: рекап (теперь он на главной) реально открывается.
+        // Rich: рекап теперь на главной; без Pro он ведёт на пейвол.
         app.buttons["dashboard.recap"].waitTap(timeout: 8)
-        app.navigationBars["Рекап месяца"].assertExists(timeout: 6,
-            "при наличии данных рекап должен открыться")
-        app.navigationBars["Рекап месяца"].buttons["Готово"].tap()
+        app.navigationBars["Pudding Pro"].assertExists(timeout: 6,
+            "без Pro рекап на главной должен открывать пейвол")
+        app.navigationBars["Pudding Pro"].buttons["Готово"].tap()
     }
 
     // E-PRF-02: план — снятие всех аллергенов показывает предупреждение.

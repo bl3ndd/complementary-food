@@ -1,15 +1,18 @@
 import Foundation
 
-/// Снимок коллекции для виджета.
+/// Снимок дневника для виджетов.
 ///
-/// **Почему снимок, а не общий стор.** Виджету нужны всего несколько id продуктов,
+/// **Почему снимок, а не общий стор.** Виджету нужны всего несколько продуктов,
 /// а чтобы дать ему SwiftData-контейнер, стор пришлось бы перенести в App Group —
 /// то есть провести миграцию у всех существующих пользователей и потрогать
-/// CloudKit ради сетки иконок. Цена несопоставима с задачей.
+/// CloudKit ради пары строк на домашнем экране. Цена несопоставима с задачей.
 ///
 /// Приложение пишет сюда маленький JSON при изменении журнала, виджет его читает.
 /// Если App Group недоступна (не выдана в профиле), всё молча не работает —
 /// виджет пустой, приложение цело.
+///
+/// Новые поля — опциональные: снимок, записанный прошлой версией приложения,
+/// обязан читаться, пока приложение его не перезапишет.
 struct WidgetSnapshot: Codable, Equatable {
 
     /// Общий контейнер приложения и расширения.
@@ -19,23 +22,53 @@ struct WidgetSnapshot: Codable, Equatable {
     /// Сколько продуктов держим. Больше в medium-виджет не влезает, а таскать
     /// весь каталог в снимке незачем.
     static let limit = 16
+    /// Сколько вводимых и запланированных продуктов кладём — больше виджет не покажет.
+    static let introLimit = 2
+    static let plannedLimit = 3
 
-    /// Продукт в снимке. Эмодзи лежит прямо здесь, чтобы расширению не тащить
-    /// каталог, ассеты и `FoodIcon`: виджет становится самодостаточным.
+    /// Продукт в снимке. Имя и иконка лежат прямо здесь, чтобы расширению не тащить
+    /// каталог, ассеты и `FoodIcon`: виджет самодостаточен. Иконка — PNG, который
+    /// отрисовало приложение; эмодзи — запасной вариант, если отрисовать не вышло.
     struct Item: Codable, Equatable {
         let id: String
         let emoji: String
+        var name: String?
+        var icon: Data?
+    }
+
+    /// Продукт, который сейчас вводят: сколько кормлений из нужных уже было.
+    struct Intro: Codable, Equatable {
+        let item: Item
+        let done: Int
+        let window: Int
+    }
+
+    /// Запланированный пользователем продукт (свой план, а не совет приложения).
+    struct Planned: Codable, Equatable {
+        let item: Item
+        let date: Date
     }
 
     /// Продукты в порядке знакомства; в снимке — последние `limit`.
     let items: [Item]
-    /// Сколько всего введено (может быть больше, чем влезло в `foodIds`).
+    /// Сколько всего введено (может быть больше, чем влезло в `items`).
     let total: Int
     let updatedAt: Date
+    var introducing: [Intro]?
+    var planned: [Planned]?
+    /// Виджеты — часть Pro. Без права виджет показывает заглушку, а не данные.
+    var locked: Bool?
 
     /// Собирает снимок из полного списка введённых продуктов.
-    static func make(items all: [Item], now: Date = Date()) -> WidgetSnapshot {
-        WidgetSnapshot(items: Array(all.suffix(limit)), total: all.count, updatedAt: now)
+    static func make(items all: [Item],
+                     introducing: [Intro] = [],
+                     planned: [Planned] = [],
+                     locked: Bool = false,
+                     now: Date = Date()) -> WidgetSnapshot {
+        WidgetSnapshot(items: Array(all.suffix(limit)), total: all.count, updatedAt: now,
+                       introducing: Array(introducing.prefix(introLimit)),
+                       planned: Array(planned.prefix(plannedLimit)),
+                       locked: locked)
     }
 }
 

@@ -4,6 +4,8 @@ import WidgetKit
 
 struct MainTabView: View {
     let child: Child
+    /// Право на Pro — от корня: виджеты без него получают заглушку.
+    var isPro = false
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]
     /// Тот же хвост журнала, что и у дашборда, а не весь дневник: бейдж таба иначе
@@ -14,8 +16,9 @@ struct MainTabView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.displayScale) private var displayScale
 
-    init(child: Child) {
+    init(child: Child, isPro: Bool = false) {
         self.child = child
+        self.isPro = isPro
         // Выровнено по началу дня — предикат обязан быть стабильным между проходами
         // body, иначе @Query перевыбирает журнал на ровном месте.
         let cal = Calendar.current
@@ -60,23 +63,26 @@ struct MainTabView: View {
                 // И при возврате из фона: день мог смениться.
                 if phase == .active { syncIntroductions() }
             }
-            // Коллекция выросла — обновляем снимок для виджета. Считаем по числу
-            // введённых, а не по всему массиву: пересчитывать снимок на каждое
-            // изменение любого статуса незачем.
-            .onChange(of: statuses.filter { $0.state == .introduced }.count) { _, _ in
-                refreshWidget()
-            }
+            // Изменилось то, что видно в виджетах, — обновляем снимок. Сигнатура
+            // дешёвая: пересчитывать снимок на каждое изменение любого поля незачем.
+            .onChange(of: widgetSignature) { _, _ in refreshWidget() }
     }
 
-    /// Кладёт снимок коллекции в App Group и просит WidgetKit перерисоваться.
+    /// Всё, от чего зависят виджеты: коллекция, что вводится, число записей
+    /// в хвосте журнала (прогресс ввода и планы) и право на Pro.
+    private var widgetSignature: String {
+        let introducing = statuses.filter { $0.state == .introducing }.map(\.foodId).sorted()
+        let introduced = statuses.filter { $0.state == .introduced }.count
+        return "\(isPro)|\(introduced)|\(introducing)|\(logs.count)"
+    }
+
+    /// Кладёт снимок в App Group и просит WidgetKit перерисоваться.
     /// Без App Group (не выдана в профиле) — тихо ничего, виджет просто пустой.
     private func refreshWidget() {
-        let catalog = FoodCatalog.shared
-        let items = statuses
-            .filter { $0.state == .introduced }
-            .compactMap { catalog.food(id: $0.foodId) }
-            .map { WidgetSnapshot.Item(id: $0.id, emoji: $0.emoji) }
-        if WidgetSnapshotStore.save(.make(items: items)) {
+        let snapshot = WidgetContent(catalog: .shared, profile: child.feedingProfile,
+                                     statuses: statuses, logs: logs, isPro: isPro,
+                                     icon: WidgetIcons.png).snapshot()
+        if WidgetSnapshotStore.save(snapshot) {
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
@@ -97,7 +103,7 @@ struct MainTabView: View {
 
     private var tabs: some View {
         TabView(selection: $router.selectedTab) {
-            DashboardView(child: child, goToCatalog: { router.selectedTab = .catalog })
+            DashboardView(child: child, isPro: isPro, goToCatalog: { router.selectedTab = .catalog })
                 .tabItem { Label("Сегодня", systemImage: "sun.max.fill") }
                 .tag(Tab.today)
 
@@ -126,3 +132,21 @@ struct MainTabView: View {
     }
 }
 
+
+/// Иконки продуктов для виджета: расширение не видит ассеты приложения, поэтому
+/// приложение само рисует `FoodIcon` в PNG и кладёт в снимок. Кэш по id — снимок
+/// пересобирается на каждую запись, а иконка продукта от этого не меняется.
+@MainActor
+enum WidgetIcons {
+    private static var cache: [String: Data] = [:]
+
+    static func png(_ food: Food) -> Data? {
+        if let hit = cache[food.id] { return hit }
+        let renderer = ImageRenderer(content: FoodIcon(food: food, size: 40, circular: true)
+            .environment(\.colorScheme, .light))
+        renderer.scale = 3
+        let data = renderer.uiImage?.pngData()
+        cache[food.id] = data
+        return data
+    }
+}

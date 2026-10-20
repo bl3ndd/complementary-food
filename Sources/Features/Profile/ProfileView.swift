@@ -367,13 +367,13 @@ struct ProfileView: View {
             Link(destination: AppLinks.supportMailto) {
                 Label(String(localized: "support.link", defaultValue: "Поддержка"), systemImage: "envelope")
             }
-            Link(destination: AppLinks.privacyPolicyURL) {
+            Link(destination: AppLinks.privacyPolicyURL()) {
                 Label("Политика конфиденциальности", systemImage: "lock.shield")
             }
-            Link(destination: AppLinks.termsURL) {
+            Link(destination: AppLinks.termsURL()) {
                 Label("Условия использования", systemImage: "doc.text")
             }
-            Link(destination: AppLinks.methodologyInfoURL) {
+            Link(destination: AppLinks.methodologyInfoURL()) {
                 Label("Источники методики", systemImage: "book")
             }
             LabeledContent("Версия", value: Bundle.main.appVersion)

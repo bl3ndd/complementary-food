@@ -35,7 +35,7 @@ struct RootView: View {
 
         Group {
             if let child = ActiveChild.resolve(children: children, storedId: activeChildId) {
-                MainTabView(child: child)
+                MainTabView(child: child, isPro: entitlements.isPro)
                     .transition(.opacity)
             } else {
                 OnboardingView()
