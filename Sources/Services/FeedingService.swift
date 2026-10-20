@@ -58,17 +58,30 @@ struct FeedingService {
     /// Окно меряется кормлениями, а не календарём (продукт дают и вечером —
     /// «второй день» сам по себе ничего не подтверждает), но два кормления
     /// в один день — это всё ещё один день наблюдения.
+    ///
+    /// Кормление с реакцией днём ввода НЕ считается: иначе «сыпь» на последнем дне
+    /// закрывала бы ввод с поздравлением. Граница — по дню, а не по секундам:
+    /// дали в 9:00, нажали «Возобновить» в 12:00 — этот день уже идёт в зачёт.
+    static func countsForIntro(_ log: FoodLog, since start: Date, calendar: Calendar) -> Bool {
+        guard !log.planned else { return false }
+        if let reaction = log.reaction, reaction != .none { return false }
+        return calendar.startOfDay(for: log.date) >= calendar.startOfDay(for: start)
+    }
+
     static func introFeedingDays(logs: [FoodLog], foodId: String, since start: Date,
                                  calendar: Calendar = .current) -> Int {
         let days = logs
-            .filter { $0.foodId == foodId && !$0.planned && $0.date >= start }
+            .filter { $0.foodId == foodId && countsForIntro($0, since: start, calendar: calendar) }
             .map { calendar.startOfDay(for: $0.date) }
         return Set(days).count
     }
 
+    /// Только записи СВОЕГО ребёнка: кормления старшего не засчитываются младшему.
     func introFeedingDays(foodId: String, since start: Date,
                           calendar: Calendar = .current) -> Int {
-        let logs = (try? context.fetch(FetchDescriptor<FoodLog>())) ?? []
+        let owner = childId
+        let logs = (try? context.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.foodId == foodId && $0.childId == owner }))) ?? []
         return Self.introFeedingDays(logs: logs, foodId: foodId, since: start, calendar: calendar)
     }
 
@@ -82,7 +95,8 @@ struct FeedingService {
         guard !starts.isEmpty else { return [:] }
         var days: [String: Set<Date>] = [:]
         for log in logs {
-            guard !log.planned, let start = starts[log.foodId], log.date >= start else { continue }
+            guard let start = starts[log.foodId],
+                  countsForIntro(log, since: start, calendar: calendar) else { continue }
             days[log.foodId, default: []].insert(calendar.startOfDay(for: log.date))
         }
         return days.mapValues(\.count)
@@ -95,7 +109,12 @@ struct FeedingService {
     func completeDueIntroductions(profile: FeedingProfile,
                                   catalog: FoodCatalog = .shared,
                                   now: Date = Date()) -> [String] {
-        let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>())) ?? []
+        // Только статусы этого ребёнка и по ЕГО плану: у младшего окно аллергена
+        // может быть длиннее, и чужой план закрыл бы ввод раньше срока.
+        let owner = childId
+        let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>(
+            predicate: #Predicate { $0.childId == owner }))) ?? []
+        let profile = ownProfile() ?? profile
         var completed: [String] = []
         for s in statuses where s.state == .introducing {
             guard let food = catalog.food(id: s.foodId), let start = s.introStartedAt else { continue }
@@ -117,6 +136,17 @@ struct FeedingService {
                     severity: ReactionSeverity? = nil, photos: [Data] = []) {
         let s = status(for: food.id)
         let isMaintenance = (s.state == .introduced)
+        let hadReaction = reaction != nil && reaction != ReactionType.none
+        // Первое кормление продукта — это и есть начало ввода. Раньше запись с
+        // главной («Записать») сохранялась, а продукт так и оставался «Не введён»:
+        // ни окна, ни коллекции, ни напоминаний. Пауза снимается обычным кормлением
+        // (дали снова — значит, вводят снова), но не записью реакции.
+        if s.state == .notIntroduced || (s.state == .paused && !hadReaction) {
+            s.state = .introducing
+            s.introStartedAt = date
+            s.completedAt = nil
+            s.retryAt = nil
+        }
         let log = FoodLog(foodId: food.id,
                           date: date,
                           type: isMaintenance ? .maintenance : .intro,
@@ -135,15 +165,49 @@ struct FeedingService {
         save()
         // Набралось нужное число кормлений — продукт введён прямо сейчас, а не
         // «когда-нибудь при следующем запуске».
-        if s.state == .introducing, let profile = currentProfile() {
+        if s.state == .introducing, let profile = ownProfile() {
             completeDueIntroductions(profile: profile)
         }
     }
 
-    /// План текущего ребёнка (в MVP он один). Нужен, чтобы запись кормления могла
-    /// сама закрыть окно, не таща профиль через все вызовы.
-    private func currentProfile() -> FeedingProfile? {
-        (try? context.fetch(FetchDescriptor<Child>()))?.first?.feedingProfile
+    /// План ребёнка, чей это дневник. Раньше брался первый ребёнок в сторе —
+    /// и у второго ребёнка окна считались по чужому плану.
+    private func ownProfile() -> FeedingProfile? {
+        guard let owner = childId else {
+            return (try? context.fetch(FetchDescriptor<Child>()))?.first?.feedingProfile
+        }
+        var d = FetchDescriptor<Child>(predicate: #Predicate { $0.id == owner })
+        d.fetchLimit = 1
+        return (try? context.fetch(d))?.first?.feedingProfile
+    }
+
+    /// Пересчёт после правки или удаления записи. Перенос даты раньше старта тянет
+    /// старт назад (как при записи), набравшийся ввод закрывается, а ввод, который
+    /// закрыла ошибочная запись, возвращается в «вводится» — пока после закрытия
+    /// продукт не давали.
+    func revalidate(foodId: String, now: Date = Date(), calendar: Calendar = .current) {
+        let owner = childId
+        let s = status(for: foodId)
+        let logs = (try? context.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.foodId == foodId && $0.childId == owner }))) ?? []
+        let real = logs.filter { !$0.planned }
+        if s.state == .introducing, let start = s.introStartedAt,
+           let earliest = real.map(\.date).min(), earliest < start {
+            s.introStartedAt = earliest
+        }
+        if s.state == .introduced, let start = s.introStartedAt, let done = s.completedAt,
+           let food = FoodCatalog.shared.food(id: foodId), let profile = ownProfile() {
+            let days = Self.introFeedingDays(logs: real, foodId: foodId, since: start, calendar: calendar)
+            let fedAfter = real.contains { $0.date > done }
+            if days < profile.observationDays(for: food) && !fedAfter {
+                s.state = .introducing
+                s.completedAt = nil
+            }
+        }
+        save()
+        if s.state == .introducing, let profile = ownProfile() {
+            completeDueIntroductions(profile: profile, now: now)
+        }
     }
 
     /// Переустановить фото записи (из редактора): очистить legacy + старые дети,
@@ -227,10 +291,15 @@ struct FeedingService {
             s.retryAt = nil
         case .introduced:
             log.type = .maintenance
-        case .introducing, .allergy:
+        case .introducing:
+            if let start = s.introStartedAt, log.date < start { s.introStartedAt = log.date }
+        case .allergy:
             break
         }
         save()
+        if s.state == .introducing, let profile = ownProfile() {
+            completeDueIntroductions(profile: profile, now: now)
+        }
     }
 
     /// Ручная пометка аллергии (для уже введённого аллергена — гасит напоминания

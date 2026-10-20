@@ -44,8 +44,9 @@ struct FeedingProfile: Identifiable, Codable, Hashable {
             id: customId,
             name: String(localized: "Свой план"),
             startAgeMonths: child.customStartAgeMonths,
-            observationDaysRegular: child.customObservationDaysRegular,
-            observationDaysAllergen: child.customObservationDaysAllergen,
+            // Ноль из стора/синка означал бы мгновенное «введено» — минимум один день.
+            observationDaysRegular: max(1, child.customObservationDaysRegular),
+            observationDaysAllergen: max(1, child.customObservationDaysAllergen),
             allergenFrequencyPerWeek: max(1, child.customAllergenFrequencyPerWeek),
             allergenGroups: child.customAllergenGroups)
     }

@@ -27,11 +27,10 @@ extension UNUserNotificationCenter: NotificationScheduling {
 /// Локальные напоминания по методике (SPEC §4.2/4.3, §12). Разрешение просим
 /// сразу после дисклеймер-гейта (MainTabView) + страховкой при первом
 /// фактическом планировании. Два типа:
-/// 1) **Окно ввода** — пока продукт в статусе «вводится», ежедневное напоминание
-///    давать его каждый день окна наблюдения (`intro-…`, одноразовые по датам).
-/// 2) **Поддержка аллергена** — для введённых групп еженедельный повтор по дню
-///    недели следующего приёма (`allergen-…`, `repeats: true`), чтобы не терялась
-///    толерантность.
+/// 1) **Окно ввода** — пока продукт в статусе «вводится», напоминание на ближайшие
+///    дни (`intro-<ребёнок>-…`, одноразовые по датам).
+/// 2) **Поддержка аллергена** — одноразовые на дату следующего приёма по плану
+///    (`allergen-<ребёнок>-…`) и через два дня после неё.
 /// Тексты нейтральны: не называем продукт/аллерген на локскрине (App Review 4.5.4).
 final class NotificationManager {
     static let shared = NotificationManager()
@@ -74,33 +73,61 @@ final class NotificationManager {
         }
     }
 
-    /// Пересчитывает и переставляет все напоминания (окно ввода + поддержка).
-    func refresh(context: ModelContext, profile: FeedingProfile) {
+    /// Пересчитывает и переставляет все напоминания (окно ввода + поддержка) —
+    /// для КАЖДОГО ребёнка по его записям и его плану. Раньше всё считалось одной
+    /// кучей: доза аллергена старшему гасила «пора» младшему, а одинаковые id
+    /// напоминаний перетирали друг друга.
+    func refresh(context: ModelContext) {
+        let children = (try? context.fetch(FetchDescriptor<Child>())) ?? []
         let statuses = (try? context.fetch(FetchDescriptor<IntroductionStatus>())) ?? []
         let logs = (try? context.fetch(FetchDescriptor<FoodLog>())) ?? []
+        var priority: [UNNotificationRequest] = []
+        var intro: [UNNotificationRequest] = []
+        for child in children {
+            let own = statuses.filter { $0.childId == child.id }
+            let ownLogs = logs.filter { $0.childId == child.id }
+            let built = requests(forChild: child.id, profile: child.feedingProfile,
+                                 statuses: own, logs: ownLogs)
+            priority += built.priority
+            intro += built.intro
+        }
+        // Приоритет при лимите iOS (64 локальных уведомления): поддержка аллергенов и
+        // retry важнее окна ввода — их ставим всегда, окно ввода добиваем до лимита (B7).
+        let cap = 60
+        let all = Array(priority.prefix(cap)) + Array(intro.prefix(max(0, cap - priority.count)))
+        // Последовательно: два refresh подряд (запуск + активация, запись + карточка)
+        // раньше гонялись, и старый набор мог победить новый.
+        let previous = pending
+        pending = Task {
+            await previous?.value
+            if !all.isEmpty { await ensureAuthorized() }
+            await apply(all)
+        }
+    }
+
+    private var pending: Task<Void, Never>?
+
+    /// Напоминания одного ребёнка. Чистая функция — тестируется без стора.
+    func requests(forChild childId: UUID, profile: FeedingProfile,
+                  statuses: [IntroductionStatus], logs: [FoodLog],
+                  now: Date = Date(), calendar: Calendar = .current)
+        -> (priority: [UNNotificationRequest], intro: [UNNotificationRequest]) {
         let catalog = FoodCatalog.shared
-        let groups = AllergenMaintenance(catalog: catalog,
-                                         profile: profile,
-                                         statuses: statuses,
-                                         logs: logs).groups()
+        let tag = String(childId.uuidString.prefix(8))
+        let groups = AllergenMaintenance(catalog: catalog, profile: profile,
+                                         statuses: statuses, logs: logs,
+                                         now: now, calendar: calendar).groups()
         // Окно ввода зависит от типа продукта (аллерген/обычный) — считаем раздельно (п.10).
         let introducing = statuses.filter { $0.state == .introducing }
         let allergenIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen == true }
         let regularIntro = introducing.filter { catalog.food(id: $0.foodId)?.isAllergen != true }
-        // Приоритет при лимите iOS (64 локальных уведомления): поддержка аллергенов и
-        // retry важнее окна ввода — их ставим всегда, окно ввода добиваем до лимита (B7).
-        let priority = requests(for: groups, intervalDays: profile.maintenanceIntervalDays)
-            + retryRequests(statuses: statuses)
-        let intro = introRequests(statuses: allergenIntro,
-                                  observationDays: profile.observationDaysAllergen, logs: logs)
-            + introRequests(statuses: regularIntro,
-                            observationDays: profile.observationDaysRegular, logs: logs)
-        let cap = 60
-        let all = priority + Array(intro.prefix(max(0, cap - priority.count)))
-        Task {
-            if !all.isEmpty { await ensureAuthorized() }
-            await apply(all)
-        }
+        let priority = requests(for: groups, tag: tag, now: now, calendar: calendar)
+            + retryRequests(statuses: statuses, tag: tag, now: now, calendar: calendar)
+        let intro = introRequests(statuses: allergenIntro, observationDays: profile.observationDaysAllergen,
+                                  logs: logs, tag: tag, now: now, calendar: calendar)
+            + introRequests(statuses: regularIntro, observationDays: profile.observationDaysRegular,
+                            logs: logs, tag: tag, now: now, calendar: calendar)
+        return (priority, intro)
     }
 
     /// Снимает наши прошлые напоминания (intro-/allergen-) и ставит переданные.
@@ -114,49 +141,59 @@ final class NotificationManager {
         }
     }
 
-    /// Чистая функция: напоминания поддержки по группам аллергенов. Берём введённые
-    /// группы без аллергии со статусом не `.ok` (пора/скоро) и датой следующего приёма.
-    /// Каданс привязан к плану: `intervalDays <= 1` (ежедневный аллерген) → ежедневный
-    /// повтор в 10:00; иначе — еженедельный по дню недели ближайшего срока. (iOS
-    /// нативно умеет только daily/weekly-повтор; для 2–6 дней недельный — надёжный «пол».)
+    /// Чистая функция: напоминания поддержки по группам аллергенов. Ставятся
+    /// ЗАРАНЕЕ на дату следующего приёма по плану — для каждой введённой группы без
+    /// аллергии, в том числе той, что сейчас «в норме». Раньше напоминание строилось
+    /// только для уже просроченных групп, то есть приходило, лишь когда человек сам
+    /// открыл приложение и увидел бейдж. Второе — через пару дней, если не дали.
     func requests(for groups: [AllergenGroupStatus],
-                  intervalDays: Int,
+                  tag: String = "",
                   now: Date = Date(),
                   calendar: Calendar = .current) -> [UNNotificationRequest] {
-        groups.compactMap { group in
-            guard group.isIntroduced, !group.hasAllergy, group.status != .ok,
-                  let due = group.nextDue else { return nil }
-
-            let content = UNMutableNotificationContent()
-            content.title = "Pudding"
-            content.body = String(localized: "Пора освежить введённый аллерген — загляни в приложение.")
-            content.sound = .default
-
-            var comps = DateComponents()
-            comps.hour = hour
-            comps.minute = minute
-            if intervalDays > 1 {
-                // Еженедельно. Если срок прошёл — якорим день недели к ближайшему
-                // (а не к прошедшему nextDue), иначе первый пуш только через неделю (B8).
-                comps.weekday = calendar.component(.weekday, from: max(due, now))
+        groups.flatMap { group -> [UNNotificationRequest] in
+            guard group.isIntroduced, !group.hasAllergy, let due = group.nextDue else { return [] }
+            let first = nextFire(onOrAfter: due, now: now, calendar: calendar)
+            let fires = [first, calendar.date(byAdding: .day, value: 2, to: first)].compactMap { $0 }
+            return fires.enumerated().map { i, fire in
+                let content = UNMutableNotificationContent()
+                content.title = "Pudding"
+                content.body = String(localized: "По твоему плану — повтор знакомого аллергена. Подробности в приложении.")
+                content.sound = .default
+                var comps = calendar.dateComponents([.year, .month, .day], from: fire)
+                comps.hour = hour
+                comps.minute = minute
+                let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+                return UNNotificationRequest(identifier: identifier(allergenPrefix, tag, "\(group.group.rawValue)-\(i)"),
+                                             content: content, trigger: trigger)
             }
-            // intervalDays <= 1: без weekday/дня → ежедневный повтор в 10:00.
-            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-
-            return UNNotificationRequest(identifier: allergenPrefix + group.group.rawValue,
-                                         content: content,
-                                         trigger: trigger)
         }
     }
 
-    /// Чистая функция: напоминания «дай продукт ещё раз», пока не набралось нужное
-    /// число кормлений. Считаем НЕ дни, а сколько раз реально дали (продукт можно
-    /// дать и вечером): сколько кормлений осталось — столько напоминаний и ставим,
-    /// по одному на ближайшие дни. Одноразовые триггеры; после каждой записи
-    /// `refresh` пересобирает список, и лишние снимаются.
+    /// id напоминания: `<префикс><ребёнок>-<хвост>`; без ребёнка (тесты, старые
+    /// вызовы) — прежний формат `<префикс><хвост>`.
+    private func identifier(_ prefix: String, _ tag: String, _ rest: String) -> String {
+        tag.isEmpty ? prefix + rest : "\(prefix)\(tag)-\(rest)"
+    }
+
+    /// Ближайшие 10:00 не раньше дня `day` и строго в будущем.
+    private func nextFire(onOrAfter day: Date, now: Date, calendar: Calendar) -> Date {
+        let base = max(calendar.startOfDay(for: day), calendar.startOfDay(for: now))
+        var comps = calendar.dateComponents([.year, .month, .day], from: base)
+        comps.hour = hour
+        comps.minute = minute
+        let fire = calendar.date(from: comps) ?? base
+        return fire > now ? fire : (calendar.date(byAdding: .day, value: 1, to: fire) ?? fire)
+    }
+
+    /// Чистая функция: напоминания о кормлении для ввода, пока не набралось нужное
+    /// число дней. Ставим на `осталось + 2` ближайших дня (запас на пропуски — раньше
+    /// после пропущенного дня напоминания просто кончались), начиная с сегодня, если
+    /// сегодня ещё не кормили и 10:00 не прошло, иначе с завтра. Текст без счётчика:
+    /// он застывал на момент планирования и врал после следующей записи.
     func introRequests(statuses: [IntroductionStatus],
                        observationDays: Int,
                        logs: [FoodLog] = [],
+                       tag: String = "",
                        now: Date = Date(),
                        calendar: Calendar = .current) -> [UNNotificationRequest] {
         guard observationDays > 0 else { return [] }
@@ -169,30 +206,28 @@ final class NotificationManager {
                 let remaining = observationDays - done
                 guard remaining > 0 else { return nil }
 
-                // Если сегодня продукт уже давали, сегодняшнее напоминание не нужно:
-                // засчитывается один день — одно кормление.
-                let today = calendar.startOfDay(for: now)
                 let fedToday = logs.contains {
                     $0.foodId == status.foodId && !$0.planned
                         && calendar.isDate($0.date, inSameDayAs: now)
                 }
-                let firstOffset = fedToday ? 1 : 0
-                return (firstOffset..<(firstOffset + remaining)).compactMap { offset in
-                    guard let dayDate = calendar.date(byAdding: .day, value: offset, to: today)
-                    else { return nil }
-                    var comps = calendar.dateComponents([.year, .month, .day], from: dayDate)
+                var first = nextFire(onOrAfter: now, now: now, calendar: calendar)
+                if fedToday, calendar.isDate(first, inSameDayAs: now) {
+                    first = calendar.date(byAdding: .day, value: 1, to: first) ?? first
+                }
+                return (0..<(remaining + 2)).compactMap { offset in
+                    guard let fire = calendar.date(byAdding: .day, value: offset, to: first) else { return nil }
+                    var comps = calendar.dateComponents([.year, .month, .day], from: fire)
                     comps.hour = hour
                     comps.minute = minute
-                    guard let fire = calendar.date(from: comps), fire > now else { return nil }
 
                     let content = UNMutableNotificationContent()
                     content.title = "Pudding"
-                    content.body = String(localized: "Продолжай вводить продукт — записано \(done) из \(observationDays) кормлений. Следи за реакцией 👀")
+                    content.body = String(localized: "Сегодня по плану — кормление для ввода продукта. Подробности в приложении.")
                     content.sound = .default
 
                     let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
                     return UNNotificationRequest(
-                        identifier: "\(introPrefix)\(status.foodId)-\(offset)",
+                        identifier: identifier(introPrefix, tag, "\(status.foodId)-\(offset)"),
                         content: content, trigger: trigger)
                 }
             }
@@ -203,6 +238,7 @@ final class NotificationManager {
     /// статусов с будущим `retryAt` ставим one-shot на эту дату (10:00). Один
     /// запрос на продукт, id `retry-<foodId>` — повторный refresh заменяет, не плодит.
     func retryRequests(statuses: [IntroductionStatus],
+                       tag: String = "",
                        now: Date = Date(),
                        calendar: Calendar = .current) -> [UNNotificationRequest] {
         statuses.compactMap { status in
@@ -213,7 +249,7 @@ final class NotificationManager {
 
             let content = UNMutableNotificationContent()
             content.title = "Pudding"
-            content.body = String(localized: "Можно снова попробовать отложенный продукт — загляни в приложение.")
+            content.body = String(localized: "Сегодня дата, которую ты отметил для отложенного продукта. Подробности в приложении.")
             content.sound = .default
 
             var comps = calendar.dateComponents([.year, .month, .day], from: retryAt)
@@ -221,7 +257,7 @@ final class NotificationManager {
             comps.minute = minute
             let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
 
-            return UNNotificationRequest(identifier: retryPrefix + status.foodId,
+            return UNNotificationRequest(identifier: identifier(retryPrefix, tag, status.foodId),
                                          content: content, trigger: trigger)
         }
     }

@@ -148,7 +148,7 @@ struct LogFeedingSheet: View {
             note: note.isEmpty ? nil : note,
             severity: reaction == .none ? nil : severity,
             photos: photos)
-        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context)
         onSaved?()
         dismiss()
     }

@@ -19,6 +19,7 @@ struct FoodDetailView: View {
     @State private var editingLog: FoodLog?
     @State private var confirmStop = false
     @State private var confirmAllergy = false
+    @State private var confirmUnflag = false
 
     init(food: Food, child: Child) {
         self.food = food
@@ -80,6 +81,12 @@ struct FoodDetailView: View {
             Button("Отмена", role: .cancel) {}
         } message: {
             Text("Это не аллергия — просто пауза, ввод можно возобновить в любой момент.")
+        }
+        .alert("Снять отметку аллергии?", isPresented: $confirmUnflag) {
+            Button("Вернуть в прикорм", role: .destructive) { resume() }
+            Button("Отмена", role: .cancel) {}
+        } message: {
+            Text("Продукт снова станет «Вводится» и пропадёт из списка «Не давать».")
         }
         .alert("Пометить аллергию?", isPresented: $confirmAllergy) {
             Button("Пометить аллергию", role: .destructive) { flagAllergy() }
@@ -342,9 +349,9 @@ struct FoodDetailView: View {
         case .paused:
             return BarAction(title: "Возобновить ввод") { resume() }
         case .allergy:
-            return BarAction(title: "Вернуть в прикорм", tint: .red) {
-                service.reintroduce(food); refresh()
-            }
+            // Снятие аллергии подтверждаем так же, как пометку: случайный тап
+            // убирал продукт из списка «Не давать».
+            return BarAction(title: "Вернуть в прикорм", tint: .red) { confirmUnflag = true }
         }
     }
 
@@ -455,6 +462,6 @@ struct FoodDetailView: View {
     }
 
     private func refresh() {
-        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context)
     }
 }

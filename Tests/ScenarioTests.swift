@@ -98,8 +98,8 @@ final class ScenarioTests: XCTestCase {
 
         // На основе due строится ровно одна заявка уведомления.
         let requests = NotificationManager(center: NoopCenter())
-            .requests(for: due, intervalDays: 4)
-        XCTAssertTrue(requests.contains { $0.identifier == "allergen-egg" })
+            .requests(for: due)
+        XCTAssertTrue(requests.contains { $0.identifier == "allergen-egg-0" })
     }
 
     // MARK: - E4: ручная пометка аллергии на введённый → реинтродукция врачом

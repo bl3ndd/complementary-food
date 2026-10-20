@@ -23,8 +23,14 @@ struct WidgetContent {
         // дневник не утечёт на домашний экран в обход права.
         guard isPro else { return .make(items: [], locked: true, now: now) }
 
+        // По дате введения: сетка показывает последние `limit`, и без сортировки
+        // это были случайные продукты в порядке выборки. Дубли статусов из
+        // CloudKit схлопываем — продукт в коллекции один раз.
+        var seen = Set<String>()
         let collection = statuses
             .filter { $0.state == .introduced }
+            .sorted { ($0.completedAt ?? .distantPast) < ($1.completedAt ?? .distantPast) }
+            .filter { seen.insert($0.foodId).inserted }
             .compactMap { catalog.food(id: $0.foodId) }
         // Иконки рисуем только для того, что влезет в сетку: остальное не покажут.
         let shown = Set(collection.suffix(WidgetSnapshot.limit).map(\.id))

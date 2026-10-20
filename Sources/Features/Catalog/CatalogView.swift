@@ -34,7 +34,12 @@ struct CatalogView: View {
                 }
                 .onAppear { openPending(router.pendingFoodId) }
                 .onChange(of: router.pendingFoodId) { _, fid in openPending(fid) }
-                .sheet(isPresented: $showAddCustom) { AddCustomFoodSheet(childId: child.id) }
+                .sheet(isPresented: $showAddCustom) {
+                    AddCustomFoodSheet { food in
+                        // После закрытия листа — в карточку нового продукта.
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { path.append(food) }
+                    }
+                }
                 .alert("Удалить свой продукт?",
                        isPresented: Binding(get: { pendingDeleteCustom != nil },
                                             set: { if !$0 { pendingDeleteCustom = nil } }),
@@ -42,7 +47,7 @@ struct CatalogView: View {
                     Button("Удалить", role: .destructive) { deleteCustom(food.id) }
                     Button("Отмена", role: .cancel) {}
                 } message: { food in
-                    Text("«\(food.localizedName)» и все его записи в дневнике удалятся. Действие необратимо.")
+                    Text("«\(food.localizedName)» и все его записи удалятся из дневников всех детей. Действие необратимо.")
                 }
                 .onAppear { refreshCustom() }
                 .onChange(of: customFoods.map(\.id)) { refreshCustom() }

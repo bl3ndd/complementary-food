@@ -81,7 +81,11 @@ struct DashboardView: View {
         let today = todayEntries
         let groups = allergenGroups(profile)
         let introducing = introducingItems(profile)
-        let introducedStatuses = statuses.filter { $0.state == .introduced }
+        // Дубли статусов из CloudKit (два устройства офлайн) не должны раздувать счёт.
+        var seenIntroduced = Set<String>()
+        let introducedStatuses = statuses.filter {
+            $0.state == .introduced && seenIntroduced.insert($0.foodId).inserted
+        }
         let collection = introducedStatuses.compactMap { catalog.food(id: $0.foodId) }
 
         NavigationStack(path: $path) {

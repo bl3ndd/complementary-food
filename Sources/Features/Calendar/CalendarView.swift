@@ -443,7 +443,7 @@ struct CalendarView: View {
     private func markDone(_ log: FoodLog) {
         Haptics.success()
         FeedingService(context: context, childId: child.id).confirmPlanned(log)
-        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context)
     }
 
     private func delete(_ log: FoodLog) {

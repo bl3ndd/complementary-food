@@ -8,6 +8,7 @@ struct RootView: View {
     @Query private var installs: [AppInstall]
     @Environment(\.modelContext) private var context
     @ObservedObject private var proStore = ProStore.shared
+    @ObservedObject private var router = AppRouter.shared
     /// Выбранная цветовая гамма. В отличие от языка применяется сразу.
     @AppStorage(Palette.storageKey) private var paletteId: String = Palette.pudding.id
     /// Какой ребёнок открыт. Состояние устройства, а не данные — в стор не кладём.
@@ -57,6 +58,14 @@ struct RootView: View {
             // не восстановить, а на этом держится обещание ранним пользователям.
             EarlyAdopter(context: context).registerIfNeeded()
             await proStore.refresh()
+        }
+        // Пуш другого ребёнка: сначала переключаемся на него, потом табы делают своё.
+        .onChange(of: router.pendingChildTag) { _, tag in
+            guard let tag else { return }
+            if let match = children.first(where: { $0.id.uuidString.hasPrefix(tag) }) {
+                activeChildId = ActiveChild.id(of: match)
+            }
+            router.pendingChildTag = nil
         }
         .tint(Theme.accent)
         // Алерты и диалоги — это UIKit, SwiftUI-шный `.tint` до них не доходит, и без

@@ -35,6 +35,13 @@ protocol ProPurchasing {
     func purchase(id: String) async throws -> ProPurchaseOutcome
     func isEntitled(to id: String) async -> Bool
     func restore() async throws
+    /// Транзакции, пришедшие мимо кнопки «Купить»: одобрение «Ask to Buy», покупка
+    /// на другом устройстве, возврат. Каждое событие — повод перепроверить право.
+    func transactionUpdates() -> AsyncStream<Void>
+}
+
+extension ProPurchasing {
+    func transactionUpdates() -> AsyncStream<Void> { AsyncStream { $0.finish() } }
 }
 
 /// Состояние покупки для интерфейса. Вьюха знает только `isPurchased`,
@@ -71,7 +78,17 @@ final class ProStore: ObservableObject {
         self.productId = productId
         self.defaults = defaults
         self.isPurchased = defaults.bool(forKey: Self.cacheKey)
+        // Без слушателя одобренная родителем покупка или возврат становились видны
+        // только при следующем запуске или открытии экрана Pro.
+        updatesTask = Task { [weak self, purchasing, productId] in
+            for await _ in purchasing.transactionUpdates() {
+                let entitled = await purchasing.isEntitled(to: productId)
+                self?.isPurchased = entitled
+            }
+        }
     }
+
+    private var updatesTask: Task<Void, Never>?
 
     /// Витрина + текущее право. Зовётся при показе экрана покупки и на старте.
     func refresh() async {
@@ -154,5 +171,18 @@ struct StoreKitPurchasing: ProPurchasing {
 
     func restore() async throws {
         try await AppStore.sync()
+    }
+
+    func transactionUpdates() -> AsyncStream<Void> {
+        AsyncStream { continuation in
+            let task = Task {
+                for await result in Transaction.updates {
+                    if case let .verified(transaction) = result { await transaction.finish() }
+                    continuation.yield()
+                }
+                continuation.finish()
+            }
+            continuation.onTermination = { _ in task.cancel() }
+        }
     }
 }

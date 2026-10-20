@@ -183,7 +183,7 @@ struct AllergensView: View {
     private func give(_ food: Food) {
         Haptics.success()
         FeedingService(context: context, childId: child.id).logFeeding(food, liking: nil, reaction: nil)
-        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context)
     }
 
     private var groups: [AllergenGroupStatus] {

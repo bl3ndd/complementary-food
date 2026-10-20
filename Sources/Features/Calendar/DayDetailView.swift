@@ -77,10 +77,7 @@ struct DayDetailView: View {
     private func markDone(_ log: FoodLog) {
         Haptics.success()
         FeedingService(context: context, childId: child.id).confirmPlanned(log)
-        if true {
-            let profile = child.feedingProfile
-            NotificationManager.shared.refresh(context: context, profile: profile)
-        }
+        NotificationManager.shared.refresh(context: context)
     }
 
     private var emptyState: some View {

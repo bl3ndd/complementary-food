@@ -479,6 +479,6 @@ struct ProfileView: View {
 
     private func persist() {
         try? context.save()
-        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context)
     }
 }

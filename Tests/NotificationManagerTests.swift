@@ -40,21 +40,22 @@ final class NotificationManagerTests: XCTestCase {
                             lastGiven: nextDue, status: status, nextDue: nextDue)
     }
 
-    // MARK: - Одна заявка на каждую «пора/скоро» группу, пропуск остальных
+    // MARK: - Поддержка: заранее на дату по плану, для каждой введённой группы
 
-    func testRequestsOnePerDueGroupSkippingOthers() {
+    func testRequestsForEveryIntroducedGroupIncludingOkSkippingOthers() {
         let manager = NotificationManager(center: MockCenter())
         let groups = [
             group(.egg,    introduced: true,  allergy: false, status: .overdue, nextDue: now),
-            group(.dairy,  introduced: true,  allergy: false, status: .dueSoon, nextDue: now),
-            group(.fish,   introduced: true,  allergy: false, status: .ok,      nextDue: now), // пропуск: ok
+            group(.fish,   introduced: true,  allergy: false, status: .ok,      nextDue: now), // «в норме» — тоже: заранее
             group(.peanut, introduced: true,  allergy: true,  status: .overdue, nextDue: now), // пропуск: аллергия
             group(.soy,    introduced: false, allergy: false, status: .overdue, nextDue: nil), // пропуск: не введён
         ]
 
-        let requests = manager.requests(for: groups, intervalDays: 4)
+        let requests = manager.requests(for: groups, now: now)
 
-        XCTAssertEqual(requests.map(\.identifier), ["allergen-egg", "allergen-dairy"])
+        XCTAssertEqual(requests.map(\.identifier),
+                       ["allergen-egg-0", "allergen-egg-1", "allergen-fish-0", "allergen-fish-1"],
+                       "на срок по плану и повтор через два дня; аллергия и невведённые — без напоминаний")
     }
 
     // MARK: - Текст уведомления не палит конкретный аллерген на локскрине (4.5.4)
@@ -65,8 +66,7 @@ final class NotificationManagerTests: XCTestCase {
             group(.egg, introduced: true, allergy: false, status: .overdue, nextDue: now),
         ]
 
-        let content = manager.requests(for: groups, intervalDays: 4)[0].content
-        // Не должно называть конкретную группу аллергена.
+        let content = manager.requests(for: groups, now: now)[0].content
         for g in AllergenGroup.allCases {
             XCTAssertFalse(content.body.localizedCaseInsensitiveContains(g.title),
                            "тело уведомления не должно называть аллерген «\(g.title)»")
@@ -74,63 +74,43 @@ final class NotificationManagerTests: XCTestCase {
         XCTAssertFalse(content.body.isEmpty)
     }
 
-    // MARK: - Триггер: еженедельный повтор по дню недели nextDue
+    // MARK: - Триггер: одноразовый, на день срока, 10:00
 
-    /// `now` инжектим: без него тест зависел от текущего дня недели и проходил
-    /// примерно раз в семь дней (просроченный срок якорится к «сегодня» — B8).
-    func testTriggerIsWeeklyRecurringOnNextDueWeekday() throws {
+    private func fireDate(_ r: UNNotificationRequest) -> Date? {
+        (r.trigger as? UNCalendarNotificationTrigger).flatMap {
+            Calendar.current.date(from: $0.dateComponents)
+        }
+    }
+
+    /// Срок в будущем → напоминание именно в этот день, а не когда человек сам
+    /// откроет приложение (раньше строилось только для уже просроченных групп).
+    func testFutureDueSchedulesOneShotOnDueDay() throws {
         let manager = NotificationManager(center: MockCenter())
         let due = Calendar.current.date(byAdding: .day, value: 4, to: now)!
-        let groups = [group(.egg, introduced: true, allergy: false,
-                            status: .dueSoon, nextDue: due)]
+        let groups = [group(.egg, introduced: true, allergy: false, status: .ok, nextDue: due)]
 
-        let request = try XCTUnwrap(
-            manager.requests(for: groups, intervalDays: 4, now: now).first)
-        let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
+        let requests = manager.requests(for: groups, now: now)
+        let first = try XCTUnwrap(requests.first)
+        let trigger = try XCTUnwrap(first.trigger as? UNCalendarNotificationTrigger)
 
-        XCTAssertTrue(trigger.repeats, "напоминание должно повторяться еженедельно")
-        XCTAssertEqual(trigger.dateComponents.weekday,
-                       Calendar.current.component(.weekday, from: due),
-                       "срок в будущем → день недели берём от него")
+        XCTAssertFalse(trigger.repeats)
         XCTAssertEqual(trigger.dateComponents.hour, 10)
         XCTAssertEqual(trigger.dateComponents.minute, 0)
-        // Только день недели + время → недельный цикл (нет года/месяца/числа).
-        XCTAssertNil(trigger.dateComponents.day)
-        XCTAssertNil(trigger.dateComponents.month)
+        XCTAssertTrue(Calendar.current.isDate(try XCTUnwrap(fireDate(first)), inSameDayAs: due))
+        let second = try XCTUnwrap(fireDate(requests[1]))
+        XCTAssertEqual(Calendar.current.dateComponents([.day], from: try XCTUnwrap(fireDate(first)),
+                                                       to: second).day, 2)
     }
 
-    /// B8: если срок уже прошёл, день недели берём от «сегодня», иначе первый пуш
-    /// прилетит только через неделю.
-    func testOverdueTriggerAnchorsToTodayNotPastDueDate() throws {
+    /// Просрочено → ближайшие 10:00 в будущем, а не дата в прошлом (её iOS не покажет).
+    func testOverdueFiresAtNextTenInFuture() throws {
         let manager = NotificationManager(center: MockCenter())
         let overdue = Calendar.current.date(byAdding: .day, value: -10, to: now)!
-        let groups = [group(.egg, introduced: true, allergy: false,
-                            status: .overdue, nextDue: overdue)]
+        let groups = [group(.egg, introduced: true, allergy: false, status: .overdue, nextDue: overdue)]
 
-        let request = try XCTUnwrap(
-            manager.requests(for: groups, intervalDays: 4, now: now).first)
-        let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
-
-        XCTAssertEqual(trigger.dateComponents.weekday,
-                       Calendar.current.component(.weekday, from: now),
-                       "просрочка не должна ждать неделю до своего старого дня")
-    }
-
-    // MARK: - Триггер: ежедневный повтор для дневного аллергена (interval 1)
-
-    func testTriggerIsDailyForDailyPlan() throws {
-        let manager = NotificationManager(center: MockCenter())
-        let groups = [group(.egg, introduced: true, allergy: false, status: .overdue, nextDue: now)]
-
-        let request = try XCTUnwrap(manager.requests(for: groups, intervalDays: 1).first)
-        let trigger = try XCTUnwrap(request.trigger as? UNCalendarNotificationTrigger)
-
-        XCTAssertTrue(trigger.repeats)
-        XCTAssertEqual(trigger.dateComponents.hour, 10)
-        XCTAssertEqual(trigger.dateComponents.minute, 0)
-        // Только время (без weekday/дня) → ежедневный цикл.
-        XCTAssertNil(trigger.dateComponents.weekday, "дневной план → без привязки к дню недели")
-        XCTAssertNil(trigger.dateComponents.day)
+        let fire = try XCTUnwrap(fireDate(try XCTUnwrap(manager.requests(for: groups, now: now).first)))
+        XCTAssertGreaterThan(fire, now)
+        XCTAssertLessThanOrEqual(fire.timeIntervalSince(now), 24 * 3600, "не позже чем через сутки")
     }
 
     // MARK: - Deep-link: извлечение foodId из id пуша
@@ -142,6 +122,13 @@ final class NotificationManagerTests: XCTestCase {
         XCTAssertEqual(NotificationRouter.foodId(fromNotificationId: "intro-custom-3F2A-uuid-2"),
                        "custom-3F2A-uuid")
         XCTAssertNil(NotificationRouter.foodId(fromNotificationId: "allergen-egg"))
+        // Новый формат с тегом ребёнка.
+        XCTAssertEqual(NotificationRouter.foodId(fromNotificationId: "retry-1A2B3C4D-broccoli"), "broccoli")
+        XCTAssertEqual(NotificationRouter.foodId(fromNotificationId: "intro-1A2B3C4D-custom-3F2A-uuid-2"),
+                       "custom-3F2A-uuid")
+        XCTAssertEqual(NotificationRouter.childTag(fromNotificationId: "allergen-1A2B3C4D-egg-0"), "1A2B3C4D")
+        XCTAssertNil(NotificationRouter.childTag(fromNotificationId: "retry-broccoli"),
+                     "у пушей прошлых версий тега нет")
     }
 
     // MARK: - apply: снимает старые allergen-, ставит новые, чужие не трогает
@@ -153,27 +140,25 @@ final class NotificationManagerTests: XCTestCase {
 
         let groups = [group(.dairy, introduced: true, allergy: false,
                             status: .overdue, nextDue: now)]
-        await manager.apply(manager.requests(for: groups, intervalDays: 4))
+        await manager.apply(manager.requests(for: groups, now: now))
 
         // Сняты только наши старые идентификаторы, чужой остался нетронутым.
         XCTAssertEqual(Set(center.removed), ["allergen-egg", "allergen-old"])
         XCTAssertFalse(center.removed.contains("other-reminder"))
 
-        // Поставлена ровно одна новая заявка по группе.
-        XCTAssertEqual(center.added.map(\.identifier), ["allergen-dairy"])
+        XCTAssertEqual(center.added.map(\.identifier), ["allergen-dairy-0", "allergen-dairy-1"])
         XCTAssertTrue(center.pending.contains("other-reminder"))
-        XCTAssertTrue(center.pending.contains("allergen-dairy"))
     }
 
     // MARK: - Пустой ввод → ничего не планируется
 
-    func testApplyWithNoDueGroupsSchedulesNothing() async {
+    func testApplyWithNoIntroducedGroupsSchedulesNothing() async {
         let center = MockCenter()
         let manager = NotificationManager(center: center)
 
         await manager.apply(manager.requests(for: [
-            group(.fish, introduced: true, allergy: false, status: .ok, nextDue: now)
-        ], intervalDays: 4))
+            group(.fish, introduced: false, allergy: false, status: .ok, nextDue: nil)
+        ], now: now))
 
         XCTAssertTrue(center.added.isEmpty)
     }
@@ -190,8 +175,9 @@ final class NotificationManagerTests: XCTestCase {
         cal.date(from: DateComponents(year: 2026, month: 6, day: day, hour: hour))!
     }
 
-    /// Напоминаний столько, сколько дней с кормлением ещё не набрано.
-    func testIntroRequestsCoverRemainingFeedingDays() {
+    /// Напоминаний — сколько дней ещё не набрано, плюс два про запас: раньше после
+    /// пропущенного дня напоминания просто кончались.
+    func testIntroRequestsCoverRemainingFeedingDaysPlusSpare() {
         let cal = utcCal()
         let s = IntroductionStatus(foodId: "broccoli", state: .introducing)
         s.introStartedAt = at(10, 8, cal)               // старт: 10-е, 08:00
@@ -201,7 +187,7 @@ final class NotificationManagerTests: XCTestCase {
             .introRequests(statuses: [s], observationDays: 3, logs: logs,
                            now: at(10, 9, cal), calendar: cal)
 
-        XCTAssertEqual(reqs.count, 2, "осталось два дня — два напоминания")
+        XCTAssertEqual(reqs.count, 4, "осталось два дня — два напоминания и два про запас")
         for r in reqs {
             XCTAssertEqual((r.trigger as? UNCalendarNotificationTrigger)?.repeats, false)
         }
@@ -219,7 +205,7 @@ final class NotificationManagerTests: XCTestCase {
                            now: at(10, 9, cal), calendar: cal)
 
         let first = try XCTUnwrap(reqs.first?.trigger as? UNCalendarNotificationTrigger)
-        XCTAssertEqual(reqs.count, 1, "остался один день")
+        XCTAssertEqual(reqs.count, 3, "остался один день + запас")
         XCTAssertEqual(first.dateComponents.day, 11, "напоминание — на завтра, не на сегодня")
     }
 

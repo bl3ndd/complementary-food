@@ -98,7 +98,7 @@ struct MainTabView: View {
         // уже привязанные не трогаются, при нескольких детях не делается ничего.
         PlanMigration.ChildOwnership.apply(context: context)
         FeedingService(context: context, childId: child.id).completeDueIntroductions(profile: child.feedingProfile)
-        NotificationManager.shared.refresh(context: context, profile: child.feedingProfile)
+        NotificationManager.shared.refresh(context: context)
     }
 
     private var tabs: some View {

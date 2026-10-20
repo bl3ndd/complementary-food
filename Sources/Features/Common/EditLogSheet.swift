@@ -126,13 +126,23 @@ struct EditLogSheet: View {
         }
         log.note = note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note
         try? context.save()
+        // Дата, реакция или сам факт записи влияют на ввод: пересчитываем статус
+        // и напоминания, иначе правка «не долетала» до карточки продукта.
+        if !isPlanned { recompute(foodId: log.foodId, childId: log.childId) }
         dismiss()
     }
 
     private func deleteLog() {
         Haptics.warning()
+        let (foodId, childId, wasPlanned) = (log.foodId, log.childId, log.planned)
         context.delete(log)
         try? context.save()
+        if !wasPlanned { recompute(foodId: foodId, childId: childId) }
         dismiss()
+    }
+
+    private func recompute(foodId: String, childId: UUID?) {
+        FeedingService(context: context, childId: childId).revalidate(foodId: foodId)
+        NotificationManager.shared.refresh(context: context)
     }
 }
