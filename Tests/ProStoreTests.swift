@@ -45,11 +45,45 @@ final class ProStoreTests: XCTestCase {
         var errorDescription: String? { "сеть отвалилась" }
     }
 
+    /// Своё хранилище на каждый тест: кэш покупки иначе протекал бы между тестами
+    /// через `UserDefaults.standard` тест-хоста.
+    private func isolatedDefaults() -> UserDefaults {
+        let name = "ProStoreTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        addTeardownBlock { defaults.removePersistentDomain(forName: name) }
+        return defaults
+    }
+
+    // MARK: - Кэш права
+
+    /// Купивший должен стартовать уже с Pro: иначе платная гамма на запуске
+    /// откатывается и через полсекунды возвращается, пересобирая всё дерево.
+    @MainActor
+    func testStartsFromCachedPurchase() {
+        let defaults = isolatedDefaults()
+        defaults.set(true, forKey: ProStore.cacheKey)
+        XCTAssertTrue(ProStore(purchasing: Fake(), defaults: defaults).isPurchased)
+        XCTAssertFalse(ProStore(purchasing: Fake(), defaults: isolatedDefaults()).isPurchased,
+                       "без кэша — не куплено")
+    }
+
+    @MainActor
+    func testRefreshCorrectsCacheBothWays() async {
+        let defaults = isolatedDefaults()
+        await ProStore(purchasing: Fake(entitled: true), defaults: defaults).refresh()
+        XCTAssertTrue(ProStore(purchasing: Fake(), defaults: defaults).isPurchased,
+                      "подтверждённая покупка должна пережить перезапуск")
+
+        // Возврат денег / другой Apple ID: кэш не должен держать Pro вечно.
+        await ProStore(purchasing: Fake(entitled: false), defaults: defaults).refresh()
+        XCTAssertFalse(ProStore(purchasing: Fake(), defaults: defaults).isPurchased)
+    }
+
     // MARK: - Витрина
 
     @MainActor
     func testRefreshLoadsProductAndEntitlement() async {
-        let store = ProStore(purchasing: Fake(entitled: true))
+        let store = ProStore(purchasing: Fake(entitled: true), defaults: isolatedDefaults())
         await store.refresh()
 
         XCTAssertEqual(store.product?.displayPrice, "$4.99")
@@ -60,7 +94,7 @@ final class ProStoreTests: XCTestCase {
 
     @MainActor
     func testProductErrorIsShownButEntitlementStillChecked() async {
-        let store = ProStore(purchasing: Fake(entitled: true, productError: Boom()))
+        let store = ProStore(purchasing: Fake(entitled: true, productError: Boom()), defaults: isolatedDefaults())
         await store.refresh()
 
         XCTAssertEqual(store.lastError, "сеть отвалилась")
@@ -71,7 +105,7 @@ final class ProStoreTests: XCTestCase {
 
     @MainActor
     func testSuccessfulPurchaseGrantsPro() async {
-        let store = ProStore(purchasing: Fake(outcome: .purchased))
+        let store = ProStore(purchasing: Fake(outcome: .purchased), defaults: isolatedDefaults())
         let outcome = await store.buy()
 
         XCTAssertEqual(outcome, .purchased)
@@ -82,7 +116,7 @@ final class ProStoreTests: XCTestCase {
     /// Человек сам закрыл системный лист — это не ошибка и ругаться нельзя.
     @MainActor
     func testCancelledPurchaseIsSilentAndGrantsNothing() async {
-        let store = ProStore(purchasing: Fake(outcome: .cancelled))
+        let store = ProStore(purchasing: Fake(outcome: .cancelled), defaults: isolatedDefaults())
         let outcome = await store.buy()
 
         XCTAssertEqual(outcome, .cancelled)
@@ -93,7 +127,7 @@ final class ProStoreTests: XCTestCase {
     /// «Ask to Buy»: покупка ждёт подтверждения родителя — права ещё нет.
     @MainActor
     func testPendingPurchaseDoesNotGrantPro() async {
-        let store = ProStore(purchasing: Fake(outcome: .pending))
+        let store = ProStore(purchasing: Fake(outcome: .pending), defaults: isolatedDefaults())
         let outcome = await store.buy()
 
         XCTAssertEqual(outcome, .pending)
@@ -102,7 +136,7 @@ final class ProStoreTests: XCTestCase {
 
     @MainActor
     func testPurchaseErrorIsReportedAndDoesNotGrantPro() async {
-        let store = ProStore(purchasing: Fake(purchaseError: Boom()))
+        let store = ProStore(purchasing: Fake(purchaseError: Boom()), defaults: isolatedDefaults())
         let outcome = await store.buy()
 
         XCTAssertNil(outcome)
@@ -115,7 +149,7 @@ final class ProStoreTests: XCTestCase {
 
     @MainActor
     func testRestoreBringsBackPro() async {
-        let store = ProStore(purchasing: Fake(entitled: false, entitledAfterRestore: true))
+        let store = ProStore(purchasing: Fake(entitled: false, entitledAfterRestore: true), defaults: isolatedDefaults())
         XCTAssertFalse(store.isPurchased)
 
         await store.restore()
@@ -125,7 +159,7 @@ final class ProStoreTests: XCTestCase {
 
     @MainActor
     func testRestoreErrorIsReported() async {
-        let store = ProStore(purchasing: Fake(restoreError: Boom()))
+        let store = ProStore(purchasing: Fake(restoreError: Boom()), defaults: isolatedDefaults())
         await store.restore()
 
         XCTAssertEqual(store.lastError, "сеть отвалилась")
@@ -136,12 +170,12 @@ final class ProStoreTests: XCTestCase {
     @MainActor
     func testErrorIsClearedOnNextAttempt() async {
         var fake = Fake(purchaseError: Boom())
-        let store = ProStore(purchasing: fake)
+        let store = ProStore(purchasing: fake, defaults: isolatedDefaults())
         await store.buy()
         XCTAssertNotNil(store.lastError)
 
         fake.purchaseError = nil
-        let fresh = ProStore(purchasing: fake)
+        let fresh = ProStore(purchasing: fake, defaults: isolatedDefaults())
         await fresh.buy()
         XCTAssertNil(fresh.lastError)
     }

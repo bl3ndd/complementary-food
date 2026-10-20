@@ -43,7 +43,13 @@ protocol ProPurchasing {
 final class ProStore: ObservableObject {
 
     @Published private(set) var product: ProProduct?
-    @Published private(set) var isPurchased = false
+    /// Стартует с последнего известного значения, а не с `false`: иначе у купившего
+    /// платная гамма на запуске откатывалась на базовую, а через полсекунды ответ
+    /// StoreKit возвращал её — и `RootView` (`.id` по гамме) пересобирал всё дерево,
+    /// сбрасывая навигацию. Кэш — только стартовое значение: `refresh` его сверяет.
+    @Published private(set) var isPurchased: Bool {
+        didSet { defaults.set(isPurchased, forKey: Self.cacheKey) }
+    }
     @Published private(set) var isLoading = false
     /// Текст последней ошибки для показа пользователю. Отмена покупки сюда
     /// НЕ попадает: человек сам закрыл лист, ругаться не за что.
@@ -53,12 +59,18 @@ final class ProStore: ObservableObject {
     /// В тестах используется обычный `init` с моком.
     static let shared = ProStore(purchasing: StoreKitPurchasing())
 
+    static let cacheKey = "pro.purchased"
+
     private let purchasing: ProPurchasing
     private let productId: String
+    private let defaults: UserDefaults
 
-    init(purchasing: ProPurchasing, productId: String = ProProductID.pro) {
+    init(purchasing: ProPurchasing, productId: String = ProProductID.pro,
+         defaults: UserDefaults = .standard) {
         self.purchasing = purchasing
         self.productId = productId
+        self.defaults = defaults
+        self.isPurchased = defaults.bool(forKey: Self.cacheKey)
     }
 
     /// Витрина + текущее право. Зовётся при показе экрана покупки и на старте.

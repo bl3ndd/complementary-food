@@ -8,7 +8,9 @@ import SwiftData
 struct PlanIntroSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Query(filter: #Predicate<FoodLog> { $0.planned }) private var plannedLogs: [FoodLog]
+    /// Только планы этого ребёнка: дедуп по чужим планам прятал бы продукт из выбора.
+    @Query private var plannedLogs: [FoodLog]
+    private let childId: UUID
     @State private var search = ""
     @State private var date: Date
     /// Отмеченные в этом сеансе продукты (id). Уже запланированные на эту дату
@@ -17,8 +19,10 @@ struct PlanIntroSheet: View {
 
     private let catalog = FoodCatalog.shared
 
-    init(initialDate: Date = Date()) {
+    init(childId: UUID, initialDate: Date = Date()) {
+        self.childId = childId
         _date = State(initialValue: initialDate)
+        _plannedLogs = Query(filter: #Predicate<FoodLog> { $0.planned && $0.childId == childId })
     }
 
     private var minDate: Date { Calendar.current.startOfDay(for: Date()) }
@@ -102,10 +106,7 @@ struct PlanIntroSheet: View {
     private func planPicked() {
         guard !picked.isEmpty else { return }
         Haptics.success()
-        for id in picked {
-            context.insert(FoodLog(foodId: id, date: date, type: .intro, planned: true))
-        }
-        try? context.save()
+        FeedingService(context: context, childId: childId).plan(picked, on: date)
         dismiss()
     }
 }

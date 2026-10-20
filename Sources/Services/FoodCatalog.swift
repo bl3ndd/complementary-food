@@ -22,7 +22,10 @@ struct FoodCatalog {
     }
 
     static func setCustom(_ foods: [CustomFood]) {
-        custom = foods.map(\.asFood)
+        // Без дублей по id: одна и та же запись иногда приходит из выборки дважды,
+        // и в списке появлялись две строки одного продукта.
+        var seen = Set<String>()
+        custom = foods.map(\.asFood).filter { seen.insert($0.id).inserted }
         customIndex = Dictionary(custom.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     }
 

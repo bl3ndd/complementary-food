@@ -240,6 +240,14 @@ final class FoodCatalogTests: XCTestCase {
         XCTAssertEqual(cf.asFood.emoji, "🧃")
     }
 
+    /// Одна запись, пришедшая из выборки дважды, — одна строка в списке.
+    func testCustomFoodsAreDedupedById() {
+        let cf = CustomFood(name: "Компот", emoji: "🧃")
+        FoodCatalog.setCustom([cf, cf])
+        defer { FoodCatalog.custom = [] }
+        XCTAssertEqual(FoodCatalog.custom.filter { $0.id == cf.id }.count, 1)
+    }
+
     // MARK: - Локализованное имя (localizedName)
 
     /// Имя своего продукта (нет в String Catalog) показывается как есть — на любом

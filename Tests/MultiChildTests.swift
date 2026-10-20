@@ -14,7 +14,7 @@ final class MultiChildTests: XCTestCase {
         let schema = Schema(AppSchemaCurrent.models)
         return try ModelContainer(
             for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
     }
 
     private func food(_ id: String) -> Food {
@@ -95,6 +95,34 @@ final class MultiChildTests: XCTestCase {
 
         let statuses = try ctx.fetch(FetchDescriptor<IntroductionStatus>())
         XCTAssertTrue(statuses.allSatisfy { $0.childId == child.id })
+    }
+
+    /// Регресс: лист планирования создавал планы без владельца — ни одна лента,
+    /// отфильтрованная по ребёнку, их не показывала. Дедуп — в пределах ребёнка.
+    @MainActor
+    func testPlanIsOwnedAndDedupedPerChild() throws {
+        let container = try makeContainer()
+        let ctx = container.mainContext
+        let older = Child(name: "Эмма", birthDate: .now)
+        let younger = Child(name: "Лев", birthDate: .now)
+        ctx.insert(older); ctx.insert(younger)
+        try ctx.save()
+
+        let day = Date(timeIntervalSince1970: 1_800_000_000)
+        FeedingService(context: ctx, childId: older.id).plan(["mango"], on: day)
+        // Повтор на тот же день тому же ребёнку — без копий; другому — свой план.
+        FeedingService(context: ctx, childId: older.id).plan(["mango"], on: day.addingTimeInterval(3600))
+        FeedingService(context: ctx, childId: younger.id).plan(["mango"], on: day)
+
+        let oid = older.id, yid = younger.id
+        let olderPlans = try ctx.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.planned && $0.childId == oid }))
+        let youngerPlans = try ctx.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.planned && $0.childId == yid }))
+        XCTAssertEqual(olderPlans.map(\.foodId), ["mango"], "план должен быть виден ленте ребёнка, без дублей")
+        XCTAssertEqual(youngerPlans.count, 1, "чужой план не должен глушить свой")
+        XCTAssertEqual(try ctx.fetchCount(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.childId == nil })), 0, "бесхозных планов быть не должно")
     }
 
     /// Главное правило разделения: продукт, введённый старшему, у младшего обязан

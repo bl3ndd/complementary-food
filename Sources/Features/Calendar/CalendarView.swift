@@ -109,7 +109,7 @@ struct CalendarView: View {
                 DayDetailView(date: date, child: child)
             }
             .sheet(item: $editingLog) { EditLogSheet(log: $0) }
-            .sheet(isPresented: $showPlan) { PlanIntroSheet() }
+            .sheet(isPresented: $showPlan) { PlanIntroSheet(childId: child.id) }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
             .sheet(isPresented: $showRecap) {
                 if true {

@@ -195,6 +195,23 @@ struct FeedingService {
         save()
     }
 
+    /// Запланировать ввод продуктов на день. Владелец обязателен: без него план
+    /// не попадал ни в одну отфильтрованную по ребёнку ленту и был невидим.
+    /// Уже запланированное этому ребёнку на тот же день не дублируем.
+    func plan(_ foodIds: some Sequence<String>, on date: Date, calendar: Calendar = .current) {
+        let owner = childId
+        let existing = (try? context.fetch(FetchDescriptor<FoodLog>(
+            predicate: #Predicate { $0.planned && $0.childId == owner }))) ?? []
+        for id in foodIds where !existing.contains(where: {
+            $0.foodId == id && calendar.isDate($0.date, inSameDayAs: date)
+        }) {
+            let log = FoodLog(foodId: id, date: date, type: .intro, planned: true)
+            log.childId = childId
+            context.insert(log)
+        }
+        save()
+    }
+
     /// Превращает запланированный ввод (planned-лог) в фактическую запись. Лог уже
     /// существует — новую запись не создаём; будущую дату клампим к now (нельзя «дать»
     /// в будущем). notIntroduced/paused → introducing; уже введённый → лог как поддержка.

@@ -14,14 +14,11 @@ final class ProfileUITests: XCTestCase {
 
         app.textFields["Имя малыша"].assertExists(timeout: 8, "нет поля имени")
         XCTAssertEqual(app.textFields["Имя малыша"].value as? String, "Ника")
-        app.staticTexts["Напоминания"].assertExists()
-        app.staticTexts["Язык"].firstMatch.assertExists()
-        app.staticTexts["Дневник для педиатра"].assertExists()
-        // Низ формы: легалка и сброс.
-        app.swipeUp(); app.swipeUp()
-        app.staticTexts["Политика конфиденциальности"].assertExists(timeout: 4)
-        app.staticTexts["Версия"].assertExists(timeout: 2)
-        app.staticTexts["Сбросить все данные"].assertExists(timeout: 2)
+        // Сверху вниз, как в форме: Приложение → Данные → О приложении → сброс.
+        for row in ["Напоминания", "Язык", "Дневник для педиатра",
+                    "Политика конфиденциальности", "Версия", "Сбросить все данные"] {
+            app.scrollTo(app.staticTexts[row].firstMatch)
+        }
     }
 
     // E-PRF-05: гейты «Данных» — пусто → тап объясняет алертом; rich → работает.

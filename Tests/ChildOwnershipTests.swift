@@ -16,7 +16,7 @@ final class ChildOwnershipTests: XCTestCase {
         let schema = Schema(AppSchemaCurrent.models)
         return try ModelContainer(
             for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
     }
 
     @MainActor

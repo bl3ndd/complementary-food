@@ -17,7 +17,7 @@ final class ScenarioTests: XCTestCase {
     @MainActor
     private func makeContext() throws -> ModelContext {
         let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         container = try ModelContainer(for: schema, configurations: [config])
         return container.mainContext
     }

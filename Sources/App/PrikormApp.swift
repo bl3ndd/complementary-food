@@ -65,7 +65,7 @@ struct PrikormApp: App {
         // `isStoredInMemoryOnly` не срабатывает — контейнер молча открывал обычный
         // стор, и сид `-demo` уезжал в реальный дневник и дальше в iCloud владельца.
         if inMemory {
-            let memoryOnly = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            let memoryOnly = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
             return try! ModelContainer(for: schema, configurations: [memoryOnly])
         }
 
@@ -101,7 +101,7 @@ struct PrikormApp: App {
         }
         // Последний рубеж: память. Данные не сохранятся, но экран откроется —
         // in-memory контейнер не зависит от файлов и падать тут уже нечему.
-        let memory = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let memory = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         return try! ModelContainer(for: schema, configurations: [memory])
     }
 }

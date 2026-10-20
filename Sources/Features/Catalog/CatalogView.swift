@@ -44,8 +44,8 @@ struct CatalogView: View {
                 } message: { food in
                     Text("«\(food.localizedName)» и все его записи в дневнике удалятся. Действие необратимо.")
                 }
-                .onAppear { FoodCatalog.setCustom(customFoods) }
-                .onChange(of: customFoods.map(\.id)) { FoodCatalog.setCustom(customFoods) }
+                .onAppear { refreshCustom() }
+                .onChange(of: customFoods.map(\.id)) { refreshCustom() }
         }
     }
 
@@ -162,7 +162,14 @@ struct CatalogView: View {
     private func deleteCustom(_ id: String) {
         // Удаляем продукт + связанные статус/логи (чистка орфанов), затем обновляем реестр.
         FeedingService(context: context).deleteCustomFood(id: id)
-        FoodCatalog.setCustom(customFoods.filter { $0.id != id })
+        refreshCustom()
+    }
+
+    /// Реестр своих продуктов — из свежей выборки контекста, а не из `customFoods`:
+    /// сразу после удаления @Query ещё отдаёт удалённый объект, и в списке оставался
+    /// «призрак» без статуса.
+    private func refreshCustom() {
+        FoodCatalog.setCustom((try? context.fetch(FetchDescriptor<CustomFood>())) ?? [])
     }
 
     /// Открыть карточку продукта по deep-link из пуша (foodId → push FoodDetailView).

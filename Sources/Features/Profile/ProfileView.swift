@@ -420,10 +420,6 @@ struct ProfileView: View {
             Text("О приложении")
         } footer: {
             VStack(alignment: .leading, spacing: 10) {
-                if earlyAdopterSince != nil {
-                    Text("Pudding пока полностью бесплатный. Когда появятся платные возможности, для тебя они останутся бесплатными — ты пришёл в самом начале.")
-                        .foregroundStyle(Theme.accent)
-                }
                 // Ссылка вне локализованной строки: URL одинаков на всех языках,
                 // а требование CC BY-SA — указать источник, не только имя автора.
                 Text(Disclaimer.medical + "\n\n"
@@ -485,14 +481,15 @@ struct ProfileView: View {
         isResetting = true
         DispatchQueue.main.async {
             NotificationManager.shared.clearAll()
-            // LogPhoto удаляем явно: bulk-delete FoodLog НЕ применяет cascade (иначе
-            // фото остаются орфанами в сторе/CloudKit навсегда).
-            try? context.delete(model: LogPhoto.self)
-            try? context.delete(model: FoodLog.self)
-            try? context.delete(model: IntroductionStatus.self)
-            try? context.delete(model: CustomFood.self)
-            try? context.delete(model: Child.self)
-            try? context.save()
+            do {
+                try StoreReset.wipe(context)
+            } catch {
+                // Сохранение не прошло — откатываем, иначе форма осталась бы скрытой
+                // поверх живых данных.
+                context.rollback()
+                isResetting = false
+                return
+            }
             FoodCatalog.setCustom([])
             // Дисклеймер-гейт сбрасывается в конце нового онбординга (OnboardingView.finish),
             // а не здесь — иначе он мигает на ещё живом MainTabView во время сноса.

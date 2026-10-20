@@ -50,6 +50,7 @@
 		425D47CABE295C0EF398B63F /* DarkModeAuditUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836E98DCE12175CA4905CCED /* DarkModeAuditUITests.swift */; };
 		43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516DDFC738C31AB56AA9408 /* Components.swift */; };
 		45F0644FCA6BC9FB8004630E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEE512BF23D205F3A40501F /* Theme.swift */; };
+		46F927341FEED68A7EB5B7D7 /* StoreReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10B39EB0D1AAB884A3AD738 /* StoreReset.swift */; };
 		47C6B433D8A250FD7B0EAB0E /* MascotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E268D96C92E391B0F159AA /* MascotTests.swift */; };
 		48893086D2C7A6E8FEC4545F /* UITestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2790ACAA8297584357139D /* UITestHelpers.swift */; };
 		4C2B29103C7D32BE6CD3065E /* CalendarPerfUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1E35B7B9295C6B689CE26 /* CalendarPerfUITests.swift */; };
@@ -62,6 +63,7 @@
 		5AD8E545CD90629549CCBBC3 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752BF5E941CC9648AC650547 /* ModelTests.swift */; };
 		5D58FE792EC3AC982437C4A5 /* AppReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */; };
 		5DE07809139DA126C3986B1E /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682EB2322E14EEDBF5EDC5F4 /* DashboardView.swift */; };
+		60ED57FFEEDB0DEFE8766E60 /* StoreResetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269CB3248FE7555D9A267BAB /* StoreResetTests.swift */; };
 		6264F2AC1438E5DFC2047D9C /* RecapCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754B6747DEBDDC038C5EB2AF /* RecapCards.swift */; };
 		659F6D037F6A73319D6E9230 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18465713D438512E16B883 /* Food.swift */; };
 		6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7861AD8F79C95B259F207535 /* FoodIcon.swift */; };
@@ -182,6 +184,7 @@
 		229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildOwnershipTests.swift; sourceTree = "<group>"; };
 		24B3F9D6390A41694B9F5043 /* AddCustomFoodSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomFoodSheet.swift; sourceTree = "<group>"; };
 		2516DDFC738C31AB56AA9408 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		269CB3248FE7555D9A267BAB /* StoreResetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreResetTests.swift; sourceTree = "<group>"; };
 		270020787FFBB9A220680C29 /* DiaryPDFExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPDFExport.swift; sourceTree = "<group>"; };
 		2ACA2E46F5809A723E1D9DB1 /* AppReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewTests.swift; sourceTree = "<group>"; };
 		2F1AA2DB4AA026A879CD2544 /* ActiveChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChild.swift; sourceTree = "<group>"; };
@@ -258,6 +261,7 @@
 		D1E268D96C92E391B0F159AA /* MascotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotTests.swift; sourceTree = "<group>"; };
 		DC4A081273EF9B4302E370D3 /* ReactivityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactivityUITests.swift; sourceTree = "<group>"; };
 		DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
+		E10B39EB0D1AAB884A3AD738 /* StoreReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReset.swift; sourceTree = "<group>"; };
 		E12831948917AC330B4AB646 /* ProStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProStoreTests.swift; sourceTree = "<group>"; };
 		E1CA74998939067F427B3264 /* AppShellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShellTests.swift; sourceTree = "<group>"; };
 		E30082463708B8DA85698461 /* ProReviewScreenshotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProReviewScreenshotUITests.swift; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 				2292563EFFE2301C7606C3BC /* RecapCardsTests.swift */,
 				E92C547C212BEF6EC84EEABC /* RecapServiceTests.swift */,
 				03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */,
+				269CB3248FE7555D9A267BAB /* StoreResetTests.swift */,
 				BF098F57202F537818025E0F /* WidgetSnapshotTests.swift */,
 			);
 			path = Tests;
@@ -442,6 +447,7 @@
 				1E5CB23367B4B53F2901425F /* NotificationManager.swift */,
 				B33CA193FD43A9CA19892A79 /* ProStore.swift */,
 				1A0577843717A8B0375436D4 /* RecapService.swift */,
+				E10B39EB0D1AAB884A3AD738 /* StoreReset.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -746,6 +752,7 @@
 				98D7D4C7375FEE0168FE0FC1 /* RecapCardsTests.swift in Sources */,
 				15BA06E44E2481714A9C5793 /* RecapServiceTests.swift in Sources */,
 				28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */,
+				60ED57FFEEDB0DEFE8766E60 /* StoreResetTests.swift in Sources */,
 				39F28FED6D07A2B0511D50F8 /* WidgetSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,6 +830,7 @@
 				C0368823FA0F2A357C413340 /* RecapView.swift in Sources */,
 				BC6154128575F7506FCE9C36 /* RootView.swift in Sources */,
 				1EC5CAB94A202012B0675F88 /* SampleData.swift in Sources */,
+				46F927341FEED68A7EB5B7D7 /* StoreReset.swift in Sources */,
 				45F0644FCA6BC9FB8004630E /* Theme.swift in Sources */,
 				8D99DEE880F75760A39518B4 /* UIHelpers.swift in Sources */,
 				04E9723393224204E862860F /* UITestSupport.swift in Sources */,

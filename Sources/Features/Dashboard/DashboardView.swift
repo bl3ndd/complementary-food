@@ -104,7 +104,7 @@ struct DashboardView: View {
             .sheet(isPresented: $showFeed) { QuickLogSheet(child: child, mode: .feeding) }
             .sheet(isPresented: $showReaction) { QuickLogSheet(child: child, mode: .reaction) }
             .sheet(isPresented: $showPlan) {
-                PlanIntroSheet(initialDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
+                PlanIntroSheet(childId: child.id, initialDate: Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date())
             }
         }
     }

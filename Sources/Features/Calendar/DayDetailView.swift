@@ -57,7 +57,7 @@ struct DayDetailView: View {
         .navigationTitle(date.formatted(.dateTime.day().month().year()))
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $editingLog) { EditLogSheet(log: $0) }
-        .sheet(isPresented: $showPlan) { PlanIntroSheet(initialDate: date) }
+        .sheet(isPresented: $showPlan) { PlanIntroSheet(childId: child.id, initialDate: date) }
         .sheet(isPresented: $showAddFeeding) {
             if true {
                 QuickLogSheet(child: child, initialDate: date)

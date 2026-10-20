@@ -10,7 +10,7 @@ final class ModelTests: XCTestCase {
     @MainActor
     private func makeContainer() throws -> ModelContainer {
         let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         return try ModelContainer(for: schema, configurations: [config])
     }
 
@@ -172,7 +172,7 @@ final class ModelTests: XCTestCase {
     func testEarlyAdopterRegistersOnceAndKeepsFirstDate() throws {
         let schema = Schema(AppSchemaCurrent.models)
         let container = try ModelContainer(for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
         let context = container.mainContext
         let service = EarlyAdopter(context: context)
         let first = Date(timeIntervalSince1970: 1_700_000_000)
@@ -193,7 +193,7 @@ final class ModelTests: XCTestCase {
     func testEarlyAdopterPicksEarliestWhenDuplicatesSynced() throws {
         let schema = Schema(AppSchemaCurrent.models)
         let container = try ModelContainer(for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
         let context = container.mainContext
         let early = Date(timeIntervalSince1970: 1_700_000_000)
 
@@ -213,7 +213,7 @@ final class ModelTests: XCTestCase {
     @MainActor
     func testSchemaV3OpensWithMigrationPlanAndKeepsData() throws {
         let schema = Schema(AppSchemaCurrent.models)
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         let container = try ModelContainer(for: schema,
                                            migrationPlan: AppMigrationPlan.self,
                                            configurations: [config])
@@ -234,7 +234,7 @@ final class ModelTests: XCTestCase {
         let schema = Schema(AppSchemaCurrent.models)
         let container = try ModelContainer(
             for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
         let ctx = container.mainContext
 
         let child = Child(name: "Эмма", birthDate: .now)
@@ -267,7 +267,7 @@ final class ModelTests: XCTestCase {
         let schema = Schema(AppSchemaCurrent.models)
         let container = try ModelContainer(
             for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
         let ctx = container.mainContext
 
         let owner = UUID()
@@ -294,7 +294,7 @@ final class ModelTests: XCTestCase {
         let schema = Schema(AppSchemaCurrent.models)
         let container = try ModelContainer(
             for: schema,
-            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+            configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)])
         let ctx = container.mainContext
 
         let elder = UUID(), younger = UUID()

@@ -5,7 +5,14 @@ import XCTest
 extension XCUIApplication {
     static func pudding(seed: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments = ["-uitest", "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launchArguments = ["-uitest", "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+                               // Настройки берутся из UserDefaults ТЕЛЕФОНА — изолируем:
+                               // платная гамма владельца при подтверждении Pro меняла
+                               // `.id` корня и сбрасывала навигацию посреди теста.
+                               "-app.palette", "pudding", "-app.activeChild", "",
+                               // Детерминированно бесплатный: sandbox-покупка на
+                               // телефоне не должна менять, что видит тест.
+                               "-debug.simulateNewUser", "YES"]
         if let seed { app.launchArguments.append("-uitest-seed=\(seed)") }
         app.launch()
         return app
@@ -59,6 +66,16 @@ extension XCUIApplication {
     /// Кнопка/строка, чей label СОДЕРЖИТ подстроку (для склеенных лейблов списков).
     func row(containing text: String) -> XCUIElement {
         buttons.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch
+    }
+
+    /// Листать вниз, пока элемент не появится на экране. Form ленивая: строк ниже
+    /// сгиба нет в иерархии, а фиксированное число свайпов ломается от каждой новой секции.
+    func scrollTo(_ element: XCUIElement, maxSwipes: Int = 8,
+                  file: StaticString = #filePath, line: UInt = #line) {
+        // Только `exists`: подпись внутри строки формы сама по себе не hittable,
+        // и ожидание hittable проматывало мимо нужной строки.
+        for _ in 0..<maxSwipes where !element.exists { swipeUp() }
+        XCTAssertTrue(element.exists, "Не доскроллили до: \(element)", file: file, line: line)
     }
 
     /// Счётчик коллекции: цифры на экране нет, она живёт в accessibilityValue

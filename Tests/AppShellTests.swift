@@ -17,7 +17,7 @@ final class AppShellTests: XCTestCase {
     @MainActor
     private func makeContainer() throws -> ModelContainer {
         let schema = Schema([Child.self, IntroductionStatus.self, FoodLog.self, LogPhoto.self])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         return try ModelContainer(for: schema, configurations: [config])
     }
 
@@ -57,6 +57,20 @@ final class AppShellTests: XCTestCase {
         XCTAssertTrue(leaked.isEmpty,
                       "in-memory контейнер пережил пересоздание — значит открыт файловый стор, "
                       + "и сид -demo пишет в реальный дневник")
+    }
+
+    /// Регресс: у ModelConfiguration облако по умолчанию `.automatic`, а у приложения
+    /// есть iCloud-entitlement — и «изолированный» стор UI-тестов/демо синкался с
+    /// РЕАЛЬНЫМ iCloud владельца: тестовые дети и продукты уезжали в его дневник и
+    /// возвращались посреди тестов.
+    @MainActor
+    func testInMemoryContainerHasNoCloudKit() {
+        let container = PrikormApp.makeContainer(inMemory: true)
+        XCTAssertFalse(container.configurations.isEmpty)
+        for config in container.configurations {
+            XCTAssertNil(config.cloudKitContainerIdentifier,
+                         "in-memory стор не должен синкаться с iCloud")
+        }
     }
 
     // MARK: - Онбординг создаёт валидного ребёнка
