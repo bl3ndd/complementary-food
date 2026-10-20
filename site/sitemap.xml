@@ -296,6 +296,20 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://babyfooddiary.com/method</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://babyfooddiary.com/method"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://babyfooddiary.com/en/method"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://babyfooddiary.com/en/method"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://babyfooddiary.com/en/method</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://babyfooddiary.com/method"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://babyfooddiary.com/en/method"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://babyfooddiary.com/en/method"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://babyfooddiary.com/blog</loc>
     <xhtml:link rel="alternate" hreflang="ru" href="https://babyfooddiary.com/blog"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://babyfooddiary.com/en/blog"/>

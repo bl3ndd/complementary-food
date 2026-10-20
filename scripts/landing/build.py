@@ -458,7 +458,7 @@ def sitemap(all_d: dict, articles: dict | None = None) -> str:
             f"  <url>\n    <loc>{page_url(all_d[lang])}</loc>\n{alts}\n"
             f'    <xhtml:link rel="alternate" hreflang="x-default" href="{page_url(all_d["en"])}"/>\n'
             "    <priority>1.0</priority>\n  </url>")
-    for page in ("privacy", "terms"):
+    for page in ("privacy", "terms", "method"):
         for prefix, lang in (("", "ru"), ("/en", "en")):
             rows.append(
                 f"  <url>\n    <loc>{BASE}{prefix}/{page}</loc>\n"

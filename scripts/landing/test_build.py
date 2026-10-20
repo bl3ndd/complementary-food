@@ -186,6 +186,14 @@ class RenderTests(unittest.TestCase):
         self.assertNotIn(f"<loc>{build.BASE}/ja/blog/keeping-a-diary</loc>", xml)
         self.assertIn("<lastmod>2026-08-14</lastmod>", xml)
 
+    def test_sitemap_includes_method_pages(self):
+        # Ручные страницы источников (RU + EN), на них ведёт «Источники методики» в приложении.
+        xml = build.sitemap(self.all_d, self.articles)
+        self.assertIn(f"<loc>{build.BASE}/method</loc>", xml)
+        self.assertIn(f"<loc>{build.BASE}/en/method</loc>", xml)
+        for page in ("method.html", "en/method.html"):
+            self.assertTrue((build.ROOT / "site" / page).exists(), page)
+
 
 if __name__ == "__main__":
     unittest.main()
