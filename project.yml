@@ -143,6 +143,10 @@ schemes:
     build:
       targets:
         Prikorm: all
+    # Запуск из Xcode (⌘R) — локальный StoreKit: покупку Pro можно делать и
+    # откатывать через Debug → StoreKit → Manage Transactions без песочницы.
+    run:
+      storeKitConfiguration: Prikorm.storekit
     test:
       targets:
         - PrikormTests
