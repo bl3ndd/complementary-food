@@ -9,19 +9,12 @@ struct QuickLogSheet: View {
     @State private var search = ""
     @State private var picked: Food?
 
-    private let catalog = FoodCatalog.shared
-
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(catalog.search(search)) { food in
-                    Button { picked = food } label: {
-                        HStack(spacing: 10) {
-                            FoodIcon(food: food, size: 30)
-                            Text(food.localizedName).foregroundStyle(.primary)
-                        }
-                    }
-                }
+            // Для реакции сверху — что давали сегодня: её отмечают по свежим следам.
+            FoodPickerList(childId: child.id, search: $search, todayFirst: mode == .reaction,
+                           onCustomAdded: { picked = $0 }) { food, state in
+                Button { picked = food } label: { FoodPickerRow(food: food, state: state) }
             }
             .searchable(text: $search, prompt: Text("Поиск продукта"))
             .navigationTitle(mode == .feeding ? Text("Записать кормление") : Text("Записать реакцию"))

@@ -10,6 +10,9 @@ struct AllergensView: View {
     @Query private var statuses: [IntroductionStatus]
     @Query private var logs: [FoodLog]
     @State private var selectedFood: Food?
+    /// Последняя запись «Дал» — для «Отменить». Тап пишет кормление сразу, а строка
+    /// тут же уезжает при пересортировке: без отмены ошибку пришлось бы искать в дневнике.
+    @State private var lastGiven: (log: FoodLog, name: String)?
 
     private let catalog = FoodCatalog.shared
 
@@ -32,33 +35,58 @@ struct AllergensView: View {
         .navigationDestination(item: $selectedFood) { food in
             FoodDetailView(food: food, child: child)
         }
+        .overlay(alignment: .bottom) { undoToast }
+        .animation(.snappy, value: lastGiven?.log.id)
+    }
+
+    @ViewBuilder private var undoToast: some View {
+        if let given = lastGiven {
+            HStack(spacing: 12) {
+                Text("Записано: \(given.name)")
+                    .font(.subheadline.weight(.semibold)).lineLimit(1)
+                Spacer(minLength: 8)
+                Button("Отменить") { undo(given.log) }
+                    .font(.subheadline.bold()).tint(Theme.accent)
+            }
+            .padding(.horizontal, 16).padding(.vertical, 12)
+            .background(Theme.card, in: Capsule())
+            .overlay(Capsule().stroke(Theme.hairline, lineWidth: 1))
+            .padding(.horizontal).padding(.bottom, 8)
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .task(id: given.log.id) {
+                try? await Task.sleep(for: .seconds(4))
+                if lastGiven?.log.id == given.log.id { lastGiven = nil }
+            }
+        }
+    }
+
+    private func undo(_ log: FoodLog) {
+        Haptics.tap()
+        let (foodId, childId) = (log.foodId, log.childId)
+        context.delete(log)
+        try? context.save()
+        FeedingService(context: context, childId: childId).revalidate(foodId: foodId)
+        NotificationManager.shared.refresh(context: context)
+        lastGiven = nil
     }
 
     // MARK: - Шапка-сводка
 
+    /// Шапка-сводка. Спокойная карточка, а не белый текст на градиенте (самый
+    /// «шаблонный» блок приложения), и факты вместо указаний.
     private var summaryCard: some View {
         HStack(spacing: 14) {
-            ZStack {
-                Circle().fill(.white.opacity(0.25)).frame(width: 56, height: 56)
-                Mascot(mood: MascotMood.forDue(dueCount), size: 46)
-            }
+            Mascot(mood: MascotMood.forDue(dueCount), size: 46)
             VStack(alignment: .leading, spacing: 3) {
-                Text(dueCount > 0 ? String(localized: "Пора освежить") : String(localized: "Всё под контролем"))
-                    .font(.title3.bold()).foregroundStyle(.white)
-                Text(dueCount > 0
-                     // Готовый плюрал-ключ (14 языков) вместо «4 пора освежить»:
-                     // число согласуется с формой слова в каждом языке.
-                     ? String(localized: "\(dueCount) аллергенов ждут — дай, чтобы сохранить толерантность")
-                     : String(localized: "Знакомые аллергены повторяются вовремя"))
-                    .font(.caption.weight(.medium)).foregroundStyle(.white.opacity(0.9))
+                Text(dueCount > 0 ? String(localized: "\(dueCount) аллергенов — срок по плану") : String(localized: "Всё по плану"))
+                    .font(.headline)
+                Text(String(localized: "Повтор знакомых аллергенов — по твоему плану: \(child.feedingProfile.allergenFrequencyPerWeek) раз в неделю."))
+                    .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             Spacer(minLength: 0)
         }
-        .padding(18)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.accentGradient,
-                    in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+        .cartoonCard()
     }
 
     // MARK: - Строка-карточка
@@ -86,6 +114,7 @@ struct AllergensView: View {
         .contentShape(Rectangle())
         // Тап по строке → карточка продукта-представителя (кнопка «Дал» ловит свой тап).
         .onTapGesture { if let rep = group.representativeFood { selectedFood = rep } }
+        .accessibilityAddTraits(.isButton)
     }
 
     /// «Дал»: если в группе введён один продукт — one-tap; если несколько — меню выбора,
@@ -102,7 +131,7 @@ struct AllergensView: View {
                 }
             } label: {
                 HStack(spacing: 4) {
-                    Text("Дал").font(.subheadline.weight(.bold))
+                    Text("Дали").font(.subheadline.weight(.bold))
                     Image(systemName: "chevron.down").font(.caption2.weight(.bold))
                 }
                 .foregroundStyle(.white)
@@ -111,7 +140,7 @@ struct AllergensView: View {
                                            startPoint: .top, endPoint: .bottom), in: Capsule())
             }
         } else {
-            PillButton(title: "Дал", tint: color) {
+            PillButton(title: "Дали", tint: color) {
                 if let food = foods.first ?? group.representativeFood { give(food) }
             }
         }
@@ -135,7 +164,7 @@ struct AllergensView: View {
     private func info(for group: AllergenGroupStatus) -> RowInfo {
         if group.hasAllergy {
             return RowInfo(badge: String(localized: "Аллергия"),
-                           subtitle: String(localized: "Только по согласованию с врачом"),
+                           subtitle: String(localized: "Отмечена аллергия"),
                            color: .red, canGive: false)
         }
         if !group.isIntroduced {
@@ -145,17 +174,17 @@ struct AllergensView: View {
         }
         switch group.status {
         case .ok:
-            let due = group.nextDue.map { String(localized: "Повторить до \($0.shortDate)") }
+            let due = group.nextDue.map { String(localized: "По плану — \($0.shortDate)") }
                 ?? String(localized: "Поддерживается")
             return RowInfo(badge: String(localized: "В норме"), subtitle: due, color: Theme.mint, canGive: false)
         case .dueSoon:
-            let due = group.nextDue.map { String(localized: "Лучше дать до \($0.shortDate)") }
-                ?? String(localized: "Скоро пора дать")
+            let due = group.nextDue.map { String(localized: "По плану — \($0.shortDate)") }
+                ?? String(localized: "Скоро срок по плану")
             return RowInfo(badge: String(localized: "Скоро"), subtitle: due, color: .orange, canGive: true)
         case .overdue:
             let last = group.lastGiven.map { String(localized: "Давали \($0.shortDate)") }
                 ?? String(localized: "Ещё не давали в поддержку")
-            return RowInfo(badge: String(localized: "Пора дать"), subtitle: last, color: Theme.accent, canGive: true)
+            return RowInfo(badge: String(localized: "Срок прошёл"), subtitle: last, color: Theme.accent, canGive: true)
         }
     }
 
@@ -182,8 +211,9 @@ struct AllergensView: View {
 
     private func give(_ food: Food) {
         Haptics.success()
-        FeedingService(context: context, childId: child.id).logFeeding(food, liking: nil, reaction: nil)
+        let log = FeedingService(context: context, childId: child.id).logFeeding(food, liking: nil, reaction: nil)
         NotificationManager.shared.refresh(context: context)
+        lastGiven = (log, food.localizedName)
     }
 
     private var groups: [AllergenGroupStatus] {

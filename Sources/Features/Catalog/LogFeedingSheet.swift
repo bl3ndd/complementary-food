@@ -59,6 +59,9 @@ struct LogFeedingSheet: View {
             // Кнопка всегда на виду — не нужно скроллить до низа.
             .safeAreaInset(edge: .bottom) {
                 BigButton(title: "Сохранить") { save() }
+                    // Запись реакции без реакции — это не запись реакции.
+                    .disabled(mode == .reaction && reaction == .none)
+                    .opacity(mode == .reaction && reaction == .none ? 0.5 : 1)
                     .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
                     .background(
                         LinearGradient(colors: [Theme.card.opacity(0), Theme.card.opacity(0.9)],
@@ -122,7 +125,7 @@ struct LogFeedingSheet: View {
     private var reactionCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Реакция").font(.headline)
-            ReactionChips(reaction: $reaction)
+            ReactionChips(reaction: $reaction, includeNone: mode == .feeding)
             if reaction != .none {
                 // Тяжесть — факт для журнала и PDF врачу; появляется только по делу.
                 SeverityChips(severity: $severity)

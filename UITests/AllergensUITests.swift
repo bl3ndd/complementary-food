@@ -15,11 +15,12 @@ final class AllergensUITests: XCTestCase {
         app.tabBars.buttons["Аллергены"].assertExists(timeout: 8)
 
         app.openTab("Аллергены")
-        // E-ALG-01: сводка «пора освежить».
-        app.staticTexts["Пора освежить"].assertExists(timeout: 6)
+        // E-ALG-01: сводка — сколько аллергенов «по плану» (факт, а не указание).
+        app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'срок по плану'"))
+            .firstMatch.assertExists(timeout: 6)
 
         // E-ALG-02: «Дал» на группе «Яйцо» → статус «В норме».
-        app.buttons["Дал"].firstMatch.waitTap()
+        app.buttons["Дали"].firstMatch.waitTap()
         app.allowNotificationsIfAsked()
         app.staticTexts["В норме"].firstMatch.assertExists(timeout: 6,
             "после «Дал» группа не перешла в «В норме»")

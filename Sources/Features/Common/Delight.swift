@@ -11,7 +11,7 @@ enum Haptics {
     static func tap()     { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
 }
 
-/// Одноразовый залп конфетти — для праздничных моментов («Продукт введён! 🎉»).
+/// Одноразовый залп конфетти — для праздничных моментов («Продукт введён»).
 /// Кусочки разлетаются из центра и тают; позиции — детерминированно от индекса.
 struct ConfettiBurst: View {
     var pieceCount: Int = 26

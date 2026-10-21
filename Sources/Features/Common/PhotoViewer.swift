@@ -32,6 +32,7 @@ struct PhotoViewer: View {
                     .foregroundStyle(.white, .white.opacity(0.25))
                     .padding()
             }
+            .accessibilityLabel(Text("Закрыть"))
         }
     }
 }

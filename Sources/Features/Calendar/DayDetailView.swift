@@ -38,12 +38,15 @@ struct DayDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 12) {
-                if isTodayOrFuture {
+                // За сегодня и прошлые дни главное — записать, что было; план вторичен.
+                // В будущем дне записывать нечего — там главное действие план.
+                if isFutureDay {
                     BigButton(title: "Запланировать ввод") { showPlan = true }
-                }
-                // За сегодня/прошлый день можно дописать кормление (ретро-запись).
-                if !isFutureDay {
-                    GhostButton(title: "Записать кормление") { showAddFeeding = true }
+                } else {
+                    BigButton(title: "Записать кормление") { showAddFeeding = true }
+                    if isTodayOrFuture {
+                        GhostButton(title: "Запланировать ввод") { showPlan = true }
+                    }
                 }
                 if day.entries.isEmpty {
                     if !isTodayOrFuture { emptyState }
@@ -70,6 +73,7 @@ struct DayDetailView: View {
                       showDone: entry.planned && !isFutureDay,
                       onDone: { markDone(entry.log) })
             .onTapGesture { editingLog = entry.log }
+            .accessibilityAddTraits(.isButton)
     }
 
     /// Отметить запланированный ввод выполненным — запускает стейт-машину (introducing)

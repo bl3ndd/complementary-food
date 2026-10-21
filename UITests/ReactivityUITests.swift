@@ -116,8 +116,9 @@ final class ReactivityUITests: XCTestCase {
         app.acceptDisclaimer()
 
         app.openTab("Аллергены")
-        app.staticTexts["Пора освежить"].assertExists(timeout: 8)
-        app.buttons["Дал"].firstMatch.waitTap()
+        app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'срок по плану'"))
+            .firstMatch.assertExists(timeout: 8)
+        app.buttons["Дали"].firstMatch.waitTap()
         app.allowNotificationsIfAsked()
         app.staticTexts["В норме"].firstMatch.assertExists(timeout: 6)
 
@@ -141,7 +142,7 @@ final class ReactivityUITests: XCTestCase {
         app.openTab("Аллергены")
         app.staticTexts["Аллергия"].firstMatch.assertExists(timeout: 6,
             "бейдж «Аллергия» не появился на табе аллергенов")
-        XCTAssertFalse(app.buttons["Дал"].waitForExistence(timeout: 2),
+        XCTAssertFalse(app.buttons["Дали"].waitForExistence(timeout: 2),
                        "«Дал» должен исчезнуть: единственный due-аллерген помечен аллергией")
     }
 

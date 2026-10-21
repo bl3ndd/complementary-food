@@ -32,6 +32,8 @@ struct ProfileView: View {
     @State private var showLanguageRestart = false
     @State private var shareFile: ShareableFile?
     @State private var isResetting = false
+    /// Что не получилось — раньше сбои экспорта и сброса проходили молча.
+    @State private var failure: String?
     /// Объяснение, почему пункт «Данных» пока недоступен (алерт по тапу).
     @State private var dataHint: String?
     /// Какой экспорт сейчас рендерится (для крутилки на строке).
@@ -101,13 +103,19 @@ struct ProfileView: View {
             }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
             .sheet(isPresented: $showPro) { ProSheet(entitlements: entitlements) }
+            .alert(failure ?? "", isPresented: Binding(get: { failure != nil },
+                                                       set: { if !$0 { failure = nil } })) {
+                Button("Понятно", role: .cancel) { failure = nil }
+            } message: {
+                Text("Попробуй ещё раз. Записи в дневнике не пострадали.")
+            }
             .sheet(isPresented: $showAddChild) {
-                OnboardingView { created in
+                OnboardingView(addingChild: true) { created in
                     activeChildId = ActiveChild.id(of: created)
                     showAddChild = false
                 }
             }
-            .alert("Удалить ребёнка?", isPresented: Binding(
+            .alert(Text("Удалить «\(childToDelete.map { $0.name.isEmpty ? String(localized: "Малыш") : $0.name } ?? "")»?"), isPresented: Binding(
                 get: { childToDelete != nil },
                 set: { if !$0 { childToDelete = nil } })) {
                 Button("Удалить", role: .destructive) { deleteChild() }
@@ -119,12 +127,14 @@ struct ProfileView: View {
                 Button("Сбросить", role: .destructive) { resetAll() }
                 Button("Отмена", role: .cancel) {}
             } message: {
-                Text("Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу.")
+                Text(children.count > 1
+                     ? String(localized: "Удалятся все дети (\(children.count)), их дневники и свои продукты. Действие необратимо — приложение вернётся к началу.")
+                     : String(localized: "Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу."))
             }
             .alert("Язык изменён", isPresented: $showLanguageRestart) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("Перезапустите приложение, чтобы применить новый язык.")
+                Text("Перезапусти приложение, чтобы применить новый язык.")
             }
     }
 
@@ -170,9 +180,21 @@ struct ProfileView: View {
         Section {
             LabeledContent("Напоминания") {
                 Text(notifStatusText)
-                    .foregroundStyle(notifStatus == .authorized ? .green : .orange)
+                    .foregroundStyle(notifStatus == .authorized || notifStatus == .provisional ? Theme.mint : .orange)
             }
-            if notifStatus != .authorized {
+            if notifStatus == .notDetermined {
+                // Пока приложение не спрашивало, в Настройках iOS переключателя нет —
+                // кнопка «в настройки» вела в тупик. Спрашиваем сами.
+                Button {
+                    Task {
+                        await NotificationManager.shared.requestAuthorization()
+                        await loadNotifStatus()
+                        NotificationManager.shared.refresh(context: context)
+                    }
+                } label: {
+                    Label("Включить напоминания", systemImage: "bell.badge")
+                }
+            } else if notifStatus == .denied {
                 Button {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url)
@@ -225,7 +247,7 @@ struct ProfileView: View {
         } header: {
             Text("Приложение")
         } footer: {
-            Text("Напоминания держат введённые аллергены под контролем — без них трекер не сработает. Язык применяется после перезапуска.")
+            Text("Напоминания приходят по твоему плану. Язык применяется после перезапуска.")
         }
     }
 
@@ -304,7 +326,7 @@ struct ProfileView: View {
             }
         } footer: {
             Text(entitlements.isPro && !entitlements.purchased
-                 ? String(localized: "Ты пришёл в самом начале — Pro твой навсегда, платить не нужно.")
+                 ? String(localized: "Ты с нами с самого начала — Pro твой навсегда, платить не нужно.")
                  : String(localized: "Разовая покупка. Дневник, аллергены, календарь, синхронизация и PDF для педиатра остаются бесплатными."))
         }
     }
@@ -404,7 +426,7 @@ struct ProfileView: View {
                     .foregroundStyle(.red)
             }
         } footer: {
-            Text("Сначала выгрузите данные (Данные → Дневник для педиатра) — после сброса восстановить нельзя.")
+            Text("После сброса данные не восстановить. PDF «Дневник для педиатра» — копия для чтения, загрузить его обратно нельзя.")
         }
     }
 
@@ -427,6 +449,8 @@ struct ProfileView: View {
             if let url {
                 Haptics.success()
                 shareFile = ShareableFile(url: url)
+            } else {
+                failure = String(localized: "Не получилось собрать PDF")
             }
         }
     }
@@ -452,6 +476,7 @@ struct ProfileView: View {
                 // поверх живых данных.
                 context.rollback()
                 isResetting = false
+                failure = String(localized: "Не получилось сбросить данные")
                 return
             }
             FoodCatalog.setCustom([])

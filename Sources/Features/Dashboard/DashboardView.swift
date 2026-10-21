@@ -14,6 +14,10 @@ struct DashboardView: View {
     /// смешиваться. Записи со старым `childId == nil` подхватывает бэкфилл
     /// `PlanMigration.ChildOwnership` на старте, до первой отрисовки.
     @Query private var statuses: [IntroductionStatus]
+    /// Все дети — для переключателя в шапке. С двумя детьми переключаются каждый
+    /// день, и прятать это в Профиль за три тапа нельзя.
+    @Query(sort: \Child.birthDate) private var children: [Child]
+    @AppStorage(ActiveChild.storageKey) private var activeChildId: String = ""
     /// Только записи за сегодня — из них рисуется лента дня.
     @Query private var todayLogs: [FoodLog]
     /// Хвост журнала (см. `recentWindowDays`) — поддержка аллергенов и прогресс
@@ -145,11 +149,25 @@ struct DashboardView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
                     .font(.caption2.weight(.semibold)).foregroundStyle(.secondary)
-                HStack(spacing: 6) {
-                    Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
-                        .font(.headline).lineLimit(1)
-                    Text("\(child.ageInMonths) мес")
-                        .font(.subheadline).foregroundStyle(.secondary)
+                if children.count > 1 {
+                    Menu {
+                        Picker(selection: Binding(get: { child.id },
+                                                  set: { id in activeChildId = ActiveChild.id(of: children.first { $0.id == id }) })) {
+                            ForEach(children) { kid in
+                                Text(kid.name.isEmpty ? String(localized: "Малыш") : kid.name).tag(kid.id)
+                            }
+                        } label: { EmptyView() }
+                    } label: {
+                        HStack(spacing: 4) {
+                            nameLine
+                            Image(systemName: "chevron.down")
+                                .font(.caption.weight(.bold)).foregroundStyle(Theme.accent)
+                        }
+                    }
+                    .accessibilityLabel(Text("Ребёнок"))
+                    .accessibilityIdentifier("dashboard.childSwitcher")
+                } else {
+                    nameLine
                 }
             }
             Spacer(minLength: 8)
@@ -164,6 +182,15 @@ struct DashboardView: View {
             }
         }
         .padding(.horizontal, 4)
+    }
+
+    private var nameLine: some View {
+        HStack(spacing: 6) {
+            Text(child.name.isEmpty ? String(localized: "Малыш") : child.name)
+                .font(.headline).lineLimit(1).foregroundStyle(.primary)
+            Text("\(child.ageInMonths) мес")
+                .font(.subheadline).foregroundStyle(.secondary)
+        }
     }
 
     /// Приветствие по времени суток (тёплый акцент карточки ребёнка).
@@ -353,7 +380,7 @@ struct DashboardView: View {
             }
 
             Button { goToCatalog() } label: {
-                Label(foods.isEmpty ? "Открыть каталог" : "Вся коллекция",
+                Label(foods.isEmpty ? String(localized: "Открыть каталог") : String(localized: "Вся коллекция"),
                       systemImage: "square.grid.2x2")
                     .font(.subheadline.weight(.semibold)).foregroundStyle(Theme.accent)
             }
@@ -418,7 +445,8 @@ struct DashboardView: View {
                         .stroke(Color.red, lineWidth: 2).frame(width: 46, height: 46)
                 }
             }
-            Text(g.group.title).font(.system(size: 9)).foregroundStyle(.secondary).lineLimit(1)
+            Text(g.group.title).font(.caption2).foregroundStyle(.secondary)
+                .lineLimit(1).minimumScaleFactor(0.6)
         }
     }
 
@@ -456,6 +484,7 @@ struct DashboardView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture { editingLog = entry.log }
+                    .accessibilityAddTraits(.isButton)
                     .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }

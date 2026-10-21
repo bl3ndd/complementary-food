@@ -65,7 +65,7 @@ struct ProSheet: View {
             Mascot(mood: .cheer, size: 92)
             Text("Дневник остаётся бесплатным")
                 .font(.title3.weight(.bold)).multilineTextAlignment(.center)
-            Text("Pro добавляет приятное: карточки, гаммы, иконки и виджет. Записи, аллергены, календарь, синхронизация и PDF для педиатра — всегда бесплатно.")
+            Text("Pro добавляет: сколько угодно детей, карточки для сторис, гаммы, иконки и виджеты. Записи, аллергены, календарь, синхронизация и PDF для педиатра — всегда бесплатно.")
                 .font(.subheadline).foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
@@ -99,7 +99,7 @@ struct ProSheet: View {
             Label("Pro открыт", systemImage: "checkmark.seal.fill")
                 .font(.headline).foregroundStyle(Theme.accent)
             if !entitlements.purchased {
-                Text("Ты пришёл в самом начале — Pro твой навсегда, платить не нужно.")
+                Text("Ты с нами с самого начала — Pro твой навсегда, платить не нужно.")
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
             }

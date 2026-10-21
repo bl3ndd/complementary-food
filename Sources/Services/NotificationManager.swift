@@ -249,7 +249,7 @@ final class NotificationManager {
 
             let content = UNMutableNotificationContent()
             content.title = "Pudding"
-            content.body = String(localized: "Сегодня дата, которую ты отметил для отложенного продукта. Подробности в приложении.")
+            content.body = String(localized: "Сегодня — дата из твоего напоминания об отложенном продукте. Подробности в приложении.")
             content.sound = .default
 
             var comps = calendar.dateComponents([.year, .month, .day], from: retryAt)

@@ -54,9 +54,9 @@ final class FoodStateMachineUITests: XCTestCase {
         app.alerts.buttons["Приостановить"].waitTap()
         app.staticTexts["Пауза"].assertExists(timeout: 5)
 
-        // «Попробовать через 2 месяца» → появляется срок напоминания.
+        // «Напомнить через 2 месяца» (срок выбирает человек) → появляется дата напоминания.
         app.buttons["food.more"].waitTap()
-        app.buttons["Попробовать через 2 месяца"].waitTap()
+        app.buttons["Напомнить через 2 месяца"].waitTap()
         app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Напомним попробовать'"))
             .firstMatch.assertExists(timeout: 4, "нет строки о retry-напоминании")
 

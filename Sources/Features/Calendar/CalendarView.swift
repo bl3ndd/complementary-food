@@ -14,8 +14,12 @@ struct CalendarView: View {
 
     private let catalog = FoodCatalog.shared
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
-    /// Русские ключи; локализуются в каталоге (`String.LocalizationValue` ниже).
-    private let weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
+    /// Дни недели по локали, начиная с её первого дня (в США и Японии — воскресенье).
+    private var weekdays: [String] {
+        let symbols = cal.veryShortStandaloneWeekdaySymbols
+        let start = cal.firstWeekday - 1
+        return Array(symbols[start...] + symbols[..<start])
+    }
 
     init(child: Child) {
         self.child = child
@@ -37,12 +41,17 @@ struct CalendarView: View {
     @State private var showRecap = false
     /// Идёт рендер PDF — кнопка экспорта показывает прогресс и не принимает тапы.
     @State private var isExporting = false
+    /// Почему действие пока недоступно — объясняем тапом, а не серой кнопкой
+    /// (тот же приём, что в Профиле).
+    @State private var dataHint: String?
+    @State private var exportFailed = false
 
-    private var cal: Calendar {
-        var c = Calendar.current
-        c.firstWeekday = 2          // неделя с понедельника
-        return c
-    }
+    /// Календарь локали: первый день недели — как у человека в системе.
+    private var cal: Calendar { Calendar.current }
+
+    /// В ленте рекап — за текущий месяц; в сетке — за открытый. Раньше всегда брался
+    /// последний пролистанный месяц сетки, даже когда на экране была лента.
+    private var recapMonth: Date { mode == .month ? monthAnchor : Date() }
 
     private var service: CalendarService {
         CalendarService(catalog: catalog, logs: logs)
@@ -72,11 +81,17 @@ struct CalendarView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Menu {
-                        Button { exportPDF(.pediatric) } label: {
+                        Button {
+                            if hasActualLogs { exportPDF(.pediatric) }
+                            else { dataHint = String(localized: "Дневник для педиатра появится после первой записи кормления.") }
+                        } label: {
                             Label("Дневник для педиатра", systemImage: "doc.text")
                         }
-                        Button { exportPDF(.avoid) } label: {
-                            Label("Лист «Не давать» (няне/садику)", systemImage: "nosign")
+                        Button {
+                            if hasAvoidItems { exportPDF(.avoid) }
+                            else { dataHint = String(localized: "Список «не давать» соберётся из продуктов на паузе или с аллергией.") }
+                        } label: {
+                            Label("Список «не давать»", systemImage: "nosign")
                         }
                     } label: {
                         // Пока PDF собирается — крутилка вместо иконки, иначе кажется,
@@ -88,15 +103,17 @@ struct CalendarView: View {
                         }
                     }
                     .accessibilityLabel("Экспорт")
-                    .disabled(isExporting || (!hasActualLogs && !hasAvoidItems) || false)
+                    .disabled(isExporting)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { showRecap = true } label: {
+                    Button {
+                        if RecapService(catalog: catalog, logs: logs).hasData(for: recapMonth) { showRecap = true }
+                        else { dataHint = String(localized: "Рекап откроется, когда в этом месяце появятся записи.") }
+                    } label: {
                         Image(systemName: "sparkles")
                     }
                     .accessibilityLabel("Рекап месяца")
                     .accessibilityIdentifier("screenshot.recap")
-                    .disabled(!RecapService(catalog: catalog, logs: logs).hasData(for: monthAnchor))
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showPlan = true } label: {
@@ -112,11 +129,20 @@ struct CalendarView: View {
             .sheet(isPresented: $showPlan) { PlanIntroSheet(childId: child.id) }
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
             .sheet(isPresented: $showRecap) {
-                if true {
-                    RecapSheet(recap: RecapService(catalog: catalog, logs: logs)
-                        .recap(for: monthAnchor, childName: child.name,
-                               ageMonths: child.ageInMonths))
-                }
+                RecapSheet(recap: RecapService(catalog: catalog, logs: logs)
+                    .recap(for: recapMonth, childName: child.name,
+                           ageMonths: child.ageInMonths))
+            }
+            .alert("Пока рано", isPresented: Binding(get: { dataHint != nil },
+                                                     set: { if !$0 { dataHint = nil } })) {
+                Button("Понятно", role: .cancel) { dataHint = nil }
+            } message: {
+                Text(dataHint ?? "")
+            }
+            .alert("Не получилось собрать PDF", isPresented: $exportFailed) {
+                Button("Понятно", role: .cancel) {}
+            } message: {
+                Text("Попробуй ещё раз. Записи в дневнике не пострадали.")
             }
             .alert(Text("Удалить запись?"),
                    isPresented: Binding(get: { pendingDelete != nil },
@@ -186,14 +212,18 @@ struct CalendarView: View {
             if feed.isEmpty {
                 feedEmpty
             } else {
+                // Сверху — сегодня, сразу под ним планы (ближайшие первыми), дальше
+                // прошлое. Раньше планы стояли первыми и сталкивали «сегодня» вниз.
                 let today = cal.startOfDay(for: Date())
-                let future = feed.filter { $0.date > today }
+                let future = feed.filter { $0.date > today }.sorted { $0.date < $1.date }
                 let past = feed.filter { $0.date <= today }
+                let todayGroup = past.first { cal.isDate($0.date, inSameDayAs: today) }
+                if let todayGroup { dayGroup(todayGroup) }
                 if !future.isEmpty {
                     sectionLabel("Планы")
                     ForEach(future) { dayGroup($0) }
                 }
-                ForEach(past) { dayGroup($0) }
+                ForEach(past.filter { $0.id != todayGroup?.id }) { dayGroup($0) }
             }
         }
     }
@@ -235,6 +265,7 @@ struct CalendarView: View {
                               showDone: entry.planned && day.date <= cal.startOfDay(for: Date()),
                               onDone: { markDone(entry.log) })
                     .onTapGesture { editingLog = entry.log }
+                    .accessibilityAddTraits(.isButton)
                     .contextMenu {
                         Button { editingLog = entry.log } label: {
                             Label("Изменить", systemImage: "pencil")
@@ -402,7 +433,7 @@ struct CalendarView: View {
                             .font(.system(size: 9, weight: .heavy))
                             .foregroundStyle(fill)
                             .frame(width: 14, height: 14)
-                            .background(Circle().fill(.white))
+                            .background(Circle().fill(Theme.card))
                     }
                 }
         }
@@ -448,9 +479,14 @@ struct CalendarView: View {
 
     private func delete(_ log: FoodLog) {
         Haptics.warning()
+        let (foodId, wasPlanned) = (log.foodId, log.planned)
         context.delete(log)
         try? context.save()
         pendingDelete = nil
+        if !wasPlanned {
+            FeedingService(context: context, childId: child.id).revalidate(foodId: foodId)
+            NotificationManager.shared.refresh(context: context)
+        }
     }
 
     private enum ExportKind { case pediatric, avoid }
@@ -480,6 +516,8 @@ struct CalendarView: View {
             if let url {
                 Haptics.success()
                 shareFile = ShareableFile(url: url)
+            } else {
+                exportFailed = true
             }
         }
     }

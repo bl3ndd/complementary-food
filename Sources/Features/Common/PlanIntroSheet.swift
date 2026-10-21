@@ -17,8 +17,6 @@ struct PlanIntroSheet: View {
     /// показываются отдельной галочкой и не выбираются повторно.
     @State private var picked: Set<String> = []
 
-    private let catalog = FoodCatalog.shared
-
     init(childId: UUID, initialDate: Date = Date()) {
         self.childId = childId
         _date = State(initialValue: initialDate)
@@ -36,10 +34,9 @@ struct PlanIntroSheet: View {
                 .tint(Theme.accent)
                 .padding(.horizontal).padding(.top, 8).padding(.bottom, 4)
 
-                List {
-                    ForEach(catalog.search(search)) { food in
-                        row(food)
-                    }
+                FoodPickerList(childId: childId, search: $search, todayFirst: false,
+                               onCustomAdded: { picked.insert($0.id) }) { food, state in
+                    row(food, state: state)
                 }
                 .searchable(text: $search, prompt: Text("Поиск продукта"))
             }
@@ -69,7 +66,7 @@ struct PlanIntroSheet: View {
         .cozySheet()
     }
 
-    private func row(_ food: Food) -> some View {
+    private func row(_ food: Food, state: IntroState) -> some View {
         let already = isPlanned(food)
         let selected = picked.contains(food.id)
         return Button {
@@ -77,11 +74,7 @@ struct PlanIntroSheet: View {
             Haptics.select()
             if selected { picked.remove(food.id) } else { picked.insert(food.id) }
         } label: {
-            HStack(spacing: 10) {
-                FoodIcon(food: food, size: 30)
-                Text(food.localizedName)
-                    .foregroundStyle(already ? .secondary : .primary)
-                Spacer()
+            FoodPickerRow(food: food, state: state) {
                 if already {
                     // Уже в планах на этот день — повторно не добавляем.
                     Image(systemName: "checkmark.circle.fill").foregroundStyle(Theme.lilac)

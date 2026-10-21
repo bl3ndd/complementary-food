@@ -131,9 +131,10 @@ struct FeedingService {
     /// Запись кормления. Реакция — только запись в журнал и НЕ меняет статус ввода
     /// (остановку/паузу пользователь выбирает вручную, SPEC §4.4). Заметка пишется
     /// в этот же лог, а не отдельной записью.
+    @discardableResult
     func logFeeding(_ food: Food, liking: Liking?, reaction: ReactionType?,
                     date: Date = Date(), note: String? = nil,
-                    severity: ReactionSeverity? = nil, photos: [Data] = []) {
+                    severity: ReactionSeverity? = nil, photos: [Data] = []) -> FoodLog {
         let s = status(for: food.id)
         let isMaintenance = (s.state == .introduced)
         let hadReaction = reaction != nil && reaction != ReactionType.none
@@ -168,6 +169,7 @@ struct FeedingService {
         if s.state == .introducing, let profile = ownProfile() {
             completeDueIntroductions(profile: profile)
         }
+        return log
     }
 
     /// План ребёнка, чей это дневник. Раньше брался первый ребёнок в сторе —
@@ -325,6 +327,15 @@ struct FeedingService {
         let s = status(for: food.id)
         s.state = .paused
         s.retryAt = calendar.date(byAdding: .month, value: months, to: now)
+        save()
+    }
+
+    /// То же со сроком в днях — его выбирает человек в меню карточки.
+    func scheduleRetry(_ food: Food, afterDays days: Int,
+                       now: Date = Date(), calendar: Calendar = .current) {
+        let s = status(for: food.id)
+        s.state = .paused
+        s.retryAt = calendar.date(byAdding: .day, value: days, to: now)
         save()
     }
 

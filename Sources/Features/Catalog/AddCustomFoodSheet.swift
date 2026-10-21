@@ -6,6 +6,9 @@ import SwiftData
 struct AddCustomFoodSheet: View {
     /// Созданный продукт — каталог сразу открывает его карточку, где и начинают ввод.
     var onAdded: (Food) -> Void = { _ in }
+    /// Имя из поиска, который ничего не нашёл: человек уже набрал его — не заставляем
+    /// набирать второй раз.
+    var initialName: String = ""
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
@@ -39,6 +42,7 @@ struct AddCustomFoodSheet: View {
             }
         }
         .cozySheet()
+        .onAppear { if name.isEmpty { name = initialName.trimmingCharacters(in: .whitespaces) } }
     }
 
     private var preview: some View {

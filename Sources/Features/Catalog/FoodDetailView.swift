@@ -60,8 +60,9 @@ struct FoodDetailView: View {
                 heroCard.stretchyHero().cozyAppear()
                 if state == .notIntroduced { startDateCard.cozyAppear(0.06) }
                 if state == .allergy { allergyCard.cozyAppear(0.06) }
-                benefitsCard.cozyAppear(0.12)
-                if !logs.isEmpty { historyCard.cozyAppear(0.18) }
+                // История — это и есть дневник; «Чем полезен» — справка, она ниже.
+                if !logs.isEmpty { historyCard.cozyAppear(0.12) }
+                benefitsCard.cozyAppear(0.18)
             }
             .padding()
             // Пружина на смене состояния (старт/пауза/введён): герой и набор карточек
@@ -77,7 +78,7 @@ struct FoodDetailView: View {
         }
         .sheet(item: $editingLog) { EditLogSheet(log: $0) }
         .alert("Приостановить ввод этого продукта?", isPresented: $confirmStop) {
-            Button("Приостановить", role: .destructive) { stop() }
+            Button("Приостановить") { stop() }
             Button("Отмена", role: .cancel) {}
         } message: {
             Text("Это не аллергия — просто пауза, ввод можно возобновить в любой момент.")
@@ -92,7 +93,7 @@ struct FoodDetailView: View {
             Button("Пометить аллергию", role: .destructive) { flagAllergy() }
             Button("Отмена", role: .cancel) {}
         } message: {
-            Text("Напоминания по этому аллергену отключатся.")
+            Text("Продукт попадёт в список «Не давать», напоминания по нему отключатся.")
         }
         .overlay { cheerOverlay }
         .task {
@@ -183,9 +184,11 @@ struct FoodDetailView: View {
     /// Сводка по введённому продукту: сколько кормлений, последнее, что чаще нравится.
     private var summaryLine: some View {
         HStack(spacing: 6) {
-            Text("\(String(localized: "Кормлений")): \(logs.count)")
+            // Целые фразы, а не склейка «Кормлений» + «: » + число: порядок слов
+            // и падеж в других языках другие.
+            Text("Кормлений: \(logs.count)")
             if let last = logs.first?.date {
-                Text("· \(String(localized: "последнее")) \(last.shortDate)")
+                Text("· последнее \(last.shortDate)")
             }
             if let liking = dominantLiking {
                 OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 18)
@@ -325,6 +328,7 @@ struct FoodDetailView: View {
         .padding(.vertical, 10)
         .contentShape(Rectangle())
         .onTapGesture { editingLog = log }
+        .accessibilityAddTraits(.isButton)
     }
 
     // MARK: - Закреплённый бар действий
@@ -358,19 +362,29 @@ struct FoodDetailView: View {
     private var overflowActions: [BarAction] {
         switch state {
         case .notIntroduced:
-            return []
+            // Аллергия, известная до приложения (анализы, прошлый опыт), должна
+            // попасть в «Не давать» без начала ввода.
+            return [BarAction(title: "Пометить аллергию", role: .destructive) { confirmAllergy = true }]
         case .introducing:
-            var items: [BarAction] = []
-            items.append(BarAction(title: "Была реакция") { logMode = .reaction })
-            items.append(BarAction(title: "Приостановить ввод", role: .destructive) { confirmStop = true })
-            return items
+            // Пауза — не опасное действие (алерт так и говорит), поэтому не красная.
+            return [
+                BarAction(title: "Была реакция") { logMode = .reaction },
+                BarAction(title: "Приостановить ввод") { confirmStop = true },
+                BarAction(title: "Пометить аллергию", role: .destructive) { confirmAllergy = true },
+            ]
         case .introduced:
             return [
                 BarAction(title: "Была реакция") { logMode = .reaction },
                 BarAction(title: "Пометить аллергию", role: .destructive) { confirmAllergy = true },
             ]
         case .paused:
-            return [BarAction(title: "Попробовать через 2 месяца") { retryLater() }]
+            // Срок выбирает человек, а не приложение.
+            return [
+                BarAction(title: "Напомнить через 2 недели") { retryLater(days: 14) },
+                BarAction(title: "Напомнить через месяц") { retryLater(days: 30) },
+                BarAction(title: "Напомнить через 2 месяца") { retryLater(days: 61) },
+                BarAction(title: "Пометить аллергию", role: .destructive) { confirmAllergy = true },
+            ]
         case .allergy:
             return []
         }
@@ -412,7 +426,7 @@ struct FoodDetailView: View {
                     .transition(.opacity)
                 VStack(spacing: 14) {
                     Mascot(mood: .cheer, size: 120).gentleBob()
-                    Text("Продукт введён! 🎉").font(.title3.bold())
+                    Text("Продукт введён").font(.title3.bold())
                 }
                 .padding(28)
                 .background(Theme.card, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
@@ -433,7 +447,11 @@ struct FoodDetailView: View {
 
     private func stop() { Haptics.warning(); service.stopIntroduction(food); refresh() }
     private func resume() { Haptics.tap(); service.reintroduce(food); refresh() }
-    private func retryLater() { Haptics.tap(); service.scheduleRetry(food); refresh() }
+    private func retryLater(days: Int) {
+        Haptics.tap()
+        service.scheduleRetry(food, afterDays: days)
+        refresh()
+    }
     private func flagAllergy() { Haptics.warning(); service.markAllergy(food); refresh() }
 
     /// Продукт «дозрел» прямо на открытой карточке — показываем поздравление.

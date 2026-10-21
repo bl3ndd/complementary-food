@@ -124,6 +124,7 @@
 		F5B07AB5FBB86B7BE9064930 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3123651EDBA4C5BF5C8F7FC0 /* AppLanguage.swift */; };
 		F66FC07B15831F3FF96B6DA5 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85E899E48B738A329E5CB660 /* Media.xcassets */; };
 		F957DD6E4373E648D08274F9 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21161D9379ED59AF6BECDBFB /* Child.swift */; };
+		FA6B39F6C33A391BA84BE7BF /* FoodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762BF3B1B94520DC2D6A5780 /* FoodPicker.swift */; };
 		FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */; };
 		FBFC9DEB15AD0A4A3E087F30 /* FeedingProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1097FE0A50F9EEDF57EB7CBA /* FeedingProfileTests.swift */; };
 		FCC36B053705C5497D2B8214 /* AppReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831323745180D62F8316E6B1 /* AppReview.swift */; };
@@ -229,6 +230,7 @@
 		6FBD56BD052C63B19820AE6A /* PuddingWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = PuddingWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		752BF5E941CC9648AC650547 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		754B6747DEBDDC038C5EB2AF /* RecapCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapCards.swift; sourceTree = "<group>"; };
+		762BF3B1B94520DC2D6A5780 /* FoodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPicker.swift; sourceTree = "<group>"; };
 		7861AD8F79C95B259F207535 /* FoodIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIcon.swift; sourceTree = "<group>"; };
 		78D43BE9AF76F56E65379843 /* ChildLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildLimit.swift; sourceTree = "<group>"; };
 		7AA1C21D2385F986B9F04FF9 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				067B29385AC89B87BF57873E /* DiaryEntryRow.swift */,
 				B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */,
 				7861AD8F79C95B259F207535 /* FoodIcon.swift */,
+				762BF3B1B94520DC2D6A5780 /* FoodPicker.swift */,
 				C9D0FE42CDCCA96CA8A7C2D7 /* Mascot.swift */,
 				1050523329BD3064EBA1ACCC /* Palette.swift */,
 				EE5E2EBCB38DCDCD4D39455E /* PhotoViewer.swift */,
@@ -834,6 +837,7 @@
 				72FFE23EA1A9703C2EB246E1 /* FoodDetailView.swift in Sources */,
 				6C18BDDBF46077B699864AE2 /* FoodIcon.swift in Sources */,
 				BA6ACA6293B9A1BF3FBC5EA9 /* FoodLog.swift in Sources */,
+				FA6B39F6C33A391BA84BE7BF /* FoodPicker.swift in Sources */,
 				1BA9CAE795DBD9F108D57343 /* IntroductionStatus.swift in Sources */,
 				31965A67F1B1E23860D86E60 /* LogFeedingSheet.swift in Sources */,
 				0EEAF8134494BA8047896B41 /* LogPhoto.swift in Sources */,

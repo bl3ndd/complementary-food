@@ -12,7 +12,11 @@ struct OnboardingView: View {
     /// добавления следующего ребёнка из Профиля — там вызывающему нужно сделать
     /// нового активным и закрыть лист.
     var onCreated: (Child) -> Void = { _ in }
+    /// Добавление следующего ребёнка из Профиля: приветствие и дисклеймер человек
+    /// уже видел — начинаем сразу с «О ребёнке», с «Отменой», без смены таба.
+    var addingChild = false
     @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
 
     @State private var step = 0
     @State private var name = ""
@@ -26,9 +30,27 @@ struct OnboardingView: View {
 
     private let catalog = FoodCatalog.shared
     private let lastStep = 4
+    private var firstStep: Int { addingChild ? 2 : 0 }
+
+    init(addingChild: Bool = false, onCreated: @escaping (Child) -> Void = { _ in }) {
+        self.addingChild = addingChild
+        self.onCreated = onCreated
+        _step = State(initialValue: addingChild ? 2 : 0)
+    }
 
     var body: some View {
         VStack(spacing: 16) {
+            // Сколько шагов осталось — пять экранов подряд без ориентира утомляют.
+            HStack(spacing: 6) {
+                ForEach(firstStep...lastStep, id: \.self) { i in
+                    Capsule()
+                        .fill(i <= step ? Theme.accent : Theme.hairline)
+                        .frame(width: i == step ? 18 : 6, height: 6)
+                }
+            }
+            .animation(.snappy, value: step)
+            .accessibilityHidden(true)
+            .padding(.top, 4)
             Group {
                 switch step {
                 case 0:  centered(welcomeStep)
@@ -40,10 +62,17 @@ struct OnboardingView: View {
             }
             .frame(maxHeight: .infinity)
             button
-            if step > 0 {
+            if step > firstStep {
                 Button("Назад") { withAnimation { step -= 1 } }
                     .font(.subheadline.weight(.medium)).foregroundStyle(.secondary)
                     .padding(.top, 2)
+            }
+        }
+        .overlay(alignment: .topLeading) {
+            if addingChild {
+                Button("Отмена") { dismiss() }
+                    .font(.body.weight(.medium)).tint(Theme.accent)
+                    .padding(.top, 4)
             }
         }
         .padding()
@@ -64,7 +93,7 @@ struct OnboardingView: View {
         VStack(spacing: 16) {
             haloMascot(.happy)
             Text("Pudding").font(.largeTitle.bold())
-            Text("Дневник прикорма без паники: что вводить, когда и не забыть про аллергены.")
+            Text("Дневник прикорма: что давали, как зашло, были ли реакции.")
                 .foregroundStyle(.secondary).padding(.horizontal)
         }
     }
@@ -108,7 +137,7 @@ struct OnboardingView: View {
     private var planStep: some View {
         ScrollView {
             VStack(spacing: 14) {
-                Text("Свой план прикорма").font(.title2.bold())
+                Text("Твой план прикорма").font(.title2.bold())
                 Text("Настрой старт, окна наблюдения и аллергены. Можно изменить позже.")
                     .font(.footnote).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -169,7 +198,7 @@ struct OnboardingView: View {
                 Button { search = "" } label: {
                     Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
                 }
-                .accessibilityLabel(Text("Поиск продукта"))
+                .accessibilityLabel(Text("Очистить"))
             }
         }
         .padding(.horizontal, 14).padding(.vertical, 10)
@@ -256,7 +285,7 @@ struct OnboardingView: View {
     private func finish() {
         // AppRouter — синглтон: после сброса из Профиля таб остался бы .profile.
         // Свежий старт всегда открывается на главной.
-        AppRouter.shared.selectedTab = .today
+        if !addingChild { AppRouter.shared.selectedTab = .today }
         let child = Child(name: name.trimmingCharacters(in: .whitespaces),
                           birthDate: birthDate, feedingProfileId: FeedingProfile.customId)
         child.customStartAgeMonths = draftChild.customStartAgeMonths

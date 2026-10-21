@@ -25,9 +25,11 @@ extension AllergenStatus {
 extension IntroState {
     var color: Color {
         switch self {
+        // Цвета экранов (гамма), а не системные синий/зелёный — иначе бейджи
+        // спорили с остальной палитрой.
         case .notIntroduced: return .gray
-        case .introducing:   return .blue
-        case .introduced:    return .green
+        case .introducing:   return Theme.sky
+        case .introduced:    return Theme.mint
         case .paused:        return .orange
         case .allergy:       return .red
         }
@@ -118,10 +120,13 @@ struct LikingPicker: View {
 /// Чипы реакции — общие для записи кормления и правки записи.
 struct ReactionChips: View {
     @Binding var reaction: ReactionType
+    /// В листе «Запись реакции» выбора «Нет реакции» нет: он был выбран по
+    /// умолчанию, и запись реакции сохранялась без реакции.
+    var includeNone = true
 
     var body: some View {
         FlowLayout(spacing: 8) {
-            ForEach(ReactionType.selectableCases, id: \.self) { r in
+            ForEach(ReactionType.selectableCases.filter { includeNone || $0 != .none }, id: \.self) { r in
                 SelectChip(title: r.title,
                            asset: "react_\(r.rawValue)", fallback: r.emoji,
                            tint: r == .none ? Theme.mint : .orange,
@@ -228,6 +233,7 @@ struct PhotosAttachCard: View {
                                                 .font(.body)
                                                 .foregroundStyle(.white, .black.opacity(0.45))
                                         }
+                                        .accessibilityLabel(Text("Удалить фото"))
                                         .padding(3)
                                     }
                                     .contentShape(Rectangle())
@@ -240,7 +246,7 @@ struct PhotosAttachCard: View {
             }
             PhotosPicker(selection: $items, maxSelectionCount: 5, matching: .images,
                          photoLibrary: .shared()) {
-                Label(photos.isEmpty ? "Добавить фото" : "Добавить ещё", systemImage: "camera.fill")
+                Label(photos.isEmpty ? String(localized: "Добавить фото") : String(localized: "Добавить ещё"), systemImage: "camera.fill")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.accent)
             }
@@ -303,7 +309,7 @@ struct ChildPhotoRow: View {
             }
 
             PhotosPicker(selection: $item, matching: .images, photoLibrary: .shared()) {
-                Text(photo == nil ? "Добавить фото" : "Заменить фото")
+                Text(photo == nil ? String(localized: "Добавить фото") : String(localized: "Заменить фото"))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.accent)
             }
@@ -318,6 +324,7 @@ struct ChildPhotoRow: View {
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(Text("Удалить фото"))
             }
         }
         .onChange(of: item) { _, new in

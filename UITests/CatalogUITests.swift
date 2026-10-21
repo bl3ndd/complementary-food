@@ -45,14 +45,16 @@ final class CatalogUITests: XCTestCase {
         name.typeText("Компотик\n")
         app.buttons["Добавить"].waitTap()
 
-        // Появился в секции «Свои продукты» со статусом «Введён» (сразу в коллекции).
+        // Сразу открывается его карточка — НЕ введённым: ввод начинается с кормления.
+        app.navigationBars["Компотик"].assertExists(timeout: 5, "не открылась карточка своего продукта")
+        app.staticTexts["Не введён"].firstMatch.assertExists(timeout: 3,
+            "свой продукт не должен быть «Введён» без единого кормления")
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+
         let search = app.textFields["Поиск продукта"]
         search.waitTap()
         search.typeText("компотик")
         app.row(containing: "Компотик").assertExists(timeout: 5, "свой продукт не появился")
-        app.buttons.matching(NSPredicate(
-            format: "label CONTAINS 'Компотик' AND label CONTAINS 'Введён'"))
-            .firstMatch.assertExists(timeout: 3, "свой продукт должен быть сразу введён")
 
         // E-CAT-05: свайп-удаление с подтверждением.
         app.row(containing: "Компотик").swipeLeft()

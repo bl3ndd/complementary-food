@@ -77,8 +77,14 @@ Guidance for working in this repo. Read [SPEC.md](SPEC.md) for product intent an
   продукт введён, когда его дали в N разных дней (`FeedingService.introFeedingDays`),
   N — из плана (дефолт 2 обычный / 3 аллерген). Закрывается прямо в `logFeeding`,
   плюс свипер `completeDueIntroductions` при запуске/активации. Ручной кнопки нет.
-  Напоминаний ставится столько, сколько дней осталось; если сегодня уже кормили —
-  первое на завтра. Submission
+  **Первое кормление продукта само начинает ввод** (запись с главной раньше
+  оставляла «Не введён» навсегда); **кормление с реакцией днём ввода не считается**;
+  граница окна — по дню. Правка/удаление записи → `revalidate` (может вернуть
+  «вводится», если ввод закрыла ошибочная запись). Свой продукт создаётся НЕ введённым.
+  Всё это — **в пределах ребёнка и по его плану** (`childId` у сервиса обязателен).
+  Напоминания строятся по каждому ребёнку отдельно, id несут тег ребёнка
+  (`intro-<8 hex>-…`), пуш переключает активного ребёнка. Окно ввода: оставшиеся дни
+  + 2 про запас; поддержка аллергена — заранее на дату по плану и через 2 дня. Submission
   checklist: `docs/SUBMISSION.md`; test map: `docs/TEST-CASES.md`.
 - **Keep business logic out of views.** Views call services; services are pure
   functions over `ModelContext` + catalog data. This is what makes the logic unit-testable

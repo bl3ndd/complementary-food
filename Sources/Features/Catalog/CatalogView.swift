@@ -35,10 +35,10 @@ struct CatalogView: View {
                 .onAppear { openPending(router.pendingFoodId) }
                 .onChange(of: router.pendingFoodId) { _, fid in openPending(fid) }
                 .sheet(isPresented: $showAddCustom) {
-                    AddCustomFoodSheet { food in
+                    AddCustomFoodSheet(onAdded: { food in
                         // После закрытия листа — в карточку нового продукта.
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { path.append(food) }
-                    }
+                    }, initialName: catalog.search(search).isEmpty ? search : "")
                 }
                 .alert("Удалить свой продукт?",
                        isPresented: Binding(get: { pendingDeleteCustom != nil },
@@ -70,6 +70,23 @@ struct CatalogView: View {
             .padding(.top, 8)
 
             List {
+                if results.isEmpty {
+                    // Пустой поиск/фильтр раньше давал белый экран без выхода.
+                    VStack(spacing: 12) {
+                        Text(search.isEmpty ? String(localized: "В этом списке пока пусто")
+                                            : String(localized: "Ничего не нашлось"))
+                            .font(.headline)
+                        if !search.isEmpty {
+                            Button { showAddCustom = true } label: {
+                                Label("Добавить «\(search)» как свой продукт", systemImage: "plus.circle.fill")
+                            }
+                            .buttonStyle(.borderless).tint(Theme.accent)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+                    .listRowBackground(Color.clear)
+                }
                 ForEach(FoodCategory.allCases, id: \.self) { category in
                     let foods = results.filter { $0.category == category }
                     if !foods.isEmpty {
@@ -194,6 +211,7 @@ struct CatalogView: View {
                 Button { search = "" } label: {
                     Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
                 }
+                .accessibilityLabel(Text("Очистить"))
             }
         }
         .padding(.horizontal, 14).padding(.vertical, 10)
