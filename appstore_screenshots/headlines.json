@@ -1,7 +1,7 @@
 {
  "de": [
   {
-   "head": "Beikost\nohne Panik",
+   "head": "Jeder erste Löffel,\naufgeschrieben",
    "sub": "Tagebuch, Sammlung und Allergene"
   },
   {
@@ -23,7 +23,7 @@
  ],
  "fr": [
   {
-   "head": "La diversification\nsans stress",
+   "head": "Chaque première bouchée,\nnotée",
    "sub": "Journal, collection et allergènes"
   },
   {
@@ -45,7 +45,7 @@
  ],
  "es": [
   {
-   "head": "Alimentación,\nsin agobios",
+   "head": "Cada primer bocado,\napuntado",
    "sub": "Diario, colección y alérgenos"
   },
   {
@@ -67,7 +67,7 @@
  ],
  "it": [
   {
-   "head": "Svezzamento\nsenza panico",
+   "head": "Ogni primo assaggio,\nannotato",
    "sub": "Diario, raccolta e allergeni"
   },
   {
@@ -89,7 +89,7 @@
  ],
  "pt-BR": [
   {
-   "head": "Introdução alimentar\nsem pânico",
+   "head": "Cada primeira colherada,\nanotada",
    "sub": "Diário, coleção e alérgenos"
   },
   {
@@ -111,7 +111,7 @@
  ],
  "pl": [
   {
-   "head": "Rozszerzanie diety\nbez paniki",
+   "head": "Każdy pierwszy kęs zapisany",
    "sub": "Dziennik, kolekcja i alergeny"
   },
   {
@@ -133,7 +133,7 @@
  ],
  "tr": [
   {
-   "head": "Ek gıda,\npanik yok",
+   "head": "Her ilk lokma,\nkayıtlı",
    "sub": "Günlük, koleksiyon ve alerjenler"
   },
   {
@@ -155,7 +155,7 @@
  ],
  "uk": [
   {
-   "head": "Прикорм\nбез паніки",
+   "head": "Щоденник прикорму",
    "sub": "Щоденник, колекція та алергени"
   },
   {
@@ -177,7 +177,7 @@
  ],
  "nl": [
   {
-   "head": "Eerste hapjes,\nzonder stress",
+   "head": "Elk eerste hapje,\nopgeschreven",
    "sub": "Dagboek, collectie en allergenen"
   },
   {
@@ -199,7 +199,7 @@
  ],
  "ja": [
   {
-   "head": "離乳食、\nあわてず安心",
+   "head": "はじめてのひと口を、\nぜんぶ記録に",
    "sub": "記録・コレクション・アレルゲン"
   },
   {
@@ -221,7 +221,7 @@
  ],
  "ko": [
   {
-   "head": "이유식,\n서두르지 않아요",
+   "head": "첫 한 입부터,\n모두 기록으로",
    "sub": "기록, 컬렉션, 알레르겐"
   },
   {
@@ -243,7 +243,7 @@
  ],
  "zh-Hans": [
   {
-   "head": "添加辅食,\n从容不慌",
+   "head": "每一口辅食，\n都记下来",
    "sub": "记录、图鉴与过敏原"
   },
   {
@@ -265,7 +265,7 @@
  ],
  "ru": [
   {
-   "head": "Дневник прикорма\nбез паники",
+   "head": "Дневник прикорма",
    "sub": "Записи, коллекция и аллергены"
   },
   {
@@ -287,7 +287,7 @@
  ],
  "en": [
   {
-   "head": "First foods,\nzero panic",
+   "head": "Every first bite,\nwritten down",
    "sub": "Diary, collection and allergens"
   },
   {
