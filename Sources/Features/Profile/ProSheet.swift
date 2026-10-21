@@ -119,7 +119,7 @@ struct ProSheet: View {
             BigButton(title: buyTitle) {
                 Task { await store.buy() }
             }
-            .disabled(store.isLoading || store.product == nil)
+            .disabled(store.isLoading)
 
             Text("Разовая покупка, не подписка")
                 .font(.caption).foregroundStyle(.secondary)

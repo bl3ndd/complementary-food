@@ -104,6 +104,13 @@ final class ProStore: ObservableObject {
 
     @discardableResult
     func buy() async -> ProPurchaseOutcome? {
+        // Витрина могла не загрузиться при показе экрана (сеть, App Store). Кнопка
+        // при этом не должна молчать: пробуем ещё раз и честно говорим, если нет.
+        if product == nil { await refresh() }
+        guard product != nil else {
+            if lastError == nil { lastError = String(localized: "Не удалось загрузить покупку из App Store. Проверь интернет и попробуй ещё раз.") }
+            return nil
+        }
         isLoading = true
         defer { isLoading = false }
         lastError = nil

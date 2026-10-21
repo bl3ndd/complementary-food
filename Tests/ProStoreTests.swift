@@ -179,4 +179,25 @@ final class ProStoreTests: XCTestCase {
         await fresh.buy()
         XCTAssertNil(fresh.lastError)
     }
+
+    // MARK: - Витрина не загрузилась
+
+    /// Раньше кнопка была просто выключена, и «Открыть Pro» выглядело сломанным.
+    @MainActor
+    func testBuyWithoutProductRetriesAndExplains() async {
+        let store = ProStore(purchasing: Fake(productToReturn: nil), defaults: isolatedDefaults())
+        let outcome = await store.buy()
+        XCTAssertNil(outcome)
+        XCTAssertFalse(store.isPurchased)
+        XCTAssertNotNil(store.lastError, "пустая витрина — видимая ошибка, а не тишина")
+    }
+
+    @MainActor
+    func testBuyLoadsProductLazily() async {
+        let store = ProStore(purchasing: Fake(), defaults: isolatedDefaults())
+        XCTAssertNil(store.product)
+        let outcome = await store.buy()
+        XCTAssertEqual(outcome, .purchased, "витрина догружается прямо на тапе")
+        XCTAssertTrue(store.isPurchased)
+    }
 }
