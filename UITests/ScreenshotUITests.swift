@@ -64,7 +64,7 @@ final class ScreenshotUITests: XCTestCase {
         }
 
         // 01 — Главная (ждём имя ребёнка «Ника» — оно из сида, не локализуется).
-        XCTAssertTrue(app.staticTexts["Ника"].waitForExistence(timeout: 8),
+        XCTAssertTrue(app.item("Ника").waitForExistence(timeout: 8),
                       "\(lang): главная не загрузилась")
         sleep(2)   // cozy-анимации карточек должны доиграть
         shoot("01_Dashboard", lang)

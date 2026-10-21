@@ -14,8 +14,9 @@ final class AuditWalkUITests: XCTestCase {
         let app = XCUIApplication()
         var args = ["-uitest", "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
                     "-app.palette", "pudding", "-app.activeChild", "",
-                    "-debug.simulateNewUser", pro ? "NO" : "YES",
+                    "-debug.simulateNewUser", "YES",
                     "-app.theme", dark ? "dark" : "light"]
+        if pro { args.append("-uitest-pro") }
         if let seed { args.append("-uitest-seed=\(seed)") }
         app.launchArguments = args
         app.launch()
@@ -75,7 +76,7 @@ final class AuditWalkUITests: XCTestCase {
     func test02_MainFlowsPro() {
         let app = launch(seed: "showcase", pro: true)
         app.acceptDisclaimer()
-        _ = app.staticTexts["Ника"].waitForExistence(timeout: 8); sleep(2)
+        _ = app.item("Ника").waitForExistence(timeout: 8); sleep(2)
         shoot("B01_dashboard")
         app.swipeUp(); shoot("B02_dashboard_bottom"); app.swipeDown(); app.swipeDown()
 
@@ -110,14 +111,14 @@ final class AuditWalkUITests: XCTestCase {
         app.swipeUp(); shoot("C02_catalog_scrolled"); app.swipeDown(); app.swipeDown()
         let search = app.searchFields.firstMatch
         if tap(search) { search.typeText("яб"); shoot("C03_catalog_search"); app.buttons["Отменить"].firstMatch.tap() }
-        if tap(app.staticTexts["Кабачок"].firstMatch) { shoot("C04_food_detail_first"); app.swipeUp(); shoot("C04b_food_detail_bottom"); popBack(app) }
+        if tap(app.item("Кабачок").firstMatch) { shoot("C04_food_detail_first"); app.swipeUp(); shoot("C04b_food_detail_bottom"); popBack(app) }
         if tap(app.buttons["Добавить свой продукт"]) { shoot("C05_add_custom"); dismissSheet(app) }
 
         // Календарь
         tab(app, 2); shoot("D01_calendar_feed")
         if tap(app.buttons["Месяц"]) { shoot("D02_calendar_month") }
         if tap(app.buttons["Лента"]) {}
-        if tap(app.staticTexts["Овсяная каша"].firstMatch) { shoot("D03_day_detail"); app.swipeUp(); shoot("D03b_day_detail_bottom"); popBack(app) }
+        if tap(app.item("Овсяная каша").firstMatch) { shoot("D03_day_detail"); app.swipeUp(); shoot("D03b_day_detail_bottom"); popBack(app) }
         if tap(app.buttons["Экспорт"]) { shoot("D04_export_menu"); app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap() }
         if tap(app.buttons["Запланировать ввод"].firstMatch) { shoot("D05_plan_intro"); dismissSheet(app) }
         if tap(app.buttons["screenshot.recap"]) { shoot("D06_calendar_recap_single"); dismissSheet(app) }
@@ -139,7 +140,7 @@ final class AuditWalkUITests: XCTestCase {
     func test03_FreeUser() {
         let app = launch(seed: "showcase", pro: false)
         app.acceptDisclaimer()
-        _ = app.staticTexts["Ника"].waitForExistence(timeout: 8); sleep(2)
+        _ = app.item("Ника").waitForExistence(timeout: 8); sleep(2)
         shoot("G01_dashboard_free")
         if tap(app.buttons["dashboard.recap"]) { shoot("G02_paywall"); app.swipeUp(); shoot("G02b_paywall_bottom"); dismissSheet(app) }
         tab(app, 4); shoot("G03_profile_free"); app.swipeUp(); shoot("G03b_profile_free_mid")
@@ -158,10 +159,10 @@ final class AuditWalkUITests: XCTestCase {
 
         app = launch(seed: "showcase", pro: true, dark: true)
         app.acceptDisclaimer()
-        _ = app.staticTexts["Ника"].waitForExistence(timeout: 8); sleep(2)
+        _ = app.item("Ника").waitForExistence(timeout: 8); sleep(2)
         shoot("I01_dark_dashboard")
         tab(app, 1); shoot("I02_dark_catalog")
-        if tap(app.staticTexts["Кабачок"].firstMatch) { shoot("I03_dark_food"); popBack(app) }
+        if tap(app.item("Кабачок").firstMatch) { shoot("I03_dark_food"); popBack(app) }
         tab(app, 2); shoot("I04_dark_calendar")
         tab(app, 3); shoot("I05_dark_allergens")
         tab(app, 4); shoot("I06_dark_profile")

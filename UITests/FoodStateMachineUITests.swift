@@ -12,12 +12,12 @@ final class FoodStateMachineUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openFoodCard("брокк", rowTitle: "Брокколи")
 
-        app.staticTexts["Не введён"].assertExists()
+        app.item("Не введён").assertExists()
         app.buttons["Начать введение"].waitTap()
         app.allowNotificationsIfAsked()
 
-        app.staticTexts["Вводится"].assertExists(timeout: 5)
-        app.staticTexts["1 из 2 кормлений"].assertExists(timeout: 4, "нет счётчика окна")
+        app.item("Вводится").assertExists(timeout: 5)
+        app.item("1 из 2 кормлений").assertExists(timeout: 4, "нет счётчика окна")
         app.buttons["Записать кормление"].assertExists(timeout: 4, "нет primary-действия")
 
         // Меню «…»: вторичные действия.
@@ -36,7 +36,7 @@ final class FoodStateMachineUITests: XCTestCase {
 
         XCTAssertFalse(app.buttons["Ввёл успешно ✅"].exists,
                        "ручное подтверждение убрано — окно закрывается по плану")
-        app.staticTexts["Введён"].assertExists(timeout: 6)
+        app.item("Введён").assertExists(timeout: 6)
         app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Кормлений'"))
             .firstMatch.assertExists(timeout: 4, "нет строки-сводки у введённого")
     }
@@ -52,7 +52,7 @@ final class FoodStateMachineUITests: XCTestCase {
         app.buttons["food.more"].waitTap()
         app.buttons["Приостановить ввод"].waitTap()
         app.alerts.buttons["Приостановить"].waitTap()
-        app.staticTexts["Пауза"].assertExists(timeout: 5)
+        app.item("Пауза").assertExists(timeout: 5)
 
         // «Напомнить через 2 месяца» (срок выбирает человек) → появляется дата напоминания.
         app.buttons["food.more"].waitTap()
@@ -63,9 +63,11 @@ final class FoodStateMachineUITests: XCTestCase {
         // Возобновить → «Вводится», окно с НАЧАЛА (E-FOOD-07: старые логи не скипают).
         app.buttons["Возобновить ввод"].waitTap()
         app.allowNotificationsIfAsked()
-        app.staticTexts["Вводится"].assertExists(timeout: 5)
-        app.staticTexts["0 из 2 кормлений"].assertExists(timeout: 4,
-            "после возобновления окно начинается заново — прошлые кормления не в счёт")
+        app.item("Вводится").assertExists(timeout: 5)
+        // Окно считается по дням (аудит): сегодняшнее кормление из сида в нём, а
+        // закрыться ввод не должен — «1 из 2», а не «Введён».
+        app.item("1 из 2 кормлений").assertExists(timeout: 4,
+            "после возобновления окно начинается заново — в счёт только сегодняшний день")
         app.buttons["Записать кормление"].assertExists(timeout: 4,
             "primary — запись кормления; ручного завершения ввода больше нет")
     }
@@ -76,17 +78,19 @@ final class FoodStateMachineUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openFoodCard("брокк", rowTitle: "Брокколи")
 
-        app.staticTexts["Введён"].assertExists()
+        app.item("Введён").assertExists()
         app.buttons["food.more"].waitTap()
         app.buttons["Пометить аллергию"].waitTap()
         app.alerts.buttons["Пометить аллергию"].waitTap()
 
-        app.staticTexts["Аллергия"].assertExists(timeout: 5)
+        app.item("Аллергия").assertExists(timeout: 5)
         app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Зафиксирована аллергия'"))
             .firstMatch.assertExists(timeout: 4, "нет предупреждения об аллергии")
 
         app.buttons["Вернуть в прикорм"].waitTap()
-        app.staticTexts["Вводится"].assertExists(timeout: 5, "возврат в прикорм не сработал")
+        // Снятие аллергии теперь с подтверждением (одно касание выбивало продукт из «Не давать»).
+        app.alerts.buttons["Вернуть в прикорм"].waitTap()
+        app.item("Вводится").assertExists(timeout: 5, "возврат в прикорм не сработал")
     }
 
     // E-LOG-02 + E-FOOD-09: реакция (без «дыхания») → бейдж в истории → правка/удаление.
@@ -112,10 +116,10 @@ final class FoodStateMachineUITests: XCTestCase {
         app.allowNotificationsIfAsked()
 
         // История: запись с бейджем реакции; тап → правка; удаление с алертом.
-        app.staticTexts["История"].assertExists(timeout: 6)
-        app.staticTexts["Кожа (сыпь)"].firstMatch.assertExists(timeout: 4,
+        app.item("История").assertExists(timeout: 6)
+        app.item("Кожа (сыпь)").firstMatch.assertExists(timeout: 4,
             "реакция не попала в историю")
-        app.staticTexts["Кормление"].firstMatch.waitTap()
+        app.item("Кормление").firstMatch.waitTap()
         app.navigationBars["Запись"].assertExists(timeout: 5)
         app.buttons["Удалить запись"].waitTap()
         app.alerts.buttons["Удалить"].waitTap()
@@ -129,8 +133,8 @@ final class FoodStateMachineUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openFoodCard("брокк", rowTitle: "Брокколи")
 
-        app.staticTexts["Чем полезен"].assertExists(timeout: 4)
-        app.staticTexts["Витамин C"].assertExists(timeout: 4,
+        app.item("Чем полезен").assertExists(timeout: 4)
+        app.item("Витамин C").assertExists(timeout: 4,
             "нутриенты должны быть видны сразу, без раскрытия")
     }
 }

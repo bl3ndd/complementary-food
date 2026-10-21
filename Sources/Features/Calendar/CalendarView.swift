@@ -15,8 +15,10 @@ struct CalendarView: View {
     private let catalog = FoodCatalog.shared
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
     /// Дни недели по локали, начиная с её первого дня (в США и Японии — воскресенье).
+    /// Короткие («Пн»), а не однобуквенные: в русском «П/В/С» повторяются дважды —
+    /// и читать нельзя, и `ForEach` по значению ломается на дублях.
     private var weekdays: [String] {
-        let symbols = cal.veryShortStandaloneWeekdaySymbols
+        let symbols = cal.shortStandaloneWeekdaySymbols.map(\.firstCapitalized)
         let start = cal.firstWeekday - 1
         return Array(symbols[start...] + symbols[..<start])
     }
@@ -313,8 +315,8 @@ struct CalendarView: View {
         VStack(spacing: 14) {
             monthHeader
             LazyVGrid(columns: columns, spacing: 4) {
-                ForEach(weekdays, id: \.self) { d in
-                    Text(String(localized: String.LocalizationValue(d)))
+                ForEach(Array(weekdays.enumerated()), id: \.offset) { _, d in
+                    Text(d)
                         .font(.caption2.weight(.bold)).foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)
                 }

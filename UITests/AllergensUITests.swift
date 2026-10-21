@@ -22,11 +22,11 @@ final class AllergensUITests: XCTestCase {
         // E-ALG-02: «Дал» на группе «Яйцо» → статус «В норме».
         app.buttons["Дали"].firstMatch.waitTap()
         app.allowNotificationsIfAsked()
-        app.staticTexts["В норме"].firstMatch.assertExists(timeout: 6,
+        app.item("В норме").firstMatch.assertExists(timeout: 6,
             "после «Дал» группа не перешла в «В норме»")
 
         // E-ALG-03: тап строки → карточка продукта-представителя.
-        app.staticTexts["Яйцо"].firstMatch.waitTap()
+        app.item("Яйцо").firstMatch.waitTap()
         app.navigationBars["Яичный желток"].assertExists(timeout: 6,
             "строка группы не открыла карточку продукта")
     }

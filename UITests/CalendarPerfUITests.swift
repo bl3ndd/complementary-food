@@ -26,7 +26,7 @@ final class CalendarPerfUITests: XCTestCase {
         if alert.waitForExistence(timeout: 3) {
             alert.buttons.element(boundBy: alert.buttons.count - 1).tap()
         }
-        XCTAssertTrue(app.staticTexts["Ника"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.item("Ника").waitForExistence(timeout: 10))
 
         let tabs = app.tabBars.buttons
         let today = tabs.element(boundBy: 0)
@@ -34,14 +34,14 @@ final class CalendarPerfUITests: XCTestCase {
 
         // Прогрев: первый заход строит вьюху с нуля, его в среднее не берём.
         calendar.tap()
-        _ = app.staticTexts["Дневник"].waitForExistence(timeout: 5)
+        _ = app.item("Дневник").waitForExistence(timeout: 5)
         today.tap()
 
         measure(metrics: [XCTClockMetric()]) {
             calendar.tap()
-            _ = app.staticTexts["Дневник"].waitForExistence(timeout: 5)
+            _ = app.item("Дневник").waitForExistence(timeout: 5)
             today.tap()
-            _ = app.staticTexts["Ника"].waitForExistence(timeout: 5)
+            _ = app.item("Ника").waitForExistence(timeout: 5)
         }
     }
 
@@ -58,7 +58,7 @@ final class CalendarPerfUITests: XCTestCase {
         if alert.waitForExistence(timeout: 3) {
             alert.buttons.element(boundBy: alert.buttons.count - 1).tap()
         }
-        XCTAssertTrue(app.staticTexts["Ника"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.item("Ника").waitForExistence(timeout: 10))
         app.tabBars.buttons.element(boundBy: 2).tap()
 
         let month = app.buttons["Месяц"]
@@ -71,7 +71,7 @@ final class CalendarPerfUITests: XCTestCase {
         // сигнпосты. То есть этот замер ловит регрессии «в разы», но не джанк.
         measure(metrics: [XCTClockMetric()]) {
             month.tap()
-            _ = app.staticTexts["есть записи"].waitForExistence(timeout: 5)   // легенда сетки
+            _ = app.item("есть записи").waitForExistence(timeout: 5)   // легенда сетки
             feed.tap()
             _ = app.buttons["Реакции"].waitForExistence(timeout: 5)
         }

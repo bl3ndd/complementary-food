@@ -27,12 +27,12 @@ final class ReviewDemoUITests: XCTestCase {
         app.launch()
 
         // 1. Welcome.
-        app.staticTexts["Pudding"].assertExists(timeout: 10, "нет welcome-экрана")
+        app.item("Pudding").assertExists(timeout: 10, "нет welcome-экрана")
         beat(3)
         app.buttons["Next"].waitTap()
 
         // 2. Медицинский дисклеймер — ДО любых данных ребёнка (1.4.1).
-        app.staticTexts["Before you start"].assertExists(timeout: 5, "нет дисклеймера")
+        app.item("Before you start").assertExists(timeout: 5, "нет дисклеймера")
         beat(6)   // дать прочитать целиком — это ключевой кадр для ревью
         app.buttons["Got it"].waitTap()
 
@@ -45,12 +45,12 @@ final class ReviewDemoUITests: XCTestCase {
         app.buttons["Next"].waitTap()
 
         // 4. Свой план: окна наблюдения и список аллергенов задаёт пользователь.
-        app.staticTexts["Your feeding plan"].assertExists(timeout: 4, "нет шага плана")
+        app.item("Your feeding plan").assertExists(timeout: 4, "нет шага плана")
         beat(4)
         app.buttons["Next"].waitTap()
 
         // 5. «Что уже ввели» — отметка не создаёт записей в дневнике.
-        app.staticTexts["Already introduced?"].assertExists(timeout: 4)
+        app.item("Already introduced?").assertExists(timeout: 4)
         beat(2)
         app.row(containing: "Broccoli").waitTap()
         beat()
@@ -90,7 +90,7 @@ final class ReviewDemoUITests: XCTestCase {
 
         // 10. Главная: запись в дневнике за сегодня + карточка «Introducing now».
         app.tabBars.buttons["Today"].waitTap()
-        app.staticTexts["Today's journal"].assertExists(timeout: 8)
+        app.item("Today's journal").assertExists(timeout: 8)
         beat(5)
 
         // 11. Аллергены — напоминания повторить введённое.
@@ -107,7 +107,7 @@ final class ReviewDemoUITests: XCTestCase {
         app.swipeUp()
         beat(2)
         app.swipeUp()
-        app.staticTexts["About"].assertExists(timeout: 5, "нет секции «О приложении»")
+        app.item("About").assertExists(timeout: 5, "нет секции «О приложении»")
         beat(6)
     }
 }

@@ -11,7 +11,7 @@ final class DashboardUITests: XCTestCase {
         app.acceptDisclaimer()
 
         // E-DASH-01: hero с именем и капсулой записей.
-        app.staticTexts["Ника"].assertExists(timeout: 8, "нет имени в hero")
+        app.item("Ника").assertExists(timeout: 8, "нет имени в hero")
 
         // E-DASH-02: плитка «Записать» → список продуктов.
         app.buttons["Записать"].firstMatch.waitTap()
@@ -34,8 +34,8 @@ final class DashboardUITests: XCTestCase {
         app.row(containing: "Банан").waitTap()
         app.buttons["Сохранить"].waitTap()
         app.allowNotificationsIfAsked()
-        app.staticTexts["Дневник за сегодня"].assertExists(timeout: 8)
-        app.staticTexts["Банан"].assertExists(timeout: 5, "сохранённое кормление не в дневнике")
+        app.item("Дневник за сегодня").assertExists(timeout: 8)
+        app.item("Банан").assertExists(timeout: 5, "сохранённое кормление не в дневнике")
     }
 
     func testTodayRowOpensEditAndIntroducingNavigates() {
@@ -43,8 +43,8 @@ final class DashboardUITests: XCTestCase {
         app.acceptDisclaimer()
 
         // E-DASH-06: тап записи дневника (брокколи, кормление час назад) → правка.
-        app.staticTexts["Дневник за сегодня"].assertExists(timeout: 8)
-        app.staticTexts["Брокколи"].firstMatch.waitTap()
+        app.item("Дневник за сегодня").assertExists(timeout: 8)
+        app.item("Брокколи").firstMatch.waitTap()
         app.navigationBars["Запись"].assertExists(timeout: 5, "тап записи не открыл правку")
         app.navigationBars["Запись"].buttons["Отмена"].tap()
         app.navigationBars["Запись"].waitGone()   // дождаться dismiss, иначе тап глотается
@@ -52,7 +52,7 @@ final class DashboardUITests: XCTestCase {
         // E-DASH-08: «Сейчас вводишь» (кабачок, 1 из 2 кормлений) → карточка продукта.
         // Тап строго по строке карточки (в дневнике тоже есть «Кабачок»); карточка
         // ниже фолда — доскроллить, иначе тап уходит мимо экрана.
-        app.staticTexts["Сейчас вводишь"].assertExists(timeout: 5)
+        app.item("Сейчас вводишь").assertExists(timeout: 5)
         // Строка у нижнего края: центр может быть под таб-баром (isHittable при этом
         // true, тап уходит в таб-бар) — всегда доскроллить перед тапом.
         app.swipeUp()
@@ -67,7 +67,7 @@ final class DashboardUITests: XCTestCase {
         app.acceptDisclaimer()
 
         // E-DASH-10: «Вся коллекция» → таб Каталог.
-        app.staticTexts["Коллекция продуктов"].assertExists(timeout: 8)
+        app.item("Коллекция продуктов").assertExists(timeout: 8)
         app.buttons["Вся коллекция"].waitTap()
         app.navigationBars["Каталог"].assertExists(timeout: 5, "«Вся коллекция» не открыла каталог")
 

@@ -50,9 +50,9 @@ final class ProfileUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openTab("Профиль")
 
-        app.staticTexts["Твой план"].firstMatch.waitTap()
+        app.item("Твой план").firstMatch.waitTap()
         app.navigationBars["Твой план прикорма"].assertExists(timeout: 5)
-        app.staticTexts["Аллергены для ввода"].assertExists(timeout: 4)
+        app.item("Аллергены для ввода").assertExists(timeout: 4)
 
         // Снять все 10 групп: к Big-9 добавилась «Другое» — под ней в каталоге
         // цитрусовые/клубника/киви и свои продукты с галкой «аллерген».
@@ -78,14 +78,17 @@ final class ProfileUITests: XCTestCase {
         app.acceptDisclaimer()
         app.openTab("Профиль")
 
-        app.swipeUp(); app.swipeUp()
-        app.buttons["Сбросить все данные"].waitTap()
+        let reset = app.buttons["Сбросить все данные"]
+        app.scrollTo(reset)
+        reset.tap()
         app.alerts.buttons["Сбросить"].waitTap()
 
         // Онбординг с нуля.
-        app.staticTexts["Pudding"].assertExists(timeout: 8, "сброс не вернул к онбордингу")
+        app.item("Pudding").assertExists(timeout: 8, "сброс не вернул к онбордингу")
         app.buttons["Далее"].waitTap()
         app.buttons["Понятно"].waitTap()     // дисклеймер перед данными ребёнка
+        app.buttons["onboarding.storage.off"].waitTap()   // где хранить — явный выбор
+        app.buttons["Далее"].waitTap()
         app.buttons["Далее"].waitTap()
         app.buttons["Далее"].waitTap()
         app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Погнали'")).firstMatch.waitTap()

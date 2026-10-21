@@ -27,7 +27,7 @@ final class DashboardPerfUITests: XCTestCase {
         if alert.waitForExistence(timeout: 3) {
             alert.buttons.element(boundBy: alert.buttons.count - 1).tap()
         }
-        XCTAssertTrue(app.staticTexts["Ника"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.item("Ника").waitForExistence(timeout: 10))
 
         let scroll = app.scrollViews.firstMatch
         XCTAssertTrue(scroll.waitForExistence(timeout: 5), "нет скроллвью на главной")

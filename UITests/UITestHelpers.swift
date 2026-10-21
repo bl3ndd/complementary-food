@@ -63,6 +63,12 @@ extension XCUIApplication {
                       "не открылась карточка «\(rowTitle)»")
     }
 
+    /// Элемент с ТОЧНЫМ label любого типа. Строки ленты, истории и аллергенов —
+    /// кнопки (тап открывает запись), а не staticText: ищем по подписи, не по типу.
+    func item(_ label: String) -> XCUIElement {
+        descendants(matching: .any).matching(NSPredicate(format: "label == %@", label)).firstMatch
+    }
+
     /// Кнопка/строка, чей label СОДЕРЖИТ подстроку (для склеенных лейблов списков).
     func row(containing text: String) -> XCUIElement {
         buttons.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch

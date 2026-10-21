@@ -73,7 +73,18 @@ final class ProStore: ObservableObject {
 
     /// Общий экземпляр для вьюх — как `NotificationManager.shared` и `AppRouter.shared`.
     /// В тестах используется обычный `init` с моком.
-    static let shared = ProStore(purchasing: StoreKitPurchasing())
+    static let shared: ProStore = {
+        #if DEBUG
+        // UI-тесты: право на Pro задаёт сам тест (`-uitest-pro`), а не покупка,
+        // оставшаяся на телефоне от ручной проверки, и не её кэш в настоящих defaults.
+        if UITestSupport.isActive {
+            let scratch = UserDefaults(suiteName: "ProStore.uitest")!
+            scratch.removePersistentDomain(forName: "ProStore.uitest")
+            return ProStore(purchasing: UITestPurchasing(), defaults: scratch)
+        }
+        #endif
+        return ProStore(purchasing: StoreKitPurchasing())
+    }()
 
     static let cacheKey = "pro.purchased"
     static let originalBuildKey = "pro.originalAppBuild"

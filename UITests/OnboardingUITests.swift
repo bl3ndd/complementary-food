@@ -9,16 +9,16 @@ final class OnboardingUITests: XCTestCase {
         let app = XCUIApplication.pudding()   // без сида → чистая установка → онбординг
 
         // Шаг 0: Welcome.
-        app.staticTexts["Pudding"].assertExists(timeout: 10, "нет welcome-экрана")
+        app.item("Pudding").assertExists(timeout: 10, "нет welcome-экрана")
         app.buttons["Далее"].waitTap()
 
         // Шаг 1: дисклеймер — ДО ввода данных ребёнка (1.4.1).
-        app.staticTexts["Прежде чем начать"].assertExists(timeout: 5,
+        app.item("Прежде чем начать").assertExists(timeout: 5,
             "дисклеймер должен быть перед данными ребёнка")
         app.buttons["Понятно"].waitTap()
 
         // Шаг 2: где хранить — без явного выбора дальше не пускает.
-        app.staticTexts["Где хранить дневник"].assertExists(timeout: 5, "нет шага выбора iCloud")
+        app.item("Где хранить дневник").assertExists(timeout: 5, "нет шага выбора iCloud")
         XCTAssertFalse(app.buttons["Далее"].isEnabled, "iCloud не должен включаться без выбора")
         app.buttons["onboarding.storage.off"].waitTap()
         app.buttons["Далее"].waitTap()
@@ -31,18 +31,18 @@ final class OnboardingUITests: XCTestCase {
 
         // E-ONB-02: «Назад» возвращает на шаг назад, имя не теряется.
         app.buttons["Назад"].waitTap()
-        app.staticTexts["Где хранить дневник"].assertExists(timeout: 4, "«Назад» не вернул на шаг назад")
+        app.item("Где хранить дневник").assertExists(timeout: 4, "«Назад» не вернул на шаг назад")
         app.buttons["Далее"].tap()
         XCTAssertEqual(app.textFields["Имя малыша"].value as? String, "Ника",
                        "имя потерялось после «Назад»")
 
         // Шаг 4: план.
         app.buttons["Далее"].tap()
-        app.staticTexts["Свой план прикорма"].assertExists(timeout: 4, "нет шага плана")
+        app.item("Твой план прикорма").assertExists(timeout: 4, "нет шага плана")
 
         // Шаг 5: «Что уже ввели?» — отмечаем брокколи (E-ONB-04).
         app.buttons["Далее"].tap()
-        app.staticTexts["Что уже ввели?"].assertExists(timeout: 4)
+        app.item("Что уже ввели?").assertExists(timeout: 4)
         app.row(containing: "Брокколи").waitTap()
 
         // Финиш → таббар (дисклеймер уже прочитан на шаге 1) (E-ONB-01).
@@ -51,13 +51,13 @@ final class OnboardingUITests: XCTestCase {
         app.tabBars.buttons["Сегодня"].assertExists(timeout: 8, "таббар не появился после онбординга")
 
         // E-ONB-04: «уже введён» — в дневнике записей НЕТ (никаких фейковых логов).
-        app.staticTexts["Ника"].assertExists()
-        app.staticTexts["Записей сегодня ещё нет"].assertExists(timeout: 4,
+        app.item("Ника").assertExists()
+        app.item("Записей сегодня ещё нет").assertExists(timeout: 4,
             "отметка «уже введён» не должна создавать запись в дневнике")
 
         // …а в каталоге брокколи со статусом «Введён».
         app.openFoodCard("брокк", rowTitle: "Брокколи")
-        app.staticTexts["Введён"].firstMatch.assertExists(timeout: 4,
+        app.item("Введён").firstMatch.assertExists(timeout: 4,
             "статус «Введён» не доехал из онбординга")
     }
 }

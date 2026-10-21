@@ -44,7 +44,14 @@ enum CloudSync {
 @MainActor
 final class DiaryStore: ObservableObject {
 
-    static let shared = DiaryStore(inMemory: launchInMemory)
+    static let shared: DiaryStore = {
+        guard launchInMemory else { return DiaryStore(inMemory: false) }
+        // Тесты и демо не читают и не пишут настоящий выбор: UI-тест, нажавший
+        // «Только на телефоне», выключил бы синк владельцу телефона.
+        let scratch = UserDefaults(suiteName: "DiaryStore.inMemory")!
+        scratch.removePersistentDomain(forName: "DiaryStore.inMemory")
+        return DiaryStore(inMemory: true, defaults: scratch, storeExists: false)
+    }()
 
     @Published private(set) var container: ModelContainer
     /// Выбор человека. Может опережать `cloudActive` до перезапуска.

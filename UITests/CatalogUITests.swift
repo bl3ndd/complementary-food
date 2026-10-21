@@ -47,7 +47,7 @@ final class CatalogUITests: XCTestCase {
 
         // Сразу открывается его карточка — НЕ введённым: ввод начинается с кормления.
         app.navigationBars["Компотик"].assertExists(timeout: 5, "не открылась карточка своего продукта")
-        app.staticTexts["Не введён"].firstMatch.assertExists(timeout: 3,
+        app.item("Не введён").firstMatch.assertExists(timeout: 3,
             "свой продукт не должен быть «Введён» без единого кормления")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 

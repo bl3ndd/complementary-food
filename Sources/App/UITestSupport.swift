@@ -119,4 +119,15 @@ enum UITestSupport {
         try? context.save()
     }
 }
+/// Покупка для UI-тестов: витрина и цена — настоящие (скриншот пейвола для ревью),
+/// а право — только по флагу запуска `-uitest-pro`.
+struct UITestPurchasing: ProPurchasing {
+    private let real = StoreKitPurchasing()
+    private var pro: Bool { CommandLine.arguments.contains("-uitest-pro") }
+
+    func product(id: String) async throws -> ProProduct? { try await real.product(id: id) }
+    func purchase(id: String) async throws -> ProPurchaseOutcome { .cancelled }
+    func isEntitled(to id: String) async -> Bool { pro }
+    func restore() async throws {}
+}
 #endif

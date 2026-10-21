@@ -28,7 +28,7 @@ final class DarkModeAuditUITests: XCTestCase {
         if gate.waitForExistence(timeout: 3) { gate.tap() }
         dismissSystemAlert()
 
-        XCTAssertTrue(app.staticTexts["Ника"].waitForExistence(timeout: 8), "главная не загрузилась")
+        XCTAssertTrue(app.item("Ника").waitForExistence(timeout: 8), "главная не загрузилась")
         sleep(2)
         shoot("01_Сегодня")
 
@@ -47,10 +47,10 @@ final class DarkModeAuditUITests: XCTestCase {
         // Карточка продукта. Тапаем по названию (язык зафиксирован ru), а не по
         // `cells` — в списке iOS 26 строка матчится иначе, и прошлый прогон
         // молча остался в каталоге.
-        let firstFood = app.staticTexts["Кабачок"]
+        let firstFood = app.item("Кабачок")
         if firstFood.waitForExistence(timeout: 3) {
             firstFood.tap()
-            XCTAssertTrue(app.staticTexts["История"].waitForExistence(timeout: 5),
+            XCTAssertTrue(app.item("История").waitForExistence(timeout: 5),
                           "карточка продукта не открылась")
             sleep(1); shoot("04_Карточка_продукта")
 
