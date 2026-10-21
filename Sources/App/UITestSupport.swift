@@ -131,3 +131,11 @@ struct UITestPurchasing: ProPurchasing {
     func restore() async throws {}
 }
 #endif
+
+#if !DEBUG
+/// В Release тестового режима нет вовсе — но проверка `isActive` живёт в общем коде
+/// (онбординг, приветствие ранних), поэтому ей нужен ответ и здесь.
+enum UITestSupport {
+    static let isActive = false
+}
+#endif
