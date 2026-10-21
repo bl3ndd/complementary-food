@@ -1,0 +1,91 @@
+[
+  {
+    "num": 1, "slug": "notes", "kind": "notes", "countFrom": 13,
+    "rows": [
+      {"food": "zucchini", "cat": "vegetable", "like": "liked", "ru": "Кабачок", "en": "Zucchini", "date_ru": "Пн, 14 окт", "date_en": "Mon, Oct 14"},
+      {"food": "broccoli", "cat": "vegetable", "like": "neutral", "ru": "Брокколи", "en": "Broccoli", "date_ru": "Вт, 15 окт", "date_en": "Tue, Oct 15"},
+      {"food": "cottage_cheese", "cat": "dairy", "like": "disliked", "ru": "Творог", "en": "Cottage cheese", "date_ru": "Ср, 16 окт", "date_en": "Wed, Oct 16", "chip_ru": "Сыпь", "chip_en": "Rash"},
+      {"food": "egg_yolk", "cat": "egg", "like": "liked", "ru": "Желток", "en": "Egg yolk", "date_ru": "Пт, 18 окт", "date_en": "Fri, Oct 18"}
+    ],
+    "ru": {
+      "hook": "Где ты записываешь <span style=\"color:var(--accent)\">прикорм</span>?",
+      "vo_hook": "Где ты записываешь прикорм?",
+      "notesFolder": "Заметки", "notesTitle": "прикорм!!",
+      "lines": ["пн — кабачок, вроде ок", "вт или ср? <s>тыква</s> брокколи", "сыпь на щеке… после творога?? или яйца", "яблоко — плевался (какой день??)", "спросить врача про желток"],
+      "vo_before": "Заметки, где половина строк со знаком вопроса. А потом педиатр спрашивает: когда было яйцо?",
+      "month": "Октябрь",
+      "vo_after": "В Пудинге каждое кормление — одна строка: что, когда и как зашло. Реакции отмечены, а для врача — готовый PDF."
+    },
+    "en": {
+      "hook": "Where do you track <span style=\"color:var(--accent)\">first foods</span>?",
+      "vo_hook": "Where do you track first foods?",
+      "notesFolder": "Notes", "notesTitle": "baby food!!",
+      "lines": ["mon — zucchini, seemed ok", "tue or wed? <s>pumpkin</s> broccoli", "rash on cheek… after cottage cheese?? or egg", "apple — spat it out (which day??)", "ask doctor about yolk"],
+      "vo_before": "Notes where half the lines end in a question mark. Then the pediatrician asks: when was the egg?",
+      "month": "October",
+      "vo_after": "In Pudding, every feeding is one line: what, when, and how it went. Reactions are marked, and there's a ready PDF for the doctor."
+    }
+  },
+  {
+    "num": 2, "slug": "chat", "kind": "chat", "countFrom": 9,
+    "rows": [
+      {"food": "pumpkin", "cat": "vegetable", "like": "liked", "ru": "Тыква", "en": "Pumpkin", "date_ru": "Сб, 12 окт", "date_en": "Sat, Oct 12"},
+      {"food": "carrot", "cat": "vegetable", "like": "neutral", "ru": "Морковь", "en": "Carrot", "date_ru": "Вс, 13 окт", "date_en": "Sun, Oct 13", "chip_ru": "Сыпь", "chip_en": "Rash"},
+      {"food": "apple", "cat": "fruit", "like": "disliked", "ru": "Яблоко", "en": "Apple", "date_ru": "Пн, 14 окт", "date_en": "Mon, Oct 14"},
+      {"food": "oatmeal", "cat": "porridge", "like": "liked", "ru": "Овсяная каша", "en": "Oatmeal", "date_ru": "Вт, 15 окт", "date_en": "Tue, Oct 15"}
+    ],
+    "ru": {
+      "hook": "Кто помнит, что малыш ел <span style=\"color:var(--accent)\">вчера</span>?",
+      "vo_hook": "Кто помнит, что малыш ел вчера?",
+      "lines": [
+        {"from": "them", "who": "Саша", "text": "он сегодня ел тыкву?"},
+        {"from": "me", "text": "вроде вчера… или это была морковь"},
+        {"from": "them", "who": "Саша", "text": "а сыпь тогда от чего?"},
+        {"from": "me", "text": "щас найду фото"},
+        {"from": "them", "who": "Саша", "text": "🙈"}
+      ],
+      "vo_before": "Чат на двоих, где никто не помнит, что малыш ел вчера.",
+      "month": "Октябрь",
+      "vo_after": "В Пудинге всё в одном дневнике: что давали, когда и как зашло. Открыл — и ответ уже там."
+    },
+    "en": {
+      "hook": "Who remembers what the baby ate <span style=\"color:var(--accent)\">yesterday</span>?",
+      "vo_hook": "Who remembers what the baby ate yesterday?",
+      "lines": [
+        {"from": "them", "who": "Sam", "text": "did he have pumpkin today?"},
+        {"from": "me", "text": "i think yesterday… or was it carrot"},
+        {"from": "them", "who": "Sam", "text": "then what was the rash from?"},
+        {"from": "me", "text": "hold on, finding the photo"},
+        {"from": "them", "who": "Sam", "text": "🙈"}
+      ],
+      "vo_before": "A chat for two, where nobody remembers what the baby ate yesterday.",
+      "month": "October",
+      "vo_after": "Pudding keeps it all in one diary: what you gave, when, and how it went. Open it, and the answer's right there."
+    }
+  },
+  {
+    "num": 3, "slug": "stickies", "kind": "stickies", "countFrom": 17,
+    "rows": [
+      {"food": "zucchini", "cat": "vegetable", "like": "liked", "ru": "Кабачок", "en": "Zucchini", "date_ru": "Чт, 10 окт", "date_en": "Thu, Oct 10"},
+      {"food": "broccoli", "cat": "vegetable", "like": "neutral", "ru": "Брокколи", "en": "Broccoli", "date_ru": "Пт, 11 окт", "date_en": "Fri, Oct 11"},
+      {"food": "strawberry", "cat": "fruit", "like": "disliked", "ru": "Клубника", "en": "Strawberry", "date_ru": "Сб, 12 окт", "date_en": "Sat, Oct 12", "chip_ru": "Сыпь", "chip_en": "Rash"},
+      {"food": "pumpkin", "cat": "vegetable", "like": "liked", "ru": "Тыква", "en": "Pumpkin", "date_ru": "Вс, 13 окт", "date_en": "Sun, Oct 13"}
+    ],
+    "ru": {
+      "hook": "Холодильник — тоже <span style=\"color:var(--accent)\">дневник</span>?",
+      "vo_hook": "Холодильник — тоже дневник?",
+      "lines": ["КАБАЧОК ✓", "брокколи — 2 раза? 3?", "клубника — сыпь?!", "яйцо в пятницу", "тыква с какого дня??"],
+      "vo_before": "Стикеры на холодильнике. Один упал, второй кто-то выбросил.",
+      "month": "Октябрь",
+      "vo_after": "В Пудинге ничего не падает с холодильника: каждое кормление записано, а реакции видно сразу."
+    },
+    "en": {
+      "hook": "Is your fridge your <span style=\"color:var(--accent)\">food diary</span>?",
+      "vo_hook": "Is your fridge your food diary?",
+      "lines": ["ZUCCHINI ✓", "broccoli — 2 times? 3?", "strawberry — rash?!", "egg on friday", "pumpkin since when??"],
+      "vo_before": "Sticky notes on the fridge. One fell off, and someone tossed another.",
+      "month": "October",
+      "vo_after": "In Pudding, nothing falls off the fridge: every feeding is logged, and reactions are right there."
+    }
+  }
+]

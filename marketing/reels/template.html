@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  /* Токены из приложения: гамма «Пудинг» (Palette.pudding) + Theme. Без теней —
+     как в самом приложении, вместо них тонкая обводка. */
+  :root {
+    --bgTop: #fffaed; --bgBottom: #ffebf0; --card: #ffffff; --ink: #33293d;
+    --muted: #8a8290; --hairline: rgba(0,0,0,.07); --fill: rgba(0,0,0,.04);
+    --accent: #fc7d4f; --accentDeep: #f7546f; --mint: #5ccc99; --sunny: #ffc747;
+    --sky: #66adf2; --lilac: #a88ced; --fruit: #f5859e; --meat: #e67370; --dairy: #8cb8f2;
+    --danger: #e0645a;
+    /* «до» — нарочно серое и системное, чтобы контраст с приложением читался сразу */
+    --chaosBg: #ecebe8; --notesYellow: #e3b13b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--chaosBg);
+    font-family: system-ui, -apple-system, "SF Pro Text", Helvetica, Arial, sans-serif;
+    color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .rounded { font-family: "SF Pro Rounded", system-ui, sans-serif; }
+  .layer { position: absolute; inset: 0; }
+  .center { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
+
+  /* ---------- hook ---------- */
+  #hook { top: 0; height: 1920px; justify-content: center; padding: 0 110px; text-align: center; }
+  #hook h1 { font-size: 112px; line-height: 1.05; font-weight: 800; letter-spacing: -.03em; }
+
+  /* ---------- BEFORE ---------- */
+  #before { overflow: hidden; }
+  .tag { position: absolute; top: 150px; left: 0; right: 0; text-align: center; }
+  .tag span { display: inline-block; padding: 16px 34px; border-radius: 999px; font-weight: 800; font-size: 34px;
+    letter-spacing: .14em; text-transform: uppercase; }
+  #before .tag span { background: rgba(0,0,0,.08); color: #6b6870; }
+
+  /* notes */
+  #notes { position: absolute; left: 100px; right: 100px; top: 380px; background: #fffdf6; border-radius: 40px;
+    border: 2px solid rgba(0,0,0,.08); padding: 44px 56px 60px; }
+  #notes .head { display: flex; align-items: center; gap: 16px; color: var(--notesYellow); font-size: 38px; font-weight: 600; margin-bottom: 26px; }
+  #notes .title { font-size: 58px; font-weight: 800; margin-bottom: 18px; }
+  .nline { font-size: 46px; line-height: 1.32; padding: 10px 0; border-bottom: 2px solid rgba(0,0,0,.05); white-space: pre-wrap; }
+  .nline s { color: #a7a3a9; }
+
+  /* chat */
+  #chat { position: absolute; left: 80px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 22px; }
+  .bubble { max-width: 760px; padding: 26px 36px; border-radius: 44px; font-size: 44px; line-height: 1.28; }
+  .bubble.them { align-self: flex-start; background: #ffffff; border: 2px solid rgba(0,0,0,.06); }
+  .bubble.me { align-self: flex-end; background: #3d8bf7; color: #fff; }
+  .bubble .who { display: block; font-size: 28px; font-weight: 700; opacity: .55; margin-bottom: 4px; }
+
+  /* stickies */
+  #stickies { position: absolute; inset: 0; }
+  .sticky { position: absolute; width: 470px; min-height: 330px; padding: 40px 40px; font-size: 44px; line-height: 1.25;
+    font-family: "Marker Felt", "Chalkboard SE", "Comic Sans MS", cursive; border: 2px solid rgba(0,0,0,.06); }
+
+  .qmark { position: absolute; font-size: 150px; font-weight: 900; color: rgba(224,100,90,.75); }
+
+  /* ---------- wipe ---------- */
+  #wipe { background: linear-gradient(180deg, var(--bgTop), var(--bgBottom)); }
+
+  /* ---------- AFTER ---------- */
+  #after .tag span { background: rgba(252,125,79,.14); color: var(--accent); }
+  #diary { position: absolute; left: 80px; right: 80px; top: 290px; }
+  .dhead { display: flex; justify-content: space-between; align-items: baseline; margin: 0 8px 22px; }
+  .dhead .m { font-size: 64px; font-weight: 800; letter-spacing: -.02em; }
+  .dhead .c { font-size: 36px; font-weight: 700; color: var(--accent); }
+  .drow { display: flex; align-items: center; gap: 28px; background: var(--card); border-radius: 40px;
+    border: 2px solid var(--hairline); padding: 24px 32px; margin-bottom: 18px; }
+  .tile { width: 112px; height: 112px; border-radius: 30px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .tile img { width: 84px; height: 84px; }
+  .drow .txt { flex: 1; min-width: 0; }
+  .drow .name { font-size: 46px; font-weight: 800; }
+  .drow .meta { font-size: 32px; color: var(--muted); font-weight: 600; margin-top: 4px; }
+  .drow .like { width: 76px; height: 76px; flex: none; }
+  .chip { display: inline-block; margin-top: 10px; padding: 8px 22px; border-radius: 999px; font-size: 30px; font-weight: 800;
+    background: rgba(224,100,90,.12); color: var(--danger); }
+  #pdf { position: absolute; left: 80px; right: 80px; top: 1210px; display: flex; align-items: center; gap: 28px;
+    background: var(--card); border-radius: 40px; border: 2px solid var(--hairline); padding: 30px 36px; }
+  #pdf .doc { width: 96px; height: 120px; border-radius: 16px; background: var(--fill); border: 3px solid var(--accent); position: relative; flex: none; }
+  #pdf .doc::after { content: "PDF"; position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-weight: 900; font-size: 26px; color: var(--accent); }
+  #pdf .t { flex: 1; font-size: 42px; font-weight: 800; }
+  #pdf .t small { display: block; font-size: 30px; color: var(--muted); font-weight: 600; margin-top: 4px; }
+  #pdf .ok { width: 76px; height: 76px; border-radius: 50%; background: var(--mint); display: flex; align-items: center; justify-content: center; flex: none; }
+
+  /* ---------- outro ---------- */
+  #outro { top: 0; height: 1920px; justify-content: center; }
+  #outro img { width: 300px; height: 300px; border-radius: 68px; border: 2px solid var(--hairline); }
+  #outro h2 { margin-top: 56px; font-size: 104px; font-weight: 800; letter-spacing: -.03em; }
+  #outro p { margin-top: 14px; font-size: 44px; color: var(--muted); font-weight: 600; }
+  #outro .cta { margin-top: 70px; padding: 30px 64px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 44px; font-weight: 800; }
+  #outro .sub { margin-top: 28px; font-size: 34px; color: var(--muted); font-weight: 600; }
+  #outro .credit { position: absolute; bottom: 380px; font-size: 24px; color: rgba(0,0,0,.28); }
+</style>
+</head>
+<body>
+  <div class="layer" id="before">
+    <div class="tag"><span id="before-tag"></span></div>
+    <div id="notes"><div class="head">‹ <span id="notes-folder"></span></div><div class="title" id="notes-title"></div><div id="notes-lines"></div></div>
+    <div id="chat"></div>
+    <div id="stickies"></div>
+    <div class="qmark" id="q1" style="left:760px;top:1240px">?</div>
+    <div class="qmark" id="q2" style="left:150px;top:1330px">?</div>
+    <div class="qmark" id="q3" style="left:860px;top:330px">?</div>
+  </div>
+
+  <div class="layer" id="wipe"></div>
+
+  <div class="layer rounded" id="after">
+    <div class="tag"><span id="after-tag"></span></div>
+    <div id="diary"><div class="dhead"><span class="m" id="d-month"></span><span class="c" id="d-count"></span></div><div id="d-rows"></div></div>
+    <div id="pdf"><div class="doc"></div><div class="t"><span id="pdf-title"></span><small id="pdf-sub"></small></div>
+      <div class="ok"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div></div>
+  </div>
+
+  <div class="center rounded" id="hook"><h1 id="hook-text"></h1></div>
+
+  <div class="center rounded" id="outro">
+    <img id="outro-icon" />
+    <h2 id="outro-name"></h2>
+    <p id="outro-tag"></p>
+    <div class="cta" id="outro-cta"></div>
+    <div class="sub" id="outro-sub"></div>
+    <div class="credit">Food icons: OpenMoji · CC BY-SA 4.0</div>
+  </div>
+
+<script>
+  // Всё — чистая функция от t (секунды): рендер детерминированный, любой кадр можно открыть.
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const spring = x => 1 - Math.exp(-6*x) * Math.cos(10*x);
+  const prog = (t, start, dur) => clamp((t - start) / dur, 0, 1);
+  const CAT = { vegetable: '--mint', porridge: '--sunny', fruit: '--fruit', meat: '--meat', fish: '--sky',
+                dairy: '--dairy', egg: '--sunny', other: '--lilac' };
+  const STICKY = ['#fff3a8', '#ffd6e0', '#d4f0ff', '#e2f7c8'];
+
+  let D = null, S = null, chaos = [], rows = [];
+
+  window.setup = (data, scenes) => {
+    D = data; S = scenes;
+    $('hook-text').innerHTML = data.hook;
+    $('before-tag').textContent = data.beforeTag;
+    $('after-tag').textContent = data.afterTag;
+    ['notes', 'chat', 'stickies'].forEach(k => $(k).style.display = data.kind === k ? '' : 'none');
+
+    if (data.kind === 'notes') {
+      $('notes-folder').textContent = data.notesFolder;
+      $('notes-title').textContent = data.notesTitle;
+      data.lines.forEach(l => { const d = document.createElement('div'); d.className = 'nline'; d.innerHTML = l; $('notes-lines').appendChild(d); chaos.push(d); });
+    } else if (data.kind === 'chat') {
+      data.lines.forEach(l => { const d = document.createElement('div'); d.className = 'bubble ' + l.from;
+        d.innerHTML = (l.who ? `<span class="who">${l.who}</span>` : '') + l.text; $('chat').appendChild(d); chaos.push(d); });
+    } else {
+      const spots = [[90, 330, -6], [520, 430, 5], [140, 820, 4], [500, 900, -7], [260, 1250, -3]];
+      data.lines.forEach((l, i) => { const d = document.createElement('div'); d.className = 'sticky'; d.innerHTML = l;
+        const [x, y, r] = spots[i % spots.length]; d.style.left = x + 'px'; d.style.top = y + 'px';
+        d.dataset.r = r; d.style.background = STICKY[i % STICKY.length]; $('stickies').appendChild(d); chaos.push(d); });
+    }
+
+    $('d-month').textContent = data.month;
+    data.rows.forEach(r => {
+      const d = document.createElement('div'); d.className = 'drow';
+      d.innerHTML = `<div class="tile" style="background: color-mix(in srgb, var(${CAT[r.cat] || '--lilac'}) 26%, white)"><img src="${r.icon}"></div>
+        <div class="txt"><div class="name">${r.name}</div><div class="meta">${r.meta}</div>${r.chip ? `<span class="chip">${r.chip}</span>` : ''}</div>
+        <img class="like" src="${r.like}">`;
+      $('d-rows').appendChild(d); rows.push(d);
+    });
+    $('pdf-title').textContent = data.pdfTitle; $('pdf-sub').textContent = data.pdfSub;
+    $('outro-icon').src = data.appIcon;
+    ['name', 'tag', 'cta', 'sub'].forEach(k => $('outro-' + k).textContent = data['outro' + k[0].toUpperCase() + k.slice(1)]);
+  };
+
+  // «18 продуктов» — формы плюрала приходят из render.py, правило — по языку.
+  function countLabel(n) {
+    const f = D.countForms;
+    if (D.lang === 'ru') {
+      const m10 = n % 10, m100 = n % 100;
+      const form = m10 === 1 && m100 !== 11 ? f.one : (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? f.few : f.many);
+      return `${n} ${form}`;
+    }
+    return `${n} ${n === 1 ? f.one : f.other}`;
+  }
+
+  function vis(el, on, op = 1, tx = 0, ty = 0, sc = 1, rot = 0) {
+    el.style.display = on ? '' : 'none';
+    el.style.opacity = op;
+    el.style.transform = `translate(${tx}px, ${ty}px) scale(${sc}) rotate(${rot}deg)`;
+  }
+
+  window.seek = t => {
+    const s = S;
+
+    // hook — на сером «до»-фоне, уходит вверх
+    {
+      const a = spring(prog(t, 0, .7)), out = easeInOut(prog(t, s.before - .4, .4));
+      vis($('hook'), t < s.before, clamp(a * 2, 0, 1) * (1 - out), 0, -80 * out, .92 + .08 * a);
+    }
+
+    // BEFORE: строки/пузыри/стикеры сыплются по очереди, всё слегка «нервничает»
+    {
+      const on = t >= s.before - .2 && t < s.after + .8;
+      vis($('before'), on);
+      const tg = easeOut(prog(t, s.before - .2, .5));
+      $('before').querySelector('.tag').style.opacity = tg;
+      const span = Math.max(.6, (s.wipe - s.before - 1.4) / Math.max(1, chaos.length));
+      chaos.forEach((el, i) => {
+        const a = spring(prog(t, s.before + .3 + i * span, .6));
+        const base = +(el.dataset.r || 0);
+        const jitter = Math.sin(t * 7 + i * 1.7) * (.6 + .5 * prog(t, s.before, s.wipe - s.before));
+        el.style.opacity = clamp(a * 1.6, 0, 1);
+        el.style.transform = `translateY(${50 * (1 - a)}px) rotate(${base + jitter * (D.kind === 'stickies' ? 1.2 : .25)}deg) scale(${.96 + .04 * a})`;
+      });
+      ['q1', 'q2', 'q3'].forEach((id, i) => {
+        const a = spring(prog(t, s.wipe - 1.3 + i * .25, .6));
+        vis($(id), a > 0, clamp(a * 1.5, 0, 1), 0, Math.sin(t * 3 + i) * 10, a, (i - 1) * 12 + Math.sin(t * 4 + i) * 6);
+      });
+    }
+
+    // wipe: круг гаммы раскрывается из центра — переход «хаос → дневник»
+    {
+      const p = easeInOut(prog(t, s.wipe, .8));
+      vis($('wipe'), t >= s.wipe);
+      $('wipe').style.clipPath = `circle(${p * 1150}px at 540px 960px)`;
+    }
+
+    // AFTER: строки дневника встают одна за другой, счётчик тикает, затем PDF
+    {
+      vis($('after'), t >= s.after && t < s.outro);
+      const out = easeInOut(prog(t, s.outro - .45, .45));
+      $('after').style.opacity = 1 - out;
+      $('after').querySelector('.tag').style.opacity = easeOut(prog(t, s.after, .5));
+      const hd = easeOut(prog(t, s.after + .15, .5));
+      $('diary').querySelector('.dhead').style.opacity = hd;
+      const step = Math.min(.55, (s.pdf - s.after - .6) / Math.max(1, rows.length));
+      rows.forEach((el, i) => {
+        const a = spring(prog(t, s.after + .45 + i * step, .6));
+        el.style.opacity = clamp(a * 1.6, 0, 1);
+        el.style.transform = `translateX(${80 * (1 - a)}px)`;
+      });
+      const c = easeOut(prog(t, s.after + .45, rows.length * step + .4));
+      $('d-count').textContent = countLabel(Math.round(D.countFrom + (D.countTo - D.countFrom) * c));
+      const pa = spring(prog(t, s.pdf, .7));
+      vis($('pdf'), t >= s.pdf, clamp(pa * 1.6, 0, 1), 0, 60 * (1 - pa));
+      const ok = spring(prog(t, s.pdf + .7, .5));
+      $('pdf').querySelector('.ok').style.transform = `scale(${ok})`;
+    }
+
+    // outro
+    {
+      vis($('outro'), t >= s.outro);
+      const a = spring(prog(t, s.outro, .8)), img = $('outro-icon');
+      img.style.transform = `scale(${.6 + .4 * a}) rotate(${(1 - a) * -8}deg)`; img.style.opacity = clamp(a * 2, 0, 1);
+      ['outro-name', 'outro-tag', 'outro-cta', 'outro-sub'].forEach((id, i) => {
+        const p = easeOut(prog(t, s.outro + .35 + i * .18, .5));
+        $(id).style.opacity = p; $(id).style.transform = `translateY(${30 * (1 - p)}px)`;
+      });
+      if (t > s.outro + 1.2) $('outro-cta').style.transform = `scale(${1 + .03 * Math.sin((t - s.outro) * 4)})`;
+    }
+  };
+</script>
+</body>
+</html>
