@@ -200,4 +200,23 @@ final class ProStoreTests: XCTestCase {
         XCTAssertEqual(outcome, .purchased, "витрина догружается прямо на тапе")
         XCTAssertTrue(store.isPurchased)
     }
+
+    private struct SlowStore: ProPurchasing {
+        func product(id: String) async throws -> ProProduct? {
+            try await Task.sleep(for: .milliseconds(300)); return nil
+        }
+        func purchase(id: String) async throws -> ProPurchaseOutcome { .purchased }
+        func isEntitled(to id: String) async -> Bool { false }
+        func restore() async throws {}
+    }
+
+    /// Медленная витрина в фоне не выключает кнопку покупки.
+    @MainActor
+    func testBackgroundRefreshDoesNotLockBuyButton() async {
+        let store = ProStore(purchasing: SlowStore(), defaults: isolatedDefaults())
+        let loading = Task { await store.refresh() }
+        try? await Task.sleep(for: .milliseconds(50))
+        XCTAssertFalse(store.isLoading, "пока App Store думает, кнопка живая")
+        await loading.value
+    }
 }

@@ -91,9 +91,10 @@ final class ProStore: ObservableObject {
     private var updatesTask: Task<Void, Never>?
 
     /// Витрина + текущее право. Зовётся при показе экрана покупки и на старте.
+    ///
+    /// Фоновая: кнопку покупки не держит. Запрос к App Store в песочнице может
+    /// висеть минутами, и кнопка всё это время была серой без объяснений.
     func refresh() async {
-        isLoading = true
-        defer { isLoading = false }
         do {
             product = try await purchasing.product(id: productId)
         } catch {
@@ -106,14 +107,14 @@ final class ProStore: ObservableObject {
     func buy() async -> ProPurchaseOutcome? {
         // Витрина могла не загрузиться при показе экрана (сеть, App Store). Кнопка
         // при этом не должна молчать: пробуем ещё раз и честно говорим, если нет.
+        isLoading = true
+        defer { isLoading = false }
+        lastError = nil
         if product == nil { await refresh() }
         guard product != nil else {
             if lastError == nil { lastError = String(localized: "Не удалось загрузить покупку из App Store. Проверь интернет и попробуй ещё раз.") }
             return nil
         }
-        isLoading = true
-        defer { isLoading = false }
-        lastError = nil
         do {
             let outcome = try await purchasing.purchase(id: productId)
             if outcome == .purchased { isPurchased = true }
