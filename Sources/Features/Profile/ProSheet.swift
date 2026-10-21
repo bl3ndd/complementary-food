@@ -11,7 +11,7 @@ struct ProSheet: View {
     @ObservedObject private var store = ProStore.shared
     @Environment(\.dismiss) private var dismiss
 
-    private struct Perk: Identifiable {
+    struct Perk: Identifiable {
         let id = UUID()
         let icon: String
         let title: LocalizedStringKey
@@ -20,7 +20,7 @@ struct ProSheet: View {
 
     /// Порядок — по силе довода: несколько детей — единственное, что упирается в
     /// реальную нужду (второй ребёнок), дальше карусель как главный «приятный» пункт.
-    private let perks = [
+    static let perks = [
         Perk(icon: "person.2",
              title: "Сколько угодно детей",
              subtitle: "Отдельный дневник на каждого — записи и статусы не смешиваются"),
@@ -34,8 +34,8 @@ struct ProSheet: View {
              title: "Иконки приложения",
              subtitle: "Своя иконка на домашнем экране"),
         Perk(icon: "square.grid.2x2",
-             title: "Виджет «Коллекция»",
-             subtitle: "Растущая сетка продуктов прямо на домашнем экране"),
+             title: "Виджеты",
+             subtitle: "Коллекция продуктов и «Сейчас вводишь» — прямо на домашнем экране"),
     ]
 
     var body: some View {
@@ -72,25 +72,7 @@ struct ProSheet: View {
         .padding(.top, 8)
     }
 
-    private var perkList: some View {
-        VStack(spacing: 16) {
-            ForEach(perks) { perk in
-                HStack(alignment: .top, spacing: 14) {
-                    Image(systemName: perk.icon)
-                        .font(.title3)
-                        .foregroundStyle(Theme.accent)
-                        .frame(width: 30)
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(perk.title).font(.subheadline.weight(.bold))
-                        Text(perk.subtitle).font(.footnote).foregroundStyle(.secondary)
-                    }
-                    Spacer(minLength: 0)
-                }
-            }
-        }
-        .padding(18)
-        .cartoonCard()
-    }
+    private var perkList: some View { ProPerkList() }
 
     /// У раннего пользователя Pro уже открыт — и он должен это видеть без всяких
     /// «восстановить покупки». Обещание исполняется молча.
@@ -148,5 +130,28 @@ struct ProSheet: View {
         }
         .font(.caption2).foregroundStyle(.secondary)
         .padding(.bottom, 8)
+    }
+}
+
+/// Список возможностей Pro — общий для пейвола и приветствия ранних пользователей.
+struct ProPerkList: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            ForEach(ProSheet.perks) { perk in
+                HStack(alignment: .top, spacing: 14) {
+                    Image(systemName: perk.icon)
+                        .font(.title3)
+                        .foregroundStyle(Theme.accent)
+                        .frame(width: 30)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(perk.title).font(.subheadline.weight(.bold))
+                        Text(perk.subtitle).font(.footnote).foregroundStyle(.secondary)
+                    }
+                    Spacer(minLength: 0)
+                }
+            }
+        }
+        .padding(18)
+        .cartoonCard()
     }
 }

@@ -220,3 +220,23 @@ final class ProStoreTests: XCTestCase {
         await loading.value
     }
 }
+
+/// Разовое «Pro теперь твой» — только ранним, кто не покупал, и один раз.
+final class EarlyAdopterWelcomeTests: XCTestCase {
+    private func ent(version: String?, purchased: Bool = false) -> Entitlements {
+        Entitlements(install: version.map { AppInstall(firstLaunchedAt: .now, firstVersion: $0) },
+                     purchased: purchased, proVersion: "1.1.0")
+    }
+
+    func testShownToEarlyAdopterOnce() {
+        XCTAssertTrue(EarlyAdopterWelcome.shouldShow(ent(version: "1.0.0"), alreadyShown: false))
+        XCTAssertFalse(EarlyAdopterWelcome.shouldShow(ent(version: "1.0.0"), alreadyShown: true))
+    }
+
+    func testNotShownToNewOrPayingUsers() {
+        XCTAssertFalse(EarlyAdopterWelcome.shouldShow(ent(version: "1.1.0"), alreadyShown: false))
+        XCTAssertFalse(EarlyAdopterWelcome.shouldShow(ent(version: nil), alreadyShown: false))
+        XCTAssertFalse(EarlyAdopterWelcome.shouldShow(ent(version: "1.0.0", purchased: true), alreadyShown: false),
+                       "купившему «без покупки» не говорим")
+    }
+}

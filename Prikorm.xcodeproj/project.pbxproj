@@ -31,6 +31,7 @@
 		202A1B350019D481E0B7C8DB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5CB23367B4B53F2901425F /* NotificationManager.swift */; };
 		2441C6E86B2B91A59650E1A3 /* AllergensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9552BEB8A9718015F8F199F9 /* AllergensUITests.swift */; };
 		259083FD61421122F65C060E /* AppSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */; };
+		2605698867A369E755257953 /* EarlyAdopterWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E719E915459CBE627DDC4E /* EarlyAdopterWelcome.swift */; };
 		2875D3C173E7A2CE30F99087 /* ChildLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D43BE9AF76F56E65379843 /* ChildLimit.swift */; };
 		28AB41175B322E5EB8C48207 /* ScenarioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E5073D03E3BDBAAE3D0B5F /* ScenarioTests.swift */; };
 		2AE136259F2ED1160F362A34 /* RecapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0577843717A8B0375436D4 /* RecapService.swift */; };
@@ -253,6 +254,7 @@
 		A7202CCEEDDA2C234B6042B4 /* LogFeedingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFeedingSheet.swift; sourceTree = "<group>"; };
 		A7E9B74217E24AA130517A1B /* OnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
 		ADB3F811DEA58E31D55B7F98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B2E719E915459CBE627DDC4E /* EarlyAdopterWelcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarlyAdopterWelcome.swift; sourceTree = "<group>"; };
 		B33CA193FD43A9CA19892A79 /* ProStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProStore.swift; sourceTree = "<group>"; };
 		B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSchema.swift; sourceTree = "<group>"; };
 		B71AD6599C2AC9DBFA2356E5 /* EditLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLogSheet.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		2F3C9BCB2D5A4F4A131D3149 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				B2E719E915459CBE627DDC4E /* EarlyAdopterWelcome.swift */,
 				0384473595C9ED39DB0D9950 /* ProfileView.swift */,
 				8028A283980B46503FCF01F4 /* ProSheet.swift */,
 			);
@@ -827,6 +830,7 @@
 				5175661213B86BD0231DD81D /* DiaryPDFExport.swift in Sources */,
 				9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */,
 				526648C2079544C1B1235F25 /* EarlyAdopter.swift in Sources */,
+				2605698867A369E755257953 /* EarlyAdopterWelcome.swift in Sources */,
 				BA6883AE8CA59600E865195B /* EditLogSheet.swift in Sources */,
 				2FA9D61DDD0A71A96C3778CB /* Entitlements.swift in Sources */,
 				E7B506A7E08332292C71C790 /* Enums.swift in Sources */,

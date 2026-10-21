@@ -1707,6 +1707,88 @@
         }
       }
     },
+    "Pro теперь твой": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro is yours now"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro gehört jetzt dir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro est à toi"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro ya es tuyo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro ora è tuo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Pro agora é seu"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro jest teraz twoje"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro artık senin"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro тепер твій"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro is nu van jou"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proがあなたのものに"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이제 Pro는 당신 거예요"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro 现在归你了"
+          }
+        }
+      }
+    },
     "Pudding": {},
     "Pudding Pro": {
       "extractionState": "manual",
@@ -6868,6 +6950,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "此小组件属于 Pudding Pro"
+          }
+        }
+      }
+    },
+    "Виджеты": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widget"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widżety"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widget'lar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Віджети"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgets"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ウィジェット"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "위젯"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "小组件"
           }
         }
       }
@@ -18153,6 +18317,88 @@
         }
       }
     },
+    "Как добавить виджет": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How to add a widget"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "So fügst du ein Widget hinzu"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter un widget"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cómo añadir un widget"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come aggiungere un widget"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como adicionar um widget"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak dodać widżet"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widget nasıl eklenir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як додати віджет"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een widget toevoegen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ウィジェットの追加方法"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "위젯 추가 방법"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如何添加小组件"
+          }
+        }
+      }
+    },
     "Как зашло?": {
       "extractionState": "manual",
       "localizations": {
@@ -20221,6 +20467,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "食物收藏"
+          }
+        }
+      }
+    },
+    "Коллекция продуктов и «Сейчас вводишь» — прямо на домашнем экране": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your food collection and “Introducing now” — right on your Home Screen"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Lebensmittelsammlung und „Gerade in Einführung“ – direkt auf dem Home-Bildschirm"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ta collection d’aliments et « En cours d’introduction » — directement sur l’écran d’accueil"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu colección de alimentos e «Introduciendo ahora», directamente en la pantalla de inicio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La collezione di alimenti e «Stai introducendo ora» — direttamente nella schermata Home"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sua coleção de alimentos e “Introduzindo agora” — direto na tela de início"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolekcja produktów i „Teraz wprowadzasz” — prosto na ekranie początkowym"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besin koleksiyonun ve “Şu an tanıtıyorsun” — doğrudan ana ekranda"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колекція продуктів і «Зараз вводиш» — просто на головному екрані"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je voedselcollectie en ‘Nu aan het introduceren’ — direct op je beginscherm"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "食材コレクションと「いま導入中」をホーム画面に"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음식 컬렉션과 ‘지금 도입 중’을 홈 화면에서 바로"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "食物收藏和“正在引入”，直接显示在主屏幕上"
           }
         }
       }
@@ -30418,6 +30746,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开目录"
+          }
+        }
+      }
+    },
+    "Отлично": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Great"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Super"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Super"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genial"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ottimo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ótimo"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Super"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harika"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чудово"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "좋아요"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好的"
           }
         }
       }
@@ -45222,6 +45632,88 @@
         }
       }
     },
+    "Ты пользуешься Pudding с первой версии, поэтому Pro открыт тебе навсегда — бесплатно, без покупки.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You’ve been using Pudding since the first version, so Pro is unlocked for you forever — free, no purchase needed."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du nutzt Pudding seit der ersten Version, deshalb ist Pro für dich für immer freigeschaltet – kostenlos, ohne Kauf."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu utilises Pudding depuis la première version : Pro est donc débloqué pour toi à vie — gratuitement, sans achat."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usas Pudding desde la primera versión, así que Pro está desbloqueado para ti para siempre: gratis, sin compra."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usi Pudding dalla prima versione, quindi Pro è sbloccato per te per sempre — gratis, senza acquisto."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você usa o Pudding desde a primeira versão, então o Pro está liberado para você para sempre — grátis, sem compra."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korzystasz z Pudding od pierwszej wersji, więc Pro jest dla ciebie odblokowane na zawsze — za darmo, bez zakupu."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pudding’i ilk sürümden beri kullanıyorsun, bu yüzden Pro senin için sonsuza dek açık — ücretsiz, satın almadan."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ти користуєшся Pudding з першої версії, тож Pro відкрито для тебе назавжди — безкоштовно, без покупки."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je gebruikt Pudding sinds de eerste versie, dus Pro is voor altijd ontgrendeld voor jou — gratis, zonder aankoop."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最初のバージョンからPuddingを使ってくれているので、Proはずっと無料で使えます。購入は不要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "첫 버전부터 Pudding을 써 주셔서 Pro가 평생 열려 있어요. 무료이고, 구매할 필요 없어요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你从第一个版本起就在用 Pudding，所以 Pro 永久为你解锁——免费，无需购买。"
+          }
+        }
+      }
+    },
     "Ты пришёл в самом начале — Pro твой навсегда, платить не нужно.": {
       "extractionState": "manual",
       "localizations": {
@@ -46709,6 +47201,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "宝宝的资料、喂食历史和自定义食物都会被删除。此操作无法撤销——应用会回到最初状态。"
+          }
+        }
+      }
+    },
+    "Удержи палец на пустом месте домашнего экрана → «Изменить» → «Добавить виджет» → Pudding.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch and hold an empty spot on your Home Screen → Edit → Add Widget → Pudding."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Halte eine freie Stelle auf dem Home-Bildschirm gedrückt → „Bearbeiten“ → „Widget hinzufügen“ → Pudding."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintiens le doigt sur un espace vide de l’écran d’accueil → « Modifier » → « Ajouter un widget » → Pudding."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantén pulsado un espacio vacío de la pantalla de inicio → «Editar» → «Añadir widget» → Pudding."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tieni premuto su uno spazio vuoto della schermata Home → «Modifica» → «Aggiungi widget» → Pudding."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque e segure um espaço vazio da tela de início → “Editar” → “Adicionar Widget” → Pudding."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przytrzymaj puste miejsce na ekranie początkowym → „Edytuj” → „Dodaj widżet” → Pudding."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ana ekranda boş bir yere dokunup basılı tut → “Düzenle” → “Widget Ekle” → Pudding."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Утримуй палець на порожньому місці головного екрана → «Редагувати» → «Додати віджет» → Pudding."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Houd een lege plek op je beginscherm ingedrukt → ‘Wijzig’ → ‘Voeg widget toe’ → Pudding."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ホーム画面の空いている場所を長押し →「編集」→「ウィジェットを追加」→ Pudding。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "홈 화면의 빈 곳을 길게 누르기 → ‘편집’ → ‘위젯 추가’ → Pudding."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在主屏幕空白处长按 →“编辑”→“添加小组件”→ Pudding。"
           }
         }
       }

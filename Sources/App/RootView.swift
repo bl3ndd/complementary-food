@@ -15,6 +15,8 @@ struct RootView: View {
     @AppStorage(ActiveChild.storageKey) private var activeChildId: String = ""
     /// Оформление: система / светлая / тёмная (Профиль → Приложение). Применяется сразу.
     @AppStorage(AppTheme.storageKey) private var theme: AppTheme = .system
+    @AppStorage(EarlyAdopterWelcome.shownKey) private var welcomeShown = false
+    @State private var showWelcome = false
     #if DEBUG
     @AppStorage(Entitlements.debugSimulateNewUserKey) private var simulateNewUser = false
     #else
@@ -26,6 +28,11 @@ struct RootView: View {
     private var entitlements: Entitlements {
         Entitlements(install: simulateNewUser ? nil : installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
                      purchased: proStore.isPurchased)
+    }
+
+    private var wantsWelcome: Bool {
+        !children.isEmpty && !UITestSupport.isActive
+            && EarlyAdopterWelcome.shouldShow(entitlements, alreadyShown: welcomeShown)
     }
 
     var body: some View {
@@ -53,6 +60,14 @@ struct RootView: View {
         .id(appliedPalette)
         // Мягкий кроссфейд онбординг ↔ приложение (финиш онбординга / сброс данных).
         .animation(.easeInOut(duration: 0.45), value: children.isEmpty)
+        // Ранним — разовое «Pro теперь твой». Запись установки может приехать из
+        // iCloud позже старта, поэтому следим за условием, а не проверяем раз.
+        .onChange(of: wantsWelcome, initial: true) { _, wants in
+            if wants { showWelcome = true }
+        }
+        .sheet(isPresented: $showWelcome, onDismiss: { welcomeShown = true }) {
+            EarlyAdopterWelcomeSheet()
+        }
         .task {
             // Пишем «когда пришёл» с первого запуска — задним числом это уже
             // не восстановить, а на этом держится обещание ранним пользователям.
