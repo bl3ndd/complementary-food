@@ -110,4 +110,41 @@ final class EntitlementsTests: XCTestCase {
         let e = Entitlements(install: AppInstall(firstVersion: "1.0.0"), purchased: false)
         XCTAssertTrue(e.isEarlyAdopter)
     }
+
+    // MARK: - Первая сборка по App Store
+
+    private func store(_ build: String?, install: AppInstall? = nil) -> Entitlements {
+        Entitlements(install: install, purchased: false, originalAppBuild: build,
+                     proVersion: proVersion, proBuild: 6, proReleaseDate: released)
+    }
+
+    /// Новый телефон, iCloud ещё не докачал `AppInstall` — App Store уже знает,
+    /// что человек скачал 1.0.0 (сборка 5).
+    func testAppStoreBuildBeforeProIsEarlyWithoutInstallRecord() {
+        XCTAssertTrue(store("5").isEarlyAdopter)
+        XCTAssertTrue(store("5").isPro)
+    }
+
+    func testAppStoreBuildOfProVersionIsNotEarly() {
+        XCTAssertFalse(store("6").isEarlyAdopter)
+        XCTAssertFalse(store("7").isEarlyAdopter)
+        XCTAssertFalse(store("12").isEarlyAdopter, "числом, не посимвольно")
+    }
+
+    /// Пока iCloud не докачал запись, на новом устройстве стоит свежая «1.1.0» —
+    /// App Store не должен давать ей перекрыть ранний статус.
+    func testAppStoreBuildWinsOverFreshLocalRecord() {
+        XCTAssertTrue(store("5", install: install("1.1.0")).isEarlyAdopter)
+    }
+
+    /// И наоборот: нет ответа App Store (офлайн) — работает запись, как раньше.
+    func testMissingAppStoreBuildFallsBackToInstallRecord() {
+        XCTAssertTrue(store(nil, install: install("1.0.0")).isEarlyAdopter)
+        XCTAssertFalse(store(nil, install: install("1.1.0")).isEarlyAdopter)
+    }
+
+    func testGarbageAppStoreBuildIsIgnored() {
+        XCTAssertFalse(store("").isEarlyAdopter)
+        XCTAssertFalse(store("1.0").isEarlyAdopter, "у песочницы «1.0» — не номер сборки")
+    }
 }

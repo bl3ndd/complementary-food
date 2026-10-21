@@ -20,6 +20,14 @@ struct Entitlements {
     /// для периода «Pro ещё не выпущен» как раз и верно.
     static let defaultProVersion = "1.1.0"
 
+    /// Первая сборка платной версии. В продаже 1.0.0 была только сборка 5, а 1.1.0
+    /// начинается с 6 — значит, всё, что скачано ниже 6, скачано до Pro.
+    ///
+    /// **Номер сборки никогда не сбрасывать** (например, «1.2.0 (1)»): на нём держится
+    /// эта проверка, и сброс раздал бы бесплатный Pro всем, кто скачал новую версию.
+    /// Сборки только растут сквозь все версии.
+    static let defaultProBuild = 6
+
     /// Запасная граница на случай, когда версию в записи прочитать не удалось.
     /// Всё, что раньше, — ранний пользователь.
     ///
@@ -35,8 +43,15 @@ struct Entitlements {
     let install: AppInstall?
     /// Покупка подтверждена App Store.
     let purchased: Bool
+    /// Номер сборки (`CFBundleVersion`), которую человек впервые скачал на свой
+    /// Apple ID, — из подписанного App Store `AppTransaction`. Второй, независимый
+    /// от iCloud признак раннего: на новом телефоне запись `AppInstall` докачивается
+    /// не сразу, а при выключенном iCloud не приходит вовсе, App Store же знает
+    /// ответ с первого запуска. `nil` — ответа нет (офлайн, песочница, отладка).
+    var originalAppBuild: String? = nil
 
     var proVersion: String = Entitlements.defaultProVersion
+    var proBuild: Int = Entitlements.defaultProBuild
     var proReleaseDate: Date = Entitlements.defaultProReleaseDate
 
     /// Пришёл ли человек до платной версии.
@@ -48,6 +63,10 @@ struct Entitlements {
     /// человек, реально пришедший рано, не должен терять статус из-за поля, которое
     /// не доехало.
     var isEarlyAdopter: Bool {
+        if let build = originalAppBuild.flatMap({ Int($0.trimmingCharacters(in: .whitespaces)) }),
+           build < proBuild {
+            return true
+        }
         guard let install else { return false }
 
         let version = install.firstVersion.trimmingCharacters(in: .whitespacesAndNewlines)

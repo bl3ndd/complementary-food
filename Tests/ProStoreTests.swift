@@ -16,6 +16,7 @@ final class ProStoreTests: XCTestCase {
         var productError: Error?
         var purchaseError: Error?
         var restoreError: Error?
+        var originalBuild: String?
         /// Мутируется из мока — поэтому класс-коробка, а не поле структуры.
         final class Calls { var restores = 0 }
         let calls = Calls()
@@ -39,6 +40,8 @@ final class ProStoreTests: XCTestCase {
             calls.restores += 1
             if let restoreError { throw restoreError }
         }
+
+        func originalAppBuild() async -> String? { originalBuild }
     }
 
     private struct Boom: LocalizedError {
@@ -52,6 +55,21 @@ final class ProStoreTests: XCTestCase {
         let defaults = UserDefaults(suiteName: name)!
         addTeardownBlock { defaults.removePersistentDomain(forName: name) }
         return defaults
+    }
+
+    // MARK: - Первая сборка по App Store
+
+    @MainActor
+    func testRefreshStoresAndCachesOriginalAppBuild() async {
+        let defaults = isolatedDefaults()
+        var fake = Fake(); fake.originalBuild = "5"
+        let store = ProStore(purchasing: fake, defaults: defaults)
+        await store.refresh()
+        XCTAssertEqual(store.originalAppBuild, "5")
+        // Следующий запуск офлайн: ответа нет, но кэш помнит.
+        let offline = ProStore(purchasing: Fake(), defaults: defaults)
+        await offline.refresh()
+        XCTAssertEqual(offline.originalAppBuild, "5")
     }
 
     // MARK: - Кэш права

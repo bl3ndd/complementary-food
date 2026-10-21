@@ -60,7 +60,8 @@ final class AuditWalkUITests: XCTestCase {
         let app = launch(seed: nil, pro: false)
         shoot("A01_onb_welcome")
         if tap(app.buttons.firstMatch) { shoot("A02_onb_disclaimer") }
-        if tap(app.buttons["Понятно"]) { shoot("A03_onb_child") }
+        if tap(app.buttons["Понятно"]) { shoot("A03a_onb_storage") }
+        if tap(app.buttons["onboarding.storage.off"]), tap(app.buttons["Далее"]) { shoot("A03_onb_child") }
         let name = app.textFields["Имя малыша"]
         if tap(name) { name.typeText("Мия"); app.swipeUp(); shoot("A03b_onb_child_filled") }
         for b in ["Дальше", "Продолжить", "Далее"] where app.buttons[b].exists { app.buttons[b].tap(); break }

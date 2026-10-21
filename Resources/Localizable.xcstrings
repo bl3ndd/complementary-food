@@ -2039,6 +2039,88 @@
         }
       }
     },
+    "iCloud": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        }
+      }
+    },
     "maintenance.type": {
       "extractionState": "manual",
       "localizations": {
@@ -6954,88 +7036,6 @@
         }
       }
     },
-    "Виджеты": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widgets"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widgets"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widgets"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widgets"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widget"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widgets"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widżety"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widget'lar"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Віджети"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Widgets"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ウィジェット"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "위젯"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "小组件"
-          }
-        }
-      }
-    },
     "Виноград": {
       "extractionState": "manual",
       "localizations": {
@@ -8198,6 +8198,88 @@
         }
       }
     },
+    "Включить и восстановить": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einschalten und wiederherstellen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on and restore"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar y restaurar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer et restaurer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attiva e ripristina"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "オンにして復元"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "켜고 복원하기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inschakelen en herstellen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Włącz i przywróć"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ativar e restaurar"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aç ve geri yükle"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути й відновити"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开启并恢复"
+          }
+        }
+      }
+    },
     "Включить напоминания": {
       "localizations": {
         "en": {
@@ -8608,6 +8690,252 @@
           "stringUnit": {
             "state": "translated",
             "value": "月龄"
+          }
+        }
+      }
+    },
+    "Восстановить дневник из iCloud": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tagebuch aus iCloud wiederherstellen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore diary from iCloud"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar el diario desde iCloud"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer le journal depuis iCloud"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripristina il diario da iCloud"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloudから日記を復元"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud에서 일기 복원"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dagboek herstellen uit iCloud"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przywróć dziennik z iCloud"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar diário do iCloud"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlüğü iCloud'dan geri yükle"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відновити щоденник з iCloud"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从 iCloud 恢复日记"
+          }
+        }
+      }
+    },
+    "Восстановить из iCloud": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus iCloud wiederherstellen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore from iCloud"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar desde iCloud"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer depuis iCloud"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripristina da iCloud"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloudから復元"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud에서 복원"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herstellen uit iCloud"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przywróć z iCloud"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar do iCloud"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud'dan geri yükle"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відновити з iCloud"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从 iCloud 恢复"
+          }
+        }
+      }
+    },
+    "Восстановить из iCloud?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus iCloud wiederherstellen?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore from iCloud?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Restaurar desde iCloud?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer depuis iCloud ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripristinare da iCloud?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloudから復元しますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud에서 복원할까요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herstellen uit iCloud?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przywrócić z iCloud?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar do iCloud?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud'dan geri yüklensin mi?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відновити з iCloud?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从 iCloud 恢复？"
           }
         }
       }
@@ -9768,6 +10096,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "已完成"
+          }
+        }
+      }
+    },
+    "Где хранить дневник": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wo das Tagebuch speichern"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Where to keep the diary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dónde guardar el diario"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où garder le journal"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove salvare il diario"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日記の保存先"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일기 저장 위치"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waar het dagboek bewaren"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gdzie przechowywać dziennik"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onde guardar o diário"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlük nerede saklansın"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Де зберігати щоденник"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日记存放位置"
           }
         }
       }
@@ -11684,6 +12094,88 @@
         }
       }
     },
+    "Дневник начнёт копироваться в iCloud после перезапуска приложения.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Tagebuch wird nach einem Neustart der App in iCloud kopiert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The diary will start copying to iCloud after you restart the app."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario empezará a copiarse en iCloud después de reiniciar la app."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal commencera à se copier dans iCloud après le redémarrage de l'app."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il diario inizierà a copiarsi su iCloud dopo il riavvio dell'app."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリを再起動すると、日記のiCloudへのコピーが始まります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱을 다시 시작하면 일기가 iCloud로 복사되기 시작해요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het dagboek wordt naar iCloud gekopieerd zodra je de app opnieuw start."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik zacznie się kopiować do iCloud po ponownym uruchomieniu aplikacji."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O diário começará a ser copiado para o iCloud depois que você reiniciar o app."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlük, uygulama yeniden başlatıldıktan sonra iCloud'a kopyalanmaya başlar."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоденник почне копіюватися в iCloud після перезапуску застосунку."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重启应用后，日记将开始复制到 iCloud。"
+          }
+        }
+      }
+    },
     "Дневник остаётся бесплатным": {
       "extractionState": "manual",
       "localizations": {
@@ -11763,6 +12255,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "日记始终免费"
+          }
+        }
+      }
+    },
+    "Дневник переживёт смену или потерю телефона. Копия лежит в твоём личном iCloud, у нас к ней доступа нет.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Tagebuch übersteht einen Handywechsel oder -verlust. Die Kopie liegt in deiner privaten iCloud, wir haben keinen Zugriff darauf."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The diary survives switching or losing your phone. The copy is kept in your personal iCloud — we have no access to it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario sobrevive a un cambio o pérdida del teléfono. La copia está en tu iCloud personal y no tenemos acceso a ella."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal survit à un changement ou à la perte du téléphone. La copie est dans ton iCloud personnel, nous n'y avons pas accès."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il diario sopravvive al cambio o alla perdita del telefono. La copia è nel tuo iCloud personale e noi non possiamo accedervi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "機種変更や紛失でも日記は消えません。コピーはあなた個人のiCloudに保存され、私たちはアクセスできません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "휴대폰을 바꾸거나 잃어버려도 일기는 남아요. 사본은 내 iCloud에 저장되고, 저희는 접근할 수 없어요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je dagboek overleeft een nieuwe of verloren telefoon. De kopie staat in je eigen iCloud, wij hebben er geen toegang toe."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik przetrwa zmianę lub utratę telefonu. Kopia jest w twoim prywatnym iCloud, nie mamy do niej dostępu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O diário sobrevive à troca ou perda do celular. A cópia fica no seu iCloud pessoal, e nós não temos acesso a ela."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefon değişse ya da kaybolsa da günlük kalır. Kopya kişisel iCloud'unda durur, bizim ona erişimimiz yok."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоденник переживе зміну чи втрату телефона. Копія лежить у твоєму особистому iCloud, ми не маємо до неї доступу."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "换手机或丢手机，日记都还在。副本存在你自己的 iCloud 里，我们无法访问。"
           }
         }
       }
@@ -12011,6 +12585,170 @@
           "stringUnit": {
             "state": "translated",
             "value": "辅食日记：喂了什么、吃得怎么样、有没有反应。"
+          }
+        }
+      }
+    },
+    "Дневник хранится на телефоне и в твоём личном iCloud, поэтому переживёт смену телефона. У нас к нему доступа нет — своих серверов у Pudding нет.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your diary lives on this phone and in your personal iCloud, so it survives a phone change. We can't access it — Pudding has no servers of its own."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Tagebuch liegt auf diesem iPhone und in deiner persönlichen iCloud – so übersteht es einen Gerätewechsel. Wir haben keinen Zugriff darauf, Pudding hat keine eigenen Server."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ton journal est stocké sur ce téléphone et dans ton iCloud personnel, il survit donc à un changement de téléphone. Nous n'y avons pas accès : Pudding n'a pas de serveurs."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu diario se guarda en este teléfono y en tu iCloud personal, así que sobrevive a un cambio de teléfono. No tenemos acceso a él: Pudding no tiene servidores propios."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo diario è salvato su questo telefono e nel tuo iCloud personale, quindi sopravvive a un cambio di telefono. Noi non possiamo accedervi: Pudding non ha server propri."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seu diário fica neste celular e no seu iCloud pessoal, então ele sobrevive a uma troca de celular. Não temos acesso a ele — o Pudding não tem servidores próprios."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik jest zapisany na tym telefonie i w Twoim prywatnym iCloud, więc przetrwa zmianę telefonu. Nie mamy do niego dostępu — Pudding nie ma własnych serwerów."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlüğün bu telefonda ve kişisel iCloud'unda saklanır, bu yüzden telefon değiştirsen de kaybolmaz. Ona erişimimiz yok — Pudding'in kendi sunucuları yok."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоденник зберігається на телефоні та у твоєму особистому iCloud, тож переживе зміну телефона. Ми не маємо до нього доступу — власних серверів у Pudding немає."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je dagboek staat op deze telefoon en in je persoonlijke iCloud, dus het overleeft een nieuwe telefoon. Wij kunnen er niet bij — Pudding heeft geen eigen servers."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日記はこのiPhoneとあなた個人のiCloudに保存されるので、機種変更しても残ります。私たちは日記にアクセスできません。Puddingは独自のサーバーを持っていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일기는 이 휴대폰과 개인 iCloud에 저장되므로 휴대폰을 바꿔도 남아 있어요. 저희는 일기에 접근할 수 없어요. Pudding에는 자체 서버가 없어요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日记保存在这部手机和你的个人 iCloud 中，换手机也不会丢失。我们无法访问它——Pudding 没有自己的服务器。"
+          }
+        }
+      }
+    },
+    "Дневник хранится только на этом телефоне. Если удалить приложение или потерять телефон, записи пропадут.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Tagebuch ist nur auf diesem Handy gespeichert. Wenn du die App löschst oder dein Handy verlierst, sind die Einträge weg."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The diary is stored only on this phone. If you delete the app or lose your phone, your entries are gone."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario se guarda solo en este teléfono. Si borras la app o pierdes el teléfono, los registros se perderán."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal est stocké uniquement sur ce téléphone. Si tu supprimes l'app ou perds ton téléphone, les entrées disparaissent."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il diario è salvato solo su questo telefono. Se elimini l'app o perdi il telefono, le voci andranno perse."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日記はこの端末にのみ保存されています。アプリを削除したり端末をなくしたりすると、記録は消えます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일기는 이 휴대폰에만 저장돼요. 앱을 삭제하거나 휴대폰을 잃어버리면 기록이 사라져요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het dagboek staat alleen op deze telefoon. Verwijder je de app of raak je je telefoon kwijt, dan zijn je notities weg."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik jest przechowywany tylko na tym telefonie. Jeśli usuniesz aplikację lub zgubisz telefon, wpisy przepadną."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O diário fica só neste celular. Se você apagar o app ou perder o celular, os registros somem."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlük yalnızca bu telefonda saklanıyor. Uygulamayı silersen ya da telefonu kaybedersen kayıtlar gider."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щоденник зберігається лише на цьому телефоні. Якщо видалити застосунок або загубити телефон, записи зникнуть."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日记仅保存在此手机上。删除应用或丢失手机，记录就会消失。"
           }
         }
       }
@@ -14251,6 +14989,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开目录，选出第一种食物。"
+          }
+        }
+      }
+    },
+    "Закрой приложение и открой снова — записи из iCloud начнут скачиваться.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließ die App und öffne sie erneut — dann werden die Einträge aus iCloud geladen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close the app and open it again — your iCloud entries will start downloading."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cierra la app y vuelve a abrirla — los registros de iCloud empezarán a descargarse."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferme l'app et rouvre-la — les entrées d'iCloud commenceront à se télécharger."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiudi l'app e riaprila — le voci da iCloud inizieranno a scaricarsi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリを閉じてもう一度開くと、iCloudの記録のダウンロードが始まります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱을 닫았다가 다시 열면 iCloud의 기록을 내려받기 시작해요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sluit de app en open hem opnieuw — dan worden je notities uit iCloud gedownload."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamknij aplikację i otwórz ją ponownie — wpisy z iCloud zaczną się pobierać."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feche o app e abra de novo — os registros do iCloud vão começar a baixar."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamayı kapatıp yeniden aç — iCloud'daki kayıtlar inmeye başlayacak."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрий застосунок і відкрий знову — записи з iCloud почнуть завантажуватися."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭应用后重新打开 — iCloud 中的记录就会开始下载。"
           }
         }
       }
@@ -17902,6 +18722,88 @@
         }
       }
     },
+    "Ищем дневник в iCloud…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suche Tagebuch in iCloud…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Looking for your diary in iCloud…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando el diario en iCloud…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche du journal dans iCloud…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerco il diario su iCloud…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloudで日記を探しています…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud에서 일기를 찾는 중…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dagboek zoeken in iCloud…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Szukamy dziennika w iCloud…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procurando o diário no iCloud…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud'da günlük aranıyor…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шукаємо щоденник в iCloud…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在 iCloud 中查找日记…"
+          }
+        }
+      }
+    },
     "Йогурт": {
       "extractionState": "manual",
       "localizations": {
@@ -20471,88 +21373,6 @@
         }
       }
     },
-    "Коллекция продуктов и «Сейчас вводишь» — прямо на домашнем экране": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your food collection and “Introducing now” — right on your Home Screen"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine Lebensmittelsammlung und „Gerade in Einführung“ – direkt auf dem Home-Bildschirm"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ta collection d’aliments et « En cours d’introduction » — directement sur l’écran d’accueil"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu colección de alimentos e «Introduciendo ahora», directamente en la pantalla de inicio"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La collezione di alimenti e «Stai introducendo ora» — direttamente nella schermata Home"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sua coleção de alimentos e “Introduzindo agora” — direto na tela de início"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kolekcja produktów i „Teraz wprowadzasz” — prosto na ekranie początkowym"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Besin koleksiyonun ve “Şu an tanıtıyorsun” — doğrudan ana ekranda"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Колекція продуктів і «Зараз вводиш» — просто на головному екрані"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Je voedselcollectie en ‘Nu aan het introduceren’ — direct op je beginscherm"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "食材コレクションと「いま導入中」をホーム画面に"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "음식 컬렉션과 ‘지금 도입 중’을 홈 화면에서 바로"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "食物收藏和“正在引入”，直接显示在主屏幕上"
-          }
-        }
-      }
-    },
     "Коллекция, вехи, первый раз, топ вкусов — карточками для сторис": {
       "extractionState": "manual",
       "localizations": {
@@ -20715,6 +21535,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "果汁饮"
+          }
+        }
+      }
+    },
+    "Копия в iCloud": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie in iCloud"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy in iCloud"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia en iCloud"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copie dans iCloud"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia su iCloud"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloudにコピー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud에 사본 저장"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie in iCloud"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia w iCloud"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cópia no iCloud"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud'da kopya"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія в iCloud"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud 副本"
           }
         }
       }
@@ -24869,6 +25771,170 @@
         }
       }
     },
+    "На телефоне и в iCloud": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf dem Handy und in iCloud"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On your phone and in iCloud"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En el teléfono y en iCloud"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sur le téléphone et dans iCloud"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sul telefono e su iCloud"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この端末とiCloud"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "휴대폰과 iCloud에"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Op je telefoon en in iCloud"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na telefonie i w iCloud"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No celular e no iCloud"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefonda ve iCloud'da"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На телефоні та в iCloud"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手机和 iCloud"
+          }
+        }
+      }
+    },
+    "На этом iPhone не выполнен вход в iCloud. Войди в Настройках, чтобы хранить копию.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf diesem iPhone bist du nicht bei iCloud angemeldet. Melde dich in den Einstellungen an, um eine Kopie zu speichern."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This iPhone isn't signed in to iCloud. Sign in in Settings to keep a copy."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este iPhone no tiene sesión iniciada en iCloud. Inicia sesión en Ajustes para guardar una copia."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cet iPhone n'est pas connecté à iCloud. Connecte-toi dans Réglages pour garder une copie."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su questo iPhone non hai effettuato l'accesso a iCloud. Accedi in Impostazioni per salvare una copia."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このiPhoneはiCloudにサインインしていません。コピーを保存するには「設定」でサインインしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 iPhone에서 iCloud에 로그인되어 있지 않아요. 사본을 저장하려면 설정에서 로그인하세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Op deze iPhone ben je niet ingelogd bij iCloud. Log in via Instellingen om een kopie te bewaren."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na tym iPhonie nie zalogowano się do iCloud. Zaloguj się w Ustawieniach, aby przechowywać kopię."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este iPhone não está conectado ao iCloud. Inicie sessão em Ajustes para guardar uma cópia."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu iPhone'da iCloud'a giriş yapılmamış. Kopya saklamak için Ayarlar'dan giriş yap."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На цьому iPhone не виконано вхід в iCloud. Увійди в Параметрах, щоб зберігати копію."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此 iPhone 未登录 iCloud。请在“设置”中登录以保存副本。"
+          }
+        }
+      }
+    },
     "Наблюдай за реакцией. Кнопка «ввёл успешно» появится после %lld дн.": {
       "extractionState": "manual",
       "localizations": {
@@ -26439,6 +27505,88 @@
         }
       }
     },
+    "Начать новый дневник": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Tagebuch beginnen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a new diary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar un diario nuevo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commencer un nouveau journal"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia un nuovo diario"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しい日記を始める"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 일기 시작하기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieuw dagboek beginnen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zacznij nowy dziennik"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar um diário novo"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni günlük başlat"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Почати новий щоденник"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始新日记"
+          }
+        }
+      }
+    },
     "Начни вводить продукт в каталоге — он появится здесь": {
       "localizations": {
         "en": {
@@ -26766,6 +27914,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "禁喂"
+          }
+        }
+      }
+    },
+    "Не закрывай приложение — записи и фото скачиваются из твоего iCloud.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließ die App nicht — Einträge und Fotos werden aus deiner iCloud geladen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Don't close the app — entries and photos are downloading from your iCloud."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No cierres la app — los registros y las fotos se están descargando de tu iCloud."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne ferme pas l'app — les entrées et photos se téléchargent depuis ton iCloud."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non chiudere l'app — voci e foto si stanno scaricando dal tuo iCloud."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリを閉じないでください — 記録と写真をiCloudからダウンロードしています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱을 닫지 마세요 — 기록과 사진을 iCloud에서 내려받는 중이에요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sluit de app niet — notities en foto's worden gedownload uit je iCloud."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie zamykaj aplikacji — wpisy i zdjęcia pobierają się z twojego iCloud."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não feche o app — registros e fotos estão sendo baixados do seu iCloud."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamayı kapatma — kayıtlar ve fotoğraflar iCloud'undan indiriliyor."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не закривай застосунок — записи й фото завантажуються з твого iCloud."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请不要关闭应用 — 记录和照片正在从你的 iCloud 下载。"
           }
         }
       }
@@ -28008,6 +29238,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "没有反应"
+          }
+        }
+      }
+    },
+    "Никаких копий. Если удалить приложение или потерять телефон, записи пропадут.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Kopien. Wenn du die App löschst oder dein Handy verlierst, sind die Einträge weg."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No copies. If you delete the app or lose your phone, your entries are gone."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin copias. Si borras la app o pierdes el teléfono, los registros se perderán."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune copie. Si tu supprimes l'app ou perds ton téléphone, les entrées disparaissent."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna copia. Se elimini l'app o perdi il telefono, le voci andranno perse."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コピーは作りません。アプリを削除したり端末をなくしたりすると、記録は消えます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사본이 없어요. 앱을 삭제하거나 휴대폰을 잃어버리면 기록이 사라져요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geen kopieën. Verwijder je de app of raak je je telefoon kwijt, dan zijn je notities weg."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żadnych kopii. Jeśli usuniesz aplikację lub zgubisz telefon, wpisy przepadną."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem cópias. Se você apagar o app ou perder o celular, os registros somem."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya yok. Uygulamayı silersen ya da telefonu kaybedersen kayıtlar gider."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жодних копій. Якщо видалити застосунок або загубити телефон, записи зникнуть."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不保留任何副本。删除应用或丢失手机，记录就会消失。"
           }
         }
       }
@@ -31741,6 +33053,88 @@
         }
       }
     },
+    "Перезапусти приложение": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starte die App neu"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restart the app"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reinicia la app"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Relance l'app"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riavvia l'app"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリを再起動してください"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱을 다시 시작하세요"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start de app opnieuw"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uruchom aplikację ponownie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reinicie o app"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamayı yeniden başlat"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапусти застосунок"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请重启应用"
+          }
+        }
+      }
+    },
     "Перезапусти приложение, чтобы применить новый язык.": {
       "localizations": {
         "en": {
@@ -34030,6 +35424,88 @@
         }
       }
     },
+    "Пока ничего не нашли. Большой дневник может скачиваться пару минут.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nichts gefunden. Ein großes Tagebuch kann ein paar Minuten zum Laden brauchen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing found yet. A big diary can take a couple of minutes to download."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no encontramos nada. Un diario grande puede tardar un par de minutos en descargarse."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien trouvé pour l'instant. Un gros journal peut mettre quelques minutes à se télécharger."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora niente. Un diario grande può impiegare un paio di minuti a scaricarsi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだ見つかりません。大きな日記はダウンロードに数分かかることがあります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 찾지 못했어요. 일기가 크면 다운로드에 몇 분 걸릴 수 있어요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog niets gevonden. Een groot dagboek kan een paar minuten nodig hebben om te downloaden."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na razie nic nie znaleźliśmy. Duży dziennik może pobierać się kilka minut."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada encontrado ainda. Um diário grande pode levar alguns minutos para baixar."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz bir şey bulunamadı. Büyük bir günlüğün inmesi birkaç dakika sürebilir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поки нічого не знайшли. Великий щоденник може завантажуватися кілька хвилин."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂时没有找到。日记较大时，下载可能需要几分钟。"
+          }
+        }
+      }
+    },
     "Пока рано": {
       "extractionState": "manual",
       "localizations": {
@@ -36181,6 +37657,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "应用"
+          }
+        }
+      }
+    },
+    "Применится после перезапуска приложения.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gilt nach einem Neustart der App."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Takes effect after you restart the app."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se aplicará al reiniciar la app."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S'applique après le redémarrage de l'app."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avrà effetto dopo il riavvio dell'app."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリの再起動後に反映されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱을 다시 시작하면 적용돼요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werkt nadat je de app opnieuw start."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zadziała po ponownym uruchomieniu aplikacji."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vale depois que você reiniciar o app."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama yeniden başlatıldıktan sonra geçerli olur."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосується після перезапуску застосунку."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重启应用后生效。"
           }
         }
       }
@@ -41818,6 +43376,170 @@
         }
       }
     },
+    "Синхронизация включится, и записи из твоего iCloud добавятся к тем, что уже есть на телефоне. Ничего не удалится.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Synchronisierung wird eingeschaltet, und Einträge aus deiner iCloud kommen zu denen auf dem Handy dazu. Nichts wird gelöscht."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync will turn on, and entries from your iCloud will be added to the ones already on your phone. Nothing gets deleted."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se activará la sincronización y los registros de tu iCloud se sumarán a los que ya hay en el teléfono. No se borrará nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La synchronisation s'activera et les entrées de ton iCloud s'ajouteront à celles déjà sur le téléphone. Rien ne sera supprimé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La sincronizzazione si attiverà e le voci dal tuo iCloud si aggiungeranno a quelle già sul telefono. Non verrà eliminato nulla."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "同期がオンになり、iCloudの記録が端末にある記録に追加されます。何も削除されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화가 켜지고, iCloud의 기록이 휴대폰에 있는 기록에 더해져요. 아무것도 삭제되지 않아요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronisatie gaat aan en notities uit je iCloud komen bij die al op je telefoon staan. Er wordt niets verwijderd."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronizacja się włączy, a wpisy z twojego iCloud dołączą do tych, które są już na telefonie. Nic nie zostanie usunięte."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A sincronização será ativada, e os registros do seu iCloud serão somados aos que já estão no celular. Nada será apagado."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senkronizasyon açılacak ve iCloud'undaki kayıtlar telefondakilere eklenecek. Hiçbir şey silinmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Синхронізація ввімкнеться, і записи з твого iCloud додадуться до тих, що вже є на телефоні. Нічого не видалиться."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将开启同步，你 iCloud 中的记录会合并到手机上已有的记录中。不会删除任何内容。"
+          }
+        }
+      }
+    },
+    "Синхронизация выключится после перезапуска приложения. Копия, которая уже лежит в iCloud, не удаляется — её можно стереть в Настройках iPhone: твоё имя → iCloud.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Synchronisierung wird nach einem Neustart der App ausgeschaltet. Die Kopie in iCloud bleibt erhalten — du kannst sie in den iPhone-Einstellungen löschen: dein Name → iCloud."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync will turn off after you restart the app. The copy already in iCloud isn't deleted — you can erase it in iPhone Settings: your name → iCloud."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La sincronización se desactivará al reiniciar la app. La copia que ya está en iCloud no se borra — puedes eliminarla en Ajustes del iPhone: tu nombre → iCloud."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La synchronisation se désactivera après le redémarrage de l'app. La copie déjà dans iCloud n'est pas supprimée — tu peux l'effacer dans Réglages de l'iPhone : ton nom → iCloud."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La sincronizzazione si disattiverà dopo il riavvio dell'app. La copia già su iCloud non viene eliminata — puoi cancellarla in Impostazioni dell'iPhone: il tuo nome → iCloud."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリを再起動すると同期がオフになります。iCloudにあるコピーは削除されません — iPhoneの「設定」で消去できます：自分の名前 → iCloud。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱을 다시 시작하면 동기화가 꺼져요. 이미 iCloud에 있는 사본은 삭제되지 않아요 — iPhone 설정에서 지울 수 있어요: 내 이름 → iCloud."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronisatie gaat uit zodra je de app opnieuw start. De kopie die al in iCloud staat, wordt niet verwijderd — je kunt die wissen in Instellingen op je iPhone: je naam → iCloud."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronizacja wyłączy się po ponownym uruchomieniu aplikacji. Kopia, która jest już w iCloud, nie zostanie usunięta — możesz ją skasować w Ustawieniach iPhone'a: twoje imię → iCloud."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A sincronização será desativada depois que você reiniciar o app. A cópia que já está no iCloud não é apagada — você pode removê-la em Ajustes do iPhone: seu nome → iCloud."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senkronizasyon, uygulama yeniden başlatıldıktan sonra kapanır. iCloud'daki mevcut kopya silinmez — onu iPhone Ayarları'ndan silebilirsin: adın → iCloud."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Синхронізація вимкнеться після перезапуску застосунку. Копія, яка вже є в iCloud, не видаляється — її можна стерти в Параметрах iPhone: твоє імʼя → iCloud."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重启应用后将关闭同步。iCloud 中已有的副本不会被删除 — 你可以在 iPhone 的“设置”中删除：你的姓名 → iCloud。"
+          }
+        }
+      }
+    },
     "Системная": {
       "extractionState": "manual",
       "localizations": {
@@ -45300,6 +47022,88 @@
         }
       }
     },
+    "Только на этом телефоне": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur auf diesem Handy"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only on this phone"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo en este teléfono"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uniquement sur ce téléphone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo su questo telefono"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この端末のみ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 휴대폰에만"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alleen op deze telefoon"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tylko na tym telefonie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só neste celular"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca bu telefonda"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише на цьому телефоні"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅在此手机上"
+          }
+        }
+      }
+    },
     "Только по согласованию с врачом": {
       "extractionState": "manual",
       "localizations": {
@@ -47283,6 +49087,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "在主屏幕空白处长按 →“编辑”→“添加小组件”→ Pudding。"
+          }
+        }
+      }
+    },
+    "Уже вёл дневник в Pudding?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon ein Tagebuch in Pudding geführt?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already kept a diary in Pudding?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Ya llevabas un diario en Pudding?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu tenais déjà un journal dans Pudding ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tenevi già un diario in Pudding?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以前Puddingで日記をつけていましたか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "예전에 Pudding에서 일기를 썼나요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hield je al een dagboek bij in Pudding?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masz już dziennik w Pudding?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Já usava um diário no Pudding?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha önce Pudding'de günlük tuttun mu?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже маєш щоденник у Pudding?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "之前用 Pudding 记过日记？"
           }
         }
       }

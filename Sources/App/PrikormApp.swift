@@ -4,23 +4,17 @@ import UserNotifications
 
 @main
 struct PrikormApp: App {
-    let container: ModelContainer
+    /// Контейнер живёт в `DiaryStore`: онбординг может переоткрыть стор с iCloud.
+    @ObservedObject private var store = DiaryStore.shared
 
     init() {
         // Тап по пушу должен вести на нужный таб (а не открывать «в никуда»).
         UNUserNotificationCenter.current().delegate = NotificationRouter.shared
 
-        // UI-тесты (-uitest) и демо (-demo) работают в in-memory сторе — реальные
-        // данные (и их копия в iCloud) не трогаются.
-        var inMemory = false
-        #if DEBUG
-        let demo = CommandLine.arguments.contains("-demo")
-        inMemory = UITestSupport.isActive || demo
-        #endif
-        container = Self.makeContainer(inMemory: inMemory)
+        let container = DiaryStore.shared.container
 
         #if DEBUG
-        if demo {
+        if CommandLine.arguments.contains("-demo") {
             // Дневник за ~4 месяца: смотреть, как приложение живёт на реальном объёме.
             SampleData.seedDiary(container.mainContext)
         }
@@ -43,7 +37,7 @@ struct PrikormApp: App {
         WindowGroup {
             RootView()
         }
-        .modelContainer(container)
+        .modelContainer(store.container)
     }
 
     /// Контейнер с планом миграции и аварийным фолбэком.
@@ -58,7 +52,8 @@ struct PrikormApp: App {
     static let cloudKitContainer = "iCloud.com.pudding.app"
 
     /// Не `private` — на in-memory-ветку есть тест (`AppShellTests`).
-    static func makeContainer(inMemory: Bool) -> ModelContainer {
+    /// `cloud: false` — человек выбрал «только на телефоне» (или ещё не ответил).
+    static func makeContainer(inMemory: Bool, cloud: Bool = true) -> ModelContainer {
         let schema = Schema(AppSchemaCurrent.models)
         // UI-тесты и демо — всегда чистая память, без облака. Плана миграции здесь
         // быть НЕ должно: мигрировать в пустой памяти нечего, а в связке с ним
@@ -82,15 +77,18 @@ struct PrikormApp: App {
         // тот случай, который она умеет. Понадобится настоящая кастомная миграция —
         // вводить план вместе с ОТДЕЛЬНЫМИ КОПИЯМИ типов моделей на каждую версию,
         // иначе повторим ту же ошибку.
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false,
-                                        cloudKitDatabase: .private(cloudKitContainer))
-        if let container = try? ModelContainer(for: schema, configurations: [config]) {
-            return container
+        if cloud {
+            let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false,
+                                            cloudKitDatabase: .private(cloudKitContainer))
+            if let container = try? ModelContainer(for: schema, configurations: [config]) {
+                return container
+            }
         }
         do {
             // Облако не поднялось (нет entitlement в профиле, отозван контейнер) —
             // это не повод не открыться: работаем локально, дневник важнее синка.
-            let local = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+            // `.none` явно: дефолт `.automatic` сам включил бы CloudKit по entitlement.
+            let local = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false, cloudKitDatabase: .none)
             if let localOnly = try? ModelContainer(for: schema, configurations: [local]) {
                 return localOnly
             }

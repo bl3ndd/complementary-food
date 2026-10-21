@@ -17,24 +17,30 @@ final class OnboardingUITests: XCTestCase {
             "дисклеймер должен быть перед данными ребёнка")
         app.buttons["Понятно"].waitTap()
 
-        // Шаг 2: ребёнок — вводим имя (E-ONB-01), «\n» прячет клавиатуру.
+        // Шаг 2: где хранить — без явного выбора дальше не пускает.
+        app.staticTexts["Где хранить дневник"].assertExists(timeout: 5, "нет шага выбора iCloud")
+        XCTAssertFalse(app.buttons["Далее"].isEnabled, "iCloud не должен включаться без выбора")
+        app.buttons["onboarding.storage.off"].waitTap()
+        app.buttons["Далее"].waitTap()
+
+        // Шаг 3: ребёнок — вводим имя (E-ONB-01), «\n» прячет клавиатуру.
         let name = app.textFields["Имя малыша"]
         name.assertExists()
         name.tap()
         name.typeText("Ника\n")
 
-        // E-ONB-02: «Назад» возвращает на дисклеймер, имя не теряется.
+        // E-ONB-02: «Назад» возвращает на шаг назад, имя не теряется.
         app.buttons["Назад"].waitTap()
-        app.staticTexts["Прежде чем начать"].assertExists(timeout: 4, "«Назад» не вернул на дисклеймер")
-        app.buttons["Понятно"].tap()
+        app.staticTexts["Где хранить дневник"].assertExists(timeout: 4, "«Назад» не вернул на шаг назад")
+        app.buttons["Далее"].tap()
         XCTAssertEqual(app.textFields["Имя малыша"].value as? String, "Ника",
                        "имя потерялось после «Назад»")
 
-        // Шаг 3: план.
+        // Шаг 4: план.
         app.buttons["Далее"].tap()
         app.staticTexts["Свой план прикорма"].assertExists(timeout: 4, "нет шага плана")
 
-        // Шаг 4: «Что уже ввели?» — отмечаем брокколи (E-ONB-04).
+        // Шаг 5: «Что уже ввели?» — отмечаем брокколи (E-ONB-04).
         app.buttons["Далее"].tap()
         app.staticTexts["Что уже ввели?"].assertExists(timeout: 4)
         app.row(containing: "Брокколи").waitTap()

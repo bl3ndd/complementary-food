@@ -19,9 +19,13 @@ struct WidgetContent {
     var icon: (Food) -> Data? = { _ in nil }
 
     func snapshot() -> WidgetSnapshot {
-        // Без Pro данные в снимок не кладём вовсе: виджет покажет заглушку, и
-        // дневник не утечёт на домашний экран в обход права.
-        guard isPro else { return .make(items: [], locked: true, now: now) }
+        // «Сейчас вводишь» — бесплатный: это рабочая информация дневника, а не
+        // украшение. «Коллекция» — Pro: без права её продукты в снимок не кладём,
+        // виджет покажет заглушку.
+        guard isPro else {
+            return .make(items: [], introducing: introducing(), planned: planned(),
+                         locked: true, now: now)
+        }
 
         // По дате введения: сетка показывает последние `limit`, и без сортировки
         // это были случайные продукты в порядке выборки. Дубли статусов из

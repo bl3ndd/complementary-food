@@ -4,7 +4,7 @@ import WidgetKit
 
 struct MainTabView: View {
     let child: Child
-    /// Право на Pro — от корня: виджеты без него получают заглушку.
+    /// Право на Pro — от корня: «Коллекция» без него получает заглушку.
     var isPro = false
     @Environment(\.modelContext) private var context
     @Query private var statuses: [IntroductionStatus]

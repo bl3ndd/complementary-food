@@ -89,6 +89,7 @@
 		98D7D4C7375FEE0168FE0FC1 /* RecapCardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292563EFFE2301C7606C3BC /* RecapCardsTests.swift */; };
 		99C0A75ED7B0D7512C975255 /* AppLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7E585323ECC7AAF15B7902 /* AppLanguageTests.swift */; };
 		9EF0618A10325BDC26811CFA /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */; };
+		A066772987FFCC50457A1092 /* CloudSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA09B97D86F46610FB91F84 /* CloudSync.swift */; };
 		A93B59554CE589D8A9C58421 /* AllergensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82F5FD4035EBF6D3E9462E9 /* AllergensView.swift */; };
 		ADE88BC5FE14C1B0EBD7FCF5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33137266140F2522867A45A1 /* AppRouter.swift */; };
 		AE56D291E94D7068264C7E9A /* DiaryEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B29385AC89B87BF57873E /* DiaryEntryRow.swift */; };
@@ -113,6 +114,7 @@
 		C76D8451A367454B8C4C4B57 /* WidgetContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ACCEFD907398F3DDB4EDC4 /* WidgetContentTests.swift */; };
 		D4D831E4D509050C2B685867 /* ProStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33CA193FD43A9CA19892A79 /* ProStore.swift */; };
 		DA535DF91D83E045954F8FFE /* ReactivityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4A081273EF9B4302E370D3 /* ReactivityUITests.swift */; };
+		DD05D7EF5D0E1733BC7A43CF /* CloudSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9402556BDD5220162940D0F0 /* CloudSyncTests.swift */; };
 		E5ACA4DA2C4722679A74E41D /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E7FEF7218059F4616EC495 /* CalendarService.swift */; };
 		E779298BC3D510C314B43859 /* AppInstall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52A8D665B9B96AEFF31A1C3 /* AppInstall.swift */; };
 		E7B506A7E08332292C71C790 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB249AEAB045519C4FC7B9 /* Enums.swift */; };
@@ -244,6 +246,7 @@
 		85E899E48B738A329E5CB660 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		8EECDDA54F71DD47942214DD /* UITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSupport.swift; sourceTree = "<group>"; };
 		8FDA3AB3968043DF47355713 /* PrikormUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PrikormUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9402556BDD5220162940D0F0 /* CloudSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncTests.swift; sourceTree = "<group>"; };
 		95348E771F9D85BF57C252EA /* PrikormApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrikormApp.swift; sourceTree = "<group>"; };
 		9552BEB8A9718015F8F199F9 /* AllergensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergensUITests.swift; sourceTree = "<group>"; };
 		9922FB2EF938071E03BD65DA /* PrikormTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PrikormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +277,7 @@
 		CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarServiceTests.swift; sourceTree = "<group>"; };
 		CBEFC644581D4A12A345D3FB /* Entitlements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entitlements.swift; sourceTree = "<group>"; };
 		CE80B349B0E07536F04075FE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		CEA09B97D86F46610FB91F84 /* CloudSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSync.swift; sourceTree = "<group>"; };
 		D1E268D96C92E391B0F159AA /* MascotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MascotTests.swift; sourceTree = "<group>"; };
 		DA5F3130F82F1AEE8FB0BB5D /* RecapDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapDestination.swift; sourceTree = "<group>"; };
 		DC4A081273EF9B4302E370D3 /* ReactivityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactivityUITests.swift; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 				CB0009C564A834981025FBF3 /* CalendarServiceTests.swift */,
 				3CBA9238B9E24456EDA17147 /* ChildLimitTests.swift */,
 				229FF085A5EB9895570DFB22 /* ChildOwnershipTests.swift */,
+				9402556BDD5220162940D0F0 /* CloudSyncTests.swift */,
 				0D6DB0C860BD7973F5D6918A /* DiaryPDFExportTests.swift */,
 				0613246F18CCFFF8062207F2 /* DisclaimerTests.swift */,
 				C31842ED2C2F464C4546AEFC /* EntitlementsTests.swift */,
@@ -547,6 +552,7 @@
 				33137266140F2522867A45A1 /* AppRouter.swift */,
 				B51ABAE38A4A7B0F9943B8BE /* AppSchema.swift */,
 				83E98201C1EC77290CBF1D4B /* AppTheme.swift */,
+				CEA09B97D86F46610FB91F84 /* CloudSync.swift */,
 				DE172BD1B8DDCDFB69009B81 /* Disclaimer.swift */,
 				571C35317E20FC793554110A /* PlanMigration.swift */,
 				95348E771F9D85BF57C252EA /* PrikormApp.swift */,
@@ -767,6 +773,7 @@
 				FBEFA84CFD4E3262D4388E8C /* CalendarServiceTests.swift in Sources */,
 				81663483F79B0DF189F815A3 /* ChildLimitTests.swift in Sources */,
 				7CE45D97BACF551249FCE084 /* ChildOwnershipTests.swift in Sources */,
+				DD05D7EF5D0E1733BC7A43CF /* CloudSyncTests.swift in Sources */,
 				305050F4BAFFB26A323BB125 /* DiaryPDFExportTests.swift in Sources */,
 				8CCE54F454EC3410359B3C94 /* DisclaimerTests.swift in Sources */,
 				0ECA73BB9350F59BE6FB8161 /* EntitlementsTests.swift in Sources */,
@@ -820,6 +827,7 @@
 				2ED93EC39C060D171CFCF957 /* CatalogView.swift in Sources */,
 				F957DD6E4373E648D08274F9 /* Child.swift in Sources */,
 				2875D3C173E7A2CE30F99087 /* ChildLimit.swift in Sources */,
+				A066772987FFCC50457A1092 /* CloudSync.swift in Sources */,
 				43A27EFA9C3E8807FD5C3114 /* Components.swift in Sources */,
 				F57A8FBC6AF6B7038AE1BE86 /* CustomFood.swift in Sources */,
 				051E64497EB9DEA0DB56EF16 /* CustomPlanEditor.swift in Sources */,
@@ -931,7 +939,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1048,7 +1056,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;

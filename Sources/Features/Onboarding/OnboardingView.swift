@@ -1,10 +1,12 @@
 import SwiftUI
 import SwiftData
 
-/// Онбординг (SPEC §12): Welcome → Дисклеймер → Ребёнок → План → Что уже ввели.
+/// Онбординг (SPEC §12): Welcome → Дисклеймер → Где хранить → Ребёнок → План → Что уже ввели.
 /// Дисклеймер стоит ДО ввода данных ребёнка: человек читает «мы не медицинский
 /// совет» прежде, чем что-то заполнять (App Review 1.4.1). Тот же текст всегда
 /// доступен в Профиле → «О приложении».
+/// «Где хранить» — тоже до данных: копия в iCloud только с явного согласия, и там же
+/// отдельная кнопка восстановления, чтобы после переустановки не завести второй дневник.
 /// Разрешение на уведомления просим сразу после онбординга, в MainTabView.
 struct OnboardingView: View {
     /// Зовётся с созданным ребёнком. Онбординг используется и для ПЕРВОГО входа
@@ -27,15 +29,27 @@ struct OnboardingView: View {
     @State private var introduced: Set<String> = []
     /// Поиск на шаге «что уже ввели».
     @State private var search = ""
+    @ObservedObject private var store = DiaryStore.shared
+    /// Выбор на шаге «Где хранить». Пусто, пока человек не нажал сам.
+    @State private var storage: CloudSync.Choice?
+    @State private var cloudAvailable = true
+    /// Ждём дневник из iCloud. Как только приедет ребёнок, `RootView` сам уйдёт в приложение.
+    @State private var restoring = false
+    @State private var restoreSlow = false
 
     private let catalog = FoodCatalog.shared
-    private let lastStep = 4
-    private var firstStep: Int { addingChild ? 2 : 0 }
+    private let lastStep = 5
+    private static let storageStep = 2
+    private static let childStep = 3
+    private var firstStep: Int { addingChild ? Self.childStep : 0 }
 
     init(addingChild: Bool = false, onCreated: @escaping (Child) -> Void = { _ in }) {
         self.addingChild = addingChild
         self.onCreated = onCreated
-        _step = State(initialValue: addingChild ? 2 : 0)
+        _step = State(initialValue: addingChild ? Self.childStep : 0)
+        // После сброса данных выбор уже сделан — показываем его, а не пустой шаг.
+        let current = DiaryStore.shared.choice
+        _storage = State(initialValue: current == .undecided ? nil : current)
     }
 
     var body: some View {
@@ -55,14 +69,15 @@ struct OnboardingView: View {
                 switch step {
                 case 0:  centered(welcomeStep)
                 case 1:  centered(disclaimerStep)
-                case 2:  centered(childStep)
-                case 3:  planStep
+                case 2:  centered(storageStep)
+                case 3:  centered(childStep)
+                case 4:  planStep
                 default: alreadyStep
                 }
             }
             .frame(maxHeight: .infinity)
-            button
-            if step > firstStep {
+            if !restoring { button }
+            if step > firstStep && !restoring {
                 Button("Назад") { withAnimation { step -= 1 } }
                     .font(.subheadline.weight(.medium)).foregroundStyle(.secondary)
                     .padding(.top, 2)
@@ -109,6 +124,104 @@ struct OnboardingView: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, 4)
+    }
+
+    private var storageStep: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "icloud")
+                .font(.system(size: 52)).foregroundStyle(Theme.accent)
+            Text("Где хранить дневник").font(.title2.bold())
+            if restoring {
+                restoringView
+            } else {
+                VStack(spacing: 10) {
+                    storageOption(.on, icon: "icloud", title: "На телефоне и в iCloud",
+                                  detail: "Дневник переживёт смену или потерю телефона. Копия лежит в твоём личном iCloud, у нас к ней доступа нет.")
+                        .disabled(!cloudAvailable)
+                        .opacity(cloudAvailable ? 1 : 0.5)
+                    storageOption(.off, icon: "iphone", title: "Только на этом телефоне",
+                                  detail: "Никаких копий. Если удалить приложение или потерять телефон, записи пропадут.")
+                }
+                if !cloudAvailable {
+                    Text("На этом iPhone не выполнен вход в iCloud. Войди в Настройках, чтобы хранить копию.")
+                        .font(.footnote).foregroundStyle(.secondary)
+                }
+                VStack(spacing: 4) {
+                    Text("Уже вёл дневник в Pudding?")
+                        .font(.footnote).foregroundStyle(.secondary)
+                    Button("Восстановить дневник из iCloud", action: restore)
+                        .font(.subheadline.weight(.semibold)).tint(Theme.accent)
+                        .disabled(!cloudAvailable)
+                        .accessibilityIdentifier("onboarding.restore")
+                }
+                .padding(.top, 4)
+            }
+        }
+        .task {
+            // UI-тесты — in-memory без облака: аккаунт не спрашиваем.
+            if !UITestSupport.isActive { cloudAvailable = await CloudSync.accountAvailable() }
+        }
+    }
+
+    private func storageOption(_ choice: CloudSync.Choice, icon: String,
+                               title: LocalizedStringKey, detail: LocalizedStringKey) -> some View {
+        let on = storage == choice
+        return Button {
+            Haptics.select()
+            withAnimation(.snappy) { storage = choice }
+        } label: {
+            HStack(alignment: .top, spacing: 12) {
+                Image(systemName: icon)
+                    .font(.title3).foregroundStyle(Theme.accent)
+                    .frame(width: 28)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(title).font(.subheadline.weight(.bold)).foregroundStyle(.primary)
+                    Text(detail).font(.footnote).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .multilineTextAlignment(.leading)
+                Spacer(minLength: 0)
+                Image(systemName: on ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(on ? Theme.accent : Theme.hairline)
+            }
+            .padding(14)
+            .background(on ? Theme.accent.opacity(0.10) : Theme.card,
+                        in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(on ? Theme.accent.opacity(0.5) : Theme.hairline, lineWidth: 1.5))
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(on ? .isSelected : [])
+        .accessibilityIdentifier("onboarding.storage.\(choice.rawValue)")
+    }
+
+    private var restoringView: some View {
+        VStack(spacing: 14) {
+            ProgressView().controlSize(.large)
+            Text("Ищем дневник в iCloud…").font(.headline)
+            Text(restoreSlow
+                 ? String(localized: "Пока ничего не нашли. Большой дневник может скачиваться пару минут.")
+                 : String(localized: "Не закрывай приложение — записи и фото скачиваются из твоего iCloud."))
+                .font(.footnote).foregroundStyle(.secondary)
+            if restoreSlow {
+                GhostButton(title: "Начать новый дневник") {
+                    withAnimation { restoring = false; step = Self.childStep }
+                }
+            }
+        }
+        .padding(.top, 8)
+    }
+
+    /// Восстановление = синк включён + ждём. Сам переход в приложение делает `RootView`,
+    /// когда из iCloud приедет ребёнок.
+    private func restore() {
+        storage = .on
+        store.choose(.on, reopen: true)
+        withAnimation { restoring = true }
+        Task {
+            try? await Task.sleep(for: .seconds(25))
+            withAnimation { restoreSlow = true }
+        }
     }
 
     private var childStep: some View {
@@ -244,8 +357,8 @@ struct OnboardingView: View {
 
     // MARK: - Кнопка / переходы
 
-    /// Имя необязательно (SPEC §12) — двигаться можно всегда.
-    private var canProceed: Bool { true }
+    /// Имя необязательно (SPEC §12). Ждём только явного выбора, где хранить.
+    private var canProceed: Bool { step != Self.storageStep || storage != nil }
 
     /// На шаге дисклеймера кнопка читается как подтверждение, а не «дальше».
     private var buttonTitle: String {
@@ -278,6 +391,8 @@ struct OnboardingView: View {
         if step >= lastStep {
             finish()
         } else {
+            // Дневник ещё пустой — переоткрыть стор можно прямо сейчас.
+            if step == Self.storageStep, let storage { store.choose(storage, reopen: true) }
             withAnimation { step += 1 }
         }
     }

@@ -30,6 +30,9 @@ struct ProfileView: View {
     @State private var notifStatus: UNAuthorizationStatus = .notDetermined
     @State private var showResetConfirm = false
     @State private var showLanguageRestart = false
+    @ObservedObject private var diaryStore = DiaryStore.shared
+    @State private var cloudNotice: String?
+    @State private var showRestoreConfirm = false
     @State private var shareFile: ShareableFile?
     @State private var isResetting = false
     /// Что не получилось — раньше сбои экспорта и сброса проходили молча.
@@ -53,7 +56,8 @@ struct ProfileView: View {
     /// отбирать обещанное раннему пользователю.
     private var entitlements: Entitlements {
         Entitlements(install: simulateNewUser ? nil : installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
-                     purchased: proStore.isPurchased)
+                     purchased: proStore.isPurchased,
+                     originalAppBuild: simulateNewUser ? nil : proStore.originalAppBuild)
     }
 
     var body: some View {
@@ -76,6 +80,7 @@ struct ProfileView: View {
                 appSection
                 proSection
                 dataSection
+                cloudSection
                 aboutSection
                 dangerSection
                 #if DEBUG
@@ -130,6 +135,21 @@ struct ProfileView: View {
                 Text(children.count > 1
                      ? String(localized: "Удалятся все дети (\(children.count)), их дневники и свои продукты. Действие необратимо — приложение вернётся к началу.")
                      : String(localized: "Удалятся профиль ребёнка, история кормлений и свои продукты. Действие необратимо — приложение вернётся к началу."))
+            }
+            .alert("Перезапусти приложение", isPresented: Binding(get: { cloudNotice != nil },
+                                                                  set: { if !$0 { cloudNotice = nil } })) {
+                Button("Понятно", role: .cancel) { cloudNotice = nil }
+            } message: {
+                Text(cloudNotice ?? "")
+            }
+            .alert("Восстановить из iCloud?", isPresented: $showRestoreConfirm) {
+                Button("Включить и восстановить") {
+                    diaryStore.choose(.on)
+                    cloudNotice = String(localized: "Закрой приложение и открой снова — записи из iCloud начнут скачиваться.")
+                }
+                Button("Отмена", role: .cancel) {}
+            } message: {
+                Text("Синхронизация включится, и записи из твоего iCloud добавятся к тем, что уже есть на телефоне. Ничего не удалится.")
             }
             .alert("Язык изменён", isPresented: $showLanguageRestart) {
                 Button("OK", role: .cancel) {}
@@ -361,6 +381,40 @@ struct ProfileView: View {
             Button("Понятно", role: .cancel) { dataHint = nil }
         } message: {
             Text(dataHint ?? "")
+        }
+    }
+
+    // MARK: - iCloud (выбор с онбординга; меняется после перезапуска, как язык)
+
+    private var cloudSection: some View {
+        Section {
+            Toggle(isOn: Binding(
+                get: { diaryStore.choice == .on },
+                set: { on in
+                    diaryStore.choose(on ? .on : .off)
+                    cloudNotice = on
+                        ? String(localized: "Дневник начнёт копироваться в iCloud после перезапуска приложения.")
+                        : String(localized: "Синхронизация выключится после перезапуска приложения. Копия, которая уже лежит в iCloud, не удаляется — её можно стереть в Настройках iPhone: твоё имя → iCloud.")
+                })) {
+                Label("Копия в iCloud", systemImage: "icloud")
+            }
+            .accessibilityIdentifier("profile.icloud")
+            if diaryStore.choice != .on {
+                Button { showRestoreConfirm = true } label: {
+                    Label("Восстановить из iCloud", systemImage: "icloud.and.arrow.down")
+                        .foregroundStyle(Theme.accent)
+                }
+            }
+            if diaryStore.pendingRestart {
+                Text("Применится после перезапуска приложения.")
+                    .font(.footnote).foregroundStyle(.secondary)
+            }
+        } header: {
+            Text("iCloud")
+        } footer: {
+            Text(diaryStore.choice == .on
+                 ? String(localized: "Дневник хранится на телефоне и в твоём личном iCloud, поэтому переживёт смену телефона. У нас к нему доступа нет — своих серверов у Pudding нет.")
+                 : String(localized: "Дневник хранится только на этом телефоне. Если удалить приложение или потерять телефон, записи пропадут."))
         }
     }
 

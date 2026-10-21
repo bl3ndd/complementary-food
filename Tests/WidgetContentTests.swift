@@ -42,7 +42,7 @@ final class WidgetContentTests: XCTestCase {
 
     // MARK: - Pro
 
-    func testWithoutProSnapshotIsLockedAndCarriesNoDiary() {
+    func testWithoutProCollectionIsLockedButIntroducingIsFree() {
         let snap = content(statuses: [status("apple", .introduced),
                                       status("pear", .introducing, started: day(-1))],
                            logs: [FoodLog(foodId: "plum", date: day(1), planned: true)],
@@ -50,9 +50,9 @@ final class WidgetContentTests: XCTestCase {
                            isPro: false).snapshot()
 
         XCTAssertEqual(snap.locked, true)
-        XCTAssertTrue(snap.items.isEmpty, "без Pro дневник не должен утекать на домашний экран")
-        XCTAssertEqual(snap.introducing ?? [], [])
-        XCTAssertEqual(snap.planned ?? [], [])
+        XCTAssertTrue(snap.items.isEmpty, "без Pro коллекция на домашний экран не попадает")
+        XCTAssertEqual(snap.introducing?.map(\.item.id), ["pear"], "«Сейчас вводишь» — бесплатный")
+        XCTAssertEqual(snap.planned?.map(\.item.id), ["plum"])
     }
 
     func testWithProSnapshotIsUnlocked() {

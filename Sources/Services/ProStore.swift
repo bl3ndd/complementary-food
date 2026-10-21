@@ -38,10 +38,14 @@ protocol ProPurchasing {
     /// Транзакции, пришедшие мимо кнопки «Купить»: одобрение «Ask to Buy», покупка
     /// на другом устройстве, возврат. Каждое событие — повод перепроверить право.
     func transactionUpdates() -> AsyncStream<Void>
+    /// Сборка, впервые скачанная на этот Apple ID (`AppTransaction`), только из
+    /// боевого App Store. `nil` — нет ответа или это песочница/Xcode.
+    func originalAppBuild() async -> String?
 }
 
 extension ProPurchasing {
     func transactionUpdates() -> AsyncStream<Void> { AsyncStream { $0.finish() } }
+    func originalAppBuild() async -> String? { nil }
 }
 
 /// Состояние покупки для интерфейса. Вьюха знает только `isPurchased`,
@@ -61,12 +65,18 @@ final class ProStore: ObservableObject {
     /// Текст последней ошибки для показа пользователю. Отмена покупки сюда
     /// НЕ попадает: человек сам закрыл лист, ругаться не за что.
     @Published private(set) var lastError: String?
+    /// Первая скачанная сборка по данным App Store — см. `Entitlements.originalAppBuild`.
+    /// Кэшируется: ответ не меняется, а офлайн-запуск не должен его терять.
+    @Published private(set) var originalAppBuild: String? {
+        didSet { defaults.set(originalAppBuild, forKey: Self.originalBuildKey) }
+    }
 
     /// Общий экземпляр для вьюх — как `NotificationManager.shared` и `AppRouter.shared`.
     /// В тестах используется обычный `init` с моком.
     static let shared = ProStore(purchasing: StoreKitPurchasing())
 
     static let cacheKey = "pro.purchased"
+    static let originalBuildKey = "pro.originalAppBuild"
 
     private let purchasing: ProPurchasing
     private let productId: String
@@ -78,6 +88,7 @@ final class ProStore: ObservableObject {
         self.productId = productId
         self.defaults = defaults
         self.isPurchased = defaults.bool(forKey: Self.cacheKey)
+        self.originalAppBuild = defaults.string(forKey: Self.originalBuildKey)
         // Без слушателя одобренная родителем покупка или возврат становились видны
         // только при следующем запуске или открытии экрана Pro.
         updatesTask = Task { [weak self, purchasing, productId] in
@@ -101,6 +112,7 @@ final class ProStore: ObservableObject {
             lastError = error.localizedDescription
         }
         isPurchased = await purchasing.isEntitled(to: productId)
+        if let build = await purchasing.originalAppBuild() { originalAppBuild = build }
     }
 
     @discardableResult
@@ -179,6 +191,15 @@ struct StoreKitPurchasing: ProPurchasing {
 
     func restore() async throws {
         try await AppStore.sync()
+    }
+
+    func originalAppBuild() async -> String? {
+        // `.shared` не показывает вход в Apple ID (в отличие от `refresh()`).
+        // Песочница и Xcode отдают «1.0» всем подряд — ревьюер Apple увидел бы
+        // открытый Pro и не смог бы проверить покупку. Верим только боевому стору.
+        guard case let .verified(app) = try? await AppTransaction.shared,
+              app.environment == .production else { return nil }
+        return app.originalAppVersion
     }
 
     func transactionUpdates() -> AsyncStream<Void> {

@@ -56,7 +56,8 @@ struct WidgetSnapshot: Codable, Equatable {
     let updatedAt: Date
     var introducing: [Intro]?
     var planned: [Planned]?
-    /// Виджеты — часть Pro. Без права виджет показывает заглушку, а не данные.
+    /// Заперта ли «Коллекция» (она — часть Pro). «Сейчас вводишь» бесплатный и
+    /// на этот флаг не смотрит.
     var locked: Bool?
 
     /// Собирает снимок из полного списка введённых продуктов.

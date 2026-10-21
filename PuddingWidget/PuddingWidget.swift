@@ -139,9 +139,7 @@ struct IntroducingWidgetView: View {
     private var planned: [WidgetSnapshot.Planned] { entry.snapshot?.planned ?? [] }
 
     var body: some View {
-        if entry.snapshot?.locked == true {
-            LockedView(title: "Сейчас вводишь")
-        } else if family == .systemSmall {
+        if family == .systemSmall {
             small
         } else {
             medium

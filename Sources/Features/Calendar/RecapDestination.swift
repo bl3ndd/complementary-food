@@ -32,7 +32,8 @@ struct RecapDestination: View {
 
     private var entitlements: Entitlements {
         Entitlements(install: simulateNewUser ? nil : installs.min(by: { $0.firstLaunchedAt < $1.firstLaunchedAt }),
-                     purchased: proStore.isPurchased)
+                     purchased: proStore.isPurchased,
+                     originalAppBuild: simulateNewUser ? nil : proStore.originalAppBuild)
     }
 
     var body: some View {
