@@ -20,7 +20,7 @@
     "blog": "Blog"
   },
   "h1": "Starting solids, zero panic",
-  "hero_sub": "Pudding quietly keeps track of feedings and reactions, shows the observation window, and reminds you to repeat introduced allergens on time. What and when to feed your baby — that's your call.",
+  "hero_sub": "A cozy little diary for your baby's first foods: what you tried, how it went, and any reactions — in a couple of taps. What and when to feed is always your call.",
   "cta_store": "Download on the App Store",
   "cta_how": "How it works",
   "badges": [
@@ -44,7 +44,7 @@
     },
     {
       "h": "Keep it up",
-      "p": "Pudding gently reminds you to repeat introduced allergens so tolerance isn't lost."
+      "p": "Gentle reminders for the allergens you've already introduced — on the schedule you set in your plan."
     }
   ],
   "features_h2": "Four pillars",
@@ -94,13 +94,13 @@
       "alt": "Monthly recap card for stories"
     }
   ],
-  "privacy_h2": "Your data lives on your phone and in your own iCloud",
-  "privacy_lead": "No account, no ads, no tracking. Entries are stored on your device and synced through your own iCloud — we run no servers and have no access to them.",
+  "privacy_h2": "Your diary stays yours",
+  "privacy_lead": "No account, no ads, no tracking. Entries live on your phone — and, if you choose, in your own iCloud. We run no servers and can't see your data.",
   "pills": [
     "No account",
     "No ads",
     "No trackers",
-    "Your own iCloud"
+    "iCloud if you want"
   ],
   "method_h2": "The plan is yours. Pudding is the diary.",
   "method_lead": "Starting age, observation windows, allergen frequency and list — everything is configured to match your pediatrician's guidance. Pudding prescribes nothing and advises nothing: it carefully records and reminds on time.",
@@ -108,11 +108,11 @@
   "faq": [
     {
       "q": "Is it free?",
-      "a": "Yes, Pudding is free at launch."
+      "a": "The diary is free, for good: feedings, reactions, allergens, calendar and the PDF for your pediatrician. Pudding Pro is a one-time purchase for extras — the monthly recap, color themes, app icons, the Collection widget and more than one child."
     },
     {
       "q": "Do I need internet or an account?",
-      "a": "No. The app works offline and needs no sign-up — your data stays on your device and syncs through your own iCloud."
+      "a": "No. The app works offline and needs no sign-up. Your diary stays on your phone; a copy in your own iCloud is up to you."
     },
     {
       "q": "Does Pudding replace a pediatrician?",

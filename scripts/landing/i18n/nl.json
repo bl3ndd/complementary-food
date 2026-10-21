@@ -21,7 +21,7 @@
     "blog": "Blog"
   },
   "h1": "Bijvoeding zonder paniek",
-  "hero_sub": "Pudding legt voedingen en reacties zorgvuldig vast, laat het observatievenster zien en herinnert je er op tijd aan om geïntroduceerde allergenen te herhalen. Wat en wanneer je kindje eet, bepaal jij.",
+  "hero_sub": "Een knus dagboekje voor de eerste hapjes van je kindje: wat jullie hebben geprobeerd, hoe het ging en of er reacties waren — met een paar tikken. Wat en wanneer je kindje eet, bepaal altijd jij.",
   "cta_store": "Download in de App Store",
   "cta_how": "Hoe het werkt",
   "badges": [
@@ -45,7 +45,7 @@
     },
     {
       "h": "Niet vergeten",
-      "p": "Pudding herinnert je eraan geïntroduceerde allergenen te herhalen, zodat de gewenning niet verloren gaat."
+      "p": "Zachte herinneringen voor allergenen die je al hebt geïntroduceerd — volgens het schema dat je in je plan instelt."
     }
   ],
   "features_h2": "Vier pijlers",
@@ -95,13 +95,13 @@
       "alt": "Recapkaart van de maand voor stories"
     }
   ],
-  "privacy_h2": "Jouw gegevens blijven op je telefoon en in je eigen iCloud",
-  "privacy_lead": "Geen account, geen advertenties, geen tracking. Notities staan op het toestel en synchroniseren via je eigen iCloud — wij hebben geen servers en geen toegang.",
+  "privacy_h2": "Je dagboek blijft van jou",
+  "privacy_lead": "Geen account, geen advertenties, geen tracking. Notities staan op je telefoon — en als je wilt in je eigen iCloud. Wij hebben geen servers en zien je gegevens niet.",
   "pills": [
     "Zonder account",
     "Zonder advertenties",
     "Zonder trackers",
-    "Je eigen iCloud"
+    "iCloud als je wilt"
   ],
   "method_h2": "Het plan is van jou. Pudding is het dagboek.",
   "method_lead": "Startleeftijd, observatievensters, frequentie en allergenenlijst — alles stel je in volgens het advies van je kinderarts. Pudding schrijft niets voor en adviseert niets: het legt zorgvuldig vast en herinnert op tijd.",
@@ -109,11 +109,11 @@
   "faq": [
     {
       "q": "Is het gratis?",
-      "a": "Ja, bij de lancering is Pudding gratis."
+      "a": "Het dagboek is gratis, voor altijd: voedingen, reacties, allergenen, kalender en de pdf voor je kinderarts. Pudding Pro is een eenmalige aankoop voor extra's — het maandoverzicht, kleurthema's, app-iconen, de widget ‘Verzameling’ en meer dan één kind."
     },
     {
       "q": "Heb ik internet of een account nodig?",
-      "a": "Nee. De app werkt offline en registreren hoeft niet — je gegevens blijven op je toestel en synchroniseren via je eigen iCloud."
+      "a": "Nee. De app werkt offline en registreren hoeft niet. Je dagboek blijft op je telefoon; een kopie in je eigen iCloud is jouw keuze."
     },
     {
       "q": "Vervangt Pudding de kinderarts?",

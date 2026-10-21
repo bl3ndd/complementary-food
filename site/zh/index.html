@@ -77,7 +77,7 @@
         <div class="hero-copy">
           <img class="mascot" src="/assets/pudding.svg" alt="吉祥物 Pudding">
           <h1>添加辅食，不慌不忙</h1>
-          <p class="sub">Pudding 会细心记录喂食和反应，显示观察期，并提醒你按时重复已经添加过的过敏原。给宝宝吃什么、什么时候吃，由你决定。</p>
+          <p class="sub">一本温馨的小日记，记录宝宝的第一批辅食：尝过什么、反应如何、有没有过敏表现——点几下就好。吃什么、什么时候吃，永远由你决定。</p>
           <div class="cta-row">
             <a class="btn" href="https://apps.apple.com/app/id6789296295">在 App Store 下载</a>
             <a class="btn ghost" href="#how">如何使用</a>
@@ -89,7 +89,13 @@
           </div>
         </div>
         <div class="hero-shot">
-          <div class="phone"><img src="/assets/screens/zh-Hans/01-dashboard.jpg" alt="Pudding 首页：今天的记录与食材收藏" width="1080" height="2346" loading="eager"></div>
+          <div class="loop">
+            <video autoplay muted loop playsinline preload="auto" poster="/assets/video/loop-en.jpg"
+                   width="600" height="800" aria-label="Pudding 首页：今天的记录与食材收藏">
+              <source src="/assets/video/loop-en.mp4" type="video/mp4">
+            </video>
+            <img class="loop-still" src="/assets/video/loop-en.jpg" alt="Pudding 首页：今天的记录与食材收藏" width="600" height="800">
+          </div>
         </div>
       </div>
     </section>
@@ -103,9 +109,9 @@
       <h2>如何使用</h2>
       <p class="lead">三个简单的习惯，整段辅食经历就都在手边。</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><h3>记录</h3><p>一次喂食、一个「吃得怎么样」的评价、反应、备注和照片，轻点几下就好。</p></div>
-        <div class="step"><div class="num">2</div><h3>观察</h3><p>每种新食材都会走完你计划里的观察期，卡片上直接显示「第 2 天／共 3 天」。</p></div>
-        <div class="step"><div class="num">3</div><h3>别忘记</h3><p>已经添加的过敏原，Pudding 会提醒你按时重复，让适应不至于中断。</p></div>
+        <div class="step"><div class="tile veg"><img src="/assets/food/porridge.png" alt=""></div><h3>记录</h3><p>一次喂食、一个「吃得怎么样」的评价、反应、备注和照片，轻点几下就好。</p></div>
+        <div class="step"><div class="tile obs"><img src="/assets/food/vegetable.png" alt=""></div><h3>观察</h3><p>每种新食材都会走完你计划里的观察期，卡片上直接显示「第 2 天／共 3 天」。</p></div>
+        <div class="step"><div class="tile aller"><img src="/assets/food/egg.png" alt=""></div><h3>别忘记</h3><p>对已经添加过的过敏原，按你在计划里设定的时间温和提醒。</p></div>
       </div>
     </section>
 
@@ -133,13 +139,13 @@
 
     <section class="block wrap" id="privacy">
       <div class="privacy-feature">
-        <h2>你的数据留在你的手机和你的 iCloud 里</h2>
-        <p class="lead">没有账号、没有广告、没有追踪。记录保存在设备上，并通过你自己的 iCloud 同步——我们没有服务器，也无法访问这些数据。</p>
+        <h2>日记始终属于你</h2>
+        <p class="lead">没有账号、没有广告、没有追踪。记录保存在你的手机上——如果你愿意，也可以存进你自己的 iCloud。我们没有服务器，也看不到你的数据。</p>
         <div class="pills">
           <span class="pill">🔒 无需账号</span>
           <span class="pill">🚫 没有广告</span>
           <span class="pill">📵 没有追踪器</span>
-          <span class="pill">📱 你自己的 iCloud</span>
+          <span class="pill">📱 iCloud 随你选</span>
         </div>
       </div>
     </section>
@@ -152,8 +158,8 @@
     <section class="block wrap" id="faq">
       <h2>常见问题</h2>
       <div class="faq">
-        <details><summary>免费吗？</summary><p>是的，上线阶段 Pudding 免费。</p></details>
-        <details><summary>需要联网或账号吗？</summary><p>不需要。应用可离线使用，也不用注册，数据留在你的设备上并通过你自己的 iCloud 同步。</p></details>
+        <details><summary>免费吗？</summary><p>日记永久免费：喂食、反应、过敏原、日历，以及给儿科医生的 PDF。Pudding Pro 是一次性购买的额外功能——月度回顾、配色主题、应用图标、“收集”小组件，以及多个孩子。</p></details>
+        <details><summary>需要联网或账号吗？</summary><p>不需要。应用可离线使用，也不用注册。日记保存在你的手机上；要不要在你自己的 iCloud 里保留一份副本，由你决定。</p></details>
         <details><summary>Pudding 能代替儿科医生吗？</summary><p>不能。它是陪伴你的记录本：负责记录和提醒。时间安排和判断请与医生商量。</p></details>
         <details><summary>这些时间是怎么来的？</summary><p>不是谁强加的：开始月龄、观察期和过敏原频率都由你在「我的计划」里设定，按照儿科医生的建议来。</p></details>
         <details><summary>有给医生看的导出吗？</summary><p>有。包含喂食历史、反应和过敏原状态的 PDF，轻点几下即可生成；还有一份给保姆或托育的「请勿喂食」简表。</p></details>
@@ -211,8 +217,8 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，上线阶段 Pudding 免费。"}},
-          {"@type": "Question", "name": "需要联网或账号吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要。应用可离线使用，也不用注册，数据留在你的设备上并通过你自己的 iCloud 同步。"}},
+          {"@type": "Question", "name": "免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "日记永久免费：喂食、反应、过敏原、日历，以及给儿科医生的 PDF。Pudding Pro 是一次性购买的额外功能——月度回顾、配色主题、应用图标、“收集”小组件，以及多个孩子。"}},
+          {"@type": "Question", "name": "需要联网或账号吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要。应用可离线使用，也不用注册。日记保存在你的手机上；要不要在你自己的 iCloud 里保留一份副本，由你决定。"}},
           {"@type": "Question", "name": "Pudding 能代替儿科医生吗？", "acceptedAnswer": {"@type": "Answer", "text": "不能。它是陪伴你的记录本：负责记录和提醒。时间安排和判断请与医生商量。"}},
           {"@type": "Question", "name": "这些时间是怎么来的？", "acceptedAnswer": {"@type": "Answer", "text": "不是谁强加的：开始月龄、观察期和过敏原频率都由你在「我的计划」里设定，按照儿科医生的建议来。"}},
           {"@type": "Question", "name": "有给医生看的导出吗？", "acceptedAnswer": {"@type": "Answer", "text": "有。包含喂食历史、反应和过敏原状态的 PDF，轻点几下即可生成；还有一份给保姆或托育的「请勿喂食」简表。"}}

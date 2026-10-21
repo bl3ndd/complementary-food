@@ -21,7 +21,7 @@
     "blog": "Blog"
   },
   "h1": "Rozszerzanie diety bez paniki",
-  "hero_sub": "Pudding starannie zapisuje posiłki i reakcje, pokazuje okno obserwacji i przypomina, żeby w porę powtórzyć wprowadzone alergeny. Co i kiedy podać dziecku — decydujesz ty.",
+  "hero_sub": "Przytulny dzienniczek pierwszych produktów twojego dziecka: co próbowaliście, jak poszło i czy były reakcje — w kilka dotknięć. Co i kiedy podać, zawsze decydujesz ty.",
   "cta_store": "Pobierz w App Store",
   "cta_how": "Jak to działa",
   "badges": [
@@ -45,7 +45,7 @@
     },
     {
       "h": "Nie zapominaj",
-      "p": "Pudding przypomni o powtórzeniu wprowadzonych alergenów, żeby tolerancja się nie gubiła."
+      "p": "Delikatne przypomnienia o już wprowadzonych alergenach — według harmonogramu z twojego planu."
     }
   ],
   "features_h2": "Cztery filary",
@@ -95,13 +95,13 @@
       "alt": "Karta podsumowania miesiąca do relacji"
     }
   ],
-  "privacy_h2": "Twoje dane zostają w telefonie i w twoim iCloud",
-  "privacy_lead": "Żadnego konta, reklam ani śledzenia. Wpisy są na urządzeniu i synchronizują się przez twój własny iCloud — nie mamy serwerów ani dostępu do tych danych.",
+  "privacy_h2": "Twój dziennik zostaje twój",
+  "privacy_lead": "Żadnego konta, reklam ani śledzenia. Wpisy są w twoim telefonie — a jeśli chcesz, także w twoim własnym iCloud. Nie mamy serwerów i nie widzimy twoich danych.",
   "pills": [
     "Bez konta",
     "Bez reklam",
     "Bez trackerów",
-    "Twój iCloud"
+    "iCloud, jeśli chcesz"
   ],
   "method_h2": "Plan jest twój. Pudding jest dziennikiem.",
   "method_lead": "Wiek startu, okna obserwacji, częstotliwość i lista alergenów — wszystko ustawiasz zgodnie z zaleceniami swojego pediatry. Pudding niczego nie zaleca i nie doradza: starannie zapisuje i przypomina w porę.",
@@ -109,11 +109,11 @@
   "faq": [
     {
       "q": "Czy to jest darmowe?",
-      "a": "Tak, na start Pudding jest darmowy."
+      "a": "Dziennik jest darmowy na zawsze: posiłki, reakcje, alergeny, kalendarz i PDF dla pediatry. Pudding Pro to jednorazowy zakup dodatków — podsumowanie miesiąca, motywy kolorów, ikony aplikacji, widżet „Kolekcja” i więcej niż jedno dziecko."
     },
     {
       "q": "Czy potrzebny jest internet albo konto?",
-      "a": "Nie. Aplikacja działa offline, rejestracja nie jest potrzebna — dane zostają na twoim urządzeniu i synchronizują się przez twój iCloud."
+      "a": "Nie. Aplikacja działa offline, rejestracja nie jest potrzebna. Dziennik zostaje w twoim telefonie; kopia w twoim własnym iCloud — tylko jeśli chcesz."
     },
     {
       "q": "Czy Pudding zastępuje pediatrę?",

@@ -77,7 +77,7 @@
         <div class="hero-copy">
           <img class="mascot" src="/assets/pudding.svg" alt="Pudding maskotu">
           <h1>Ek gıda, telaş yok</h1>
-          <p class="sub">Pudding öğünleri ve tepkileri özenle kaydeder, gözlem penceresini gösterir ve verdiğin alerjenleri zamanında tekrarlamanı hatırlatır. Bebeğine neyi ne zaman vereceğine sen karar verirsin.</p>
+          <p class="sub">Bebeğinin ilk besinleri için sıcacık bir günlük: neleri denediniz, nasıl gitti, tepki oldu mu — birkaç dokunuşla. Neyi ne zaman vereceğine her zaman sen karar verirsin.</p>
           <div class="cta-row">
             <a class="btn" href="https://apps.apple.com/app/id6789296295">App Store'dan indirin</a>
             <a class="btn ghost" href="#how">Nasıl çalışır</a>
@@ -89,7 +89,13 @@
           </div>
         </div>
         <div class="hero-shot">
-          <div class="phone"><img src="/assets/screens/tr/01-dashboard.jpg" alt="Pudding ana ekranı: bugünün günlüğü ve gıda koleksiyonu" width="1080" height="2346" loading="eager"></div>
+          <div class="loop">
+            <video autoplay muted loop playsinline preload="auto" poster="/assets/video/loop-en.jpg"
+                   width="600" height="800" aria-label="Pudding ana ekranı: bugünün günlüğü ve gıda koleksiyonu">
+              <source src="/assets/video/loop-en.mp4" type="video/mp4">
+            </video>
+            <img class="loop-still" src="/assets/video/loop-en.jpg" alt="Pudding ana ekranı: bugünün günlüğü ve gıda koleksiyonu" width="600" height="800">
+          </div>
         </div>
       </div>
     </section>
@@ -103,9 +109,9 @@
       <h2>Nasıl çalışır</h2>
       <p class="lead">Üç basit alışkanlık — ve tüm ek gıda geçmişi elinin altında.</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><h3>Kaydet</h3><p>Öğün, «nasıl gitti» puanı, tepki, not ve fotoğraflar — birkaç dokunuşta.</p></div>
-        <div class="step"><div class="num">2</div><h3>Gözle</h3><p>Her yeni gıda planındaki gözlem penceresinden geçer — «3 günün 2. günü» doğrudan kartın üstünde.</p></div>
-        <div class="step"><div class="num">3</div><h3>Unutma</h3><p>Verdiğin alerjenleri zamanında tekrarlamanı Pudding hatırlatır, alışkanlık kaybolmasın.</p></div>
+        <div class="step"><div class="tile veg"><img src="/assets/food/porridge.png" alt=""></div><h3>Kaydet</h3><p>Öğün, «nasıl gitti» puanı, tepki, not ve fotoğraflar — birkaç dokunuşta.</p></div>
+        <div class="step"><div class="tile obs"><img src="/assets/food/vegetable.png" alt=""></div><h3>Gözle</h3><p>Her yeni gıda planındaki gözlem penceresinden geçer — «3 günün 2. günü» doğrudan kartın üstünde.</p></div>
+        <div class="step"><div class="tile aller"><img src="/assets/food/egg.png" alt=""></div><h3>Unutma</h3><p>Daha önce başladığın alerjenler için nazik hatırlatmalar — planında belirlediğin takvime göre.</p></div>
       </div>
     </section>
 
@@ -133,13 +139,13 @@
 
     <section class="block wrap" id="privacy">
       <div class="privacy-feature">
-        <h2>Verilerin telefonunda ve kendi iCloud'unda kalır</h2>
-        <p class="lead">Hesap yok, reklam yok, takip yok. Kayıtlar cihazda durur ve kendi iCloud'un üzerinden eşitlenir — sunucumuz da yok, bu verilere erişimimiz de.</p>
+        <h2>Günlüğün sende kalır</h2>
+        <p class="lead">Hesap yok, reklam yok, takip yok. Kayıtlar telefonunda durur — istersen kendi iCloud'unda da. Sunucumuz yok, verilerini göremeyiz.</p>
         <div class="pills">
           <span class="pill">🔒 Hesapsız</span>
           <span class="pill">🚫 Reklamsız</span>
           <span class="pill">📵 Takipçisiz</span>
-          <span class="pill">📱 Kendi iCloud'un</span>
+          <span class="pill">📱 İstersen iCloud</span>
         </div>
       </div>
     </section>
@@ -152,8 +158,8 @@
     <section class="block wrap" id="faq">
       <h2>Sık sorulanlar</h2>
       <div class="faq">
-        <details><summary>Ücretsiz mi?</summary><p>Evet, başlangıçta Pudding ücretsiz.</p></details>
-        <details><summary>İnternet ya da hesap gerekiyor mu?</summary><p>Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — verilerin cihazında kalır ve kendi iCloud'un üzerinden eşitlenir.</p></details>
+        <details><summary>Ücretsiz mi?</summary><p>Günlük sonsuza dek ücretsiz: öğünler, tepkiler, alerjenler, takvim ve çocuk doktorun için PDF. Pudding Pro ekstralar için tek seferlik bir satın alma — ayın özeti, renk temaları, uygulama simgeleri, “Koleksiyon” widget'ı ve birden fazla çocuk.</p></details>
+        <details><summary>İnternet ya da hesap gerekiyor mu?</summary><p>Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez. Günlüğün telefonunda kalır; kendi iCloud'unda bir kopya tutmak senin tercihin.</p></details>
         <details><summary>Pudding doktorun yerini tutar mı?</summary><p>Hayır. Yanında duran bir günlüktür: kaydeder ve hatırlatır. Zamanlamayı ve kararları doktorunla konuş.</p></details>
         <details><summary>Süreler nereden geliyor?</summary><p>Hiçbir yerden dayatılmıyor: başlangıç yaşını, gözlem pencerelerini ve alerjen sıklığını «kendi planında» sen belirliyorsun — doktorunun önerisine göre.</p></details>
         <details><summary>Doktor için dışa aktarma var mı?</summary><p>Var. Öğün geçmişi, tepkiler ve alerjen durumunu içeren PDF birkaç dokunuşta hazır. Ayrıca bakıcı veya kreş için kısa bir «verilmeyecekler» listesi.</p></details>
@@ -211,8 +217,8 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "Ücretsiz mi?", "acceptedAnswer": {"@type": "Answer", "text": "Evet, başlangıçta Pudding ücretsiz."}},
-          {"@type": "Question", "name": "İnternet ya da hesap gerekiyor mu?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — verilerin cihazında kalır ve kendi iCloud'un üzerinden eşitlenir."}},
+          {"@type": "Question", "name": "Ücretsiz mi?", "acceptedAnswer": {"@type": "Answer", "text": "Günlük sonsuza dek ücretsiz: öğünler, tepkiler, alerjenler, takvim ve çocuk doktorun için PDF. Pudding Pro ekstralar için tek seferlik bir satın alma — ayın özeti, renk temaları, uygulama simgeleri, “Koleksiyon” widget'ı ve birden fazla çocuk."}},
+          {"@type": "Question", "name": "İnternet ya da hesap gerekiyor mu?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez. Günlüğün telefonunda kalır; kendi iCloud'unda bir kopya tutmak senin tercihin."}},
           {"@type": "Question", "name": "Pudding doktorun yerini tutar mı?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Yanında duran bir günlüktür: kaydeder ve hatırlatır. Zamanlamayı ve kararları doktorunla konuş."}},
           {"@type": "Question", "name": "Süreler nereden geliyor?", "acceptedAnswer": {"@type": "Answer", "text": "Hiçbir yerden dayatılmıyor: başlangıç yaşını, gözlem pencerelerini ve alerjen sıklığını «kendi planında» sen belirliyorsun — doktorunun önerisine göre."}},
           {"@type": "Question", "name": "Doktor için dışa aktarma var mı?", "acceptedAnswer": {"@type": "Answer", "text": "Var. Öğün geçmişi, tepkiler ve alerjen durumunu içeren PDF birkaç dokunuşta hazır. Ayrıca bakıcı veya kreş için kısa bir «verilmeyecekler» listesi."}}

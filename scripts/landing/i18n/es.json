@@ -21,7 +21,7 @@
     "blog": "Blog"
   },
   "h1": "Alimentación complementaria sin agobios",
-  "hero_sub": "Pudding anota con cuidado las tomas y las reacciones, muestra la ventana de observación y te recuerda repetir a tiempo los alérgenos ya introducidos. Qué y cuándo darle a tu bebé lo decides tú.",
+  "hero_sub": "Un diario acogedor para los primeros alimentos de tu bebé: qué habéis probado, cómo ha ido y si hubo reacciones, en un par de toques. Qué y cuándo darle siempre lo decides tú.",
   "cta_store": "Descargar en App Store",
   "cta_how": "Cómo funciona",
   "badges": [
@@ -45,7 +45,7 @@
     },
     {
       "h": "No lo olvides",
-      "p": "Pudding te recuerda repetir los alérgenos introducidos para que no se pierda la tolerancia."
+      "p": "Recordatorios suaves de los alérgenos que ya has introducido, según el calendario que fijes en tu plan."
     }
   ],
   "features_h2": "Cuatro pilares",
@@ -95,13 +95,13 @@
       "alt": "Tarjeta con el resumen del mes para historias"
     }
   ],
-  "privacy_h2": "Tus datos se quedan en tu móvil y en tu iCloud",
-  "privacy_lead": "Sin cuenta, sin anuncios y sin rastreo. Los registros se guardan en el dispositivo y se sincronizan con tu propio iCloud: no tenemos servidores ni acceso a ellos.",
+  "privacy_h2": "Tu diario sigue siendo tuyo",
+  "privacy_lead": "Sin cuenta, sin anuncios y sin rastreo. Los registros se guardan en tu móvil y, si quieres, en tu propio iCloud. No tenemos servidores y no vemos tus datos.",
   "pills": [
     "Sin cuenta",
     "Sin anuncios",
     "Sin rastreadores",
-    "Tu propio iCloud"
+    "iCloud si quieres"
   ],
   "method_h2": "El plan es tuyo. Pudding es el diario.",
   "method_lead": "Edad de inicio, ventanas de observación, frecuencia y lista de alérgenos: todo se configura según las indicaciones de tu pediatra. Pudding no receta ni aconseja nada: anota con cuidado y avisa a tiempo.",
@@ -109,11 +109,11 @@
   "faq": [
     {
       "q": "¿Es gratis?",
-      "a": "Sí, en el lanzamiento Pudding es gratuito."
+      "a": "El diario es gratis para siempre: tomas, reacciones, alérgenos, calendario y el PDF para tu pediatra. Pudding Pro es una compra única para los extras: el resumen del mes, temas de color, iconos de la app, el widget «Colección» y más de un niño."
     },
     {
       "q": "¿Hace falta internet o una cuenta?",
-      "a": "No. La app funciona sin conexión y no hay registro: tus datos se quedan en tu dispositivo y se sincronizan con tu propio iCloud."
+      "a": "No. La app funciona sin conexión y no hace falta registrarse. Tu diario se queda en tu móvil; tener una copia en tu propio iCloud lo decides tú."
     },
     {
       "q": "¿Pudding sustituye al pediatra?",

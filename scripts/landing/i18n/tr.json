@@ -21,7 +21,7 @@
     "blog": "Blog"
   },
   "h1": "Ek gıda, telaş yok",
-  "hero_sub": "Pudding öğünleri ve tepkileri özenle kaydeder, gözlem penceresini gösterir ve verdiğin alerjenleri zamanında tekrarlamanı hatırlatır. Bebeğine neyi ne zaman vereceğine sen karar verirsin.",
+  "hero_sub": "Bebeğinin ilk besinleri için sıcacık bir günlük: neleri denediniz, nasıl gitti, tepki oldu mu — birkaç dokunuşla. Neyi ne zaman vereceğine her zaman sen karar verirsin.",
   "cta_store": "App Store'dan indirin",
   "cta_how": "Nasıl çalışır",
   "badges": [
@@ -45,7 +45,7 @@
     },
     {
       "h": "Unutma",
-      "p": "Verdiğin alerjenleri zamanında tekrarlamanı Pudding hatırlatır, alışkanlık kaybolmasın."
+      "p": "Daha önce başladığın alerjenler için nazik hatırlatmalar — planında belirlediğin takvime göre."
     }
   ],
   "features_h2": "Dört dayanak",
@@ -95,13 +95,13 @@
       "alt": "Hikâyeler için aylık özet kartı"
     }
   ],
-  "privacy_h2": "Verilerin telefonunda ve kendi iCloud'unda kalır",
-  "privacy_lead": "Hesap yok, reklam yok, takip yok. Kayıtlar cihazda durur ve kendi iCloud'un üzerinden eşitlenir — sunucumuz da yok, bu verilere erişimimiz de.",
+  "privacy_h2": "Günlüğün sende kalır",
+  "privacy_lead": "Hesap yok, reklam yok, takip yok. Kayıtlar telefonunda durur — istersen kendi iCloud'unda da. Sunucumuz yok, verilerini göremeyiz.",
   "pills": [
     "Hesapsız",
     "Reklamsız",
     "Takipçisiz",
-    "Kendi iCloud'un"
+    "İstersen iCloud"
   ],
   "method_h2": "Plan senin. Pudding günlük.",
   "method_lead": "Başlangıç yaşı, gözlem pencereleri, sıklık ve alerjen listesi — hepsi doktorunun önerisine göre ayarlanır. Pudding hiçbir şey önermez, tavsiye vermez: özenle kaydeder ve zamanında hatırlatır.",
@@ -109,11 +109,11 @@
   "faq": [
     {
       "q": "Ücretsiz mi?",
-      "a": "Evet, başlangıçta Pudding ücretsiz."
+      "a": "Günlük sonsuza dek ücretsiz: öğünler, tepkiler, alerjenler, takvim ve çocuk doktorun için PDF. Pudding Pro ekstralar için tek seferlik bir satın alma — ayın özeti, renk temaları, uygulama simgeleri, “Koleksiyon” widget'ı ve birden fazla çocuk."
     },
     {
       "q": "İnternet ya da hesap gerekiyor mu?",
-      "a": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez — verilerin cihazında kalır ve kendi iCloud'un üzerinden eşitlenir."
+      "a": "Hayır. Uygulama çevrimdışı çalışır, kayıt gerekmez. Günlüğün telefonunda kalır; kendi iCloud'unda bir kopya tutmak senin tercihin."
     },
     {
       "q": "Pudding doktorun yerini tutar mı?",

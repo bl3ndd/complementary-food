@@ -21,7 +21,7 @@
     "blog": "Blog"
   },
   "h1": "La diversification, sans panique",
-  "hero_sub": "Pudding note soigneusement les repas et les réactions, affiche la fenêtre d'observation et te rappelle de reproposer à temps les allergènes déjà introduits. Quoi et quand donner à ton bébé — c'est toi qui décides.",
+  "hero_sub": "Un petit carnet douillet pour les premiers aliments de ton bébé : ce que vous avez goûté, comment ça s'est passé et les éventuelles réactions — en deux touches. Quoi et quand lui donner, c'est toujours toi qui décides.",
   "cta_store": "Télécharger dans l'App Store",
   "cta_how": "Comment ça marche",
   "badges": [
@@ -45,7 +45,7 @@
     },
     {
       "h": "N'oublie pas",
-      "p": "Pudding te rappelle de reproposer les allergènes introduits pour que l'habituation ne se perde pas."
+      "p": "De petits rappels pour les allergènes déjà introduits — selon le rythme que tu as fixé dans ton plan."
     }
   ],
   "features_h2": "Quatre piliers",
@@ -95,13 +95,13 @@
       "alt": "Carte récap du mois à partager en story"
     }
   ],
-  "privacy_h2": "Tes données restent sur ton téléphone et dans ton iCloud",
-  "privacy_lead": "Aucun compte, aucune pub, aucun pistage. Les entrées restent sur l'appareil et se synchronisent via ton propre iCloud — nous n'avons ni serveurs ni accès à ces données.",
+  "privacy_h2": "Ton carnet reste à toi",
+  "privacy_lead": "Aucun compte, aucune pub, aucun pistage. Les entrées restent sur ton téléphone — et, si tu le souhaites, dans ton propre iCloud. Nous n'avons aucun serveur et ne voyons pas tes données.",
   "pills": [
     "Sans compte",
     "Sans pub",
     "Sans traqueurs",
-    "Ton propre iCloud"
+    "iCloud si tu veux"
   ],
   "method_h2": "Le plan est le tien. Pudding est le carnet.",
   "method_lead": "Âge de démarrage, fenêtres d'observation, fréquence et liste des allergènes — tout se règle selon les conseils de ton pédiatre. Pudding ne prescrit rien et ne conseille rien : il note avec soin et rappelle à temps.",
@@ -109,11 +109,11 @@
   "faq": [
     {
       "q": "C'est gratuit ?",
-      "a": "Oui, au lancement Pudding est gratuit."
+      "a": "Le carnet est gratuit, pour toujours : repas, réactions, allergènes, calendrier et le PDF pour ton pédiatre. Pudding Pro est un achat unique pour les extras — le récap du mois, les thèmes de couleur, les icônes de l'app, le widget « Collection » et plus d'un enfant."
     },
     {
       "q": "Faut-il Internet ou un compte ?",
-      "a": "Non. L'app fonctionne hors ligne, aucune inscription — tes données restent sur ton appareil et se synchronisent via ton propre iCloud."
+      "a": "Non. L'app fonctionne hors ligne, sans inscription. Ton carnet reste sur ton téléphone ; une copie dans ton propre iCloud, c'est toi qui choisis."
     },
     {
       "q": "Pudding remplace-t-il le pédiatre ?",

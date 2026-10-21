@@ -77,7 +77,7 @@
         <div class="hero-copy">
           <img class="mascot" src="/assets/pudding.svg" alt="Mascota Pudding">
           <h1>Alimentación complementaria sin agobios</h1>
-          <p class="sub">Pudding anota con cuidado las tomas y las reacciones, muestra la ventana de observación y te recuerda repetir a tiempo los alérgenos ya introducidos. Qué y cuándo darle a tu bebé lo decides tú.</p>
+          <p class="sub">Un diario acogedor para los primeros alimentos de tu bebé: qué habéis probado, cómo ha ido y si hubo reacciones, en un par de toques. Qué y cuándo darle siempre lo decides tú.</p>
           <div class="cta-row">
             <a class="btn" href="https://apps.apple.com/app/id6789296295">Descargar en App Store</a>
             <a class="btn ghost" href="#how">Cómo funciona</a>
@@ -89,7 +89,13 @@
           </div>
         </div>
         <div class="hero-shot">
-          <div class="phone"><img src="/assets/screens/es/01-dashboard.jpg" alt="Pantalla de inicio de Pudding: diario de hoy y colección de alimentos" width="1080" height="2346" loading="eager"></div>
+          <div class="loop">
+            <video autoplay muted loop playsinline preload="auto" poster="/assets/video/loop-en.jpg"
+                   width="600" height="800" aria-label="Pantalla de inicio de Pudding: diario de hoy y colección de alimentos">
+              <source src="/assets/video/loop-en.mp4" type="video/mp4">
+            </video>
+            <img class="loop-still" src="/assets/video/loop-en.jpg" alt="Pantalla de inicio de Pudding: diario de hoy y colección de alimentos" width="600" height="800">
+          </div>
         </div>
       </div>
     </section>
@@ -103,9 +109,9 @@
       <h2>Cómo funciona</h2>
       <p class="lead">Tres hábitos sencillos y toda la historia de la alimentación a mano.</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><h3>Anota</h3><p>La toma, una valoración de «qué tal fue», la reacción, una nota y fotos: en un par de toques.</p></div>
-        <div class="step"><div class="num">2</div><h3>Observa</h3><p>Cada alimento nuevo pasa por la ventana de observación de tu plan: «día 2 de 3» en la propia ficha.</p></div>
-        <div class="step"><div class="num">3</div><h3>No lo olvides</h3><p>Pudding te recuerda repetir los alérgenos introducidos para que no se pierda la tolerancia.</p></div>
+        <div class="step"><div class="tile veg"><img src="/assets/food/porridge.png" alt=""></div><h3>Anota</h3><p>La toma, una valoración de «qué tal fue», la reacción, una nota y fotos: en un par de toques.</p></div>
+        <div class="step"><div class="tile obs"><img src="/assets/food/vegetable.png" alt=""></div><h3>Observa</h3><p>Cada alimento nuevo pasa por la ventana de observación de tu plan: «día 2 de 3» en la propia ficha.</p></div>
+        <div class="step"><div class="tile aller"><img src="/assets/food/egg.png" alt=""></div><h3>No lo olvides</h3><p>Recordatorios suaves de los alérgenos que ya has introducido, según el calendario que fijes en tu plan.</p></div>
       </div>
     </section>
 
@@ -133,13 +139,13 @@
 
     <section class="block wrap" id="privacy">
       <div class="privacy-feature">
-        <h2>Tus datos se quedan en tu móvil y en tu iCloud</h2>
-        <p class="lead">Sin cuenta, sin anuncios y sin rastreo. Los registros se guardan en el dispositivo y se sincronizan con tu propio iCloud: no tenemos servidores ni acceso a ellos.</p>
+        <h2>Tu diario sigue siendo tuyo</h2>
+        <p class="lead">Sin cuenta, sin anuncios y sin rastreo. Los registros se guardan en tu móvil y, si quieres, en tu propio iCloud. No tenemos servidores y no vemos tus datos.</p>
         <div class="pills">
           <span class="pill">🔒 Sin cuenta</span>
           <span class="pill">🚫 Sin anuncios</span>
           <span class="pill">📵 Sin rastreadores</span>
-          <span class="pill">📱 Tu propio iCloud</span>
+          <span class="pill">📱 iCloud si quieres</span>
         </div>
       </div>
     </section>
@@ -152,8 +158,8 @@
     <section class="block wrap" id="faq">
       <h2>Preguntas frecuentes</h2>
       <div class="faq">
-        <details><summary>¿Es gratis?</summary><p>Sí, en el lanzamiento Pudding es gratuito.</p></details>
-        <details><summary>¿Hace falta internet o una cuenta?</summary><p>No. La app funciona sin conexión y no hay registro: tus datos se quedan en tu dispositivo y se sincronizan con tu propio iCloud.</p></details>
+        <details><summary>¿Es gratis?</summary><p>El diario es gratis para siempre: tomas, reacciones, alérgenos, calendario y el PDF para tu pediatra. Pudding Pro es una compra única para los extras: el resumen del mes, temas de color, iconos de la app, el widget «Colección» y más de un niño.</p></details>
+        <details><summary>¿Hace falta internet o una cuenta?</summary><p>No. La app funciona sin conexión y no hace falta registrarse. Tu diario se queda en tu móvil; tener una copia en tu propio iCloud lo decides tú.</p></details>
         <details><summary>¿Pudding sustituye al pediatra?</summary><p>No. Es un diario que acompaña: anota y recuerda. Los plazos y las decisiones los acuerdas con tu médico.</p></details>
         <details><summary>¿De dónde salen los plazos?</summary><p>No se imponen: la edad de inicio, las ventanas de observación y la frecuencia de los alérgenos los defines tú en «tu plan», siguiendo las indicaciones de tu pediatra.</p></details>
         <details><summary>¿Hay exportación para el médico?</summary><p>Sí. Un PDF con el historial de tomas, las reacciones y el estado de los alérgenos se genera en un par de toques. Además, una lista corta de «no dar» para la niñera o la guardería.</p></details>
@@ -211,8 +217,8 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "¿Es gratis?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, en el lanzamiento Pudding es gratuito."}},
-          {"@type": "Question", "name": "¿Hace falta internet o una cuenta?", "acceptedAnswer": {"@type": "Answer", "text": "No. La app funciona sin conexión y no hay registro: tus datos se quedan en tu dispositivo y se sincronizan con tu propio iCloud."}},
+          {"@type": "Question", "name": "¿Es gratis?", "acceptedAnswer": {"@type": "Answer", "text": "El diario es gratis para siempre: tomas, reacciones, alérgenos, calendario y el PDF para tu pediatra. Pudding Pro es una compra única para los extras: el resumen del mes, temas de color, iconos de la app, el widget «Colección» y más de un niño."}},
+          {"@type": "Question", "name": "¿Hace falta internet o una cuenta?", "acceptedAnswer": {"@type": "Answer", "text": "No. La app funciona sin conexión y no hace falta registrarse. Tu diario se queda en tu móvil; tener una copia en tu propio iCloud lo decides tú."}},
           {"@type": "Question", "name": "¿Pudding sustituye al pediatra?", "acceptedAnswer": {"@type": "Answer", "text": "No. Es un diario que acompaña: anota y recuerda. Los plazos y las decisiones los acuerdas con tu médico."}},
           {"@type": "Question", "name": "¿De dónde salen los plazos?", "acceptedAnswer": {"@type": "Answer", "text": "No se imponen: la edad de inicio, las ventanas de observación y la frecuencia de los alérgenos los defines tú en «tu plan», siguiendo las indicaciones de tu pediatra."}},
           {"@type": "Question", "name": "¿Hay exportación para el médico?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Un PDF con el historial de tomas, las reacciones y el estado de los alérgenos se genera en un par de toques. Además, una lista corta de «no dar» para la niñera o la guardería."}}

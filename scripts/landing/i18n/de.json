@@ -21,7 +21,7 @@
     "blog": "Blog"
   },
   "h1": "Beikost ohne Panik",
-  "hero_sub": "Pudding hält Mahlzeiten und Reaktionen sorgfältig fest, zeigt das Beobachtungsfenster und erinnert dich rechtzeitig daran, eingeführte Allergene zu wiederholen. Was und wann dein Baby isst — das entscheidest du.",
+  "hero_sub": "Ein gemütliches kleines Tagebuch für die ersten Lebensmittel deines Babys: was ihr probiert habt, wie es ankam und ob es Reaktionen gab — mit ein paar Fingertipps. Was und wann dein Baby isst, entscheidest immer du.",
   "cta_store": "Laden im App Store",
   "cta_how": "So funktioniert's",
   "badges": [
@@ -45,7 +45,7 @@
     },
     {
       "h": "Dranbleiben",
-      "p": "An eingeführte Allergene erinnert Pudding rechtzeitig, damit die Gewöhnung nicht verloren geht."
+      "p": "Sanfte Erinnerungen an Allergene, die du schon eingeführt hast — nach dem Rhythmus, den du in deinem Plan festlegst."
     }
   ],
   "features_h2": "Vier Säulen",
@@ -95,13 +95,13 @@
       "alt": "Monatsrückblick als Karte für Stories"
     }
   ],
-  "privacy_h2": "Deine Daten bleiben auf deinem Handy und in deiner iCloud",
-  "privacy_lead": "Kein Konto, keine Werbung, kein Tracking. Einträge liegen auf dem Gerät und werden über deine eigene iCloud synchronisiert — wir betreiben keine Server und haben keinen Zugriff.",
+  "privacy_h2": "Dein Tagebuch bleibt deins",
+  "privacy_lead": "Kein Konto, keine Werbung, kein Tracking. Einträge liegen auf deinem Handy — und, wenn du willst, in deiner eigenen iCloud. Wir betreiben keine Server und sehen deine Daten nicht.",
   "pills": [
     "Ohne Konto",
     "Ohne Werbung",
     "Ohne Tracker",
-    "Deine eigene iCloud"
+    "iCloud, wenn du willst"
   ],
   "method_h2": "Der Plan ist deiner. Pudding ist das Tagebuch.",
   "method_lead": "Startalter, Beobachtungsfenster, Häufigkeit und Allergen-Liste — alles richtest du nach den Empfehlungen deiner Kinderärztin ein. Pudding verordnet nichts und rät nichts: Es hält sorgfältig fest und erinnert rechtzeitig.",
@@ -109,11 +109,11 @@
   "faq": [
     {
       "q": "Ist die App kostenlos?",
-      "a": "Ja, zum Start ist Pudding kostenlos."
+      "a": "Das Tagebuch ist kostenlos, für immer: Mahlzeiten, Reaktionen, Allergene, Kalender und das PDF für die Kinderärztin. Pudding Pro ist ein einmaliger Kauf für Extras — Monatsrückblick, Farbthemen, App-Icons, das Widget „Sammlung“ und mehr als ein Kind."
     },
     {
       "q": "Brauche ich Internet oder ein Konto?",
-      "a": "Nein. Die App funktioniert offline, eine Anmeldung ist nicht nötig — deine Daten bleiben auf dem Gerät und werden über deine eigene iCloud synchronisiert."
+      "a": "Nein. Die App funktioniert offline, eine Anmeldung ist nicht nötig. Dein Tagebuch bleibt auf deinem Handy; eine Kopie in deiner eigenen iCloud ist deine Entscheidung."
     },
     {
       "q": "Ersetzt Pudding die Kinderärztin?",

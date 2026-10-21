@@ -77,7 +77,7 @@
         <div class="hero-copy">
           <img class="mascot" src="/assets/pudding.svg" alt="マスコットの Pudding">
           <h1>離乳食を、あわてずに</h1>
-          <p class="sub">Pudding は食事と反応をていねいに記録し、観察期間を表示して、進めたアレルゲンを繰り返すタイミングを知らせます。何をいつ食べさせるかを決めるのは、あなたです。</p>
+          <p class="sub">赤ちゃんのはじめての食べものを記録する、やさしい小さな日記。何を試したか、どうだったか、反応はあったか — 数タップで残せます。何をいつ食べさせるかは、いつもあなたが決めます。</p>
           <div class="cta-row">
             <a class="btn" href="https://apps.apple.com/app/id6789296295">App Store でダウンロード</a>
             <a class="btn ghost" href="#how">使い方</a>
@@ -89,7 +89,13 @@
           </div>
         </div>
         <div class="hero-shot">
-          <div class="phone"><img src="/assets/screens/ja/01-dashboard.jpg" alt="Pudding のホーム画面：今日の記録と食材コレクション" width="1080" height="2346" loading="eager"></div>
+          <div class="loop">
+            <video autoplay muted loop playsinline preload="auto" poster="/assets/video/loop-en.jpg"
+                   width="600" height="800" aria-label="Pudding のホーム画面：今日の記録と食材コレクション">
+              <source src="/assets/video/loop-en.mp4" type="video/mp4">
+            </video>
+            <img class="loop-still" src="/assets/video/loop-en.jpg" alt="Pudding のホーム画面：今日の記録と食材コレクション" width="600" height="800">
+          </div>
         </div>
       </div>
     </section>
@@ -103,9 +109,9 @@
       <h2>使い方</h2>
       <p class="lead">3つの習慣だけで、離乳食の記録がいつでも手元に。</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><h3>記録する</h3><p>食事、「どうだった？」の評価、反応、メモ、写真を数タップで。</p></div>
-        <div class="step"><div class="num">2</div><h3>見守る</h3><p>新しい食材はあなたのプランの観察期間を通ります。「3日中2日目」がカードに表示されます。</p></div>
-        <div class="step"><div class="num">3</div><h3>忘れない</h3><p>進めたアレルゲンは、慣れが途切れないように繰り返すタイミングをお知らせします。</p></div>
+        <div class="step"><div class="tile veg"><img src="/assets/food/porridge.png" alt=""></div><h3>記録する</h3><p>食事、「どうだった？」の評価、反応、メモ、写真を数タップで。</p></div>
+        <div class="step"><div class="tile obs"><img src="/assets/food/vegetable.png" alt=""></div><h3>見守る</h3><p>新しい食材はあなたのプランの観察期間を通ります。「3日中2日目」がカードに表示されます。</p></div>
+        <div class="step"><div class="tile aller"><img src="/assets/food/egg.png" alt=""></div><h3>忘れない</h3><p>すでに進めたアレルゲンを、あなたがプランで決めたスケジュールどおりにそっとお知らせします。</p></div>
       </div>
     </section>
 
@@ -133,13 +139,13 @@
 
     <section class="block wrap" id="privacy">
       <div class="privacy-feature">
-        <h2>データは、あなたの端末とあなたの iCloud に</h2>
-        <p class="lead">アカウントも広告も追跡もありません。記録は端末に保存され、あなた自身の iCloud を通して同期されます。私たちのサーバーはなく、データにアクセスすることもできません。</p>
+        <h2>日記は、あなたのもの</h2>
+        <p class="lead">アカウントも広告も追跡もありません。記録はあなたのスマホに — 希望すれば、あなた自身の iCloud にも保存されます。私たちはサーバーを持たず、データを見ることもできません。</p>
         <div class="pills">
           <span class="pill">🔒 アカウント不要</span>
           <span class="pill">🚫 広告なし</span>
           <span class="pill">📵 トラッカーなし</span>
-          <span class="pill">📱 自分の iCloud</span>
+          <span class="pill">📱 iCloud はお好みで</span>
         </div>
       </div>
     </section>
@@ -152,8 +158,8 @@
     <section class="block wrap" id="faq">
       <h2>よくある質問</h2>
       <div class="faq">
-        <details><summary>無料ですか？</summary><p>はい、リリース時点では無料です。</p></details>
-        <details><summary>インターネットやアカウントは必要？</summary><p>いいえ。オフラインで動き、登録も不要です。データは端末に残り、あなた自身の iCloud を通して同期されます。</p></details>
+        <details><summary>無料ですか？</summary><p>日記はずっと無料です：食事、反応、アレルゲン、カレンダー、小児科医向けの PDF。Pudding Pro は追加機能のための買い切りです — 月のふりかえり、カラーテーマ、アプリアイコン、「コレクション」ウィジェット、2人以上の子ども。</p></details>
+        <details><summary>インターネットやアカウントは必要？</summary><p>いいえ。オフラインで動き、登録も不要です。日記はスマホに残り、あなた自身の iCloud にコピーするかどうかはあなた次第です。</p></details>
         <details><summary>小児科の代わりになりますか？</summary><p>いいえ。記録して知らせるための相棒です。時期や判断はかかりつけ医と相談してください。</p></details>
         <details><summary>日数の根拠は？</summary><p>どこかから押しつけるものではありません。開始月齢も観察期間もアレルゲンの頻度も、かかりつけ医の方針に合わせて「自分のプラン」で決めます。</p></details>
         <details><summary>医師に見せる書き出しはある？</summary><p>あります。食事の履歴・反応・アレルゲンの状態をまとめた PDF が数タップで作れます。預け先向けの短い「あげないでリスト」も。</p></details>
@@ -211,8 +217,8 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
-          {"@type": "Question", "name": "無料ですか？", "acceptedAnswer": {"@type": "Answer", "text": "はい、リリース時点では無料です。"}},
-          {"@type": "Question", "name": "インターネットやアカウントは必要？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。オフラインで動き、登録も不要です。データは端末に残り、あなた自身の iCloud を通して同期されます。"}},
+          {"@type": "Question", "name": "無料ですか？", "acceptedAnswer": {"@type": "Answer", "text": "日記はずっと無料です：食事、反応、アレルゲン、カレンダー、小児科医向けの PDF。Pudding Pro は追加機能のための買い切りです — 月のふりかえり、カラーテーマ、アプリアイコン、「コレクション」ウィジェット、2人以上の子ども。"}},
+          {"@type": "Question", "name": "インターネットやアカウントは必要？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。オフラインで動き、登録も不要です。日記はスマホに残り、あなた自身の iCloud にコピーするかどうかはあなた次第です。"}},
           {"@type": "Question", "name": "小児科の代わりになりますか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。記録して知らせるための相棒です。時期や判断はかかりつけ医と相談してください。"}},
           {"@type": "Question", "name": "日数の根拠は？", "acceptedAnswer": {"@type": "Answer", "text": "どこかから押しつけるものではありません。開始月齢も観察期間もアレルゲンの頻度も、かかりつけ医の方針に合わせて「自分のプラン」で決めます。"}},
           {"@type": "Question", "name": "医師に見せる書き出しはある？", "acceptedAnswer": {"@type": "Answer", "text": "あります。食事の履歴・反応・アレルゲンの状態をまとめた PDF が数タップで作れます。預け先向けの短い「あげないでリスト」も。"}}

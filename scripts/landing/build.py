@@ -147,9 +147,15 @@ def render(all_d: dict, lang: str) -> str:
         f'  <meta property="og:locale:alternate" content="{all_d[l]["og_locale"]}">'
         for l in LANGS if l != lang)
 
+    # Шаги — иллюстрации продуктов вместо цифр в кружках: теплее и «как в приложении».
+    step_art = [("porridge", "veg"), ("vegetable", "obs"), ("egg", "aller")]
     steps = "\n".join(
-        f'        <div class="step"><div class="num">{i}</div><h3>{esc(s["h"])}</h3><p>{esc(s["p"])}</p></div>'
-        for i, s in enumerate(d["steps"], start=1))
+        f'        <div class="step"><div class="tile {step_art[i][1]}"><img src="/assets/food/{step_art[i][0]}.png" alt=""></div>'
+        f'<h3>{esc(s["h"])}</h3><p>{esc(s["p"])}</p></div>'
+        for i, s in enumerate(d["steps"]))
+    # Петля «До / После» (marketing/reels/site_loop.py): текст в кадре есть только на
+    # ru и en — остальные языки смотрят английскую.
+    loop = "ru" if lang == "ru" else "en"
     tiles = ["veg", "obs", "aller", "cal"]
     imgs = ["vegetable", "fruit", "allergen", "egg"]
     cards = "\n".join(
@@ -222,7 +228,13 @@ def render(all_d: dict, lang: str) -> str:
           </div>
         </div>
         <div class="hero-shot">
-          <div class="phone"><img src="/assets/screens/{shots}/01-dashboard.jpg" alt="{esc(d['shots'][0]['alt'])}" width="1080" height="2346" loading="eager"></div>
+          <div class="loop">
+            <video autoplay muted loop playsinline preload="auto" poster="/assets/video/loop-{loop}.jpg"
+                   width="600" height="800" aria-label="{esc(d['shots'][0]['alt'])}">
+              <source src="/assets/video/loop-{loop}.mp4" type="video/mp4">
+            </video>
+            <img class="loop-still" src="/assets/video/loop-{loop}.jpg" alt="{esc(d['shots'][0]['alt'])}" width="600" height="800">
+          </div>
         </div>
       </div>
     </section>
