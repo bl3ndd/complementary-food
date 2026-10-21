@@ -8,10 +8,10 @@
   "og_locale": "pl_PL",
   "currency": "PLN",
   "legal": "en",
-  "title": "Pudding — spokojny dziennik rozszerzania diety",
+  "title": "Pudding — dziennik rozszerzania diety dla rodziców",
   "meta_desc": "Pudding to ciepły dziennik rozszerzania diety: zapisuj posiłki i reakcje, pilnuj okna obserwacji i w porę powtarzaj wprowadzone alergeny. Bez konta — dane zostają w twoim telefonie i w twoim iCloud.",
   "keywords": "rozszerzanie diety, dziennik żywienia niemowlaka, BLW, pierwsze posiłki, alergeny u niemowlaka, dziennik posiłków dziecka, reakcja na jedzenie",
-  "og_title": "Pudding — spokojny dziennik rozszerzania diety",
+  "og_title": "Pudding — dziennik rozszerzania diety",
   "og_desc": "Zapisuj posiłki i reakcje, pilnuj okna obserwacji, nie zapominaj o alergenach. Dane zostają w twoim telefonie i w twoim iCloud.",
   "tw_desc": "Ciepły dziennik rozszerzania diety. Dane zostają w twoim telefonie i w twoim iCloud.",
   "nav": {
@@ -20,7 +20,7 @@
     "privacy": "Prywatność",
     "blog": "Blog"
   },
-  "h1": "Rozszerzanie diety bez paniki",
+  "h1": "Każdy pierwszy kęs zapisany",
   "hero_sub": "Przytulny dzienniczek pierwszych produktów twojego dziecka: co próbowaliście, jak poszło i czy były reakcje — w kilka dotknięć. Co i kiedy podać, zawsze decydujesz ty.",
   "cta_store": "Pobierz w App Store",
   "cta_how": "Jak to działa",
@@ -30,8 +30,8 @@
     "PDF dla pediatry"
   ],
   "alt_mascot": "Maskotka Pudding",
-  "problem_h2": "Rozszerzanie diety bywa stresujące. Jesteśmy obok.",
-  "problem_lead": "Co już podaliśmy? Czy była reakcja? Kiedy było jajko? Pudding trzyma to wszystko w jednym ciepłym dzienniku — zamiast tabelek w notatkach i paniki o trzeciej w nocy.",
+  "problem_h2": "Zapisz i przestań trzymać to w głowie",
+  "problem_lead": "Co już podaliśmy? Czy była reakcja? Kiedy ostatnio było jajko? Pudding trzyma odpowiedzi w jednym dzienniku — zamiast notatek, czatów i karteczek na lodówce.",
   "how_h2": "Jak to działa",
   "how_lead": "Trzy proste nawyki — i cała historia rozszerzania diety jest pod ręką.",
   "steps": [

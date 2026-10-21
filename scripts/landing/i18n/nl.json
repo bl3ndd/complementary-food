@@ -8,10 +8,10 @@
   "og_locale": "nl_NL",
   "currency": "EUR",
   "legal": "en",
-  "title": "Pudding — het rustige bijvoedingsdagboek voor ouders",
+  "title": "Pudding — het bijvoedingsdagboek voor ouders",
   "meta_desc": "Pudding is een warm bijvoedingsdagboek: leg voedingen en reacties vast, houd het observatievenster bij en herhaal geïntroduceerde allergenen op tijd. Zonder account — je gegevens blijven op je telefoon en in je eigen iCloud.",
   "keywords": "bijvoeding, bijvoeding dagboek, starten met vaste voeding, eerste hapjes, allergenen baby, voedingsdagboek baby, reactie op voeding",
-  "og_title": "Pudding — een rustig bijvoedingsdagboek",
+  "og_title": "Pudding — een bijvoedingsdagboek",
   "og_desc": "Leg voedingen en reacties vast, houd het observatievenster bij, vergeet de allergenen niet. Je gegevens blijven op je telefoon en in je eigen iCloud.",
   "tw_desc": "Een warm bijvoedingsdagboek. Je gegevens blijven op je telefoon en in je eigen iCloud.",
   "nav": {
@@ -20,7 +20,7 @@
     "privacy": "Privacy",
     "blog": "Blog"
   },
-  "h1": "Bijvoeding zonder paniek",
+  "h1": "Elk eerste hapje, opgeschreven",
   "hero_sub": "Een knus dagboekje voor de eerste hapjes van je kindje: wat jullie hebben geprobeerd, hoe het ging en of er reacties waren — met een paar tikken. Wat en wanneer je kindje eet, bepaal altijd jij.",
   "cta_store": "Download in de App Store",
   "cta_how": "Hoe het werkt",
@@ -30,8 +30,8 @@
     "PDF voor de kinderarts"
   ],
   "alt_mascot": "Pudding-mascotte",
-  "problem_h2": "Bijvoeding geeft spanning. Wij denken mee.",
-  "problem_lead": "Wat hebben we al gegeven? Was er een reactie? Wanneer was het ei? Pudding bewaart alles in één warm dagboek — in plaats van tabellen in je notities en paniek om drie uur 's nachts.",
+  "problem_h2": "Schrijf het op, dan hoef je het niet te onthouden",
+  "problem_lead": "Wat hebben we al gegeven? Was er een reactie? Wanneer was het ei voor het laatst? Pudding bewaart de antwoorden in één dagboek — in plaats van notities, chats en briefjes op de koelkast.",
   "how_h2": "Hoe het werkt",
   "how_lead": "Drie simpele gewoontes — en het hele verhaal van de bijvoeding is bij de hand.",
   "steps": [

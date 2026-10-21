@@ -8,7 +8,7 @@
   "og_locale": "es_ES",
   "currency": "EUR",
   "legal": "en",
-  "title": "Pudding — el diario de alimentación complementaria, sin agobios",
+  "title": "Pudding — diario de alimentación complementaria",
   "meta_desc": "Pudding es un diario de alimentación complementaria cálido: anota tomas y reacciones, sigue la ventana de observación y repite a tiempo los alérgenos ya introducidos. Sin cuenta: tus datos se quedan en tu móvil y en tu iCloud.",
   "keywords": "alimentación complementaria, diario del bebé, BLW, primeros alimentos bebé, alérgenos bebé, registro de comidas bebé, reacción alimentaria bebé",
   "og_title": "Pudding — diario de alimentación complementaria",
@@ -20,7 +20,7 @@
     "privacy": "Privacidad",
     "blog": "Blog"
   },
-  "h1": "Alimentación complementaria sin agobios",
+  "h1": "Cada primer bocado, apuntado",
   "hero_sub": "Un diario acogedor para los primeros alimentos de tu bebé: qué habéis probado, cómo ha ido y si hubo reacciones, en un par de toques. Qué y cuándo darle siempre lo decides tú.",
   "cta_store": "Descargar en App Store",
   "cta_how": "Cómo funciona",
@@ -30,8 +30,8 @@
     "PDF para el pediatra"
   ],
   "alt_mascot": "Mascota Pudding",
-  "problem_h2": "La alimentación complementaria inquieta. Estamos contigo.",
-  "problem_lead": "¿Qué le hemos dado ya? ¿Hubo alguna reacción? ¿Cuándo tocó el huevo? Pudding lo guarda todo en un único diario cálido, en vez de tablas en las notas y agobio a las tres de la madrugada.",
+  "problem_h2": "Apúntalo y deja de llevarlo en la cabeza",
+  "problem_lead": "¿Qué le hemos dado ya? ¿Hubo alguna reacción? ¿Cuándo tocó el huevo? Pudding guarda las respuestas en un solo diario, en vez de notas, chats y pósits en la nevera.",
   "how_h2": "Cómo funciona",
   "how_lead": "Tres hábitos sencillos y toda la historia de la alimentación a mano.",
   "steps": [

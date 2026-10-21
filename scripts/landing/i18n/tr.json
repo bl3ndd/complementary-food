@@ -8,10 +8,10 @@
   "og_locale": "tr_TR",
   "currency": "TRY",
   "legal": "en",
-  "title": "Pudding — telaşsız ek gıda günlüğü",
+  "title": "Pudding — ebeveynler için ek gıda günlüğü",
   "meta_desc": "Pudding sıcacık bir ek gıda günlüğü: öğünleri ve tepkileri kaydet, gözlem penceresini takip et, verdiğin alerjenleri zamanında tekrarla. Hesap yok — verilerin telefonunda ve kendi iCloud'unda kalır.",
   "keywords": "ek gıda, ek gıda günlüğü, bebek beslenme günlüğü, ilk gıdalar, bebekte alerjen, gıda tepkisi, BLW",
-  "og_title": "Pudding — telaşsız ek gıda günlüğü",
+  "og_title": "Pudding — ek gıda günlüğü",
   "og_desc": "Öğünleri ve tepkileri kaydet, gözlem penceresini takip et, alerjenleri unutma. Verilerin telefonunda ve kendi iCloud'unda kalır.",
   "tw_desc": "Sıcacık bir ek gıda günlüğü. Verilerin telefonunda ve kendi iCloud'unda kalır.",
   "nav": {
@@ -20,7 +20,7 @@
     "privacy": "Gizlilik",
     "blog": "Blog"
   },
-  "h1": "Ek gıda, telaş yok",
+  "h1": "Her ilk lokma, kayıtlı",
   "hero_sub": "Bebeğinin ilk besinleri için sıcacık bir günlük: neleri denediniz, nasıl gitti, tepki oldu mu — birkaç dokunuşla. Neyi ne zaman vereceğine her zaman sen karar verirsin.",
   "cta_store": "App Store'dan indirin",
   "cta_how": "Nasıl çalışır",
@@ -30,8 +30,8 @@
     "Doktor için PDF"
   ],
   "alt_mascot": "Pudding maskotu",
-  "problem_h2": "Ek gıda kaygı verir. Yanındayız.",
-  "problem_lead": "Neyi verdik? Tepki oldu mu? Yumurta en son ne zamandı? Pudding hepsini tek bir sıcacık günlükte tutar — notlardaki tablolar ve gecenin üçündeki telaş yerine.",
+  "problem_h2": "Yaz, aklında tutmak zorunda kalma",
+  "problem_lead": "Neyi verdik? Tepki oldu mu? Yumurta en son ne zamandı? Pudding cevapları tek bir günlükte tutar — notlar, sohbetler ve buzdolabındaki yapışkan notlar yerine.",
   "how_h2": "Nasıl çalışır",
   "how_lead": "Üç basit alışkanlık — ve tüm ek gıda geçmişi elinin altında.",
   "steps": [

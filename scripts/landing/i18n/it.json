@@ -8,7 +8,7 @@
   "og_locale": "it_IT",
   "currency": "EUR",
   "legal": "en",
-  "title": "Pudding — il diario dello svezzamento, senza ansia",
+  "title": "Pudding — il diario dello svezzamento",
   "meta_desc": "Pudding è un diario dello svezzamento accogliente: annota pappe e reazioni, segui la finestra di osservazione e riproponi in tempo gli allergeni già introdotti. Senza account: i tuoi dati restano sul telefono e nel tuo iCloud.",
   "keywords": "svezzamento, diario svezzamento, autosvezzamento, primi cibi bambino, allergeni bambino, diario alimentare neonato, reazione al cibo",
   "og_title": "Pudding — il diario dello svezzamento",
@@ -20,7 +20,7 @@
     "privacy": "Privacy",
     "blog": "Blog"
   },
-  "h1": "Svezzamento senza ansia",
+  "h1": "Ogni primo assaggio, annotato",
   "hero_sub": "Un piccolo diario accogliente per i primi cibi del tuo bambino: cosa avete provato, com'è andata ed eventuali reazioni, in un paio di tocchi. Cosa e quando dargli lo decidi sempre tu.",
   "cta_store": "Scarica su App Store",
   "cta_how": "Come funziona",
@@ -30,8 +30,8 @@
     "PDF per il pediatra"
   ],
   "alt_mascot": "Mascotte Pudding",
-  "problem_h2": "Lo svezzamento mette ansia. Ci siamo noi.",
-  "problem_lead": "Cosa abbiamo già provato? C'è stata una reazione? L'uovo quando è stato? Pudding tiene tutto in un unico diario accogliente, al posto delle tabelle nelle note e dell'ansia alle tre di notte.",
+  "problem_h2": "Scrivilo e non tenerlo più a mente",
+  "problem_lead": "Cosa abbiamo già provato? C'è stata una reazione? L'uovo quando è stato? Pudding tiene le risposte in un unico diario, al posto di note, chat e post-it sul frigo.",
   "how_h2": "Come funziona",
   "how_lead": "Tre abitudini semplici e tutta la storia dello svezzamento è a portata di mano.",
   "steps": [

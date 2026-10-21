@@ -8,10 +8,10 @@
   "og_locale": "fr_FR",
   "currency": "EUR",
   "legal": "en",
-  "title": "Pudding — le carnet de diversification alimentaire, sans stress",
+  "title": "Pudding — le carnet de diversification alimentaire",
   "meta_desc": "Pudding est un carnet de diversification tout doux : note les repas et les réactions, suis la fenêtre d'observation et repropose les allergènes introduits à temps. Sans compte — tes données restent sur ton téléphone et dans ton iCloud.",
   "keywords": "diversification alimentaire, carnet diversification, DME, premiers aliments bébé, allergènes bébé, journal alimentaire bébé, réaction alimentaire bébé",
-  "og_title": "Pudding — le carnet de diversification, sans stress",
+  "og_title": "Pudding — le carnet de diversification",
   "og_desc": "Note les repas et les réactions, suis la fenêtre d'observation, n'oublie pas les allergènes. Tes données restent sur ton téléphone et dans ton iCloud.",
   "tw_desc": "Un carnet de diversification tout doux. Tes données restent sur ton téléphone et dans ton iCloud.",
   "nav": {
@@ -20,7 +20,7 @@
     "privacy": "Confidentialité",
     "blog": "Blog"
   },
-  "h1": "La diversification, sans panique",
+  "h1": "Chaque première bouchée, notée",
   "hero_sub": "Un petit carnet douillet pour les premiers aliments de ton bébé : ce que vous avez goûté, comment ça s'est passé et les éventuelles réactions — en deux touches. Quoi et quand lui donner, c'est toujours toi qui décides.",
   "cta_store": "Télécharger dans l'App Store",
   "cta_how": "Comment ça marche",
@@ -30,8 +30,8 @@
     "PDF pour le pédiatre"
   ],
   "alt_mascot": "Mascotte Pudding",
-  "problem_h2": "La diversification, ça angoisse. On est là.",
-  "problem_lead": "Qu'est-ce qu'on a déjà donné ? Y a-t-il eu une réaction ? L'œuf, c'était quand ? Pudding garde tout dans un seul carnet tout doux — au lieu des tableaux dans les notes et de la panique à trois heures du matin.",
+  "problem_h2": "Note-le, et ne garde plus tout en tête",
+  "problem_lead": "Qu'est-ce qu'on a déjà donné ? Y a-t-il eu une réaction ? L'œuf, c'était quand ? Pudding garde les réponses dans un seul carnet — au lieu des notes, des discussions et des post-it sur le frigo.",
   "how_h2": "Comment ça marche",
   "how_lead": "Trois habitudes simples — et toute l'histoire de la diversification est à portée de main.",
   "steps": [

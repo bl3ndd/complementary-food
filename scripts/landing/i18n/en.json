@@ -7,10 +7,10 @@
   "lang_label": "Language",
   "og_locale": "en_US",
   "currency": "USD",
-  "title": "Pudding — a calm baby food diary for starting solids",
+  "title": "Pudding — a baby food diary for starting solids",
   "meta_desc": "Pudding is a warm first-foods diary: log feedings and reactions, watch the observation window, and keep introduced allergens on schedule. No account — your data stays on your phone and in your own iCloud.",
   "keywords": "baby food diary, starting solids, first foods, weaning tracker, baby allergen tracker, food reaction log, blw tracker",
-  "og_title": "Pudding — a calm baby food diary",
+  "og_title": "Pudding — a baby food diary",
   "og_desc": "Log feedings and reactions, watch the observation window, keep allergens on schedule. Your data stays on your phone and in your own iCloud.",
   "tw_desc": "A warm first-foods diary. Your data stays on your phone and in your own iCloud.",
   "nav": {
@@ -19,7 +19,7 @@
     "privacy": "Privacy",
     "blog": "Blog"
   },
-  "h1": "Starting solids, zero panic",
+  "h1": "Every first bite, written down",
   "hero_sub": "A cozy little diary for your baby's first foods: what you tried, how it went, and any reactions — in a couple of taps. What and when to feed is always your call.",
   "cta_store": "Download on the App Store",
   "cta_how": "How it works",
@@ -29,8 +29,8 @@
     "PDF for your pediatrician"
   ],
   "alt_mascot": "Pudding mascot",
-  "problem_h2": "Starting solids is stressful. We get it.",
-  "problem_lead": "What did we already try? Was there a reaction? When did we last give egg? Pudding keeps it all in one warm diary — instead of notes-app tables and 3 a.m. panic.",
+  "problem_h2": "Write it down, stop keeping it in your head",
+  "problem_lead": "What have we tried? Was there a reaction? When was egg last? Pudding keeps the answers in one diary — instead of notes, chats and sticky notes on the fridge.",
   "how_h2": "How it works",
   "how_lead": "Three simple habits — and the whole feeding story is at hand.",
   "steps": [
