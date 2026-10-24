@@ -58,6 +58,7 @@ struct ProSheet: View {
         }
         .cozySheet()
         .task { await store.refresh() }
+        .onAppear { Analytics.track(.proOpened, ["pro": entitlements.isPro ? "true" : "false"]) }
     }
 
     private var header: some View {
@@ -99,7 +100,9 @@ struct ProSheet: View {
             }
 
             BigButton(title: buyTitle) {
-                Task { await store.buy() }
+                Task {
+                    if await store.buy() == .purchased { Analytics.track(.proPurchased) }
+                }
             }
             .disabled(store.isLoading)
 
@@ -107,7 +110,10 @@ struct ProSheet: View {
                 .font(.caption).foregroundStyle(.secondary)
 
             Button("Восстановить покупки") {
-                Task { await store.restore() }
+                Task {
+                    await store.restore()
+                    Analytics.track(.proRestored, ["found": store.isPurchased ? "true" : "false"])
+                }
             }
             .font(.footnote)
             .disabled(store.isLoading)

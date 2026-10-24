@@ -63,6 +63,9 @@ struct MainTabView: View {
                 // И при возврате из фона: день мог смениться.
                 if phase == .active { syncIntroductions() }
             }
+            .onChange(of: router.selectedTab) { _, tab in
+                Analytics.track(.tabOpened, ["tab": "\(tab)"])
+            }
             // Изменилось то, что видно в виджетах, — обновляем снимок. Сигнатура
             // дешёвая: пересчитывать снимок на каждое изменение любого поля незачем.
             .onChange(of: widgetSignature) { _, _ in refreshWidget() }

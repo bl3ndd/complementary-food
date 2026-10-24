@@ -45,6 +45,13 @@ Free, все страны (монетизация придержана — пе�
   ⚠️ Позиция «Data Not Collected» при CloudKit — трактовка: Apple определяет
   «collect» как передачу данных, к которым **имеет доступ разработчик**; к приватной
   базе доступа нет. Перед сабмитом перечитать актуальную формулировку Apple.
+- **С версии 1.2 — НЕ «Data Not Collected».** Появилась анонимная статистика
+  (TelemetryDeck, `Sources/Services/Analytics.swift`). До сабмита 1.2 руками в ASC
+  (API для ярлыка нет): App Privacy → **Data Not Linked to You → Product Interaction**,
+  цель **Analytics**, не используется для трекинга. Совпадает с `PrivacyInfo.xcprivacy`.
+  В Review Notes 1.2 пункт EXTERNAL SERVICES переписать: «TelemetryDeck (anonymous
+  feature-usage counts, no diary content, opt-out in Profile)» вместо «no analytics,
+  no third-party packages».
 
 ## 5. Версия 1.0 — RU (primary)
 

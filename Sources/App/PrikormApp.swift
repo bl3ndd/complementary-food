@@ -10,6 +10,7 @@ struct PrikormApp: App {
     init() {
         // Тап по пушу должен вести на нужный таб (а не открывать «в никуда»).
         UNUserNotificationCenter.current().delegate = NotificationRouter.shared
+        Analytics.configure(enabled: Analytics.readEnabled())
 
         let container = DiaryStore.shared.container
 

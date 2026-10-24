@@ -24,6 +24,7 @@ struct ProfileView: View {
     #else
     private let simulateNewUser = false
     #endif
+    @AppStorage(Analytics.enabledKey) private var analyticsOn = true
     @State private var showPro = false
     @State private var showAddChild = false
     @State private var childToDelete: Child?
@@ -81,6 +82,7 @@ struct ProfileView: View {
                 proSection
                 dataSection
                 cloudSection
+                analyticsSection
                 aboutSection
                 dangerSection
                 #if DEBUG
@@ -245,6 +247,8 @@ struct ProfileView: View {
                 if picked.isPro && !entitlements.isPro {
                     paletteId = Palette.pudding.id
                     showPro = true
+                } else {
+                    Analytics.track(.paletteChanged, ["palette": new])
                 }
             }
             // Смена иконки — отдельным действием, а не побочкой выбора гаммы:
@@ -253,6 +257,7 @@ struct ProfileView: View {
             if entitlements.isPro, AppIconManager.names[paletteId] != nil {
                 Button {
                     AppIconManager.apply(paletteId: paletteId, isPro: true)
+                    Analytics.track(.iconChanged, ["palette": paletteId])
                 } label: {
                     Label("Иконку под гамму", systemImage: "app.badge")
                 }
@@ -392,6 +397,7 @@ struct ProfileView: View {
                 get: { diaryStore.choice == .on },
                 set: { on in
                     diaryStore.choose(on ? .on : .off)
+                    Analytics.track(.settingChanged, ["name": "icloud", "on": on ? "true" : "false"])
                     cloudNotice = on
                         ? String(localized: "Дневник начнёт копироваться в iCloud после перезапуска приложения.")
                         : String(localized: "Синхронизация выключится после перезапуска приложения. Копия, которая уже лежит в iCloud, не удаляется — её можно стереть в Настройках iPhone: твоё имя → iCloud.")
@@ -415,6 +421,24 @@ struct ProfileView: View {
             Text(diaryStore.choice == .on
                  ? String(localized: "Дневник хранится на телефоне и в твоём личном iCloud, поэтому переживёт смену телефона. У нас к нему доступа нет — своих серверов у Pudding нет.")
                  : String(localized: "Дневник хранится только на этом телефоне. Если удалить приложение или потерять телефон, записи пропадут."))
+        }
+    }
+
+    /// Выключатель анонимной статистики. По умолчанию включена; выключение глушит
+    /// и наши события, и сигнал сессии SDK — сразу, без перезапуска.
+    private var analyticsSection: some View {
+        Section {
+            Toggle(isOn: Binding(
+                get: { analyticsOn },
+                set: { on in
+                    analyticsOn = on
+                    Analytics.setEnabled(on)
+                })) {
+                Label("Анонимная статистика", systemImage: "chart.bar")
+            }
+            .accessibilityIdentifier("profile.analytics")
+        } footer: {
+            Text("Считаем только, какими функциями пользуются, — чтобы понимать, что улучшать. Без продуктов, реакций, заметок, имени и фото, и без привязки к тебе.")
         }
     }
 
@@ -502,6 +526,7 @@ struct ProfileView: View {
             exporting = nil
             if let url {
                 Haptics.success()
+                Analytics.track(.pdfExported, ["kind": "\(kind)", "from": "profile"])
                 shareFile = ShareableFile(url: url)
             } else {
                 failure = String(localized: "Не получилось собрать PDF")

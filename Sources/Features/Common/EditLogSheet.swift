@@ -129,6 +129,7 @@ struct EditLogSheet: View {
         // Дата, реакция или сам факт записи влияют на ввод: пересчитываем статус
         // и напоминания, иначе правка «не долетала» до карточки продукта.
         if !isPlanned { recompute(foodId: log.foodId, childId: log.childId) }
+        Analytics.track(.logEdited, ["planned": isPlanned ? "true" : "false"])
         dismiss()
     }
 
@@ -138,6 +139,7 @@ struct EditLogSheet: View {
         context.delete(log)
         try? context.save()
         if !wasPlanned { recompute(foodId: foodId, childId: childId) }
+        Analytics.track(.logDeleted, ["planned": wasPlanned ? "true" : "false"])
         dismiss()
     }
 

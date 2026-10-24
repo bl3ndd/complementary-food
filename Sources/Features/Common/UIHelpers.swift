@@ -98,26 +98,52 @@ struct SelectChip: View {
     }
 }
 
-/// Шкала вкуса чипами (SPEC §5). Тап по выбранной снимает выбор.
+/// Шкала вкуса — три крупные плитки в ряд (SPEC §5): попадает большой палец одной
+/// руки, пока второй держишь ребёнка. Тап по выбранной снимает выбор.
 struct LikingPicker: View {
     @Binding var selection: Liking?
 
     var body: some View {
-        FlowLayout(spacing: 8) {
+        HStack(spacing: 0) {
             ForEach(Liking.allCases, id: \.self) { liking in
-                SelectChip(title: liking.shortTitle,
-                           asset: "like_\(liking.rawValue)", fallback: liking.emoji,
-                           selected: selection == liking) {
+                let on = selection == liking
+                // Пока ничего не выбрано — все лица цветные; после выбора остальные гаснут.
+                let lit = on || selection == nil
+                Button {
                     Haptics.select()
-                    selection = selection == liking ? nil : liking
+                    withAnimation(.snappy) { selection = on ? nil : liking }
+                } label: {
+                    VStack(spacing: 8) {
+                        OpenMojiIcon(asset: "like_\(liking.rawValue)", fallback: liking.emoji, size: 40)
+                            .grayscale(lit ? 0 : 1)
+                            .opacity(lit ? 1 : 0.35)
+                            .scaleEffect(on ? 1.1 : 1)
+                        Text(liking.title)
+                            .font(.footnote.weight(on ? .semibold : .regular))
+                            .foregroundStyle(on ? Theme.accent : .secondary)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.8)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(on ? Theme.accent.opacity(0.10) : .clear,
+                                in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(liking.title))
+                .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
             }
         }
-        .animation(.snappy, value: selection)
+        .padding(6)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).stroke(Theme.hairline, lineWidth: 1))
     }
 }
 
-/// Чипы реакции — общие для записи кормления и правки записи.
+/// Виды реакции — таблетки по ширине текста, с переносом. Без эмодзи: рвота и стул
+/// картинками на экране, где мама отмечает реакцию у ребёнка, читались несерьёзно.
 struct ReactionChips: View {
     @Binding var reaction: ReactionType
     /// В листе «Запись реакции» выбора «Нет реакции» нет: он был выбран по
@@ -127,58 +153,66 @@ struct ReactionChips: View {
     var body: some View {
         FlowLayout(spacing: 8) {
             ForEach(ReactionType.selectableCases.filter { includeNone || $0 != .none }, id: \.self) { r in
-                SelectChip(title: r.title,
-                           asset: "react_\(r.rawValue)", fallback: r.emoji,
-                           tint: r == .none ? Theme.mint : .orange,
-                           selected: reaction == r) {
+                let on = reaction == r
+                let tint = r == .none ? Theme.mint : Color.orange
+                Button {
                     Haptics.select()
                     withAnimation(.snappy) { reaction = r }
+                } label: {
+                    Text(r.title)
+                        .font(.subheadline.weight(on ? .semibold : .regular))
+                        .foregroundStyle(on ? .white : .primary)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 9)
+                        .background(on ? tint : Theme.fill, in: Capsule())
                 }
+                .buttonStyle(.plain)
+                .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
-/// Выбор тяжести реакции — показывается только когда реакция выбрана. Это факт для
-/// журнала и PDF, на стейт-машину ввода не влияет (SPEC §4.4).
+/// Тяжесть реакции — сегмент из трёх, выбор можно снять. Показывается только когда
+/// реакция выбрана. Это факт для журнала и PDF, на стейт-машину ввода не влияет (SPEC §4.4).
 struct SeverityChips: View {
     @Binding var severity: ReactionSeverity?
 
     var body: some View {
-        FlowLayout(spacing: 8) {
+        HStack(spacing: 2) {
             ForEach(ReactionSeverity.allCases, id: \.self) { s in
-                chip(s)
-            }
-        }
-    }
-
-    private func chip(_ s: ReactionSeverity) -> some View {
-        let selected = severity == s
-        return Button {
-            Haptics.select()
-            withAnimation(.snappy) { severity = selected ? nil : s }
-        } label: {
-            HStack(spacing: 6) {
-                // Тяжесть точками: ●○○ / ●●○ / ●●● — читается без чтения подписи.
-                HStack(spacing: 2) {
-                    ForEach(0..<3, id: \.self) { i in
-                        Circle()
-                            .fill(i < s.dots ? Color.orange : Color.orange.opacity(0.25))
-                            .frame(width: 6, height: 6)
+                let on = severity == s
+                Button {
+                    Haptics.select()
+                    withAnimation(.snappy) { severity = on ? nil : s }
+                } label: {
+                    HStack(spacing: 6) {
+                        // Тяжесть точками: ●○○ / ●●○ / ●●● — читается без подписи.
+                        HStack(spacing: 2) {
+                            ForEach(0..<3, id: \.self) { i in
+                                Circle()
+                                    .fill(i < s.dots ? Color.orange : Color.orange.opacity(0.25))
+                                    .frame(width: 5, height: 5)
+                            }
+                        }
+                        Text(s.title)
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(on ? Color.orange : .primary)
+                            .lineLimit(1).minimumScaleFactor(0.8)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 9)
+                    .background(on ? Theme.card : .clear, in: Capsule())
+                    .overlay(Capsule().stroke(on ? Color.orange : .clear, lineWidth: 1.5))
                 }
-                Text(s.title)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(selected ? Color.orange : .primary)
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(s.title))
+                .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
             }
-            .padding(.horizontal, 12).padding(.vertical, 8)
-            .background(selected ? Color.orange.opacity(0.15) : Theme.fill, in: Capsule())
-            .overlay(Capsule().stroke(selected ? Color.orange : Theme.hairline,
-                                      lineWidth: selected ? 2 : 1))
         }
-        .buttonStyle(BouncyButtonStyle())
-        .accessibilityLabel(Text(s.title))
-        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
+        .padding(3)
+        .background(Theme.fill, in: Capsule())
     }
 }
 
@@ -204,6 +238,8 @@ extension String {
 /// (до 5 за раз). Фото ужимается перед сохранением. Общая для листов записи.
 struct PhotosAttachCard: View {
     @Binding var photos: [Data]
+    /// Внутри чужой карточки (лист записи): без заголовка «Фото» и своей подложки.
+    var embedded = false
     @State private var items: [PhotosPickerItem] = []
     @State private var viewing: PhotoIndex?
 
@@ -211,10 +247,12 @@ struct PhotosAttachCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Фото").font(.headline)
-                if !photos.isEmpty {
-                    Text("\(photos.count)").font(.caption.weight(.bold)).foregroundStyle(.secondary)
+            if !embedded {
+                HStack {
+                    Text("Фото").font(.headline)
+                    if !photos.isEmpty {
+                        Text("\(photos.count)").font(.caption.weight(.bold)).foregroundStyle(.secondary)
+                    }
                 }
             }
             if !photos.isEmpty {
@@ -251,7 +289,7 @@ struct PhotosAttachCard: View {
                     .foregroundStyle(Theme.accent)
             }
         }
-        .cartoonCard()
+        .modifier(CardUnlessEmbedded(embedded: embedded))
         .fullScreenCover(item: $viewing) { PhotoViewer(photos: photos, start: $0.id) }
         .onChange(of: items) { _, newItems in
             guard !newItems.isEmpty else { return }
@@ -265,6 +303,13 @@ struct PhotosAttachCard: View {
                 await MainActor.run { photos.append(contentsOf: toAdd); items = [] }
             }
         }
+    }
+}
+
+private struct CardUnlessEmbedded: ViewModifier {
+    let embedded: Bool
+    func body(content: Content) -> some View {
+        if embedded { content } else { content.cartoonCard() }
     }
 }
 

@@ -74,6 +74,7 @@ struct RecapSheet: View {
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
         }
         .cozySheet()
+        .onAppear { Analytics.track(.recapOpened, ["kind": "single"]) }
     }
 
     @MainActor private func share() {
@@ -85,5 +86,6 @@ struct RecapSheet: View {
         let file = "Pudding\(suffix).png".replacingOccurrences(of: "/", with: "-")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(file)
         do { try data.write(to: url); shareFile = ShareableFile(url: url) } catch {}
+        Analytics.track(.recapShared, ["card": "single"])
     }
 }

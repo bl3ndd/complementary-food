@@ -2,7 +2,8 @@ import SwiftUI
 import SwiftData
 
 /// Лист записи кормления: вкусовая оценка + реакция + заметка (SPEC §5).
-/// Мультяшный стиль: карточки, крупные эмодзи-кнопки, фирменная кнопка сохранения.
+/// Главное — «как зашло» крупными плитками; реакция спрятана за «Была реакция?»,
+/// потому что в большинстве кормлений её нет; дата — пилюлей в шапке, обычно «сейчас».
 struct LogFeedingSheet: View {
     /// Режим листа: запись кормления (вкусовая оценка) или отметка реакции.
     enum Mode: String, Identifiable { case feeding, reaction; var id: String { rawValue } }
@@ -25,26 +26,33 @@ struct LogFeedingSheet: View {
     @State private var note = ""
     @State private var date = Date()
     @State private var photos: [Data] = []
+    /// «Была реакция?» в режиме кормления. В режиме реакции блок открыт всегда.
+    @State private var hadReaction = false
+    @State private var showDate = false
+
+    private var reactionOpen: Bool { mode == .reaction || hadReaction }
+    /// Сказали «была», но не выбрали какая — это не запись реакции.
+    private var canSave: Bool { !reactionOpen || reaction != .none }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(spacing: 18) {
                     header
-                    // Обе карточки в любом режиме: в редакторе записи реакция есть,
+                    // Оба блока в любом режиме: в редакторе записи реакция есть,
                     // а при самой записи её не было — приходилось сохранять и лезть
-                    // править. Режим решает только порядок и заголовок.
+                    // править. Режим решает только порядок.
                     if mode == .feeding {
-                        likingCard
+                        likingBlock
                         reactionCard
                     } else {
                         reactionCard
-                        likingCard
+                        likingBlock
                     }
-                    detailsCard
-                    PhotosAttachCard(photos: $photos)
+                    noteCard
                 }
                 .padding()
+                .padding(.bottom, 8)
             }
             .background(AppBackground())
             .scrollDismissesKeyboard(.interactively)
@@ -60,8 +68,8 @@ struct LogFeedingSheet: View {
             .safeAreaInset(edge: .bottom) {
                 BigButton(title: "Сохранить") { save() }
                     // Запись реакции без реакции — это не запись реакции.
-                    .disabled(mode == .reaction && reaction == .none)
-                    .opacity(mode == .reaction && reaction == .none ? 0.5 : 1)
+                    .disabled(!canSave)
+                    .opacity(canSave ? 1 : 0.5)
                     .padding(.horizontal).padding(.top, 8).padding(.bottom, 6)
                     .background(
                         LinearGradient(colors: [Theme.card.opacity(0), Theme.card.opacity(0.9)],
@@ -70,35 +78,109 @@ struct LogFeedingSheet: View {
                     )
             }
             .onAppear { date = min(initialDate, Date()) }
+            .onChange(of: hadReaction) { _, had in
+                if !had { reaction = .none; severity = nil }
+            }
+            .sheet(isPresented: $showDate) { dateSheet }
         }
         .cozySheet()
     }
 
-    // MARK: - Шапка с продуктом (без карточной обвязки — воздух)
+    // MARK: - Шапка: продукт + когда (пилюля, обычно «сейчас»)
 
     private var header: some View {
-        VStack(spacing: 8) {
-            FoodIcon(food: food, size: 64)
-            Text(food.localizedName).font(.title3.bold())
+        VStack(spacing: 10) {
+            FoodIcon(food: food, size: 72)
+            Text(food.localizedName).font(.title2.bold())
+            Button { showDate = true } label: {
+                Label(dateLabel, systemImage: "clock")
+                    .font(.subheadline.weight(.semibold))
+                    .padding(.horizontal, 14).padding(.vertical, 8)
+                    .background(Theme.card, in: Capsule())
+                    .overlay(Capsule().stroke(Theme.hairline, lineWidth: 1))
+            }
+            .foregroundStyle(.primary)
+            .accessibilityHint(Text("Когда давали"))
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 2)
     }
 
-    // MARK: - Детали: дата + заметка одной карточкой
+    /// «Сегодня, 15:24» / «Вчера, 9:10» / «12 окт., 9:10». Время, а не только дата:
+    /// дневник несут педиатру, и «во сколько дали» — такой же факт, как «что дали».
+    private var dateLabel: String {
+        let time = date.formatted(date: .omitted, time: .shortened)
+        let cal = Calendar.current
+        if cal.isDateInToday(date) { return String(localized: "Сегодня, \(time)") }
+        if cal.isDateInYesterday(date) { return String(localized: "Вчера, \(time)") }
+        return date.formatted(.dateTime.day().month()) + ", " + time
+    }
 
-    private var detailsCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Время, а не только дата: дневник несут педиатру, и «во сколько дали»
-            // — такой же факт, как «что дали». Иначе запись за вчера получала
-            // время момента ввода записи.
-            DatePicker(selection: $date, in: ...Date(),
-                       displayedComponents: [.date, .hourAndMinute]) {
-                Label("Когда давали", systemImage: "calendar")
-                    .font(.subheadline.weight(.medium))
+    private var dateSheet: some View {
+        NavigationStack {
+            DatePicker("", selection: $date, in: ...Date(),
+                       displayedComponents: [.date, .hourAndMinute])
+                .datePickerStyle(.graphical)
+                .labelsHidden()
+                .tint(Theme.accent)
+                .padding(.horizontal)
+                .navigationTitle(Text("Когда давали"))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Готово") { showDate = false }
+                    }
+                }
+        }
+        .presentationDetents([.medium, .large])
+    }
+
+    // MARK: - Как зашло — плитки сами себе поверхность, без карточки вокруг
+
+    private var likingBlock: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Как зашло?").font(.headline)
+            LikingPicker(selection: $liking)
+        }
+    }
+
+    // MARK: - Реакция: в кормлении — за вопросом «Была реакция?»
+
+    private var reactionCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            if mode == .feeding {
+                HStack {
+                    Text("Была реакция?").font(.headline)
+                    Spacer()
+                    Picker("Была реакция?", selection: $hadReaction.animation(.snappy)) {
+                        Text("Нет").tag(false)
+                        Text("Да").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+                    .frame(width: 128)
+                }
+            } else {
+                Text("Что было?").font(.headline)
             }
-            .tint(Theme.accent)
-            Divider()
+            if reactionOpen {
+                ReactionChips(reaction: $reaction, includeNone: false)
+                if reaction != .none {
+                    // Тяжесть — факт для журнала и PDF врачу; появляется только по делу.
+                    SeverityChips(severity: $severity)
+                    Text("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.")
+                        .font(.caption).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
+        .cartoonCard()
+    }
+
+    // MARK: - Заметка + фото одной карточкой
+
+    private var noteCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top, spacing: 8) {
                 Image(systemName: "note.text")
                     .font(.subheadline).foregroundStyle(.secondary)
@@ -106,34 +188,8 @@ struct LogFeedingSheet: View {
                 TextField("Например: съел половину", text: $note, axis: .vertical)
                     .lineLimit(2...4)
             }
-        }
-        .cartoonCard()
-    }
-
-    // MARK: - Вкусовая оценка
-
-    private var likingCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Как зашло?").font(.headline)
-            LikingPicker(selection: $liking)
-        }
-        .cartoonCard()
-    }
-
-    // MARK: - Реакция (компактные чипы)
-
-    private var reactionCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Реакция").font(.headline)
-            ReactionChips(reaction: $reaction, includeNone: mode == .feeding)
-            if reaction != .none {
-                // Тяжесть — факт для журнала и PDF врачу; появляется только по делу.
-                SeverityChips(severity: $severity)
-                Label("Реакция сохранится в журнале. Остановить ввод можно кнопкой в карточке продукта.",
-                      systemImage: "info.circle")
-                    .font(.caption).foregroundStyle(.orange)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+            Divider()
+            PhotosAttachCard(photos: $photos, embedded: true)
         }
         .cartoonCard()
     }
@@ -152,6 +208,15 @@ struct LogFeedingSheet: View {
             severity: reaction == .none ? nil : severity,
             photos: photos)
         NotificationManager.shared.refresh(context: context)
+        // Только какие части листа пригодились — без продукта и без самой реакции.
+        Analytics.track(.feedingLogged, [
+            "mode": mode.rawValue,
+            "liking": liking == nil ? "false" : "true",
+            "reaction": reaction == .none ? "false" : "true",
+            "note": note.isEmpty ? "false" : "true",
+            "photo": photos.isEmpty ? "false" : "true",
+            "backdated": Calendar.current.isDateInToday(date) ? "false" : "true",
+        ])
         onSaved?()
         dismiss()
     }

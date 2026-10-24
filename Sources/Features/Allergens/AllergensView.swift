@@ -67,6 +67,7 @@ struct AllergensView: View {
         try? context.save()
         FeedingService(context: context, childId: childId).revalidate(foodId: foodId)
         NotificationManager.shared.refresh(context: context)
+        Analytics.track(.logDeleted, ["undo": "true"])
         lastGiven = nil
     }
 
@@ -213,6 +214,7 @@ struct AllergensView: View {
         Haptics.success()
         let log = FeedingService(context: context, childId: child.id).logFeeding(food, liking: nil, reaction: nil)
         NotificationManager.shared.refresh(context: context)
+        Analytics.track(.allergenGiven)
         lastGiven = (log, food.localizedName)
     }
 

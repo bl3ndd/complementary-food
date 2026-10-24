@@ -114,6 +114,7 @@ struct AddCustomFoodSheet: View {
         try? context.save()
         let all = (try? context.fetch(FetchDescriptor<CustomFood>())) ?? []
         FoodCatalog.setCustom(all)
+        Analytics.track(.customFoodAdded)
         // Свой продукт НЕ помечаем введённым: раньше он сразу попадал в коллекцию
         // «Введён · кормлений: 0» — даже аллерген, без окна наблюдения. Теперь это
         // обычный невведённый продукт; ввод начнётся с первой записи кормления.

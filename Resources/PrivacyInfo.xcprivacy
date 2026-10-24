@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- Манифест приватности (обязателен с мая 2024). Позиция приложения:
-     ничего не собираем и не трекаем; из API «с обязательной причиной» используем
+     не трекаем; собираем только анонимное «взаимодействие с продуктом» (TelemetryDeck,
+     Sources/Services/Analytics.swift) — не связано с пользователем, выключается в Профиле.
+     В App Store Connect ярлык должен совпадать: Data Not Linked to You → Product
+     Interaction → Analytics. Из API «с обязательной причиной» используем
      только UserDefaults (@AppStorage: язык, тема, флаги онбординга) — причина CA92.1
      «доступ только к своим данным внутри приложения». Появится новый такой API
      (таймстемпы файлов, свободное место, systemUptime) — добавить сюда категорию. -->
@@ -12,7 +15,20 @@
 	<key>NSPrivacyTrackingDomains</key>
 	<array/>
 	<key>NSPrivacyCollectedDataTypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeProductInteraction</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSPrivacyAccessedAPITypes</key>
 	<array>
 		<dict>

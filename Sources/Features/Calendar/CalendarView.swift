@@ -485,6 +485,7 @@ struct CalendarView: View {
         context.delete(log)
         try? context.save()
         pendingDelete = nil
+        Analytics.track(.logDeleted, ["planned": wasPlanned ? "true" : "false"])
         if !wasPlanned {
             FeedingService(context: context, childId: child.id).revalidate(foodId: foodId)
             NotificationManager.shared.refresh(context: context)
@@ -517,6 +518,7 @@ struct CalendarView: View {
             isExporting = false
             if let url {
                 Haptics.success()
+                Analytics.track(.pdfExported, ["kind": "\(kind)", "from": "calendar"])
                 shareFile = ShareableFile(url: url)
             } else {
                 exportFailed = true

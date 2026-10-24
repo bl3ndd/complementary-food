@@ -144,15 +144,6 @@ enum Liking: String, Codable, CaseIterable {
         case .liked:    return String(localized: "Понравилось")
         }
     }
-
-    /// Короткая подпись для компактных мест (карточки оценки вкуса).
-    var shortTitle: String {
-        switch self {
-        case .disliked: return String(localized: "Не оч")
-        case .neutral:  return String(localized: "Норм")
-        case .liked:    return String(localized: "Класс")
-        }
-    }
 }
 
 /// Статус поддержки аллергена — вычисляемый, не хранится (SPEC §4.3).

@@ -95,6 +95,7 @@ struct RecapCarouselView: View {
             .sheet(item: $shareFile) { ActivityView(items: [$0.url]) }
         }
         .cozySheet()
+        .onAppear { Analytics.track(.recapOpened, ["kind": "carousel", "cards": "\(cards.count)"]) }
     }
 
     private func card(_ kind: RecapCardKind) -> some View {
@@ -126,6 +127,7 @@ struct RecapCarouselView: View {
         let file = "Pudding\(suffix).png".replacingOccurrences(of: "/", with: "-")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(file)
         do { try data.write(to: url); shareFile = ShareableFile(url: url) } catch {}
+        Analytics.track(.recapShared, ["card": cards[index].id])
     }
 }
 

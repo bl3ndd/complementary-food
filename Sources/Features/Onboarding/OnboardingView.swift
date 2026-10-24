@@ -415,6 +415,14 @@ struct OnboardingView: View {
             FeedingService(context: context, childId: child.id).markIntroduced(foods)
         }
         try? context.save()
+        if addingChild {
+            Analytics.track(.childAdded)
+        } else {
+            Analytics.track(.onboardingCompleted, [
+                "icloud": DiaryStore.shared.choice == .on ? "true" : "false",
+                "preIntroduced": introduced.isEmpty ? "false" : "true",
+            ])
+        }
         onCreated(child)
     }
 }
